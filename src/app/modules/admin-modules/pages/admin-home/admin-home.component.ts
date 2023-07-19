@@ -5,4 +5,11 @@ import { postData } from 'src/app/core/services/posts.services';
   selector: 'app-admin-home',
   templateUrl: './admin-home.component.html',
 })
-export class AdminHomeComponent {}
+export class AdminHomeComponent {
+  constructor(private readonly postData: postData) {}
+  posts: any;
+  ngOnInit(): void {
+    this.posts = this.postData.postData;
+    console.log(this.posts);
+  }
+}
