@@ -4,12 +4,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
-import { AdminComponent } from './modules/admin-modules/root/admin.component';
+import { postData } from './core/services/posts.services';
 
 @NgModule({
-  declarations: [AppComponent, AdminComponent],
+  declarations: [AppComponent],
   imports: [BrowserModule, AppRoutingModule, SharedModule],
-  providers: [],
+  providers: [postData],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
