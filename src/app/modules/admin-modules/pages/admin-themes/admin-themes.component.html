@@ -1,43 +1,50 @@
-<!-- THEMES -->
+<section class="grid grid-cols-12">
+  <!-- NAVBAR -->
+  <div class="col-span-2">
+    <app-navbar></app-navbar>
+  </div>
 
-<section class="p-5 h-screen border-2 bg-gray-200 border-red-500s">
-  <div class="container pb-10 bg-white">
-    <!-- current themes -->
-    <div class="border-b-2 border-gray-900 p-5">
-      <h2 class="text-3xl font-semibold">Current Themes</h2>
-      <div class="w-[25rem] h-80 py-5">
-        <img
-          src="https://neilpatel.com/wp-content/uploads/2021/10/extra-Best-WordPress-Themes-for-Blogs.webp"
-          alt=""
-          width="full"
-          height="full"
-        />
+  <!-- THEMES -->
+
+  <section class="p-5 h-screen border-2 bg-gray-200 border-red-500s">
+    <div class="container pb-10 bg-white">
+      <!-- current themes -->
+      <div class="border-b-2 border-gray-900 p-5">
+        <h2 class="text-3xl font-semibold">Current Themes</h2>
+        <div class="w-[25rem] h-80 py-5">
+          <img
+            src="https://neilpatel.com/wp-content/uploads/2021/10/extra-Best-WordPress-Themes-for-Blogs.webp"
+            alt=""
+            width="full"
+            height="full"
+          />
+        </div>
       </div>
-    </div>
-    <!-- additional themes -->
-    <div class="p-5">
-      <h2 class="text-3xl font-semibold">Themes</h2>
-      <div class="grid grid-cols-3 gap-6">
-        <!-- indv themes -->
-        <div *ngFor="let item of themes" class="w-94 hover:shadow-lg py-4">
-          <div class="w-94 h-80 overflow-hidden">
-            <img class="w-full h-full object-fill" [src]="item.src" alt="" />
-          </div>
+      <!-- additional themes -->
+      <div class="p-5">
+        <h2 class="text-3xl font-semibold">Themes</h2>
+        <div class="grid grid-cols-3 gap-6">
+          <!-- indv themes -->
+          <div *ngFor="let item of themes" class="w-94 hover:shadow-lg py-4">
+            <div class="w-94 h-80 overflow-hidden">
+              <img class="w-full h-full object-fill" [src]="item.src" alt="" />
+            </div>
 
-          <div class="flex justify-center gap-2 mt-5">
-            <button
-              class="p-5 bg-green-400 hover:bg-green-500 hover:text-white rounded font-semibold"
-            >
-              View
-            </button>
-            <button
-              class="p-5 bg-orange-400 hover:bg-orange-500 hover:text-white rounded font-semibold"
-            >
-              Add
-            </button>
+            <div class="flex justify-center gap-2 mt-5">
+              <button
+                class="p-5 bg-green-400 hover:bg-green-500 hover:text-white rounded font-semibold"
+              >
+                View
+              </button>
+              <button
+                class="p-5 bg-orange-400 hover:bg-orange-500 hover:text-white rounded font-semibold"
+              >
+                Add
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </section>
