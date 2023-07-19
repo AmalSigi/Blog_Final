@@ -6,9 +6,16 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
 import { AdminThemesComponent } from './pages/admin-themes/admin-themes.component';
 import { AdminSettingsComponent } from './pages/admin-settings/admin-settings.component';
+import { AdminComponent } from './root/admin.component';
 
 @NgModule({
-  declarations: [NavbarComponent, AdminHomeComponent, AdminThemesComponent, AdminSettingsComponent],
+  declarations: [
+    AdminComponent,
+    NavbarComponent,
+    AdminHomeComponent,
+    AdminThemesComponent,
+    AdminSettingsComponent,
+  ],
   imports: [CommonModule, AdminRoutingModule],
 })
 export class AdminModule {}
