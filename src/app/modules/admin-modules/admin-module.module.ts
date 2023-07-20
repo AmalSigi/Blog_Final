@@ -7,6 +7,7 @@ import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
 import { AdminSettingsComponent } from './pages/admin-settings/admin-settings.component';
 import { AdminThemesComponent } from './pages/admin-themes/admin-themes.component';
 import { AdminComponent } from './root/admin.component';
+import { AdminCategoryComponent } from './pages/admin-settings/pages/admin-category/admin-category.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { AdminComponent } from './root/admin.component';
     AdminThemesComponent,
     AdminSettingsComponent,
     AdminComponent,
+    AdminCategoryComponent,
   ],
   imports: [CommonModule, AdminRoutingModule],
 })

@@ -5,6 +5,7 @@ import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
 import { AdminThemesComponent } from './pages/admin-themes/admin-themes.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminSettingsComponent } from './pages/admin-settings/admin-settings.component';
+import { AdminCategoryComponent } from './pages/admin-settings/pages/admin-category/admin-category.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,7 @@ const routes: Routes = [
       { path: '', component: AdminHomeComponent },
       { path: 'themes', component: AdminThemesComponent },
       { path: 'settings', component: AdminSettingsComponent },
+      { path: 'category', component: AdminCategoryComponent },
     ],
   },
 ];
