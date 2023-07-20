@@ -48,7 +48,7 @@
         <tbody>
           <tr class="border-b-2 hover:bg-gray-300" *ngFor="let post of posts">
             <td class=" py-4 whitespace-nowrap text-sm font-medium">{{ post.date }}</td>
-            <td class=" py-4 whitespace-nowrap text-sm font-medium"><img [src]="post.date" alt="" /></td>
+            <td class=" py-4 whitespace-nowrap text-sm font-medium"><img [src]="post.image" alt="" /></td>
             <td class=" py-4 whitespace-nowrap text-sm font-medium">{{ post.title }}</td>
             <td class=" py-4 whitespace-nowrap text-sm font-medium">{{ post.content }}</td>
             <td class=" py-4 whitespace-nowrap text-sm font-medium">{{post.views}}</td>
