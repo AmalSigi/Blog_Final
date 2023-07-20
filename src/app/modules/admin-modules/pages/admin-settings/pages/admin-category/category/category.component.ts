@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { postData } from 'src/app/core/services/posts.services';
 
 @Component({
-  selector: 'app-admin-category',
-  templateUrl: './admin-category.component.html',
+  selector: 'app-category',
+  templateUrl: './category.component.html',
 })
-export class AdminCategoryComponent implements OnInit {
+export class CategoryComponent implements OnInit {
   constructor(private readonly cat: postData) {}
   public category: any;
   ngOnInit(): void {

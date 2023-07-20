@@ -8,6 +8,8 @@ import { AdminSettingsComponent } from './pages/admin-settings/admin-settings.co
 import { AdminThemesComponent } from './pages/admin-themes/admin-themes.component';
 import { AdminComponent } from './root/admin.component';
 import { AdminCategoryComponent } from './pages/admin-settings/pages/admin-category/admin-category.component';
+import { CategoryComponent } from './pages/admin-settings/pages/admin-category/category/category.component';
+import { AddCategoryComponent } from './pages/admin-settings/pages/admin-category/add-category/add-category.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { AdminCategoryComponent } from './pages/admin-settings/pages/admin-categ
     AdminSettingsComponent,
     AdminComponent,
     AdminCategoryComponent,
+    CategoryComponent,
+    AddCategoryComponent,
   ],
   imports: [CommonModule, AdminRoutingModule],
 })

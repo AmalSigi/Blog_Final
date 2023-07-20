@@ -1,0 +1,12 @@
+<div class="grid row-span-4 gap-y-10 mx-16 py-5">
+  <!-- Category -->
+  <div
+    *ngFor="let item of category"
+    class="h-20 border-2 rounded flex items-center justify-between px-5 hover:bg-gray-200"
+  >
+    <h2 class="text-xl font-semibold">{{ item.category_name }}</h2>
+    <button>
+      <i class="fa-solid fa-chevron-down"></i>
+    </button>
+  </div>
+</div>

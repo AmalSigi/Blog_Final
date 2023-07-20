@@ -6,6 +6,8 @@ import { AdminThemesComponent } from './pages/admin-themes/admin-themes.componen
 import { HttpClientModule } from '@angular/common/http';
 import { AdminSettingsComponent } from './pages/admin-settings/admin-settings.component';
 import { AdminCategoryComponent } from './pages/admin-settings/pages/admin-category/admin-category.component';
+import { CategoryComponent } from './pages/admin-settings/pages/admin-category/category/category.component';
+import { AddCategoryComponent } from './pages/admin-settings/pages/admin-category/add-category/add-category.component';
 
 const routes: Routes = [
   {
@@ -15,7 +17,15 @@ const routes: Routes = [
       { path: '', component: AdminHomeComponent },
       { path: 'themes', component: AdminThemesComponent },
       { path: 'settings', component: AdminSettingsComponent },
-      { path: 'category', component: AdminCategoryComponent },
+      {
+        path: 'admin-category',
+        component: AdminCategoryComponent,
+        children: [
+          { path: '', component: CategoryComponent },
+          { path: 'category', component: CategoryComponent },
+          { path: 'add-category', component: AddCategoryComponent },
+        ],
+      },
     ],
   },
 ];
