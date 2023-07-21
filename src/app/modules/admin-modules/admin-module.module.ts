@@ -11,6 +11,10 @@ import { AdminCategoryComponent } from './pages/admin-settings/pages/admin-categ
 import { CategoryComponent } from './pages/admin-settings/pages/admin-category/category/category.component';
 import { AddCategoryComponent } from './pages/admin-settings/pages/admin-category/add-category/add-category.component';
 import { AdminTagComponent } from './pages/admin-settings/pages/admin-tag/admin-tag.component';
+import { SubCategoryComponent } from './pages/admin-settings/pages/admin-category/category/sub-category/sub-category.component';
+import { AdminProfileComponent } from './pages/admin-settings/pages/admin-profile/admin-profile.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AdminCommentsComponent } from './pages/admin-comments/admin-comments.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,10 @@ import { AdminTagComponent } from './pages/admin-settings/pages/admin-tag/admin-
     CategoryComponent,
     AddCategoryComponent,
     AdminTagComponent,
+    SubCategoryComponent,
+    AdminProfileComponent,
+    AdminCommentsComponent,
   ],
-  imports: [CommonModule, AdminRoutingModule],
+  imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule],
 })
 export class AdminModule {}

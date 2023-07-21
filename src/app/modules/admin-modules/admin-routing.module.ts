@@ -8,6 +8,9 @@ import { AdminSettingsComponent } from './pages/admin-settings/root/admin-settin
 import { AdminCategoryComponent } from './pages/admin-settings/pages/admin-category/root/admin-category.component';
 import { CategoryComponent } from './pages/admin-settings/pages/admin-category/category/category.component';
 import { AddCategoryComponent } from './pages/admin-settings/pages/admin-category/add-category/add-category.component';
+import { AdminProfileComponent } from './pages/admin-settings/pages/admin-profile/admin-profile.component';
+import { AdminTagComponent } from './pages/admin-settings/pages/admin-tag/admin-tag.component';
+import { AdminCommentsComponent } from './pages/admin-comments/admin-comments.component';
 
 const routes: Routes = [
   {
@@ -26,6 +29,10 @@ const routes: Routes = [
           { path: 'add-category', component: AddCategoryComponent },
         ],
       },
+
+      { path: 'profile', component: AdminProfileComponent },
+      { path: 'tags', component: AdminTagComponent },
+      { path: 'comments', component: AdminCommentsComponent },
     ],
   },
 ];
