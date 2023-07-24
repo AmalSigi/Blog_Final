@@ -165,4 +165,52 @@ export class postData {
         imageName: 'Image 6',
       },
     ];
+
+  public Category = [
+    {
+      id: 1,
+      category_name: 'Fashion',
+      subcategories: [
+        { id: 1, name: 'Subcategory1' },
+        { id: 2, name: 'Subcategory2' },
+        { id: 3, name: 'Subcategory3' },
+      ],
+    },
+    {
+      id: 2,
+      category_name: 'Health',
+      subcategories: [
+        { id: 1, name: 'Subcategory1' },
+        { id: 2, name: 'Subcategory2' },
+        { id: 3, name: 'Subcategory3' },
+      ],
+    },
+    {
+      id: 3,
+      category_name: 'Sports',
+      subcategories: [
+        { id: 1, name: 'Subcategory1' },
+        { id: 2, name: 'Subcategory2' },
+        { id: 3, name: 'Subcategory3' },
+      ],
+    },
+    {
+      id: 4,
+      category_name: 'Technology',
+      subcategories: [
+        { id: 1, name: 'Subcategory1' },
+        { id: 2, name: 'Subcategory2' },
+        { id: 3, name: 'Subcategory3' },
+      ],
+    },
+    {
+      id: 5,
+      category_name: 'Health',
+      subcategories: [
+        { id: 1, name: 'Subcategory1' },
+        { id: 2, name: 'Subcategory2' },
+        { id: 3, name: 'Subcategory3' },
+      ],
+    },
+  ];
 }

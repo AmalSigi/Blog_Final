@@ -1,0 +1,37 @@
+<div class="grid row-span-4 gap-y-10 mx-16 py-5">
+  <!-- Category -->
+  <div
+    *ngFor="let item of category"
+    (click)="modelShowAdd(item)"
+    class="h-20 border-2 rounded flex items-center justify-between px-5 hover:bg-gray-200 hover:shadow-xl"
+  >
+    <h2 class="text-xl font-semibold">{{ item.category_name }}</h2>
+    <button>
+      <i class="fa-solid fa-arrow-right"></i>
+    </button>
+  </div>
+</div>
+
+<app-sub-category
+  *ngIf="showmodel1"
+  (childEvent)="modelUnShowAdd($event)"
+  [category]="modelCategory"
+></app-sub-category>
+
+<!-- 
+<button
+  class="relative flex jutify-center items-center bg-white border focus: outline-none shadow text-gray-600 rounded focus: ring ring-gray-200 group"
+>
+  <i class="fa-solid fa-chevron-down"></i>
+  <span class="border-1 p-2 hover:bg-gray-100"> </span>
+  <div
+    class="absolute hidden group-focus:block top-full min-w-full w-max b-white shadow-md mt-1 rounded"
+  >
+    <ul class="text-left border rounded">
+      <li class="px-4 py-1 hover:bg-gray-100 border-b">Menu list 1</li>
+      <li class="px-4 py-1 hover:bg-gray-100 border-b">Menu list 1</li>
+      <li class="px-4 py-1 hover:bg-gray-100 border-b">Menu list 1</li>
+      <li class="px-4 py-1 hover:bg-gray-100 border-b">Menu list 1</li>
+    </ul>
+  </div>
+</button> -->

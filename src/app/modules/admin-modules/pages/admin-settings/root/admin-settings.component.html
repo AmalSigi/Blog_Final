@@ -1,0 +1,36 @@
+<!-- settings -->
+<section class="p-5 h-full border-2 bg-white border-red-500s">
+  <div class="container pb-10">
+    <!-- setting block -->
+    <div class="grid row-span-4 gap-y-10 mx-16 py-5">
+      <h1 class="text-2xl font-bold text-gray-500">Settings</h1>
+      <!-- profile seting div -->
+      <div
+        routerLink="/profile"
+        class="w-5/6 h-28 border-2 rounded flex items-center pl-5 gap-8 hover:bg-gray-200 hover:shadow-xl"
+      >
+        <div class="w-16 h-16 rounded-full bg-black">
+          <img src="" alt="" />
+        </div>
+        <h2 class="text-xl font-semibold">Profile Settings</h2>
+      </div>
+      <!-- category div -->
+      <div
+        routerLink="/admin-category"
+        class="w-5/6 h-28 border-2 rounded flex items-center pl-5 gap-8 hover:bg-gray-200 hover:shadow-xl"
+      >
+        <i class="fa-solid fa-database fa-4x font-semibold"></i>
+
+        <h2 class="text-xl font-semibold">Category</h2>
+      </div>
+      <!-- tag div -->
+      <div
+        routerLink="/tags"
+        class="w-5/6 h-28 border-2 rounded flex items-center pl-5 gap-8 hover:bg-gray-200 hover:shadow-xl"
+      >
+        <i class="fa-solid fa-hashtag fa-4x font-semibold"></i>
+        <h2 class="text-xl font-semibold">Tag</h2>
+      </div>
+    </div>
+  </div>
+</section>

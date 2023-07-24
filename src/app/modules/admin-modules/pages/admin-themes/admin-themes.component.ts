@@ -23,7 +23,5 @@ export class AdminThemesComponent implements OnInit {
     //     this.themes = repo;
     //   });
     this.themes = this.themeData.Themes;
-
-    console.log(this.themes);
   }
 }
