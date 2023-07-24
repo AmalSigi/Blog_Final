@@ -10,11 +10,15 @@ import { AdminComponent } from './root/admin.component';
 import { AdminCategoryComponent } from './pages/admin-settings/pages/admin-category/root/admin-category.component';
 import { CategoryComponent } from './pages/admin-settings/pages/admin-category/category/category.component';
 import { AddCategoryComponent } from './pages/admin-settings/pages/admin-category/add-category/add-category.component';
-import { AdminTagComponent } from './pages/admin-settings/pages/admin-tag/admin-tag.component';
+import { AdminTagComponent } from './pages/admin-settings/pages/admin-tag/root/admin-tag.component';
 import { SubCategoryComponent } from './pages/admin-settings/pages/admin-category/category/sub-category/sub-category.component';
 import { AdminProfileComponent } from './pages/admin-settings/pages/admin-profile/admin-profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AdminCommentsComponent } from './pages/admin-comments/admin-comments.component';
+import { AdminCommentsComponent } from './pages/admin-comments/root/admin-comments.component';
+import { TagsComponent } from './pages/admin-settings/pages/admin-tag/page/tags/tags.component';
+import { AddTagsComponent } from './pages/admin-settings/pages/admin-tag/page/add-tags/add-tags.component';
+import { CommentsComponent } from './pages/admin-comments/page/comments/comments.component';
+import { SpamCommentsComponent } from './pages/admin-comments/page/spam-comments/spam-comments.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +34,10 @@ import { AdminCommentsComponent } from './pages/admin-comments/admin-comments.co
     SubCategoryComponent,
     AdminProfileComponent,
     AdminCommentsComponent,
+    TagsComponent,
+    AddTagsComponent,
+    CommentsComponent,
+    SpamCommentsComponent,
   ],
   imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule],
 })

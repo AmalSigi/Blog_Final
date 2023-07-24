@@ -213,4 +213,37 @@ export class postData {
       ],
     },
   ];
+
+  public Tags = [
+    {
+      date: '2023-07-01',
+      id: 12345,
+      tag_name: 'Technology',
+      num_posts: 15,
+    },
+    {
+      date: '2023-07-02',
+      id: 67890,
+      tag_name: 'Sports',
+      num_posts: 8,
+    },
+    {
+      date: '2023-07-03',
+      id: 54321,
+      tag_name: 'Food',
+      num_posts: 20,
+    },
+    {
+      date: '2023-07-04',
+      id: 98765,
+      tag_name: 'Travel',
+      num_posts: 12,
+    },
+    {
+      date: '2023-07-05',
+      id: 24680,
+      tag_name: 'Fashion',
+      num_posts: 5,
+    },
+  ];
 }
