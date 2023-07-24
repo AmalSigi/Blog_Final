@@ -7,6 +7,7 @@ import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
 import { AdminSettingsComponent } from './pages/admin-settings/root/admin-settings.component';
 import { AdminThemesComponent } from './pages/admin-themes/admin-themes.component';
 import { AdminComponent } from './root/admin.component';
+<<<<<<< HEAD
 import { AdminCategoryComponent } from './pages/admin-settings/pages/admin-category/root/admin-category.component';
 import { CategoryComponent } from './pages/admin-settings/pages/admin-category/category/category.component';
 import { AddCategoryComponent } from './pages/admin-settings/pages/admin-category/add-category/add-category.component';
@@ -19,6 +20,11 @@ import { TagsComponent } from './pages/admin-settings/pages/admin-tag/page/tags/
 import { AddTagsComponent } from './pages/admin-settings/pages/admin-tag/page/add-tags/add-tags.component';
 import { CommentsComponent } from './pages/admin-comments/page/comments/comments.component';
 import { SpamCommentsComponent } from './pages/admin-comments/page/spam-comments/spam-comments.component';
+=======
+import { AddPostComponent } from './pages/admin-posts/pages/addPost/addPost.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AddPostSettingsComponent } from './pages/admin-posts/pages/addPost/components/settings/addPostSettings.component';
+>>>>>>> da96f0bca91d69e6447ca753a66624983bc2dae5
 
 @NgModule({
   declarations: [
@@ -27,6 +33,7 @@ import { SpamCommentsComponent } from './pages/admin-comments/page/spam-comments
     AdminThemesComponent,
     AdminSettingsComponent,
     AdminComponent,
+<<<<<<< HEAD
     AdminCategoryComponent,
     CategoryComponent,
     AddCategoryComponent,
@@ -38,7 +45,12 @@ import { SpamCommentsComponent } from './pages/admin-comments/page/spam-comments
     AddTagsComponent,
     CommentsComponent,
     SpamCommentsComponent,
+=======
+    AddPostComponent,
+    AddPostSettingsComponent
+    
+>>>>>>> da96f0bca91d69e6447ca753a66624983bc2dae5
   ],
-  imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule],
+  imports: [CommonModule, AdminRoutingModule,ReactiveFormsModule],
 })
 export class AdminModule {}

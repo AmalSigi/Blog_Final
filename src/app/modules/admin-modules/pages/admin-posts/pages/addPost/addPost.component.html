@@ -1,0 +1,67 @@
+
+ <!-- navbar -->
+  <nav class="w-full h-20 bg-black p-3 flex justify-between fixed">
+    <button class="bg-blue-600 text-white p-2 rounded-md">
+      <i class="fa-solid fa-plus"></i>
+    </button>
+    <div class="flex justify-between gap-8">
+      <button class="text-white p-2 rounded-md hover:text-blue-600">save draft</button>
+      <button (click)="publishPost()" class="bg-blue-600 text-white p-2 rounded-md">publish</button>
+    </div>
+  </nav>
+  <!-- toolbar -->
+  <section  class="grid grid-cols-12 overflow-hidden mt-24">
+  <div class=" col-span-2 border-2 p-3 h-96">
+    
+    <div class="grid grid-cols-2 gap-3">
+        <button
+        (click)="selectTool('heading')"
+        class="hover:bg-gray-400 grid p-2">
+            <span><i class="fa-solid fa-heading"></i></span>
+            Heading
+        </button>
+        <button 
+        (click)="selectTool('paragraph')"
+        
+        class="hover:bg-gray-400 p-2 grid">
+            <span><i class="fa-solid fa-paragraph"></i></span>
+           Paragraph
+        </button>
+        <button
+        (click)="selectTool('image')"
+        
+        class="hover:bg-gray-400 p-2 grid">
+            <span><i class="fa-solid fa-image"></i></span>
+            Image
+        </button>
+        <button
+        (click)="selectTool('video')"
+        
+        class="hover:bg-gray-400 p-2 grid">
+            <span><i class="fa-solid fa-file-video"></i></span>
+            video</button
+        ><button class="hover:bg-gray-400 p-2 grid">
+            <span><i class="fa-regular fa-images"></i></span>
+            Cover
+        </button>
+    </div>
+    
+  </div>
+  <!-- edit page -->
+  <div class="col-span-7 container mx-auto w-[80%] border-2 mt-10 p-3">
+    <form [formGroup]="blogForm" (keydown)="onEnterKeyPress($event)">
+      <input class="text-3xl text-black w-full outline-none" formControlName="heading" placeholder="Title">
+      <div *ngFor="let item of dynamicDiv, let i =index" class="h-full w-full mt-10">
+  
+        <textarea formControlName="content" *ngIf="item.type === 'heading' || item.type === 'paragraph'" class="w-full h-full outline-none" [placeholder]="item.type === 'heading' ? 'Enter the Title' : 'Enter the paragraph'"></textarea>
+      
+        <input formControlName="content" *ngIf="item.type === 'image' || item.type==='video'" type="file" placeholder="item.type === 'image' ? 'upload image' : 'upload video" />
+      
+      </div>
+    </form>
+  </div>
+  <div  class="col-span-3">
+    <app-addPostSettings *ngIf="currentTool==='image'"></app-addPostSettings>
+  </div>
+  
+</section>

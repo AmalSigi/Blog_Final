@@ -5,6 +5,7 @@ import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
 import { AdminThemesComponent } from './pages/admin-themes/admin-themes.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminSettingsComponent } from './pages/admin-settings/root/admin-settings.component';
+<<<<<<< HEAD
 import { AdminCategoryComponent } from './pages/admin-settings/pages/admin-category/root/admin-category.component';
 import { CategoryComponent } from './pages/admin-settings/pages/admin-category/category/category.component';
 import { AddCategoryComponent } from './pages/admin-settings/pages/admin-category/add-category/add-category.component';
@@ -15,6 +16,9 @@ import { AddTagsComponent } from './pages/admin-settings/pages/admin-tag/page/ad
 import { TagsComponent } from './pages/admin-settings/pages/admin-tag/page/tags/tags.component';
 import { CommentsComponent } from './pages/admin-comments/page/comments/comments.component';
 import { SpamCommentsComponent } from './pages/admin-comments/page/spam-comments/spam-comments.component';
+=======
+import { AddPostComponent } from './pages/admin-posts/pages/addPost/addPost.component';
+>>>>>>> da96f0bca91d69e6447ca753a66624983bc2dae5
 
 const routes: Routes = [
   {
@@ -24,6 +28,7 @@ const routes: Routes = [
       { path: '', component: AdminHomeComponent },
       { path: 'themes', component: AdminThemesComponent },
       { path: 'settings', component: AdminSettingsComponent },
+<<<<<<< HEAD
       {
         path: 'admin-category',
         component: AdminCategoryComponent,
@@ -52,8 +57,11 @@ const routes: Routes = [
           { path: 'spam-comments', component: SpamCommentsComponent },
         ],
       },
+=======
+>>>>>>> da96f0bca91d69e6447ca753a66624983bc2dae5
     ],
   },
+  {path:'newPost',component:AddPostComponent}
 ];
 
 @NgModule({

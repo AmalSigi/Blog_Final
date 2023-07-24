@@ -1,0 +1,43 @@
+<section class="bg-red-300 h-screen w-full p-5 flex items-center bg-center admin-login">
+  <div class="grid w-96 container mx-auto">
+    <span class="mx-auto flex justify-center mb-8 text-3xl">
+        <i class="fa-regular fa-user "></i></span>
+    <div class="relative">
+      <span class="absolute inset-y-0 left-0 flex items-center pl-2 pb-8">
+        <i class="fa-solid fa-user border-r-2 pr-1 border-gray-400"></i>
+      </span>
+      <input
+        placeholder="Email"
+        class="w-96 p-2 mb-8 rounded-md pl-8"
+        type="text"
+      />
+    </div>
+    <div class="relative">
+      <span class="absolute inset-y-0 left-0 flex items-center pl-2 ">
+        <i class="fa-solid fa-lock border-r-2 pr-1 border-gray-400"></i>
+      </span>
+      <input
+        placeholder="Password"
+        class="w-96 p-2 rounded-md pl-8"
+        type="password"
+      />
+    </div>
+    <div class="flex justify-between mt-8 text-white font-semibold">
+      <div class="flex items-center">
+        <input
+        id="email"
+          class="form-checkbox h-5 w-5 rounded-lg scale-100 mr-3"
+          type="checkbox"
+        />
+        <label for="email">Remember me</label>
+      </div>
+      <div class="flex items-center">
+        <span><i class="fa-solid fa-envelope mr-3"></i></span>
+        <a>Forgot password?</a>
+      </div>
+    </div>
+    <button class="w-full bg-blue-500 p-3 rounded-lg mt-5 text-white">
+      Login
+    </button>
+  </div>
+</section>
