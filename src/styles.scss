@@ -2,9 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base{
+@layer utilities{
     .admin-navbar{
         @apply mb-5 hover:bg-slate-700 p-2 hover:text-gray-300;
     }
+    .admin-login{
+      background-image: url("https://images.pexels.com/photos/9180717/pexels-photo-9180717.jpeg?auto=compress&cs=tinysrgb&w=1600");
+    }
+    .post-nav{
+        @apply p-6 hover:bg-white
+    }
+    .active-post-nav{
+        @apply border-b-black border-2 text-blue-600
+    }
+   
+    .media-box{
+        @apply w-44 h-96 bg-red-400
+    }
+   
 }
 
+.content-block{
+    margin-top: 5rem;
+  outline: hidden;
+  }

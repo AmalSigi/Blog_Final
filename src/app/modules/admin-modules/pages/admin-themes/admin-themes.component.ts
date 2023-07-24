@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Themes } from 'src/app/shared/dummy data/dummy.themes';
+import { postData } from 'src/app/core/services/posts.services';
 
 @Component({
   selector: 'app-admin-themes',
@@ -8,7 +8,10 @@ import { Themes } from 'src/app/shared/dummy data/dummy.themes';
 })
 export class AdminThemesComponent implements OnInit {
   public themes: any;
-  constructor(private readonly http: HttpClient) {}
+  constructor(
+    private readonly http: HttpClient,
+    private readonly themeData: postData
+  ) {}
   ngOnInit(): void {
     this.getThemes();
   }
@@ -19,7 +22,7 @@ export class AdminThemesComponent implements OnInit {
     //   .subscribe((repo: any) => {
     //     this.themes = repo;
     //   });
-    this.themes = Themes;
+    this.themes = this.themeData.Themes;
 
     console.log(this.themes);
   }
