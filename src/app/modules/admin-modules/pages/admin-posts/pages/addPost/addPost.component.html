@@ -1,67 +1,138 @@
-
- <!-- navbar -->
-  <nav class="w-full h-20 bg-black p-3 flex justify-between fixed">
-    <button class="bg-blue-600 text-white p-2 rounded-md">
-      <i class="fa-solid fa-plus"></i>
+<!-- navbar -->
+<nav class="w-full h-20 bg-black p-3 flex justify-between fixed">
+  <button class="bg-blue-600 text-white p-2 rounded-md">
+    <i class="fa-solid fa-plus"></i>
+  </button>
+  <div class="flex justify-between gap-8">
+    <button class="text-white p-2 rounded-md hover:text-blue-600">
+      save draft
     </button>
-    <div class="flex justify-between gap-8">
-      <button class="text-white p-2 rounded-md hover:text-blue-600">save draft</button>
-      <button (click)="publishPost()" class="bg-blue-600 text-white p-2 rounded-md">publish</button>
-    </div>
-  </nav>
-  <!-- toolbar -->
-  <section  class="grid grid-cols-12 overflow-hidden mt-24">
-  <div class=" col-span-2 border-2 p-3 h-96">
-    
-    <div class="grid grid-cols-2 gap-3">
-        <button
-        (click)="selectTool('heading')"
-        class="hover:bg-gray-400 grid p-2">
-            <span><i class="fa-solid fa-heading"></i></span>
-            Heading
-        </button>
-        <button 
+    <button
+     (click)="publish()"
+      class="bg-blue-600 text-white p-2 rounded-md"
+    >
+      publish
+    </button>
+  </div>
+</nav>
+<!-- toolbar -->
+<section class="grid grid-cols-12 overflow-hidden mt-24 fixed">
+  <div class="col-span-2 p-3 h-96 w-full">
+    <div class="flex md:grid md:grid-cols-2 md:gap-3 border-2 ">
+      <button
+        (click)="selectTool('subHeading')"
+        class="hover:bg-gray-400 grid p-2"
+      >
+        <span><i class="fa-solid fa-heading"></i></span>
+        Heading
+      </button>
+      <button
         (click)="selectTool('paragraph')"
-        
-        class="hover:bg-gray-400 p-2 grid">
-            <span><i class="fa-solid fa-paragraph"></i></span>
-           Paragraph
-        </button>
-        <button
-        (click)="selectTool('image')"
-        
-        class="hover:bg-gray-400 p-2 grid">
-            <span><i class="fa-solid fa-image"></i></span>
-            Image
-        </button>
-        <button
-        (click)="selectTool('video')"
-        
-        class="hover:bg-gray-400 p-2 grid">
-            <span><i class="fa-solid fa-file-video"></i></span>
-            video</button
-        ><button class="hover:bg-gray-400 p-2 grid">
-            <span><i class="fa-regular fa-images"></i></span>
-            Cover
-        </button>
+        class="hover:bg-gray-400 p-2 grid"
+      >
+        <span><i class="fa-solid fa-paragraph"></i></span>
+        Paragraph
+      </button>
+      <button (click)="selectTool('image')" class="hover:bg-gray-400 p-2 grid">
+        <span><i class="fa-solid fa-image"></i></span>
+        Image
+      </button>
+      <button (click)="selectTool('video')" class="hover:bg-gray-400 p-2 grid">
+        <span><i class="fa-solid fa-file-video"></i></span>
+        video</button
+      ><button class="hover:bg-gray-400 p-2 grid">
+        <span><i class="fa-regular fa-images"></i></span>
+        Cover
+      </button>
     </div>
-    
   </div>
   <!-- edit page -->
-  <div class="col-span-7 container mx-auto w-[80%] border-2 mt-10 p-3">
-    <form [formGroup]="blogForm" (keydown)="onEnterKeyPress($event)">
-      <input class="text-3xl text-black w-full outline-none" formControlName="heading" placeholder="Title">
-      <div *ngFor="let item of dynamicDiv, let i =index" class="h-full w-full mt-10">
-  
-        <textarea formControlName="content" *ngIf="item.type === 'heading' || item.type === 'paragraph'" class="w-full h-full outline-none" [placeholder]="item.type === 'heading' ? 'Enter the Title' : 'Enter the paragraph'"></textarea>
+  <div class="col-span-8 container mx-auto w-full h-screen mt-10 p-3 overflow-y-auto mb-10">
+    <form [formGroup]="blogForm" >
+      <input
+     
+        class="text-3xl text-black w-full outline-none"
+        formControlName="heading"
+        placeholder="Title"
+      />
+      <div
+        *ngFor="let item of dynamicDiv; let i = index"
+        class="h-full w-full mt-10"
+      >
+        <ng-container [ngSwitch]="item.type">
+          <!-- For heading type -->
+          <ng-container *ngSwitchCase="'subHeading'">
+            <textarea
+              class="outline-none w-full text-2xl"
+              [formControl]="item.content"
+              placeholder="Write your Sub heading"
+            ></textarea>
+         
+          </ng-container>
+          <!-- For paragraph type -->
+          <ng-container *ngSwitchCase="'paragraph'">
+            <textarea
+            rows="10"
+            cols="80"
+              class="outline-none full"
+              [formControl]="item.content"
+              placeholder="write your paragraph"
+            ></textarea>
+          </ng-container>
+
+          <ng-container 
+
+          *ngSwitchCase="'image'">
+            <label
+              [hidden]="image.value"
+              class="text-white bg-blue-600 p-2"
+              for="image"
+              >Upload image</label
+            >
+            <input
+          (change)="onFileSelected($event)"
+           
+              #image
+              class="outline-none"
+              type="file"
+              id="image"
+              hidden="true"
+              [formControl]="item.content"
+              placeholder="upload image"
+            />
+            <div>
+              <div>
+                  <img
+                  class="w-full h-[350px] border mt-3"
+                   [src]="item.dataURL" alt="">
+              </div>
+          </div>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'video'">
+            <label class="text-white bg-blue-600 p-2" for="video"
+              >Upload a video</label
+            >
+            <input
+            (change)="onFileSelected($event)"
+              id="video"
+              hidden="true"
+              class="outline-none"
+              type="file"
+              [formControl]="item.content"
+            />
+            <div>
+              <video
+              class="w-full h-[350px] border mt-3"
+               [src]="item.content.value" alt=""></video>
+          </div>
+          </ng-container>
       
-        <input formControlName="content" *ngIf="item.type === 'image' || item.type==='video'" type="file" placeholder="item.type === 'image' ? 'upload image' : 'upload video" />
-      
+        </ng-container>
       </div>
     </form>
   </div>
-  <div  class="col-span-3">
-    <app-addPostSettings *ngIf="currentTool==='image'"></app-addPostSettings>
+  <div class="md:col-span-2">
+    <app-addPostSettings *ngIf="currentTool === 'image'"></app-addPostSettings>
   </div>
-  
 </section>

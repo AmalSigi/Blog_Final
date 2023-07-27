@@ -1,9 +1,6 @@
 import {
   Component,
-  ElementRef,
-  OnInit,
-  Renderer2,
-  ViewChild
+  OnInit
 } from '@angular/core';
 import {
   FormArray,
@@ -19,144 +16,91 @@ import { DynamicDIvElement } from 'src/app/shared/interfaces/dynamicPost.interfa
   templateUrl: './addPost.component.html',
 })
 export class AddPostComponent implements OnInit {
-  public form!: FormGroup;
-  public newVal!: any;
-  constructor(
-    private readonly renderer: Renderer2,
-    private readonly formbuilder: FormBuilder
-  ) {}
-  public dynamicDiv:DynamicDIvElement[]=[];
-  public currentTool!: string;
-  public blogContent!: any[];
+  blogForm!: FormGroup;
+  dynamicDiv: DynamicDIvElement[] = [];
+  dynamicFormControls: FormControl[] = [];
+  currentTool!: string;
+  constructor(private formbuilder: FormBuilder) {}
+  public dataUrl!: string;
 
-  @ViewChild('textarea') contentContainer!: ElementRef;
-  public blogForm: FormGroup = new FormGroup({
-    heading: new FormControl('', Validators.required),
-    // blog: new FormArray([], Validators.required),
-    content: new FormControl('', Validators.required),
-  });
-  public blogForm1: FormGroup = new FormGroup({
-    heading: new FormControl('', Validators.required),
-    blog: new FormArray([], Validators.required),
-    // content: new FormControl('', Validators.required),
-  });
-  get blogFormArray(): FormArray {
-    return this.blogForm1.get('blog') as FormArray;
-  }
-  ngOnInit(): void {}
-
-  public onEnterKeyPress(event: KeyboardEvent) {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      // this.selectTool('paragraph');
-      // console.log(this.blogForm.value);
-    }
-  }
-  // Adding html elements
-  // public selectTool(type: string): void {
-  //   const contentBlock = this.renderer.createElement('div');
-  //   contentBlock.classList.add('content-block');
-  //   let inputElement: any;
-  //   switch (type) {
-  //     case 'paragraph':
-  //       this.currentTool = 'paragraph';
-  //       inputElement = this.renderer.createElement('textarea');
-  //       this.renderer.setAttribute(inputElement, 'cols', '50');
-  //       this.renderer.setAttribute(
-  //         inputElement,
-  //         'formControlName',
-  //         'paragraph'
-  //       );
-  //       this.renderer.setAttribute(
-  //         inputElement,
-  //         'placeholder',
-  //         'Enter the paragraph'
-  //       );
-
-  //       break;
-  //     case 'heading':
-  //       this.currentTool = 'heading';
-  //       inputElement = this.renderer.createElement('input');
-  //       this.renderer.setAttribute(inputElement, 'type', 'text');
-  //       this.renderer.setAttribute(
-  //         inputElement,
-  //         'formControlName',
-  //         'paragraph'
-  //       );
-
-  //       this.renderer.setStyle(inputElement, 'font-size', '30px');
-  //       this.renderer.setAttribute(
-  //         inputElement,
-  //         'placeholder',
-  //         'Enter the Title'
-  //       );
-
-  //       break;
-  //     case 'image':
-  //       this.currentTool = 'image';
-  //       inputElement = this.renderer.createElement('div');
-  //       inputElement.classList.add('media-box');
-  //       const mediaBox = this.renderer.createElement('input');
-  //       this.renderer.setAttribute(mediaBox, 'type', 'file');
-  //       this.renderer.setAttribute(mediaBox, 'placeholder', 'upload image');
-  //       inputElement.appendChild(mediaBox);
-
-  //       break;
-  //     case 'video':
-  //       this.currentTool = 'video';
-  //       inputElement = this.renderer.createElement('input');
-  //       this.renderer.setAttribute(inputElement, 'type', 'file');
-  //       this.renderer.setAttribute(inputElement, 'placeholder', 'upload video');
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  //   inputElement.setAttribute('ng-content', '');
-  //   this.renderer.appendChild(contentBlock, inputElement);
-  //   this.renderer.appendChild(
-  //     this.contentContainer.nativeElement,
-  //     contentBlock
-  //   );
-
-  //   const formControl: any = this.blogForm.get('blog');
-  //   inputElement?.addEventListener('input', (event: any) => {
-  //     this.newVal = event.target.value;
-  //   });
-  //   console.log(this.newVal);
-
-  //   const form = new FormGroup({
-  //     type: new FormControl(this.currentTool),
-  //     content: new FormControl(this.newVal),
-  //   });
-  //   if (this.newVal != null) {
-  //     this.blogFormArray.push(form);
-  //   }
-  // }
-  public selectTool(type:string){
-    this.currentTool = type;
-    let counter:number=1;
-    const dynamicFormGroup = this.formbuilder.group({
-      type,
-      content:this.blogForm.controls['content'].value
-
+  ngOnInit() {
+    this.blogForm = this.formbuilder.group({
+      heading: ['', Validators.required],
+      dynamicFormArray: this.formbuilder.array([]),
     });
-    this.blogFormArray.push(dynamicFormGroup)
+  }
+  get dynamicFormArray(): FormArray {
+    return this.blogForm.get('dynamicFormArray') as FormArray;
+  }
+  // Add a dynamic form control to the FormArray
+  selectTool(type: string) {
+    this.currentTool=type;
+    switch (type) {
+      case 'subHeading':
+        this.dynamicFormControls.push(this.formbuilder.control(''));
+        break;
+      case 'paragraph':
+        this.dynamicFormControls.push(this.formbuilder.control(''));
+        break;
+      case 'image':
+        this.dynamicFormControls.push(this.formbuilder.control(null));
+        break;
+      case 'video':
+        this.dynamicFormControls.push(this.formbuilder.control(null));
+        break;
+      default:
+        break;
+    }
 
     const dynamicElement: DynamicDIvElement = {
-      id: counter+1, 
+      id: this.dynamicFormControls.length,
       type,
-      content:this.blogForm.controls['content'].value
+      content: this.dynamicFormControls[this.dynamicFormControls.length - 1],
     };
 
-    this.dynamicDiv.push(dynamicElement)
-    console.log(this.dynamicDiv)
+    this.dynamicDiv.push(dynamicElement);
 
+    console.log(this.dynamicDiv);
   }
-  public publishPost() {
-    this.blogForm1.controls['heading']?.setValue(this.blogForm.controls['heading'].value)
-   
-  
-    
-    console.log(this.blogForm1.value)
+
+  // On Enter key press, handle form submission and get the data
+  // public onEnterKeyPress(event: KeyboardEvent) {
+  //   if (event.key === 'Enter') {
+  //     event.preventDefault();
+
+  //     // Collect the data from the form
+  //     const mainHeadingValue = this.blogForm.get('heading')?.value;
+  //     const dynamicFormData = this.dynamicFormControls.map(
+  //       (control) => control.value
+  //     );
+
+  //   }
+  // }
+
+  // File input change event for image
+  onFileSelected(event: any) {
+    const selectedFile = event.target.files.item(0);
+
+    const reader = new FileReader();
+    reader.readAsDataURL(selectedFile);
+    reader.onload = () => {
+      const imgPrev = reader.result as string;
+
+      const lastIndex = this.dynamicDiv.length - 1;
+      this.dynamicDiv[lastIndex].dataURL = imgPrev;
+    };
+  }
+
+  publish() {
+    this.dynamicDiv.forEach((element) => {
+      const formGroup = this.formbuilder.group({
+        id: element.id,
+        type: element.type,
+        content: element.content,
+        dataURL: element.dataURL,
+      });
+      this.dynamicFormArray.push(formGroup);
+    });
+    console.log(this.blogForm);
   }
 }
