@@ -10,6 +10,7 @@ export class AdminProfileComponent {
   public selectedPic!: any;
   public editOn: boolean = false;
   public picShowDiv: boolean = false;
+  public picUpload: boolean = false;
   public editForm = new FormGroup({
     first_name: new FormControl('Amal', Validators.required),
     last_name: new FormControl('Sigi', Validators.required),
@@ -24,13 +25,14 @@ export class AdminProfileComponent {
   }
   public showUpolodtemp() {
     this.picShowDiv = true;
+    this.picUpload = true;
   }
   public unshowUpolodtemp(): void {
     this.picShowDiv = false;
   }
   public fileImport(event: any) {
     this.fileToUpload = event.target.files[0];
-    this.picShowDiv = false;
+    this.picUpload = false;
     const pic = new FileReader();
     pic.readAsDataURL(this.fileToUpload);
     pic.onload = () => {

@@ -5,7 +5,6 @@ import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
 import { AdminThemesComponent } from './pages/admin-themes/admin-themes.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminSettingsComponent } from './pages/admin-settings/root/admin-settings.component';
-
 import { AdminCategoryComponent } from './pages/admin-settings/pages/admin-category/root/admin-category.component';
 import { CategoryComponent } from './pages/admin-settings/pages/admin-category/category/category.component';
 import { AddCategoryComponent } from './pages/admin-settings/pages/admin-category/add-category/add-category.component';
@@ -64,13 +63,17 @@ const routes: Routes = [
         path: 'admin-comments',
         component: AdminCommentsComponent,
         children: [
+          { path: '', component: CommentsComponent },
           { path: 'comments', component: CommentsComponent },
+
           { path: 'spam-comments', component: SpamCommentsComponent },
         ],
       },
     ],
+    
   },
-  {path:'newPost',component:AddPostComponent}
+  { path: 'newPost', component: AddPostComponent },
+
 ];
 
 @NgModule({

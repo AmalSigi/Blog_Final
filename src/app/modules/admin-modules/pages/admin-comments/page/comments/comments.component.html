@@ -3,6 +3,7 @@
     <div class="-m-1.5 overflow-x-auto">
       <div class="p-1.5 min-w-full inline-block align-middle">
         <div class="overflow-hidden">
+          <!-- table -->
           <table class="min-w-full divide-y divide-gray-200">
             <thead>
               <tr>
@@ -21,7 +22,11 @@
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-              <tr class="hover:bg-gray-100">
+              <tr
+                (click)="showBox()"
+                *ngFor="let item of post"
+                class="hover:bg-gray-100"
+              >
                 <td
                   class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"
                 >
@@ -31,52 +36,172 @@
                   45
                 </td>
               </tr>
-
-              <tr class="hover:bg-gray-100">
-                <td
-                  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"
-                >
-                  Jim Green
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                  27
-                </td>
-              </tr>
-
-              <tr class="hover:bg-gray-100">
-                <td
-                  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"
-                >
-                  Joe Black
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                  31
-                </td>
-              </tr>
-
-              <tr class="hover:bg-gray-100">
-                <td
-                  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"
-                >
-                  Edward King
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                  16
-                </td>
-              </tr>
-
-              <tr class="hover:bg-gray-100">
-                <td
-                  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"
-                >
-                  Jim Red
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                  45
-                </td>
-              </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- model for each comments -->
+<section
+  *ngIf="commentDiv"
+  class="bg-black/80 fixed top-0 bottom-0 left-0 right-0 h-screen p-5 z-50 overflow-scroll"
+>
+  <div
+    class="container flex bg-white rounded-lg shadow-xl w-[90%] mx-auto mt-[2%]"
+  >
+    <!-- post -->
+    <div class="h-[40rem] overflow-y-auto border-r-2">
+      <div class="h-10 bg-slate-200 p-2">
+        <h3 class="text-lg font-semibold">Post</h3>
+      </div>
+      <!-- content -->
+
+      <div class="container mx-auto w-[80%] my-5">
+        <div class="w-full">
+          <div class="flex flex-col justify-start">
+            <h3 class="text-xl uppercase font-bold mb-3 text-red-500">
+              Adventure
+            </h3>
+            <h2 class="text-5xl font-extrabold mb-4">Main Headline</h2>
+            <h4 class="text-lg font-semibold mb-5">
+              Saddle up as we explore some of the top experiences calling your
+              name.
+            </h4>
+
+            <p class="text-gray-500 my-5 text-base">
+              Amal Sigi. Jul 5, 2023 10:12 AM EDT
+            </p>
+            <div class="w-full mt-2">
+              <img
+                class="w-full h-[450px] object-cover"
+                src="https://images.pexels.com/photos/1834404/pexels-photo-1834404.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                alt=""
+              />
+              <p class="text-xs text-gray-400 font-medium pl-2">
+                mountain image
+              </p>
+            </div>
+            <p class="my-5 text-[20px] text-gray-600">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores
+              saepe, iusto consequuntur neque laborum sed! Id voluptates aliquid
+              temporibus. Praesentium dolore voluptates voluptatem repellendus
+              totam aperiam natus eos iste doloremque?
+            </p>
+            <p class="my-5 text-[20px] text-gray-600">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et odit
+              ipsam iusto nihil! Alias minima commodi unde, exercitationem
+              perspiciatis explicabo ratione voluptas beatae aut ab quod omnis
+              dolorem et rem praesentium eum cupiditate laborum doloremque nihil
+              nobis est similique dolores ex tempore? Illo architecto fuga quia
+              aut cumque, dolores harum.
+            </p>
+          </div>
+
+          <div class="pb-5">
+            <p class="my-5 text-[20px] text-gray-600">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores
+              saepe, iusto consequuntur neque laborum sed! Id voluptates aliquid
+              temporibus. Praesentium dolore voluptates voluptatem repellendus
+              totam aperiam natus eos iste doloremque?
+            </p>
+            <p class="my-5 text-[20px] text-gray-600">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et odit
+              ipsam iusto nihil! Alias minima commodi unde, exercitationem
+              perspiciatis explicabo ratione voluptas beatae aut ab quod omnis
+              dolorem et rem praesentium eum cupiditate laborum doloremque nihil
+              nobis est similique dolores ex tempore? Illo architecto fuga quia
+              aut cumque, dolores harum.
+            </p>
+            <div class="w-full mt-2">
+              <img
+                class="w-full h-[450px] object-cover"
+                src="https://images.pexels.com/photos/3935702/pexels-photo-3935702.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                alt=""
+              />
+              <p class="text-xs text-gray-400 font-medium pl-2">map image</p>
+            </div>
+          </div>
+
+          <div class="pb-5">
+            <p class="my-5 text-[20px] text-gray-600">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores
+              saepe, iusto consequuntur neque laborum sed! Id voluptates aliquid
+              temporibus. Praesentium dolore voluptates voluptatem repellendus
+              totam aperiam natus eos iste doloremque?
+            </p>
+            <p class="my-5 text-[20px] text-gray-600">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et odit
+              ipsam iusto nihil! Alias minima commodi unde, exercitationem
+              perspiciatis explicabo ratione voluptas beatae aut ab quod omnis
+              dolorem et rem praesentium eum cupiditate laborum doloremque nihil
+              nobis est similique dolores ex tempore? Illo architecto fuga quia
+              aut cumque, dolores harum.
+            </p>
+            <div class="w-full mt-2">
+              <img
+                class="w-full h-full object-cover"
+                src="https://images.pexels.com/photos/162520/farmer-man-shepherd-dog-162520.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                alt=""
+              />
+              <p class="text-xs text-gray-400 font-medium pl-2">map image</p>
+            </div>
+          </div>
+
+          <div class="pb-5">
+            <p class="my-5 text-[20px] text-gray-600">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores
+              saepe, iusto consequuntur neque laborum sed! Id voluptates aliquid
+              temporibus. Praesentium dolore voluptates voluptatem repellendus
+              totam aperiam natus eos iste doloremque?
+            </p>
+            <p class="my-5 text-[20px] text-gray-600">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et odit
+              ipsam iusto nihil! Alias minima commodi unde, exercitationem
+              perspiciatis explicabo ratione voluptas beatae aut ab quod omnis
+              dolorem et rem praesentium eum cupiditate laborum doloremque nihil
+              nobis est similique dolores ex tempore? Illo architecto fuga quia
+              aut cumque, dolores harum.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- comments -->
+    <div class="h-96">
+      <div class="flex justify-between h-10 bg-slate-200 p-2">
+        <h3 class="text-lg font-semibold">Comments</h3>
+        <button (click)="unshowBox()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#000000"
+            stroke-width="4"
+            stroke-linecap="round"
+            stroke-linejoin="arcs"
+          >
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="border-2 p-3">
+        <!-- <h3 class="text-4xl">Comments</h3> -->
+        <div *ngFor="let item of [1, 2, 3]" class="p-3">
+          <p class="text-lg font-bold">@ikrish</p>
+          <p class="text-sm">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit,
+            minima! Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          </p>
+          <button class="">replay</button>
+        </div>
+        <div class="flex justify-center">
+          <button class="text-blue-500">view more</button>
         </div>
       </div>
     </div>

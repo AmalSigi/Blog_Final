@@ -123,7 +123,7 @@
       </div>
     </form>
   </div>
-
+  <!-- profile image -->
   <section
     *ngIf="picShowDiv"
     class="bg-black/80 fixed top-0 bottom-0 left-0 right-0 h-screen p-5 z-50 overflow-scroll"
@@ -151,7 +151,7 @@
         </button>
       </div>
 
-      <div class="grid grid-rows-2 gap-2 p-20 px-[15em]" *ngIf="picShowDiv">
+      <div class="grid grid-rows-2 gap-2 p-20 px-[15em]" *ngIf="picUpload">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="120"
@@ -164,7 +164,7 @@
           />
         </svg>
 
-        <div class="form-group">
+        <div class="">
           <label
             class="bg-blue-500 p-2 w-full text-center rounded font-semibold text-white text-sm"
           >
@@ -181,10 +181,10 @@
       </div>
 
       <div
-        *ngIf="!picShowDiv"
+        *ngIf="!picUpload"
         class="grid grid-row-2 gap-4 pb-7 mt-10 mx-auto w-72"
       >
-        <img [src]="" alt="" />
+        <img [src]="selectedPic" alt="" />
 
         <button
           class="bg-blue-500 px-3 py-2 mx-5 rounded hover:bg-blue-600 text-white"

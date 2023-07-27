@@ -14,7 +14,6 @@ import { AddCategoryComponent } from './pages/admin-settings/pages/admin-categor
 import { AdminTagComponent } from './pages/admin-settings/pages/admin-tag/root/admin-tag.component';
 import { SubCategoryComponent } from './pages/admin-settings/pages/admin-category/category/sub-category/sub-category.component';
 import { AdminProfileComponent } from './pages/admin-settings/pages/admin-profile/admin-profile.component';
-
 import { AdminCommentsComponent } from './pages/admin-comments/root/admin-comments.component';
 import { TagsComponent } from './pages/admin-settings/pages/admin-tag/page/tags/tags.component';
 import { AddTagsComponent } from './pages/admin-settings/pages/admin-tag/page/add-tags/add-tags.component';
@@ -28,7 +27,6 @@ import { AdminPostsComponent } from './pages/admin-posts/root/admin-posts.compon
 import { PostDraftComponent } from './pages/admin-posts/pages/draft-posts/draft.component';
 import { PostPublishedComponent } from './pages/admin-posts/pages/published-posts/published.component';
 import { PostsTrashedComponent } from './pages/admin-posts/pages/trashed/trashed.component';
-
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -53,9 +51,10 @@ import { PostsTrashedComponent } from './pages/admin-posts/pages/trashed/trashed
     PostsTrashedComponent,
     AdminProfileComponent,
     AdminCommentsComponent
+  
     
 
   ],
-  imports: [CommonModule, AdminRoutingModule,ReactiveFormsModule],
+  imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule],
 })
 export class AdminModule {}

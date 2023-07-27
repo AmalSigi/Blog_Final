@@ -1,7 +1,20 @@
 import { Component } from '@angular/core';
+import { postData } from 'src/app/core/services/posts.services';
 
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.component.html',
 })
-export class CommentsComponent {}
+export class CommentsComponent {
+  public commentDiv: boolean = false;
+  public post: any;
+  constructor(private readonly postData: postData) {
+    this.post = this.postData.postData;
+  }
+  public showBox() {
+    this.commentDiv = true;
+  }
+  public unshowBox() {
+    this.commentDiv = false;
+  }
+}
