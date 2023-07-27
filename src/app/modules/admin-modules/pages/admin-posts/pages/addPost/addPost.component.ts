@@ -3,7 +3,7 @@ import {
   ElementRef,
   OnInit,
   Renderer2,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import {
   FormArray,
@@ -25,7 +25,7 @@ export class AddPostComponent implements OnInit {
     private readonly renderer: Renderer2,
     private readonly formbuilder: FormBuilder
   ) {}
-  public dynamicDiv:DynamicDIvElement[]=[];
+  public dynamicDiv: DynamicDIvElement[] = [];
   public currentTool!: string;
   public blogContent!: any[];
 
@@ -132,31 +132,29 @@ export class AddPostComponent implements OnInit {
   //     this.blogFormArray.push(form);
   //   }
   // }
-  public selectTool(type:string){
+  public selectTool(type: string) {
     this.currentTool = type;
-    let counter:number=1;
+    let counter: number = 1;
     const dynamicFormGroup = this.formbuilder.group({
       type,
-      content:this.blogForm.controls['content'].value
-
+      content: this.blogForm.controls['content'].value,
     });
-    this.blogFormArray.push(dynamicFormGroup)
+    this.blogFormArray.push(dynamicFormGroup);
 
     const dynamicElement: DynamicDIvElement = {
-      id: counter+1, 
+      id: counter + 1,
       type,
-      content:this.blogForm.controls['content'].value
+      content: this.blogForm.controls['content'].value,
     };
 
-    this.dynamicDiv.push(dynamicElement)
-    console.log(this.dynamicDiv)
-
+    this.dynamicDiv.push(dynamicElement);
+    console.log(this.dynamicDiv);
   }
   public publishPost() {
-    this.blogForm1.controls['heading']?.setValue(this.blogForm.controls['heading'].value)
-   
-  
-    
-    console.log(this.blogForm1.value)
+    this.blogForm1.controls['heading']?.setValue(
+      this.blogForm.controls['heading'].value
+    );
+
+    console.log(this.blogForm1.value);
   }
 }
