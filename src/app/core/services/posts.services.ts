@@ -2,15 +2,10 @@ export class postData {
   public postData = [
     {
       id: 1,
-      title: 'The Art of War',
-      content:
-        'The Art of War is an ancient Chinese military treatise attributed to Sun Tzu. It is a classic work on strategy and tactics in warfare.',
-      author: 'Sun Tzu',
-      category: 'Military',
-      subcategory: 'Strategy',
-      image: 'https://picsum.photos/200/300',
-      date: '5th century BCE',
-      views: 2,
+      heading: 'The Art of War',
+      dynamicFormArray:[{id: 1, type: 'paragraph', content: 'oioyuoihujkhjklh oyuoyioyuioutiuti iuiuyoyioutityiujkhkuiouiuikukjkuouyioui iuiuiu', dataURL: null},
+    {id: 2, type: 'subHeading', content: 'uoioyuiuyiuiukjkyuiuiuiukjhkuuiiiiuiuiu', dataURL: null}]
+     
     },
 
     {
@@ -246,4 +241,109 @@ export class postData {
       num_posts: 5,
     },
   ];
+
+  public categories=[
+    {
+      id: 1,
+      category: "Category A",
+      subCategories: [
+        { id: 101, subCategory: "Subcategory A-1" },
+        { id: 102, subCategory: "Subcategory A-2" },
+        { id: 103, subCategory: "Subcategory A-3" }
+      ]
+    },
+    {
+      id: 2,
+      category: "Category B",
+      subCategories: [
+        { id: 201, subCategory: "Subcategory B-1" },
+        { id: 202, subCategory: "Subcategory B-2" },
+        { id: 203, subCategory: "Subcategory B-3" }
+      ]
+    },
+    {
+      id: 3,
+      category: "Category C",
+      subCategories: [
+        { id: 301, subCategory: "Subcategory C-1" },
+        { id: 302, subCategory: "Subcategory C-2" },
+        { id: 303, subCategory: "Subcategory C-3" }
+      ]
+    },
+    {
+      id: 4,
+      category: "Category D",
+      subCategories: [
+        { id: 401, subCategory: "Subcategory D-1" },
+        { id: 402, subCategory: "Subcategory D-2" },
+        { id: 403, subCategory: "Subcategory D-3" }
+      ]
+    },
+    {
+      id: 5,
+      category: "Category E",
+      subCategories: [
+        { id: 501, subCategory: "Subcategory E-1" },
+        { id: 502, subCategory: "Subcategory E-2" },
+        { id: 503, subCategory: "Subcategory E-3" }
+      ]
+    },
+    {
+      id: 6,
+      category: "Category F",
+      subCategories: [
+        { id: 601, subCategory: "Subcategory F-1" },
+        { id: 602, subCategory: "Subcategory F-2" },
+        { id: 603, subCategory: "Subcategory F-3" }
+      ]
+    },
+    {
+      id: 7,
+      category: "Category G",
+      subCategories: [
+        { id: 701, subCategory: "Subcategory G-1" },
+        { id: 702, subCategory: "Subcategory G-2" },
+        { id: 703, subCategory: "Subcategory G-3" }
+      ]
+    },
+    {
+      id: 8,
+      category: "Category H",
+      subCategories: [
+        { id: 801, subCategory: "Subcategory H-1" },
+        { id: 802, subCategory: "Subcategory H-2" },
+        { id: 803, subCategory: "Subcategory H-3" }
+      ]
+    },
+    {
+      id: 9,
+      category: "Category I",
+      subCategories: [
+        { id: 901, subCategory: "Subcategory I-1" },
+        { id: 902, subCategory: "Subcategory I-2" },
+        { id: 903, subCategory: "Subcategory I-3" }
+      ]
+    },
+    {
+      id: 10,
+      category: "Category J",
+      subCategories: [
+        { id: 1001, subCategory: "Subcategory J-1" },
+        { id: 1002, subCategory: "Subcategory J-2" },
+        { id: 1003, subCategory: "Subcategory J-3" }
+      ]
+    }
+  ]
+public tags=  [
+  { id: 1, tag: "Tag 1" },
+  { id: 2, tag: "Tag 2" },
+  { id: 3, tag: "Tag 3" },
+  { id: 4, tag: "Tag 4" },
+  { id: 5, tag: "Tag 5" },
+  { id: 6, tag: "Tag 6" },
+  { id: 7, tag: "Tag 7" },
+  { id: 8, tag: "Tag 8" },
+  { id: 9, tag: "Tag 9" },
+  { id: 10, tag: "Tag 10" }
+]
 }

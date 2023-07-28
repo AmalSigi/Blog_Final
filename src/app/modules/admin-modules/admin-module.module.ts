@@ -27,6 +27,8 @@ import { AdminPostsComponent } from './pages/admin-posts/root/admin-posts.compon
 import { PostDraftComponent } from './pages/admin-posts/pages/draft-posts/draft.component';
 import { PostPublishedComponent } from './pages/admin-posts/pages/published-posts/published.component';
 import { PostsTrashedComponent } from './pages/admin-posts/pages/trashed/trashed.component';
+import { PostFeaturesComponent } from './pages/admin-posts/pages/addPost/components/postFeatures/postFeatures.component';
+import { DropdownComponent } from './pages/admin-posts/pages/addPost/components/postFeatures/components/dropDown/dropdown.component';
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -50,7 +52,9 @@ import { PostsTrashedComponent } from './pages/admin-posts/pages/trashed/trashed
     PostPublishedComponent,
     PostsTrashedComponent,
     AdminProfileComponent,
-    AdminCommentsComponent
+    AdminCommentsComponent,
+    PostFeaturesComponent,
+    DropdownComponent
   
     
 

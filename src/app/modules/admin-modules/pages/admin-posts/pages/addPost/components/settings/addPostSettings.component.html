@@ -11,14 +11,22 @@
     ></textarea>
   </div>
   <div class="flex gap-2 m-3">
+    <form action="" [formGroup]="imgForm">
    <div class="grid">
-    <label class="text-sm font-medium" for="caption">WIDTH</label>
-    <input class="w-32 border-2" type="number">
+    form
+    <label class="text-sm font-medium" for="caption">Height</label>
+    <input
+    (input)="changeHeight($event)"
+    formControlName="height"
+    class="w-32 border-2" type="number">
    </div> 
    <div class="grid">
     <label class="text-sm font-medium" for="caption">WIDTH</label>
-    <input class="w-32 border-2" type="number">
+    <input 
+    formControlName="width"
+    
+    class="w-32 border-2" type="text">
    </div> 
-
+  </form>
   </div>
 </section>
