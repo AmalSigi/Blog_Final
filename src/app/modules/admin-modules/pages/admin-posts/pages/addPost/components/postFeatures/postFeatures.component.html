@@ -1,0 +1,111 @@
+<section class="h-screen w-full bg-gray-300 left-0 right-0 top-0 bottom-0 p-10">
+  <div
+    class="w-[50%] h-full container mx-auto bg-white border-2 rounded-lg overflow-y-auto"
+  >
+    <h1 class="text-center text-2xl font-bold">Post Details</h1>
+    <form action="" [formGroup]="featureForm">
+    <div class="container mx-auto w-[70%] mt-10">
+      <div class="grid">
+        <label for="">AUTHOR</label>
+
+        <input
+        formControlName="author"
+          class="w-full border-2 p-2"
+          value="Robert"
+          type="text"
+        />
+      </div>
+      <div class="grid mt-5">
+        <label for="">Post Category</label>
+        <div class="flex">
+          <input
+          formControlName="category"
+            #Category
+            placeholder="Choose one category"
+            class="w-full border-2 p-2"
+        
+            value=""
+            type="text"
+          />
+          <button (click)="selectDropDown = 'category'" class="-ml-5">
+            <i class="fa-solid fa-caret-down"></i>
+          </button>
+        </div>
+        <app-dropdown
+          *ngIf="selectDropDown === 'category'"
+          [category]="category"
+          (onChange)="changeCategory($event)"
+        ></app-dropdown>
+      </div>
+      <div *ngIf="Category.value != null" class="grid mt-5">
+        <label for="">Sub Category (Optional)</label>
+        <div class="flex">
+          <input
+          formControlName="subCategory"
+
+            #subCatgory
+            placeholder="Choose one Sub-category"
+            class="w-full border-2 p-2"
+            
+            value=""
+            type="text"
+          />
+          <button (click)="selectDropDown = 'subCategory'" class="-ml-5">
+            <i class="fa-solid fa-caret-down"></i>
+          </button>
+        </div>
+        <app-dropdown
+          *ngIf="selectDropDown === 'subCategory'"
+          [category]="subCategory"
+          (onChange)="changeSubCategory($event)"
+        ></app-dropdown>
+      </div>
+      <div class="grid mt-5">
+        <label for="">tags (Optional)</label>
+        <input
+          (input)="onInputChange($event)"
+          #tag
+          class="w-full border-2 p-2"
+          placeholder="search here"
+          value=""
+          type="text"
+        />
+        <div class="flex gap-5 w-full overflow-x-auto mt-2">
+          <div
+            *ngFor="let tag of selectedTags,let i=index"
+            class="bg-red-400 text-white p-2 rounded-lg flex gap-2"
+          >
+            <p>#{{ tag.tag }}</p>
+            <button (click)="removeTag(i)"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+        </div>
+        <div class="w-full h-52 mt-5 overflow-y-auto">
+          <ul>
+            <li
+              (click)="addTag(tag)"
+              class="hover:bg-red-600 hover:text-white border-b-2"
+              *ngFor="let tag of tags"
+            >
+              <p class="text-lg font-semibold p-2"># {{ tag.tag }}</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-10 flex justify-between">
+        <a
+        routerLink="/posts"
+          class="text-white bg-red-600 p-2 rounded-md font-semibold hover:shadow-2xl hover:shadow-red-800 cursor-pointer"
+          >back</a
+        >
+
+        <button
+        (click)="ToOpenCreatePage()"
+          class="text-white bg-blue-600 p-2 hover:shadow-2xl hover:shadow-blue-800 rounded-md font-semibold"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+</form>
+  </div>
+</section>

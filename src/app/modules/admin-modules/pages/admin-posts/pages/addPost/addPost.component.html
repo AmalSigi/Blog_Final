@@ -1,3 +1,7 @@
+<app-postFeatures
+  (createPost)="getPostFeatures($event)"
+  *ngIf="postFeatures"
+></app-postFeatures>
 <!-- navbar -->
 <nav class="w-full h-20 bg-black p-3 flex justify-between fixed">
   <button class="bg-blue-600 text-white p-2 rounded-md">
@@ -7,10 +11,7 @@
     <button class="text-white p-2 rounded-md hover:text-blue-600">
       save draft
     </button>
-    <button
-     (click)="publish()"
-      class="bg-blue-600 text-white p-2 rounded-md"
-    >
+    <button (click)="publish()" class="bg-blue-600 text-white p-2 rounded-md">
       publish
     </button>
   </div>
@@ -18,7 +19,7 @@
 <!-- toolbar -->
 <section class="grid grid-cols-12 overflow-hidden mt-24 fixed">
   <div class="col-span-2 p-3 h-96 w-full">
-    <div class="flex md:grid md:grid-cols-2 md:gap-3 border-2 ">
+    <div class="flex md:grid md:grid-cols-2 md:gap-3 border-2">
       <button
         (click)="selectTool('subHeading')"
         class="hover:bg-gray-400 grid p-2"
@@ -41,16 +42,17 @@
         <span><i class="fa-solid fa-file-video"></i></span>
         video</button
       ><button class="hover:bg-gray-400 p-2 grid">
-        <span><i class="fa-regular fa-images"></i></span>
-        Cover
+        <span><i class="fa-brands fa-buysellads"></i></span>
+        Ads
       </button>
     </div>
   </div>
   <!-- edit page -->
-  <div class="col-span-8 container mx-auto w-full h-screen mt-10 p-3 overflow-y-auto mb-10">
-    <form [formGroup]="blogForm" >
+  <div
+    class="col-span-8 container mx-auto w-full h-screen mt-10 p-3 overflow-y-auto mb-10"
+  >
+    <form [formGroup]="blogForm">
       <input
-     
         class="text-3xl text-black w-full outline-none"
         formControlName="heading"
         placeholder="Title"
@@ -67,22 +69,19 @@
               [formControl]="item.content"
               placeholder="Write your Sub heading"
             ></textarea>
-         
           </ng-container>
           <!-- For paragraph type -->
           <ng-container *ngSwitchCase="'paragraph'">
             <textarea
-            rows="10"
-            cols="80"
+              rows="10"
+              cols="80"
               class="outline-none full"
               [formControl]="item.content"
               placeholder="write your paragraph"
             ></textarea>
           </ng-container>
 
-          <ng-container 
-
-          *ngSwitchCase="'image'">
+          <ng-container *ngSwitchCase="'image'">
             <label
               [hidden]="image.value"
               class="text-white bg-blue-600 p-2"
@@ -90,8 +89,7 @@
               >Upload image</label
             >
             <input
-          (change)="onFileSelected($event)"
-           
+              (change)="onFileSelected($event)"
               #image
               class="outline-none"
               type="file"
@@ -102,11 +100,14 @@
             />
             <div>
               <div>
-                  <img
-                  class="w-full h-[350px] border mt-3"
-                   [src]="item.dataURL" alt="">
+                <img
+                [ngStyle]="{height:imgHeight, width:imgWidth}"
+                  class="w-[80%] h-[400px]  mt-3"
+                  [src]="item.dataURL"
+                  alt=""
+                />
               </div>
-          </div>
+            </div>
           </ng-container>
 
           <ng-container *ngSwitchCase="'video'">
@@ -114,7 +115,7 @@
               >Upload a video</label
             >
             <input
-            (change)="onFileSelected($event)"
+              (change)="onFileSelected($event)"
               id="video"
               hidden="true"
               class="outline-none"
@@ -123,16 +124,21 @@
             />
             <div>
               <video
-              class="w-full h-[350px] border mt-3"
-               [src]="item.content.value" alt=""></video>
-          </div>
+                class="w-[80%] h-[400px] border mt-3"
+                [src]="item.content.value"
+                alt=""
+              ></video>
+            </div>
           </ng-container>
-      
         </ng-container>
       </div>
     </form>
   </div>
   <div class="md:col-span-2">
-    <app-addPostSettings *ngIf="currentTool === 'image'"></app-addPostSettings>
+    <app-addPostSettings
+    (onChange)="changeImageSize($event)"
+    [height]="imgHeight"
+    [width]="imgWidth"
+    *ngIf="currentTool === 'image'"></app-addPostSettings>
   </div>
 </section>
