@@ -27,6 +27,8 @@ import { AdminPostsComponent } from './pages/admin-posts/root/admin-posts.compon
 import { PostDraftComponent } from './pages/admin-posts/pages/draft-posts/draft.component';
 import { PostPublishedComponent } from './pages/admin-posts/pages/published-posts/published.component';
 import { PostsTrashedComponent } from './pages/admin-posts/pages/trashed/trashed.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModelComponent } from 'src/app/shared/components/shared-model/shared-model.component';
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -50,11 +52,13 @@ import { PostsTrashedComponent } from './pages/admin-posts/pages/trashed/trashed
     PostPublishedComponent,
     PostsTrashedComponent,
     AdminProfileComponent,
-    AdminCommentsComponent
-  
-    
-
+    AdminCommentsComponent,
   ],
-  imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    AdminRoutingModule,
+    ReactiveFormsModule,
+    SharedModule,
+  ],
 })
 export class AdminModule {}
