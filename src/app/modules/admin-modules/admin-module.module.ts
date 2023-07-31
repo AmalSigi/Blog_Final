@@ -55,14 +55,14 @@ import { DropdownComponent } from './pages/admin-posts/pages/addPost/components/
     PostsTrashedComponent,
     AdminProfileComponent,
     AdminCommentsComponent,
+    PostFeaturesComponent,
+    DropdownComponent,
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     ReactiveFormsModule,
     SharedModule,
-    PostFeaturesComponent,
-    DropdownComponent,
   ],
 })
 export class AdminModule {}
