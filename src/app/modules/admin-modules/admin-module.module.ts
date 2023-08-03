@@ -34,6 +34,10 @@ import { postsAPi } from 'src/app/core/http/post.service';
 import { commentsApi } from 'src/app/core/http/comments.service';
 import { categoryApi } from 'src/app/core/http/category.service';
 import { postData } from 'src/app/core/services/posts.services';
+
+import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModelComponent } from 'src/app/shared/components/shared-model/shared-model.component';
+
 @NgModule({
   declarations: [
     NavbarComponent,
@@ -60,14 +64,16 @@ import { postData } from 'src/app/core/services/posts.services';
     AdminCommentsComponent,
     PostFeaturesComponent,
     DropdownComponent,
-    ToobarComponent
+    ToobarComponent,
+    CommentsComponent
   
   
     
 
   ],
-  imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule],
+  imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule,SharedModule],
   providers:[postsAPi,commentsApi,categoryApi,postData]
+
 
 })
 export class AdminModule {}
