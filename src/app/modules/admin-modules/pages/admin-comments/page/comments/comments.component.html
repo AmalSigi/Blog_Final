@@ -23,14 +23,14 @@
             </thead>
             <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
               <tr
-                (click)="showBox()"
                 *ngFor="let item of post"
+                (click)="showBox(item)"
                 class="hover:bg-gray-100"
               >
                 <td
                   class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"
                 >
-                  John Brown
+                  {{ item.postSections[0]?.content }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                   45
@@ -47,5 +47,6 @@
 <!-- model for each comments -->
 <app-shared-model
   *ngIf="commentDiv"
+  [post]="postInv"
   (onClick)="commentDiv = false"
 ></app-shared-model>
