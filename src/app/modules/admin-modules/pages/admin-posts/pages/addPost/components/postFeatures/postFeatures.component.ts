@@ -1,5 +1,6 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { categoryApi } from 'src/app/core/http/category.service';
 import { postData } from 'src/app/core/services/posts.services';
 
 @Component({
@@ -7,7 +8,7 @@ import { postData } from 'src/app/core/services/posts.services';
   templateUrl: './postFeatures.component.html',
 })
 export class PostFeaturesComponent implements OnInit {
-  constructor(private readonly postService: postData) {}
+  constructor(private readonly categoryService:categoryApi) {}
   public category!: any[];
   public tags!: any[];
   public selectedTags: any = [];
@@ -20,28 +21,37 @@ export class PostFeaturesComponent implements OnInit {
   public featureForm: FormGroup=new FormGroup({
     author:new FormControl({value:'Robert',disabled:true},Validators.required),
     category: new FormControl({value:'',disabled:true},Validators.required),
+    categoryId: new FormControl(null,Validators.required),
+    subCategoryId: new FormControl(null,Validators.required),
     subCategory: new FormControl({value:'',disabled:true},Validators.required),
    
   
   })
   ngOnInit(): void {
-    this.category = this.postService.categories;
+   this.categoryService.getCategory().subscribe({
+    next:(res)=>{
+      this.category=res;
+    }
+   })
   }
   public changeCategory(index: number): void {
-    this.featureForm.controls['category'].patchValue(this.category[index - 1].category);
+    this.featureForm.controls['category'].patchValue(this.category[index - 1].categoryName);
+    this.featureForm.controls['categoryId'].patchValue(index);
+
     this.subCategory = this.category[index - 1].subCategories;
     this.selectDropDown = '';
   }
   public changeSubCategory(index: number): void {
     const location = this.subCategory.findIndex((i) => i.id == index);
-    this.featureForm.controls['subCategory'].patchValue(this.subCategory[location].subCategory);
+    this.featureForm.controls['subCategory'].patchValue(this.subCategory[location].subCategoryName);
+    this.featureForm.controls['subCategoryId'].patchValue(index);
       
     this.selectDropDown = '';
   }
   onInputChange(event: any): void {
-    this.tags = this.postService.tags.filter((tag) =>
-      tag.tag.toLowerCase().includes(event.target.value.toLowerCase())
-    );
+    // this.tags = this.postService.tags.filter((tag) =>
+    //   tag.tag.toLowerCase().includes(event.target.value.toLowerCase())
+    // );
   }
   addTag(tag: string): void {
     this.selectedTags?.push(tag);
@@ -54,7 +64,7 @@ export class PostFeaturesComponent implements OnInit {
   ToOpenCreatePage(){
 
     this.createPost.emit(this.featureForm.value);
-    console.log(this.featureForm.value)
+    console.log(this.featureForm)
   }
 
 }

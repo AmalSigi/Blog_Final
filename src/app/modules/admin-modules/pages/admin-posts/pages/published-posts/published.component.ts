@@ -1,6 +1,7 @@
 
+import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
-import { postData } from "src/app/core/services/posts.services";
+import { postsAPi } from "src/app/core/http/post.service";
 
 @Component({
     selector: "app-post-published",
@@ -8,13 +9,18 @@ import { postData } from "src/app/core/services/posts.services";
         
 })
 export class PostPublishedComponent implements OnInit {
-constructor(private readonly postsService: postData){}
+constructor(private readonly postsService: postsAPi){}
 public posts:any;
 public showDiv:boolean=true;
 public listIndex!:number;
 ngOnInit() {
-    this.posts=this.postsService.postData;
-    console.log(this.posts);
+ this.postsService.getPosts().subscribe({
+    next:(response)=>{
+console.log(response);
+
+        this.posts = response;
+    }
+ })
 }
 public toggleEditMenu(data:any,index:number){
    

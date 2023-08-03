@@ -2,7 +2,9 @@ import { AbstractControl, FormControl } from "@angular/forms";
 
 export interface DynamicDIvElement{
     id:number;
-    type:string;
+    type:number;
     content:FormControl;
     dataURL?: string;
+    sectionAttributes:any[];
 }
+

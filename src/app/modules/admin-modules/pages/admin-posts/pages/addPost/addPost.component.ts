@@ -1,14 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { postData } from 'src/app/core/services/posts.services';
+import { postsAPi } from 'src/app/core/http/post.service';
 import { DynamicDIvElement } from 'src/app/shared/interfaces/dynamicPost.interface';
 
 @Component({
@@ -20,61 +14,84 @@ export class AddPostComponent implements OnInit {
   public postFeatures: boolean = true;
   dynamicDiv: DynamicDIvElement[] = [];
   dynamicFormControls: FormControl[] = [];
-  currentTool!: string;
-  public imgHeight!: string;
-  public imgWidth!: string;
+  currentTool!: number;
+  public imgHeight: string = '600';
+  public imgWidth: string = '600';
+  public aspectRatio: string = 'auto';
+  public objectFit: string = 'fill';
+  public sectionId: number = 0;
+  public mediaFilePath: string = 'http://192.168.29.97:5296/assets/';
+  public showToolBar: boolean = false;
   constructor(
     private formbuilder: FormBuilder,
     private readonly route: ActivatedRoute,
-    private readonly data: postData,
-    private readonly http:HttpClient
+    private readonly http: HttpClient,
+    private readonly postService: postsAPi,
+    private readonly router:Router
   ) {}
   public dataUrl!: string;
+  public postId!: number;
 
   ngOnInit() {
     this.blogForm = this.formbuilder.group({
-      heading: ['', Validators.required],
-      dynamicFormArray: this.formbuilder.array([]),
+      authorId: [1],
+      _CategoryId: new FormControl(),
+      _SubCategoryId: new FormControl(),
+
+      postSections: this.formbuilder.array([]),
     });
+
     this.route.queryParams.subscribe((params: any) => {
       console.log(params);
       if (params['post']) {
-        const id = params['post'];
-        console.log(id);
-        const index = this.data.postData.findIndex((post) => post.id == id);
-        const postData = this.data.postData[index];
-        console.log(postData);
-        this.editTool(postData);
+        this.postId = params['post'];
+        console.log(this.postId);
+        this.postService.getPostById(this.postId).subscribe({
+          next:(data)=>{
+            const postData = data;
+            this.editTool(postData);
+          }
+        })
+      } else {
+        this.dynamicFormControls.push(this.formbuilder.control(''));
+        this.createFormData(1);
       }
     });
   }
   get dynamicFormArray(): FormArray {
-    return this.blogForm.get('dynamicFormArray') as FormArray;
+    return this.blogForm.get('postSections') as FormArray;
   }
-  // Add a dynamic form control to the FormArray
-  selectTool(type: string) {
+  //dynamic form control to the FormArray
+  selectTool(type: number) {
     this.currentTool = type;
+    this.sectionId++;
+    if (type == 4) {
+      this.showToolBar = true;
+    }
     switch (type) {
-      case 'subHeading':
+      case 2:
         this.dynamicFormControls.push(this.formbuilder.control(''));
         break;
-      case 'paragraph':
+      case 3:
         this.dynamicFormControls.push(this.formbuilder.control(''));
         break;
-      case 'image':
+      case 4:
         this.dynamicFormControls.push(this.formbuilder.control(null));
         break;
-      case 'video':
+      case 5:
         this.dynamicFormControls.push(this.formbuilder.control(null));
         break;
       default:
         break;
     }
-
+    this.createFormData(type);
+  }
+  public createFormData(type: number) {
     const dynamicElement: DynamicDIvElement = {
       id: this.dynamicFormControls.length,
       type,
       content: this.dynamicFormControls[this.dynamicFormControls.length - 1],
+      sectionAttributes: [],
     };
 
     this.dynamicDiv.push(dynamicElement);
@@ -82,40 +99,46 @@ export class AddPostComponent implements OnInit {
     console.log(this.dynamicDiv);
   }
   public editTool(data: any): void {
-    console.log(data);
-    this.blogForm.controls['heading'].setValue(data.heading);
-    data?.dynamicFormArray.forEach((element: any) => {
-      switch (element.type) {
-        case 'subHeading':
+    console.log(data.postSections);
+
+    data.postSections.forEach((element: any) => {
+      switch (element.sectionTypeId) {
+        case 1:
           this.dynamicFormControls.push(
             this.formbuilder.control(element.content)
           );
           break;
-        case 'paragraph':
+        case 2:
           this.dynamicFormControls.push(
             this.formbuilder.control(element.content)
           );
           break;
-        case 'image':
+        case 3:
           this.dynamicFormControls.push(
             this.formbuilder.control(element.content)
           );
           break;
-        case 'video':
-          this.dynamicFormControls.push(
-            this.formbuilder.control(element.content)
-          );
+        case 4:
+          this.dynamicFormControls.push(this.formbuilder.control(''));
+          break;
+        case 5:
+          this.dynamicFormControls.push(this.formbuilder.control(''));
           break;
         default:
           break;
       }
       const dynamicElement: DynamicDIvElement = {
         id: this.dynamicFormControls.length,
-        type: element.type,
+        type: element.sectionTypeId,
         content: this.dynamicFormControls[this.dynamicFormControls.length - 1],
+        sectionAttributes: [],
       };
+      if (element.sectionTypeId == 4 || element.sectionTypeId == 5) {
+        dynamicElement.dataURL = element.content;
+      }
 
       this.dynamicDiv.push(dynamicElement);
+      console.log(this.dynamicDiv);
     });
   }
 
@@ -125,33 +148,110 @@ export class AddPostComponent implements OnInit {
 
     const reader = new FileReader();
     reader.readAsDataURL(selectedFile);
-    reader.onload = () => {
-      const imgPrev = reader.result as string;
+    const formData = new FormData();
+    interface ServerResponse {
+      mediaPath: string;
+    }
+    formData.append('file', selectedFile, selectedFile.name);
+    this.http
+      .post<ServerResponse>('http://192.168.29.97:5296/Media', formData)
+      .subscribe({
+        next: (res) => {
+          this.dynamicDiv[this.sectionId].dataURL = res.mediaPath;
+        },
+      });
 
-      const lastIndex = this.dynamicDiv.length - 1;
-      this.dynamicDiv[lastIndex].dataURL = imgPrev;
-    };
+    // this.dynamicFormControls[this.sectionId].setValue(formData);
   }
 
   publish() {
     this.dynamicDiv.forEach((element) => {
       const formGroup = this.formbuilder.group({
-        id: element.id,
-        type: element.type,
-        content: element.content,
-        dataURL: element.dataURL,
+        sectionTypeId: element.type,
+        content: element.dataURL ? element.dataURL : element.content,
+        sequenceNo: element.id,
       });
       this.dynamicFormArray.push(formGroup);
     });
-    console.log(this.blogForm);
+    if(this.postId==null){
+      console.log(this.blogForm);
+      this.postService.addPost(this.blogForm.value).subscribe({
+        next:(res)=>{
+          console.log('new post added');
+  this.router.navigate(['/posts'])
+        },
+        error:(err)=>{
+          console.log(err);
+        }
+      })
+    }
+
+    if(this.postId!=null){
+      console.log('null')
+      this.postService.editPost(this.postId,this.blogForm.value).subscribe({
+        next:(response)=>{
+          console.log(response);
+this.router.navigate(['/posts']);
+
+        }
+      })
+    }
+  
   }
   getPostFeatures(event: any): void {
     console.log(event);
     this.postFeatures = false;
+    this.blogForm.controls['_CategoryId']?.setValue(event.categoryId);
+    this.blogForm.controls['_SubCategoryId']?.setValue(event.subCategoryId);
   }
   changeImageSize(event: any) {
-    this.imgHeight = event.toString();
-    console.log(this.imgHeight);
+    console.log(event.height.toString());
+    this.imgHeight = event.height?.toString();
+    this.imgWidth = event.width?.toString();
+    this.aspectRatio = event.aspectRatio;
   }
-  
+
+  Selected(id: number) {
+    console.log(id);
+    this.sectionId = id;
+  }
+  public setImageUrl(url: any) {
+    console.log(url);
+    this.dynamicDiv[this.sectionId].dataURL = url;
+    this.showToolBar = false;
+  }
+  addBlock(type: number) {
+    if (type == 4) {
+      this.showToolBar = true;
+    }
+    console.log(type);
+    this.dynamicFormControls.splice(
+      this.sectionId + 1,
+      0,
+      this.formbuilder.control('')
+    );
+
+    const dynamicElement: DynamicDIvElement = {
+      id: this.sectionId + 2,
+      type: type,
+      content: this.dynamicFormControls[this.sectionId + 1],
+      sectionAttributes: [],
+    };
+
+    this.dynamicDiv.splice(this.sectionId + 1, 0, dynamicElement);
+    this.setId();
+  }
+  //delete block
+  public deleteBlock() {
+    this.dynamicFormControls.splice(this.sectionId, 1);
+
+    this.dynamicDiv.splice(this.sectionId, 1);
+    console.log(this.dynamicDiv);
+    this.setId();
+  }
+  public setId() {
+    for (let i = 0; i < this.dynamicDiv.length; i++) {
+      this.dynamicDiv[i].id = i + 1;
+    }
+  }
 }

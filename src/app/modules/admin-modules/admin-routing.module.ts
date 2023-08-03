@@ -21,6 +21,7 @@ import { AdminPostsComponent } from './pages/admin-posts/root/admin-posts.compon
 import { PostPublishedComponent } from './pages/admin-posts/pages/published-posts/published.component';
 import { PostDraftComponent } from './pages/admin-posts/pages/draft-posts/draft.component';
 import { PostsTrashedComponent } from './pages/admin-posts/pages/trashed/trashed.component';
+import { postsAPi } from 'src/app/core/http/post.service';
 
 const routes: Routes = [
   {
