@@ -1,4 +1,5 @@
 <app-postFeatures
+  hidden
   (createPost)="getPostFeatures($event)"
   *ngIf="postFeatures"
 ></app-postFeatures>
@@ -12,9 +13,8 @@
       save draft
     </button>
     <button (click)="publish()" class="bg-blue-600 text-white p-2 rounded-md">
-      <span *ngIf="postId==null">Publish</span>
-      <span *ngIf="postId!=null">Update</span>
-
+      <span *ngIf="postId == null">Publish</span>
+      <span *ngIf="postId != null">Update</span>
     </button>
   </div>
 </nav>
@@ -93,7 +93,13 @@
           </ng-container>
           <!-- For paragraph type -->
           <ng-container *ngSwitchCase="3">
+            <app-text-Toolbar *ngIf="sectionId == i"
+            (boldSelected)="onTextSelected($event)"
+            [text]="selectedTextarea"
+            ></app-text-Toolbar>
             <textarea
+            #myTextarea
+            (mouseup)="getSelectedWord()"
               (click)="sectionId = i"
               rows="10"
               cols="80"
@@ -129,7 +135,7 @@
             <div>
               <div class="w-[80%] h-[500px] mt-3 overflow-hidden">
                 <img
-              (click)="sectionId = i"
+                  (click)="sectionId = i"
                   [ngStyle]="{
                     height: imgHeight + 'px',
                     width: imgWidth + 'px',
@@ -168,7 +174,7 @@
             />
             <div>
               <video
-              (click)="sectionId = i"
+                (click)="sectionId = i"
                 controls
                 autoplay
                 class="w-[80%] h-[400px] border mt-3"

@@ -8,11 +8,18 @@ import { categoryApi } from './core/http/category.service';
 import { commentsApi } from './core/http/comments.service';
 import { postsAPi } from './core/http/post.service';
 import { SharedModule } from './shared/shared.module';
+import { MarkdownModule } from 'ngx-markdown';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, SharedModule,ReactiveFormsModule],
-  providers: [postsAPi,commentsApi,categoryApi],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    SharedModule,
+    ReactiveFormsModule,
+    MarkdownModule.forRoot(),
+  ],
+  providers: [postsAPi, commentsApi, categoryApi],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
