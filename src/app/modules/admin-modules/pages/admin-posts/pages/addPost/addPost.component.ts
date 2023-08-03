@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { postsAPi } from 'src/app/core/http/post.service';
@@ -43,8 +43,8 @@ export class AddPostComponent implements OnInit {
 
     this.route.queryParams.subscribe((params: any) => {
       console.log(params);
-      if (params['post']) {
-        this.postId = params['post'];
+      if (params['postId']) {
+        this.postId = params['postId'];
         console.log(this.postId);
         this.postService.getPostById(this.postId).subscribe({
           next:(data)=>{
@@ -65,6 +65,7 @@ export class AddPostComponent implements OnInit {
   selectTool(type: number) {
     this.currentTool = type;
     this.sectionId++;
+    console.log(this.sectionId)
     if (type == 4) {
       this.showToolBar = true;
     }
@@ -254,4 +255,35 @@ this.router.navigate(['/posts']);
       this.dynamicDiv[i].id = i + 1;
     }
   }
+  @ViewChild('myTextarea') myTextarea!: ElementRef;
+public selectedTextarea!: string;
+  getSelectedWord() {
+    const textarea: HTMLTextAreaElement = this.myTextarea.nativeElement;
+
+    if (textarea.selectionStart !== undefined && textarea.selectionEnd !== undefined) {
+      const selectionStart = textarea.selectionStart;
+      const selectionEnd = textarea.selectionEnd;
+
+      const text = textarea.value;
+      const selectedText = text.substring(selectionStart, selectionEnd);
+
+      console.log('Selected Word:', selectedText);
+      this.selectedTextarea = selectedText;
+      
+    }
+  }
+  onTextSelected(event: any): void {
+    console.log(event);
+    const textarea: HTMLTextAreaElement = this.myTextarea.nativeElement;
+    const formattedText = `**${this.selectedTextarea}**`
+    const newText =
+    textarea.value.slice(0, textarea.selectionStart) +
+    formattedText +
+    textarea.value.slice(textarea.selectionEnd);
+    this.dynamicFormControls[this.sectionId].setValue(newText);
+    console.log(this.sectionId)
+
+
+  }
+  
 }

@@ -21,22 +21,23 @@ import { TagsComponent } from './pages/admin-settings/pages/admin-tag/page/tags/
 import { AdminTagComponent } from './pages/admin-settings/pages/admin-tag/root/admin-tag.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { categoryApi } from 'src/app/core/http/category.service';
+import { commentsApi } from 'src/app/core/http/comments.service';
+import { postsAPi } from 'src/app/core/http/post.service';
+import { postData } from 'src/app/core/services/posts.services';
 import { AddPostComponent } from './pages/admin-posts/pages/addPost/addPost.component';
 import { DropdownComponent } from './pages/admin-posts/pages/addPost/components/postFeatures/components/dropDown/dropdown.component';
 import { PostFeaturesComponent } from './pages/admin-posts/pages/addPost/components/postFeatures/postFeatures.component';
 import { AddPostSettingsComponent } from './pages/admin-posts/pages/addPost/components/settings/addPostSettings.component';
+import { ToobarComponent } from './pages/admin-posts/pages/addPost/components/toolBar/toolbar.component';
 import { PostDraftComponent } from './pages/admin-posts/pages/draft-posts/draft.component';
 import { PostPublishedComponent } from './pages/admin-posts/pages/published-posts/published.component';
 import { PostsTrashedComponent } from './pages/admin-posts/pages/trashed/trashed.component';
 import { AdminPostsComponent } from './pages/admin-posts/root/admin-posts.component';
-import { ToobarComponent } from './pages/admin-posts/pages/addPost/components/toolBar/toolbar.component';
-import { postsAPi } from 'src/app/core/http/post.service';
-import { commentsApi } from 'src/app/core/http/comments.service';
-import { categoryApi } from 'src/app/core/http/category.service';
-import { postData } from 'src/app/core/services/posts.services';
 
 import { SharedModule } from 'src/app/shared/shared.module';
-import { SharedModelComponent } from 'src/app/shared/components/shared-model/shared-model.component';
+import { TextToolbarComponent } from './pages/admin-posts/pages/addPost/components/textToolBar/textToolBar.component';
+import { MarkdownModule } from 'ngx-markdown';
 
 @NgModule({
   declarations: [
@@ -65,13 +66,14 @@ import { SharedModelComponent } from 'src/app/shared/components/shared-model/sha
     PostFeaturesComponent,
     DropdownComponent,
     ToobarComponent,
-    CommentsComponent
+    CommentsComponent,
+    TextToolbarComponent
   
   
     
 
   ],
-  imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule,SharedModule],
+  imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule,SharedModule,MarkdownModule.forRoot()],
   providers:[postsAPi,commentsApi,categoryApi,postData]
 
 

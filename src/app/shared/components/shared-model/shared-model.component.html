@@ -13,7 +13,7 @@
 
       <div class="container mx-auto w-[80%] my-5">
         <p class="text-red-500 font-bold text-xl">
-          {{ post.category.categoryName }}
+          {{ post.category?.categoryName }}
         </p>
         <div *ngFor="let postItem of post.postSections" class="w-full">
           <ng-container [ngSwitch]="postItem.sectionTypeId">
@@ -30,7 +30,11 @@
 
             <ng-container *ngSwitchCase="3"
               ><p class="my-5 text-[20px] text-gray-600 text-justify">
-                {{ postItem.content }}
+                <markdown>
+                  {{ postItem.content }}
+
+                </markdown>
+                
               </p></ng-container
             >
 
