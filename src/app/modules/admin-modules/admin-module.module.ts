@@ -65,15 +65,14 @@ import { SharedModelComponent } from 'src/app/shared/components/shared-model/sha
     PostFeaturesComponent,
     DropdownComponent,
     ToobarComponent,
-    CommentsComponent
-  
-  
-    
-
+    CommentsComponent,
   ],
-  imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule,SharedModule],
-  providers:[postsAPi,commentsApi,categoryApi,postData]
-
-
+  imports: [
+    CommonModule,
+    AdminRoutingModule,
+    ReactiveFormsModule,
+    SharedModule,
+  ],
+  providers: [postsAPi, commentsApi, categoryApi, postData],
 })
 export class AdminModule {}
