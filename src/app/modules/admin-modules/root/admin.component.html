@@ -1,8 +1,10 @@
-<section class="grid grid-cols-12">
-  <div class="col-span-2">
-    <app-navbar></app-navbar>
+<section class="md:grid grid-cols-12 overflow-hidden">
+ <div class="md:col-span-2 flex">
+  <button class="md:hidden"><i class="fa-solid fa-bars fa-lg md:hidden"></i></button>
+    <app-navbar class="hidden md:block"></app-navbar>
   </div>
-  <div class="h-screen overflow-y-scroll w-full col-span-10">
+  <div class="h-screen overflow-y-scroll w-full md:col-span-10">
     <router-outlet></router-outlet>
   </div>
 </section>
+<app-navbar class="fixed top-0 bottom-0 left-0 right-0 h-screen w-[80%] md:hidden"></app-navbar>

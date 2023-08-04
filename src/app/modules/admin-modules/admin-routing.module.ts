@@ -30,7 +30,7 @@ const routes: Routes = [
     children: [
       {path: 'posts', component:AdminPostsComponent,
       children:[
-        {path: '', component:PostPublishedComponent},
+        {path: '', component:PostPublishedComponent,pathMatch: 'full'},
 
         {path: 'published', component:PostPublishedComponent},
         {path: 'drafts', component:PostDraftComponent},

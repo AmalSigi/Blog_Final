@@ -38,6 +38,7 @@ import { AdminPostsComponent } from './pages/admin-posts/root/admin-posts.compon
 import { SharedModule } from 'src/app/shared/shared.module';
 import { TextToolbarComponent } from './pages/admin-posts/pages/addPost/components/textToolBar/textToolBar.component';
 import { MarkdownModule } from 'ngx-markdown';
+import { PostListComponent } from './pages/admin-posts/components/postList.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { MarkdownModule } from 'ngx-markdown';
     DropdownComponent,
     ToobarComponent,
     CommentsComponent,
-    TextToolbarComponent
+    TextToolbarComponent,
+    PostListComponent
   
   
     

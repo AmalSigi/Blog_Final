@@ -22,12 +22,13 @@ export class AddPostComponent implements OnInit {
   public sectionId: number = 0;
   public mediaFilePath: string = 'http://192.168.29.97:5296/assets/';
   public showToolBar: boolean = false;
+  public TextToolBar:boolean=true;
   constructor(
     private formbuilder: FormBuilder,
     private readonly route: ActivatedRoute,
     private readonly http: HttpClient,
     private readonly postService: postsAPi,
-    private readonly router:Router
+    private readonly router: Router
   ) {}
   public dataUrl!: string;
   public postId!: number;
@@ -42,16 +43,15 @@ export class AddPostComponent implements OnInit {
     });
 
     this.route.queryParams.subscribe((params: any) => {
-      console.log(params);
       if (params['postId']) {
         this.postId = params['postId'];
         console.log(this.postId);
         this.postService.getPostById(this.postId).subscribe({
-          next:(data)=>{
+          next: (data) => {
             const postData = data;
             this.editTool(postData);
-          }
-        })
+          },
+        });
       } else {
         this.dynamicFormControls.push(this.formbuilder.control(''));
         this.createFormData(1);
@@ -65,7 +65,6 @@ export class AddPostComponent implements OnInit {
   selectTool(type: number) {
     this.currentTool = type;
     this.sectionId++;
-    console.log(this.sectionId)
     if (type == 4) {
       this.showToolBar = true;
     }
@@ -97,7 +96,6 @@ export class AddPostComponent implements OnInit {
 
     this.dynamicDiv.push(dynamicElement);
 
-    console.log(this.dynamicDiv);
   }
   public editTool(data: any): void {
     console.log(data.postSections);
@@ -139,7 +137,6 @@ export class AddPostComponent implements OnInit {
       }
 
       this.dynamicDiv.push(dynamicElement);
-      console.log(this.dynamicDiv);
     });
   }
 
@@ -174,33 +171,29 @@ export class AddPostComponent implements OnInit {
       });
       this.dynamicFormArray.push(formGroup);
     });
-    if(this.postId==null){
+    if (this.postId == null) {
       console.log(this.blogForm);
       this.postService.addPost(this.blogForm.value).subscribe({
-        next:(res)=>{
+        next: (res) => {
           console.log('new post added');
-  this.router.navigate(['/posts'])
+          this.router.navigate(['/posts']);
         },
-        error:(err)=>{
+        error: (err) => {
           console.log(err);
-        }
-      })
+        },
+      });
     }
 
-    if(this.postId!=null){
-      console.log('null')
-      this.postService.editPost(this.postId,this.blogForm.value).subscribe({
-        next:(response)=>{
-          console.log(response);
-this.router.navigate(['/posts']);
-
-        }
-      })
+    if (this.postId != null) {
+      console.log('null');
+      this.postService.editPost(this.postId, this.blogForm.value).subscribe({
+        next: (response) => {
+          this.router.navigate(['/posts']);
+        },
+      });
     }
-  
   }
   getPostFeatures(event: any): void {
-    console.log(event);
     this.postFeatures = false;
     this.blogForm.controls['_CategoryId']?.setValue(event.categoryId);
     this.blogForm.controls['_SubCategoryId']?.setValue(event.subCategoryId);
@@ -213,7 +206,7 @@ this.router.navigate(['/posts']);
   }
 
   Selected(id: number) {
-    console.log(id);
+  
     this.sectionId = id;
   }
   public setImageUrl(url: any) {
@@ -255,35 +248,58 @@ this.router.navigate(['/posts']);
       this.dynamicDiv[i].id = i + 1;
     }
   }
-  @ViewChild('myTextarea') myTextarea!: ElementRef;
-public selectedTextarea!: string;
-  getSelectedWord() {
-    const textarea: HTMLTextAreaElement = this.myTextarea.nativeElement;
 
-    if (textarea.selectionStart !== undefined && textarea.selectionEnd !== undefined) {
-      const selectionStart = textarea.selectionStart;
-      const selectionEnd = textarea.selectionEnd;
+  private selectionStart!: number;
+  private selectionEnd!: number;
+  public selectedTextarea!: string;
+  getSelectedWord(event: any) {
+    const textarea: any = event.target;
+this.TextToolBar=true;
+    if (
+      textarea.selectionStart !== undefined &&
+      textarea.selectionEnd !== undefined
+    ) {
+      this.selectionStart = event.target.selectionStart;
+      this.selectionEnd = event.target.selectionEnd;
 
-      const text = textarea.value;
-      const selectedText = text.substring(selectionStart, selectionEnd);
-
-      console.log('Selected Word:', selectedText);
+      const selectedText = textarea.value.substring(
+        this.selectionStart,
+        this.selectionEnd
+      );
       this.selectedTextarea = selectedText;
-      
     }
   }
-  onTextSelected(event: any): void {
-    console.log(event);
-    const textarea: HTMLTextAreaElement = this.myTextarea.nativeElement;
-    const formattedText = `**${this.selectedTextarea}**`
+public urlData!:string;
+public getUrl(Url: string):void{
+  this.urlData=Url;
+this.onTextSelected('link')
+}
+ public onTextSelected(event: any): void {
+// this.TextToolBar=false;
+let formattedText:string='';
+   if(this.selectedTextarea){
+    switch(event){
+      case 'bold':
+   formattedText = `**${this.selectedTextarea}**`;
+   break;
+   case 'italic':
+    formattedText = `*${this.selectedTextarea}*`;
+    break;
+    case 'link':
+    
+    formattedText = `[${this.selectedTextarea}](${this.urlData})`;
+    break;
+    default:
+      break;
+        
+    }
+    const textarea = this.dynamicFormControls[this.sectionId].value;
     const newText =
-    textarea.value.slice(0, textarea.selectionStart) +
-    formattedText +
-    textarea.value.slice(textarea.selectionEnd);
+      textarea.slice(0, this.selectionStart) +
+      formattedText +
+      textarea.slice(this.selectionEnd);
     this.dynamicFormControls[this.sectionId].setValue(newText);
-    console.log(this.sectionId)
-
-
+   }
+  this.selectedTextarea='';
   }
-  
 }
