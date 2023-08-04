@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { categoryApi } from 'src/app/core/http/category.service';
 import { postData } from 'src/app/core/services/posts.services';
 
 @Component({
@@ -9,7 +10,8 @@ import { postData } from 'src/app/core/services/posts.services';
 export class CategoryComponent implements OnInit {
   constructor(
     private readonly cat: postData,
-    private readonly http: HttpClient
+    private readonly http: HttpClient,
+    private readonly categoryServices: categoryApi
   ) {}
   public showmodel1: boolean = false;
   public showmodel2: boolean = false;
@@ -20,9 +22,10 @@ export class CategoryComponent implements OnInit {
   }
 
   public getCategory() {
-    this.http.get('');
-    this.category = this.cat.Category;
-    console.log(this.category);
+    this.categoryServices.getCategory().subscribe((repo) => {
+      this.category = repo;
+      console.log(repo);
+    });
   }
   public modelShowAdd(category: any): void {
     this.modelCategory = category;

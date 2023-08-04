@@ -1,5 +1,4 @@
 <app-postFeatures
-  hidden
   (createPost)="getPostFeatures($event)"
   *ngIf="postFeatures"
 ></app-postFeatures>
@@ -93,13 +92,14 @@
           </ng-container>
           <!-- For paragraph type -->
           <ng-container *ngSwitchCase="3">
-            <app-text-Toolbar *ngIf="sectionId == i"
-            (boldSelected)="onTextSelected($event)"
-            [text]="selectedTextarea"
+            <app-text-Toolbar
+              *ngIf="sectionId == i"
+              (boldSelected)="onTextSelected($event)"
+              [text]="selectedTextarea"
             ></app-text-Toolbar>
             <textarea
-            #myTextarea
-            (mouseup)="getSelectedWord()"
+              #myTextarea
+              (mouseup)="getSelectedWord()"
               (click)="sectionId = i"
               rows="10"
               cols="80"

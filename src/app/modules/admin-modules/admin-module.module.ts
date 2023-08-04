@@ -38,6 +38,7 @@ import { AdminPostsComponent } from './pages/admin-posts/root/admin-posts.compon
 import { SharedModule } from 'src/app/shared/shared.module';
 import { TextToolbarComponent } from './pages/admin-posts/pages/addPost/components/textToolBar/textToolBar.component';
 import { MarkdownModule } from 'ngx-markdown';
+import { tagApi } from 'src/app/core/http/tag.service';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,6 @@ import { MarkdownModule } from 'ngx-markdown';
     SharedModule,
     MarkdownModule.forRoot(),
   ],
-  providers: [postsAPi, commentsApi, categoryApi, postData],
+  providers: [postsAPi, commentsApi, categoryApi, tagApi, postData],
 })
 export class AdminModule {}

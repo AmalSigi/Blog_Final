@@ -30,7 +30,6 @@ export class SharedModelComponent implements OnInit {
   ngOnInit(): void {
     this.getComments();
     this.getPost();
-    console.log(this.post);
   }
 
   public getPost() {
@@ -43,7 +42,6 @@ export class SharedModelComponent implements OnInit {
   public getComments() {
     this.commentsApi.getAllCommentsByPost(this.post.id).subscribe((repo) => {
       this.comments = repo;
-      console.log(this.comments);
     });
   }
   public unshowBox() {
@@ -90,5 +88,10 @@ export class SharedModelComponent implements OnInit {
       comment.parentAuthor = repo.author.firstName;
       this.replayCommentData.push(comment);
     });
+  }
+
+  public delectComment(commentId: number) {
+    console.log(commentId);
+    this.commentsApi.removeComment(commentId).subscribe((respo) => {});
   }
 }

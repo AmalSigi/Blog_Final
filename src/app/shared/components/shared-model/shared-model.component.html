@@ -32,9 +32,7 @@
               ><p class="my-5 text-[20px] text-gray-600 text-justify">
                 <markdown>
                   {{ postItem.content }}
-
                 </markdown>
-                
               </p></ng-container
             >
 
@@ -78,35 +76,46 @@
               *ngIf="item2.parentId === null && item2.commentStatus"
               class="p-3 border-b-2 pb-2"
             >
-              <p class="text-lg font-bold">
-                {{ item2.author.firstName }} {{ item2.author.lastName }}
-              </p>
-              <p class="text-xs text-gray-400">{{ item2.createdAt | date }}</p>
-              <p class="text-sm">
-                {{ item2.content }}
-              </p>
+              <div>
+                <p class="text-lg font-bold">
+                  {{ item2.author.firstName }} {{ item2.author.lastName }}
+                </p>
+                <p class="text-xs text-gray-400">
+                  {{ item2.createdAt | date }}
+                </p>
+                <p class="text-sm">
+                  {{ item2.content }}
+                </p>
 
-              <div class="flex gap-5">
-                <button (click)="replyBox(item2)" class="text-blue-500">
-                  Reply
-                </button>
-                <div>
-                  <button
-                    [id]="item2.id"
-                    #commentOpen
-                    (click)="viewReplyBox(commentOpen.id, item)"
-                    class="text-blue-500"
-                  >
-                    <i class="fa-solid fa-chevron-down"></i> replies
+                <div class="flex gap-5">
+                  <button (click)="replyBox(item2)" class="text-blue-500">
+                    Reply
                   </button>
+                  <div>
+                    <button
+                      [id]="item2.id"
+                      #commentOpen
+                      (click)="viewReplyBox(commentOpen.id, item)"
+                      class="text-blue-500"
+                    >
+                      <i class="fa-solid fa-chevron-down"></i> replies
+                    </button>
+                    <button
+                      (click)="delectComment(item2.id)"
+                      class="text-red-500 ml-5"
+                    >
+                      <i class="fa-regular fa-trash-can"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
+
               <!-- replay comments view -->
               <div
                 *ngIf="commentOpen.id == commentboxId && viewRelpayComments"
                 class="w-full h-36 overflow-y-auto my-5 p-4"
               >
-                <ng-container
+                <div
                   *ngFor="let replayComment of replayCommentData"
                   class="mb-5"
                 >
@@ -131,7 +140,13 @@
                   >
                     Reply
                   </button>
-                </ng-container>
+                  <button
+                    (click)="delectComment(replayComment.id)"
+                    class="text-red-500 ml-5"
+                  >
+                    <i class="fa-regular fa-trash-can"></i>
+                  </button>
+                </div>
               </div>
               <!--  -->
             </div>

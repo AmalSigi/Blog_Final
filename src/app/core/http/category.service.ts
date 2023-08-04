@@ -2,8 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 @Injectable({
-    providedIn:'root'
-
+  providedIn: 'root',
 })
 export class categoryApi {
   constructor(private readonly http: HttpClient) {}
@@ -12,12 +11,15 @@ export class categoryApi {
     return this.http.get(this.url);
   }
   public postCategory(category: any): Observable<any> {
-    return this.http.post(this.url,category);
+    return this.http.post(this.url, category);
   }
-  public postSubcategory(subcategory: any,categoryId:number): Observable<any> {
-    return this.http.post(`${this.url}/${categoryId}/subcategory`,subcategory);
+  public postSubcategory(subCategoryForm: any): Observable<any> {
+    return this.http.post(
+      `${this.url}/${subCategoryForm.categoryId}/subcategory`,
+      subCategoryForm.subcategoryName
+    );
   }
-  public getSubcategory(categoryId:number): Observable<any> {
-return this.http.get(`${this.url}/${categoryId}/subcategory`);
+  public getSubcategory(categoryId: number): Observable<any> {
+    return this.http.get(`${this.url}/${categoryId}/subcategory`);
   }
 }
