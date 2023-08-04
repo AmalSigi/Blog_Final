@@ -13,7 +13,7 @@ export class SharedModelComponent implements OnInit {
   public commentDiv: boolean = false;
   public replayInputBox: boolean = false;
   public viewRelpayComments: boolean = false;
-  public parentCommentAuther: string = 'enter comments';
+  public parentCommentAuthor: string = 'enter comments';
   public parentId: any;
   public comments: any;
   public commentboxId: any;
@@ -40,6 +40,7 @@ export class SharedModelComponent implements OnInit {
   }
 
   public getComments() {
+
     this.commentsApi.getAllCommentsByPost(this.post.id).subscribe((repo) => {
       this.comments = repo;
     });
@@ -51,7 +52,7 @@ export class SharedModelComponent implements OnInit {
   //reply comments
   public replyBox(comment: any) {
     this.replayInputBox = true;
-    this.parentCommentAuther = `@${comment.author.firstName}`;
+    this.parentCommentAuthor = `@${comment.author.firstName}`;
     this.parentId = comment.id;
   }
   public sendReply() {

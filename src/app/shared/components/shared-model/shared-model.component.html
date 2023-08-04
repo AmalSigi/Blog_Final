@@ -31,7 +31,7 @@
             <ng-container *ngSwitchCase="3"
               ><p class="my-5 text-[20px] text-gray-600 text-justify">
                 <markdown>
-                  {{ postItem.content }}
+                  {{ postItem.content | formatLinks }}
                 </markdown>
               </p></ng-container
             >
@@ -163,7 +163,7 @@
           formControlName="comment"
           class="col-span-10 border-2 rounded p-2"
           type="text "
-          [placeholder]="parentCommentAuther"
+          [placeholder]="parentCommentAuthor"
         />
         <button
           (click)="sendReply()"

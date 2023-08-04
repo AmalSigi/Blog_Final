@@ -5,24 +5,34 @@
       <p class="text-sm text-black font-light">Manage your posts</p>
     </div>
     <a
-    routerLink="/newPost"
+      routerLink="/newPost"
       class="bg-blue-600 p-2 text-white font-semibold rounded-md hover:shadow-xl"
     >
       <i class="fa-solid fa-plus"></i>Add new post
-  </a>
+    </a>
   </div>
   <div class="mt-10 flex border-2 bg-gray-200">
     <a
       routerLinkActive="active-post-nav"
       routerLink="published"
+      [routerLinkActiveOptions]="{exact:true}"
       class="post-nav"
-      >Published(0)</a
+      >Published
+      <span class="bg-blue-700 text-white px-2 py-1 rounded-full">{{
+        publishCount
+      }}</span></a
     >
     <a routerLinkActive="active-post-nav" routerLink="drafts" class="post-nav"
-      >Drafts (0)</a
+      >Drafts
+      <span class="bg-blue-700 text-white px-2 py-1 rounded-full">{{
+        draftCount
+      }}</span></a
     >
     <a routerLinkActive="active-post-nav" routerLink="trashed" class="post-nav"
-      >Trashed (0)</a
+      >Trashed
+      <span class="bg-blue-700 text-white px-2 py-1 rounded-full">{{
+        trashCount
+      }}</span></a
     >
   </div>
   <div class="mt-5">

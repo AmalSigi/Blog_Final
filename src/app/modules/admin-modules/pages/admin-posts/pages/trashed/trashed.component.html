@@ -1,1 +1,5 @@
-<p>trashed works</p>
+<div *ngIf="posts?.length==0" class="h-[50%] w-full text-center">
+    <p class="text center text-">no posts</p>
+
+</div>
+<app-postList [posts]="posts"></app-postList>

@@ -39,6 +39,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { TextToolbarComponent } from './pages/admin-posts/pages/addPost/components/textToolBar/textToolBar.component';
 import { MarkdownModule } from 'ngx-markdown';
 import { tagApi } from 'src/app/core/http/tag.service';
+import { PostListComponent } from './pages/admin-posts/components/postList.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { tagApi } from 'src/app/core/http/tag.service';
     ToobarComponent,
     CommentsComponent,
     TextToolbarComponent,
+    PostListComponent,
   ],
   imports: [
     CommonModule,

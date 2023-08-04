@@ -28,11 +28,10 @@ const routes: Routes = [
     path: '',
     component: AdminComponent,
     children: [
-      {
-        path: 'posts',
-        component: AdminPostsComponent,
-        children: [
-          { path: '', component: PostPublishedComponent },
+      {path: 'posts', component:AdminPostsComponent,
+      children:[
+        {path: '', component:PostPublishedComponent,pathMatch: 'full'},
+
 
           { path: 'published', component: PostPublishedComponent },
           { path: 'drafts', component: PostDraftComponent },
