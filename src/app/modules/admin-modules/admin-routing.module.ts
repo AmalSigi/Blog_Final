@@ -32,11 +32,12 @@ const routes: Routes = [
       children:[
         {path: '', component:PostPublishedComponent,pathMatch: 'full'},
 
-        {path: 'published', component:PostPublishedComponent},
-        {path: 'drafts', component:PostDraftComponent},
-        {path: 'trashed', component:PostsTrashedComponent},
 
-      ]},
+          { path: 'published', component: PostPublishedComponent },
+          { path: 'drafts', component: PostDraftComponent },
+          { path: 'trashed', component: PostsTrashedComponent },
+        ],
+      },
       { path: '', component: AdminHomeComponent },
       { path: 'themes', component: AdminThemesComponent },
       { path: 'settings', component: AdminSettingsComponent },
@@ -71,10 +72,8 @@ const routes: Routes = [
         ],
       },
     ],
-    
   },
   { path: 'newPost', component: AddPostComponent },
-
 ];
 
 @NgModule({

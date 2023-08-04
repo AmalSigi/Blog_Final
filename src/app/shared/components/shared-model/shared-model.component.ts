@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { commentsApi } from 'src/app/core/http/comments.service';
 
 @Component({
   selector: 'app-shared-model',
@@ -17,7 +18,10 @@ export class SharedModelComponent implements OnInit {
   public comments: any;
   public commentboxId: any;
   public replayCommentData: any = [];
-  constructor(private readonly http: HttpClient) {}
+  constructor(
+    private readonly http: HttpClient,
+    private readonly commentsApi: commentsApi
+  ) {}
   public commentForm = new FormGroup({
     comment: new FormControl('', Validators.required),
     _ParentId: new FormControl('', Validators.required),
@@ -36,11 +40,11 @@ export class SharedModelComponent implements OnInit {
   }
 
   public getComments() {
-    this.http
-      .get(`http://192.168.29.97:5296/Comment/${this.post.id}/all`)
-      .subscribe((repo) => {
-        this.comments = repo;
-      });
+
+    this.commentsApi.getAllCommentsByPost(this.post.id).subscribe((repo) => {
+      this.comments = repo;
+      console.log(this.comments);
+    });
   }
   public unshowBox() {
     this.onClick.emit();
@@ -54,11 +58,8 @@ export class SharedModelComponent implements OnInit {
   }
   public sendReply() {
     this.commentForm.controls['_ParentId'].setValue(this.parentId);
-    this.http
-      .post(
-        `http://192.168.29.97:5296/Comment/new/${this.post.id}`,
-        this.commentForm.value
-      )
+    this.commentsApi
+      .postComment(this.post.id, this.commentForm.value)
       .subscribe((_repo) => {});
   }
 
@@ -85,11 +86,9 @@ export class SharedModelComponent implements OnInit {
     }
   }
   public parentIdFinder(parentId: any, comment: any) {
-    this.http
-      .get(`http://192.168.29.97:5296/Comment/${parentId}`)
-      .subscribe((repo: any) => {
-        comment.parentAuthor = repo.author.firstName;
-        this.replayCommentData.push(comment);
-      });
+    this.commentsApi.getSingleComment(parentId).subscribe((repo: any) => {
+      comment.parentAuthor = repo.author.firstName;
+      this.replayCommentData.push(comment);
+    });
   }
 }

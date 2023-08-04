@@ -75,9 +75,13 @@ import { PostListComponent } from './pages/admin-posts/components/postList.compo
     
 
   ],
-  imports: [CommonModule, AdminRoutingModule, ReactiveFormsModule,SharedModule,MarkdownModule.forRoot()],
-  providers:[postsAPi,commentsApi,categoryApi,postData]
-
-
+  imports: [
+    CommonModule,
+    AdminRoutingModule,
+    ReactiveFormsModule,
+    SharedModule,
+    MarkdownModule.forRoot(),
+  ],
+  providers: [postsAPi, commentsApi, categoryApi, postData],
 })
 export class AdminModule {}
