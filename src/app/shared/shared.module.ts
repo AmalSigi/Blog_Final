@@ -8,8 +8,18 @@ import { SharedModelComponent } from './components/shared-model/shared-model.com
 import { FormatLinksPipe } from './pipes/LinkFormating.pipe';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, SharedModelComponent,FormatLinksPipe],
-  imports: [CommonModule, ReactiveFormsModule,MarkdownModule],
-  exports: [HeaderComponent, FooterComponent, SharedModelComponent,FormatLinksPipe],
+  declarations: [
+    HeaderComponent,
+    FooterComponent,
+    SharedModelComponent,
+    FormatLinksPipe,
+  ],
+  imports: [CommonModule, ReactiveFormsModule, MarkdownModule],
+  exports: [
+    HeaderComponent,
+    FooterComponent,
+    SharedModelComponent,
+    FormatLinksPipe,
+  ],
 })
 export class SharedModule {}
