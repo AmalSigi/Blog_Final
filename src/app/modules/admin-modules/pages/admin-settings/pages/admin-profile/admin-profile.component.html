@@ -2,9 +2,13 @@
   <div class="border-2 border-gray-200 p-5 pb-36">
     <div
       (click)="showUpolodtemp()"
-      class="w-48 h-48 col-span-3 border-2 rounded-full bg-black mx-auto"
+      class="w-48 h-48 col-span-3 border-2 rounded-full mx-auto overflow-hidden"
     >
-      <img src="" alt="" />
+      <img
+        [src]="this.profileDetailes?.profilePicturePath"
+        alt="profile picture"
+        class="w-full h-full object-cover"
+      />
     </div>
 
     <button
@@ -29,10 +33,25 @@
           <input
             formControlName="first_name"
             type="text"
-            class="border-2 rounded p-2"
-            [ngClass]="{
-                    'border-red-400 ':editForm.controls['first_name'].errors?.['required']&&editForm.controls['first_name'].touched
-                  }"
+            class="border-2 rounded p-2 outline-none"
+            readonly
+          />
+        </div>
+        <div
+          *ngIf="
+            editForm.controls['middle_name'].value != null &&
+            editForm.controls['middle_name'].value != ''
+          "
+          class="grid grid-row-2 gap-2"
+        >
+          <label class="font-semibold text-base text-stone-600"
+            >Middle Name :</label
+          >
+
+          <input
+            formControlName="middle_name"
+            type="text"
+            class="border-2 rounded p-2 outline-none"
             readonly
           />
         </div>
@@ -44,7 +63,7 @@
           <input
             formControlName="last_name"
             type="text"
-            class="border-2 rounded p-2"
+            class="border-2 rounded p-2 outline-none"
             [ngClass]="{
                     'border-red-400 ':editForm.controls['last_name'].errors?.['required']&&editForm.controls['last_name'].touched
                   }"
@@ -58,10 +77,7 @@
             type="text"
             name=""
             id=""
-            class="border-2 rounded p-2"
-            [ngClass]="{
-                    'border-red-400 ':editForm.controls['email'].errors?.['required']&&editForm.controls['email'].touched
-                  }"
+            class="border-2 rounded p-2 outline-none"
             readonly
           />
         </div>
@@ -73,7 +89,7 @@
       [formGroup]="editForm"
       class="bg-white pt-5 px-36 rounded-lg w-full center"
     >
-      <div class="grid grid-row-3 gap-2 mb-2 w-full">
+      <div class="grid grid-row-5 gap-2 mb-2 w-full">
         <div class="grid grid-row-2 gap-2">
           <label class="font-semibold text-base text-stone-600"
             >First Name :</label
@@ -85,6 +101,22 @@
             [ngClass]="{
                   'border-red-400 ':editForm.controls['first_name'].errors?.['required']&&editForm.controls['first_name'].touched
                 }"
+          />
+        </div>
+        <div class="grid grid-row-2 gap-2">
+          <label class="font-semibold text-base text-stone-600"
+            >Middle Name :</label
+          >
+
+          <input
+            formControlName="middle_name"
+            type="text"
+            class="border-2 rounded p-2"
+            [ngClass]="{
+              'border-green-500 ':
+                editForm.controls['middle_name'].touched &&
+                editForm.controls['middle_name'].value != ''
+            }"
           />
         </div>
         <div class="grid grid-row-2 gap-2">
@@ -108,14 +140,66 @@
             type="text"
             name=""
             id=""
-            class="border-2 border-green-500 rounded p-2"
+            class="border-2 rounded p-2 outline-none"
+            readonly
+          />
+        </div>
+        <div class="grid grid-row-2 gap-2">
+          <label class="font-semibold text-base text-stone-600"
+            >Current Password :</label
+          >
+          <input
+            formControlName="password"
+            type="text"
+            name=""
+            id=""
+            class="border-2 rounded p-2"
             [ngClass]="{
-                  'border-red-400 ':editForm.controls['email'].errors?.['required']&&editForm.controls['email'].touched
+              'border-red-400 ':
+                editForm.controls['password'].value == '' &&
+                editForm.controls['password'].touched,
+              'border-green-500 ': editForm.controls['password'].touched
+            }"
+          />
+        </div>
+        <div class="grid grid-row-2 gap-2">
+          <label class="font-semibold text-base text-stone-600"
+            >New Password :</label
+          >
+          <input
+            formControlName="new_password"
+            type="text"
+            name=""
+            id=""
+            class="border-2 rounded p-2"
+            [ngClass]="{
+                  'border-red-400 ':editForm.controls['new_password'].errors?.['required']&&editForm.controls['new_password'].touched,
+                  'border-green-500 ':editForm.controls['new_password'].touched
                 }"
           />
         </div>
+        <div class="grid grid-row-2 gap-2">
+          <label class="font-semibold text-base text-stone-600"
+            >Confirm Password :</label
+          >
+          <input
+            formControlName="confirm_password"
+            type="text"
+            name=""
+            id=""
+            class="border-2 rounded p-2 outline-none"
+            [ngClass]="{
+              'border-red-400':
+                editForm.controls['confirm_password'].value !=
+                editForm.controls['new_password'].value&&editForm.controls['new_password'].touched,
+              'border-green-500':
+                editForm.controls['confirm_password'].value ===
+                editForm.controls['new_password'].value&& editForm.controls['new_password'].touched,
+            }"
+          />
+        </div>
         <button
-          (click)="edit()"
+          (click)="update()"
           class="px-4 py-2 bg-green-500 hover:bg-green-400 mx-auto text-white rounded mt-5"
         >
           Save
@@ -187,7 +271,7 @@
         <img [src]="selectedPic" alt="" />
 
         <button
-          (click)="uploadImg()"
+          (click)="updateProfilePicture()"
           class="bg-blue-500 px-3 py-2 mx-5 rounded hover:bg-blue-600 text-white"
         >
           Upload

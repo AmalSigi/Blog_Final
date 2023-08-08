@@ -15,7 +15,5 @@ export class SubCategoryComponent implements OnInit {
   public modelUnShow(): void {
     const value: boolean = false;
     this.childEvent.emit(value);
-
-    console.log('hi');
   }
 }
