@@ -2,30 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities{
-    .admin-navbar{
-        @apply mb-5 hover:bg-slate-700 p-2 hover:text-gray-300;
-    }
-    .admin-login{
-      background-image: url("https://images.pexels.com/photos/9180717/pexels-photo-9180717.jpeg?auto=compress&cs=tinysrgb&w=1600");
-    }
-    .post-nav{
-        @apply p-6 hover:bg-white
-    }
-    .active-post-nav{
-        @apply border-b-black border-2 text-blue-600
-    }
-   
-    .media-box{
-        @apply w-44 h-96 bg-red-400
-    }
-    .external-link{
-        @apply text-blue-600 underline
-    }
-   
+@layer utilities {
+  .admin-navbar {
+    @apply mb-5 hover:bg-red-600 p-3 hover:text-white;
+  }
+  .admin-login {
+    background-image: url("https://images.pexels.com/photos/399160/pexels-photo-399160.jpeg");
+  }
+  .post-nav {
+    @apply p-6 hover:bg-white;
+  }
+  .active-post-nav {
+    @apply border-b-black border-2 text-blue-600;
+  }
+
+  .media-box {
+    @apply w-44 h-96 bg-red-400;
+  }
+  .external-link {
+    @apply text-blue-600 underline;
+  }
 }
 
-.content-block{
-    margin-top: 5rem;
+.content-block {
+  margin-top: 5rem;
   outline: hidden;
-  }
+}

@@ -6,18 +6,22 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { categoryApi } from 'src/app/core/http/category.service';
-import { postData } from 'src/app/core/services/posts.services';
+import { tagApi } from 'src/app/core/http/tag.service';
 
 @Component({
   selector: 'app-postFeatures',
   templateUrl: './postFeatures.component.html',
 })
 export class PostFeaturesComponent implements OnInit {
-  constructor(private readonly categoryService: categoryApi) {}
+  constructor(
+    private readonly categoryService: categoryApi,
+    private readonly tagsService: tagApi
+  ) {}
   public category!: any[];
   public tags!: any[];
+  public filteredTags!: any[];
   public selectedTags: any = [];
   public subCategory!: any[];
   public selectDropDown!: string;
@@ -42,9 +46,18 @@ export class PostFeaturesComponent implements OnInit {
     ),
   });
   ngOnInit(): void {
+    this.getData();
+  }
+  public getData() {
     this.categoryService.getCategory().subscribe({
       next: (res) => {
         this.category = res;
+      },
+    });
+    this.tagsService.getTags().subscribe({
+      next: (response) => {
+        console.log(response);
+        this.tags = response;
       },
     });
   }
@@ -66,11 +79,15 @@ export class PostFeaturesComponent implements OnInit {
 
     this.selectDropDown = '';
   }
-  onInputChange(event: any): void {
-    // this.tags = this.postService.tags.filter((tag) =>
-    //   tag.tag.toLowerCase().includes(event.target.value.toLowerCase())
-    // );
-  }
+
+  public onInputChange(event: any): void {
+   
+      const inputValue = event.target.value.trim().toLowerCase();
+      this.filteredTags = this.tags.filter((tag: any) =>
+        tag.tagName.toLowerCase().includes(inputValue)
+      );
+    }
+  
   addTag(tag: string): void {
     this.selectedTags?.push(tag);
   }

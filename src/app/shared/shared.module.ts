@@ -6,6 +6,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SharedModelComponent } from './components/shared-model/shared-model.component';
 import { FormatLinksPipe } from './pipes/LinkFormating.pipe';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { FormatLinksPipe } from './pipes/LinkFormating.pipe';
     FooterComponent,
     SharedModelComponent,
     FormatLinksPipe,
+    PaginationComponent
   ],
   imports: [CommonModule, ReactiveFormsModule, MarkdownModule],
   exports: [
@@ -20,6 +22,7 @@ import { FormatLinksPipe } from './pipes/LinkFormating.pipe';
     FooterComponent,
     SharedModelComponent,
     FormatLinksPipe,
+    PaginationComponent
   ],
 })
 export class SharedModule {}

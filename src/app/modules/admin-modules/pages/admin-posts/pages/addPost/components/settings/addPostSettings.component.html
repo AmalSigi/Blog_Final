@@ -1,22 +1,33 @@
-<section class="border-2 border-black mr-5 w-[25%] absolute right-0 top-2 h-full rounded-lg p-5 bg-white">
+<section
+  class="border-2 border-black mr-5 w-[25%] absolute right-0 top-2 h-full rounded-lg p-5 bg-white"
+>
   <h1 class="text-xl font-semibol p-3 border-b-2">Image Settings</h1>
   <div class="flex justify-around mt-3">
     <button class="click:border-b-2">Media</button>
     <button>settings</button>
   </div>
 
-  <section class=" w-full h-[90%] overflow-auto container mx-auto px-2">
-    <ul>
+  <section class="w-full h-[90%] overflow-auto container mx-auto px-2">
+    <ul [ngSwitch]="mediaType">
       <li
         (click)="sendImage(image.mediaPath)"
         class="border-2 p-b-3"
         *ngFor="let image of images"
       >
-        <img
-          class="w-[80%] h-52"
-          [src]="'http://192.168.29.97:5296/assets/' + image.mediaPath"
-          alt="load"
-        />
+        <ng-container *ngSwitchCase="4">
+          <img
+            class="w-[80%] h-52"
+            [src]="'http://192.168.29.97:5296/assets/' + image.mediaPath"
+            alt="load"
+          />
+        </ng-container>
+        <ng-container *ngSwitchCase="5">
+          <video
+          controls
+          autoplay
+            [src]="'http://192.168.29.97:5296/assets/' + image.mediaPath"
+          ></video>
+        </ng-container>
       </li>
     </ul>
   </section>

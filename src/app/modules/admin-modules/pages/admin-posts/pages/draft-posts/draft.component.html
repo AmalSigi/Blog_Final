@@ -2,4 +2,7 @@
     <p class="text center text-xl">No posts</p>
 
 </div>
-<app-postList [posts]="posts"></app-postList>
+<app-postList [posts]="posts"
+(paginate)="pagiantion()"
+[offsetValue]="offsetValue"
+[pageLength]="pageLength"></app-postList>

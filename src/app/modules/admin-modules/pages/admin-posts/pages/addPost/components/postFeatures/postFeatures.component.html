@@ -75,7 +75,7 @@
             *ngFor="let tag of selectedTags,let i=index"
             class="bg-red-400 text-white p-2 rounded-lg flex gap-2"
           >
-            <p>#{{ tag.tag }}</p>
+            <p>{{ tag.tagName }}</p>
             <button (click)="removeTag(i)"><i class="fa-solid fa-xmark"></i></button>
           </div>
         </div>
@@ -84,9 +84,9 @@
             <li
               (click)="addTag(tag)"
               class="hover:bg-red-600 hover:text-white border-b-2"
-              *ngFor="let tag of tags"
+              *ngFor="let tag of filteredTags"
             >
-              <p class="text-lg font-semibold p-2"># {{ tag.tag }}</p>
+              <p class="text-lg font-semibold p-2">{{ tag.tagName }}</p>
             </li>
           </ul>
         </div>

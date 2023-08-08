@@ -79,6 +79,6 @@ import { PostListComponent } from './pages/admin-posts/components/postList.compo
     SharedModule,
     MarkdownModule.forRoot(),
   ],
-  providers: [postsAPi, commentsApi, categoryApi, tagApi, postData],
+  providers: [postsAPi, commentsApi, categoryApi, postData,tagApi],
 })
 export class AdminModule {}

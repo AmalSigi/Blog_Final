@@ -4,4 +4,9 @@ import { Component } from '@angular/core';
   selector: 'app-admin',
   templateUrl: './admin.component.html',
 })
-export class AdminComponent {}
+export class AdminComponent {
+  public navBar: boolean=false;
+  public showNavbar(){
+    this.navBar = false;
+  }
+}
