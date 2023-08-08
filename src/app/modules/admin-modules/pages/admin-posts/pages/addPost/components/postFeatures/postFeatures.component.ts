@@ -6,10 +6,9 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { categoryApi } from 'src/app/core/http/category.service';
 import { tagApi } from 'src/app/core/http/tag.service';
-import { postData } from 'src/app/core/services/posts.services';
 
 @Component({
   selector: 'app-postFeatures',

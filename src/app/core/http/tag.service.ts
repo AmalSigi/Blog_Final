@@ -18,4 +18,12 @@ public postTags(body:string):Observable<any>{
 public getTagsById(id:number):Observable<any>{
     return this.http.get(`${this.url}/${id}`);
 }
+public addTag(tag: any): Observable<any> {
+  return this.http.post(`${this.url}`, tag);
 }
+public getTagById(tagId: number): Observable<any> {
+  return this.http.get(`${this.url}/${tagId}`);
+}
+}
+
+

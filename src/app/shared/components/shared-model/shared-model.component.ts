@@ -43,7 +43,6 @@ export class SharedModelComponent implements OnInit {
 
     this.commentsApi.getAllCommentsByPost(this.post.id).subscribe((repo) => {
       this.comments = repo;
-      console.log(this.comments);
     });
   }
   public unshowBox() {
@@ -90,5 +89,10 @@ export class SharedModelComponent implements OnInit {
       comment.parentAuthor = repo.author.firstName;
       this.replayCommentData.push(comment);
     });
+  }
+
+  public delectComment(commentId: number) {
+    console.log(commentId);
+    this.commentsApi.removeComment(commentId).subscribe((respo) => {});
   }
 }

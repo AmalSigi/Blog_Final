@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -6,6 +7,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   templateUrl: './admin-profile.component.html',
 })
 export class AdminProfileComponent {
+  constructor(private readonly http: HttpClient) {}
   public fileToUpload!: File;
   public selectedPic!: any;
   public editOn: boolean = false;
@@ -38,5 +40,14 @@ export class AdminProfileComponent {
     pic.onload = () => {
       this.selectedPic = pic.result;
     };
+  }
+
+  public uploadImg() {
+    console.log(this.fileToUpload);
+    // this.http
+    //   .post('http://192.168.29.97:5296/Media', this.fileToUpload)
+    //   .subscribe((respo) => {
+    //     console.log(respo);
+    //   });
   }
 }

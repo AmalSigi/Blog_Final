@@ -18,7 +18,9 @@
   </div>
 </nav>
 <!-- toolbar -->
-<section class="grid md:flex overflow-hidden mt-24 fixed h-screen w-full gap-5 p-5">
+<section
+  class="grid md:flex overflow-hidden mt-24 fixed h-screen w-full gap-5 p-5"
+>
   <div class="block w-[30%] lg:w-[20%] p-3 h-full">
     <div class="flex md:grid gap-3 md:border-2 py-5">
       <button
@@ -58,7 +60,9 @@
     </div>
   </div>
   <!-- edit page -->
-  <div class="container mx-auto w-full h-screen overflow-y-auto pb-20 border-t-2 md:border-0">
+  <div
+    class="container mx-auto w-full h-screen overflow-y-auto pb-20 border-t-2 md:border-0"
+  >
     <form [formGroup]="blogForm" *ngFor="let item of dynamicDiv; let i = index">
       <div class="pb-20 w-full">
         <ng-container [ngSwitch]="item.type">
@@ -92,14 +96,15 @@
           </ng-container>
           <!-- For paragraph type -->
           <ng-container *ngSwitchCase="3">
-            <app-text-Toolbar *ngIf="sectionId == i && TextToolBar"
-            (boldSelected)="onTextSelected($event)"
-            (sendUrl)="getUrl($event)"
-            [text]="selectedTextarea"
+            <app-text-Toolbar
+              *ngIf="sectionId == i && TextToolBar"
+              (boldSelected)="onTextSelected($event)"
+              (sendUrl)="getUrl($event)"
+              [text]="selectedTextarea"
             ></app-text-Toolbar>
             <textarea
-            #myTextarea
-            (mouseup)="getSelectedWord($event)"
+              #myTextarea
+              (mouseup)="getSelectedWord($event)"
               (click)="sectionId = i"
               rows="10"
               cols="80"
