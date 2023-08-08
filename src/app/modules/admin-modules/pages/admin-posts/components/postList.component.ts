@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input } from "@angular/core";
+import { Component, ElementRef, EventEmitter, Input, Output } from "@angular/core";
 import { postsAPi } from "src/app/core/http/post.service";
 
 @Component({
@@ -15,6 +15,8 @@ export class PostListComponent{
     public showDiv:boolean=true;
     public listIndex!:number;
     @Input() posts:any;
+    @Input() offsetValue!:number;
+    @Input() pageLength!:number;
     ngOnInit() {
       
     
@@ -37,5 +39,9 @@ export class PostListComponent{
           // Clicked outside the child component, close it
           this.showDiv=false;
       }
+      }
+      @Output() paginate =new EventEmitter();
+      public emitPages(){
+this.paginate.emit()
       }
 }

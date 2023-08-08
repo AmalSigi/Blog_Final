@@ -56,6 +56,11 @@
         </li>
       </ul>
     </div>
+    <app-pagination *ngIf="posts" [offsetValue]="offsetValue"
+    (emitPage)="emitPages()"
+    [lengthValue]="pageLength"
+    [totalData]="posts"
+    ></app-pagination>
   </section>
   <app-shared-model
     *ngIf="commentDiv"

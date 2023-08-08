@@ -21,11 +21,9 @@ ngOnInit() {
  
 }
 public loadPosts(){
-  this.postsService.getPosts().subscribe({
+  this.postsService.getFilteredPosts('Active',0,10).subscribe({
     next:(response)=>{
-console.log(response);
-
-        this.posts = response.filter((post:any)=>post.postStatus=='Active');
+        this.posts = response;
     }
  })
 }

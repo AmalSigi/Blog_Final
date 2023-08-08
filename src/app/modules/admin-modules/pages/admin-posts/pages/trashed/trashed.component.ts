@@ -13,12 +13,10 @@ export class PostsTrashedComponent{
         this.loadPosts();
     }
         public loadPosts(){
-            this.postsService.getPosts().subscribe({
-              next:(response)=>{
-          console.log(response);
-          
-                  this.posts = response.filter((post:any)=>post.postStatus=='Deleted');
-              }
-           })
+            this.postsService.getFilteredPosts('Deleted',0,10).subscribe({
+                next:(response)=>{
+                    this.posts = response;
+                }
+             })
         }
 }

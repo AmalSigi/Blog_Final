@@ -39,6 +39,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { TextToolbarComponent } from './pages/admin-posts/pages/addPost/components/textToolBar/textToolBar.component';
 import { MarkdownModule } from 'ngx-markdown';
 import { PostListComponent } from './pages/admin-posts/components/postList.component';
+import { tagApi } from 'src/app/core/http/tag.service';
 
 @NgModule({
   declarations: [
@@ -69,11 +70,7 @@ import { PostListComponent } from './pages/admin-posts/components/postList.compo
     ToobarComponent,
     CommentsComponent,
     TextToolbarComponent,
-    PostListComponent
-  
-  
-    
-
+    PostListComponent,
   ],
   imports: [
     CommonModule,
@@ -82,6 +79,6 @@ import { PostListComponent } from './pages/admin-posts/components/postList.compo
     SharedModule,
     MarkdownModule.forRoot(),
   ],
-  providers: [postsAPi, commentsApi, categoryApi, postData],
+  providers: [postsAPi, commentsApi, categoryApi, postData,tagApi],
 })
 export class AdminModule {}

@@ -178,7 +178,7 @@
                 controls
                 autoplay
                 class="w-[80%] h-[400px] border mt-3"
-                [src]="item?.dataURL"
+                [src]="mediaFilePath + item?.dataURL"
                 alt=""
               ></video>
             </div>
@@ -193,13 +193,10 @@
       </div>
       <div class="h-full w-full">
         <app-addPostSettings
-          *ngIf="showToolBar"
+          *ngIf="currentTool==4 || currentTool==5"
           (sendURL)="setImageUrl($event)"
           (onChange)="changeImageSize($event)"
-          [height]="imgHeight"
-          [width]="imgWidth"
-          [objectFit]="objectFit"
-          [aspectRatio]="aspectRatio"
+         [mediaType]="currentTool"
         ></app-addPostSettings>
       </div>
     </form>

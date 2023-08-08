@@ -35,4 +35,7 @@ export class postsAPi {
   public disableComments(postId: number): Observable<any> {
     return this.http.patch(`${this.url}/${postId}/disablecomments`, {});
   }
+  public getFilteredPosts(params: string,offset:number,length:number): Observable<any>{
+    return this.http.get(`${this.url}/all?filter=${params}&offset=${offset}&length=${length}`);
+  }
 }

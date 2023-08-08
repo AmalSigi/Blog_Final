@@ -65,25 +65,7 @@ export class AddPostComponent implements OnInit {
   selectTool(type: number) {
     this.currentTool = type;
     this.sectionId++;
-    if (type == 4) {
-      this.showToolBar = true;
-    }
-    switch (type) {
-      case 2:
-        this.dynamicFormControls.push(this.formbuilder.control(''));
-        break;
-      case 3:
-        this.dynamicFormControls.push(this.formbuilder.control(''));
-        break;
-      case 4:
-        this.dynamicFormControls.push(this.formbuilder.control(null));
-        break;
-      case 5:
-        this.dynamicFormControls.push(this.formbuilder.control(null));
-        break;
-      default:
-        break;
-    }
+    this.dynamicFormControls.push(this.formbuilder.control(''));
     this.createFormData(type);
   }
   public createFormData(type: number) {
@@ -99,31 +81,21 @@ export class AddPostComponent implements OnInit {
   }
   public editTool(data: any): void {
     console.log(data.postSections);
-
+this.sectionId++;
     data.postSections.forEach((element: any) => {
+      
       switch (element.sectionTypeId) {
-        case 1:
-          this.dynamicFormControls.push(
-            this.formbuilder.control(element.content)
-          );
-          break;
-        case 2:
-          this.dynamicFormControls.push(
-            this.formbuilder.control(element.content)
-          );
-          break;
-        case 3:
-          this.dynamicFormControls.push(
-            this.formbuilder.control(element.content)
-          );
-          break;
-        case 4:
+        case 4 || 5:
           this.dynamicFormControls.push(this.formbuilder.control(''));
+
           break;
-        case 5:
-          this.dynamicFormControls.push(this.formbuilder.control(''));
-          break;
+       
         default:
+          this.dynamicFormControls.push(
+            this.formbuilder.control(element.content)
+          );
+
+
           break;
       }
       const dynamicElement: DynamicDIvElement = {

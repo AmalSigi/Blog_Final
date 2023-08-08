@@ -1,16 +1,16 @@
-<section class="md:block h-screen bg-gray-800">
+<section class="md:block h-screen bg-white shadow-2xl">
   <div class="flex items-center gap-3 border-b-2 pb-5 px-5 pt-3">
     <div class="w-16 h-16 bg-gray-400 rounded-full overflow-hidden">
       <img src="" alt="" />
     </div>
     <div>
-      <p class="text-white font-semibold">username</p>
+      <p  class="text-black font-semibold">username</p>
     </div>
-    <button class=""><i class="fa-solid fa-xmark"></i></button>
+    <button (click)="closeNavbar()" class="md:hidden ml-"><i class="fa-solid fa-xmark"></i></button>
   </div>
-  <nav class="p-6 text-gray-300">
-    <ul class="text-xl font-semibold">
-      <li class="admin-navbar">
+  <nav class=" text-black">
+    <ul (click)="closeNavbar()" class="text-xl font-semibold">
+      <li  class="admin-navbar">
         <a routerLink=""
         ><i class="fa-solid fa-house mr-3"></i>Home</a>
       </li>
