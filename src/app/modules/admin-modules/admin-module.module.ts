@@ -40,6 +40,13 @@ import { TextToolbarComponent } from './pages/admin-posts/pages/addPost/componen
 import { MarkdownModule } from 'ngx-markdown';
 import { tagApi } from 'src/app/core/http/tag.service';
 import { PostListComponent } from './pages/admin-posts/components/postList.component';
+import { authenticationApi } from 'src/app/core/http/authentication.service';
+import { userApi } from 'src/app/core/http/userAccount.services';
+import { AuthInterceptor } from 'src/app/core/Interceptor/token.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { UsersDetailsComponents } from './pages/admin-home/component/userDetails/userDetails.component';
+import { UserPostsComponent } from './pages/admin-home/component/userDetails/pages/userPostList/userPostList.component';
+import { RegisterComponent } from './pages/admin-home/component/userDetails/pages/userRegister/userRegister.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +78,9 @@ import { PostListComponent } from './pages/admin-posts/components/postList.compo
     CommentsComponent,
     TextToolbarComponent,
     PostListComponent,
+    UsersDetailsComponents,
+    UserPostsComponent,
+    RegisterComponent
   ],
   imports: [
     CommonModule,
@@ -79,6 +89,15 @@ import { PostListComponent } from './pages/admin-posts/components/postList.compo
     SharedModule,
     MarkdownModule.forRoot(),
   ],
-  providers: [postsAPi, commentsApi, categoryApi, postData,tagApi],
+  providers: [
+    postsAPi,
+    commentsApi,
+    categoryApi,
+    postData,
+    tagApi,
+    authenticationApi,
+    userApi,
+    
+  ],
 })
 export class AdminModule {}

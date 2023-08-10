@@ -2,8 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 @Injectable({
-    providedIn:'root'
-
+  providedIn: 'root',
 })
 export class postsAPi {
   constructor(private readonly http: HttpClient) {}
@@ -21,7 +20,7 @@ export class postsAPi {
     return this.http.get(`${this.url}/${postId}`);
   }
   public approvePost(postId: number): Observable<any> {
-    return this.http.patch(`${this.url}/${postId}/apporove`, {});
+    return this.http.patch(`${this.url}/${postId}/publish`, {});
   }
   public deletePost(postId: number): Observable<any> {
     return this.http.delete(`${this.url}/${postId}/delete`);
@@ -35,7 +34,16 @@ export class postsAPi {
   public disableComments(postId: number): Observable<any> {
     return this.http.patch(`${this.url}/${postId}/disablecomments`, {});
   }
-  public getFilteredPosts(params: string,offset:number,length:number): Observable<any>{
-    return this.http.get(`${this.url}/all?filter=${params}&offset=${offset}&length=${length}`);
+  public getFilteredPosts(
+    params: string,
+    offset: number,
+    length: number
+  ): Observable<any> {
+    return this.http.get(
+      `${this.url}/all?status=${params}&offset=${offset}&length=${length}`
+    );
+  }
+  public authorizedPosts(authorId:number):Observable<any> {
+    return this.http.get(`${this.url}/${authorId}/authoredPosts`)
   }
 }

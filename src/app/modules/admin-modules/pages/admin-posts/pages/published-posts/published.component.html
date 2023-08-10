@@ -2,4 +2,8 @@
     <p class="text center text-xl">no posts</p>
 
 </div>
-<app-postList [posts]="posts"></app-postList>
+<app-postList
+(paginate)="pagiantion()"
+[totalData]="totalData"
+[pageLength]="pageLength"
+[posts]="posts?.posts"></app-postList>

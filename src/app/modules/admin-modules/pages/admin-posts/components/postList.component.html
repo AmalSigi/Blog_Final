@@ -2,6 +2,23 @@
     <div hidden>
       <p class="text-center text-2xl font-semibold">No posts found.</p>
     </div>
+    <div
+    *ngIf="!posts"
+    class="flex w-full container mx-auto justify-center"
+  >
+    <div class="flex items-center pointer-events-none pl-10">
+      <div
+        class="animate-spin inline-block w-8 h-8 border-[3px] border-current border-t-transparent text-red-900 rounded-full"
+        role="status"
+        aria-label="loading"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <p class="m-3 italic bold text-black text-xl font-bold">
+      Please Wait...
+    </p>
+  </div>
     <div class="relative">
       <ul>
         <li
@@ -27,6 +44,12 @@
                 <span><i class="fa-solid fa-pen-to-square"></i> </span>
                 <a routerLink="/newPost" [queryParams]="{postId:post.id}">Edit</a>
               </li>
+              <a (click)="publishPost(post.id)" >  <li
+              class="hover:bg-red-600 hover:text-white p-3 flex items-center gap-2"
+            >
+              <span><i class="fa-solid fa-upload"></i> Publish</span>
+              
+            </li></a>
               <li
                 class="hover:bg-red-600 hover:text-white p-3 flex items-center gap-2"
               >
@@ -45,11 +68,13 @@
                 <span><i class="fa-solid fa-comments"></i></span>
                 <a href=""> comments</a>
               </li>
+             
               <li
+              (click)="deletePost(post.id)"
                 class="hover:bg-red-600 hover:text-white p-3 flex items-center gap-2"
               >
-                <span><i class="fa-solid fa-trash"></i></span>
-                <a href=""> delete</a>
+                <span><i class="fa-solid fa-trash"></i> delete</span>
+               
               </li>
             </ul>
           </div>
@@ -57,6 +82,7 @@
       </ul>
     </div>
     <app-pagination *ngIf="posts" [offsetValue]="offsetValue"
+[totalLength]="totalData"
     (emitPage)="emitPages()"
     [lengthValue]="pageLength"
     [totalData]="posts"

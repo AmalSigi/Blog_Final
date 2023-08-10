@@ -93,7 +93,7 @@ export class PostFeaturesComponent implements OnInit {
   }
   removeTag(id: number): void {
     console.log(id);
-    this.selectedTags.splice(id, 1);
+    this.selectedTags.splice(id,1);
   }
   ToOpenCreatePage() {
     this.createPost.emit(this.featureForm.value);

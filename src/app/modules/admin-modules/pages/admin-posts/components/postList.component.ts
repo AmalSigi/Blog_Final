@@ -17,6 +17,7 @@ export class PostListComponent{
     @Input() posts:any;
     @Input() offsetValue!:number;
     @Input() pageLength!:number;
+    @Input() totalData!:number;
     ngOnInit() {
       
     
@@ -43,5 +44,25 @@ export class PostListComponent{
       @Output() paginate =new EventEmitter();
       public emitPages(){
 this.paginate.emit()
+      }
+      public publishPost(id:number){
+        this.postsService.approvePost(id).subscribe({
+          next:()=>{
+            alert('post successfully approved')
+          },
+          error:()=>{
+            alert('error');
+          }
+        })
+      }
+      public deletePost(id:number):void {
+        this.postsService.deletePost(id).subscribe({
+          next:()=>{
+            alert('delete successfully');
+          },
+          error:()=>{
+            alert('error');
+          }
+        })
       }
 }
