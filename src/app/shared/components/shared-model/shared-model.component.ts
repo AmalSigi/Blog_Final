@@ -18,10 +18,7 @@ export class SharedModelComponent implements OnInit {
   public comments: any;
   public commentboxId: any;
   public replayCommentData: any = [];
-  constructor(
-    private readonly http: HttpClient,
-    private readonly commentsApi: commentsApi
-  ) {}
+  constructor(private readonly commentsApi: commentsApi) {}
   public commentForm = new FormGroup({
     comment: new FormControl('', Validators.required),
     _ParentId: new FormControl('', Validators.required),
@@ -40,7 +37,6 @@ export class SharedModelComponent implements OnInit {
   }
 
   public getComments() {
-
     this.commentsApi.getAllCommentsByPost(this.post.id).subscribe((repo) => {
       this.comments = repo;
     });

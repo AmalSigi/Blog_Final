@@ -2,8 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 @Injectable({
-    providedIn:'root'
-
+  providedIn: 'root',
 })
 export class postsAPi {
   constructor(private readonly http: HttpClient) {}
@@ -35,7 +34,30 @@ export class postsAPi {
   public disableComments(postId: number): Observable<any> {
     return this.http.patch(`${this.url}/${postId}/disablecomments`, {});
   }
-  public getFilteredPosts(params: string,offset:number,length:number): Observable<any>{
-    return this.http.get(`${this.url}/all?filter=${params}&offset=${offset}&length=${length}`);
+  public getFilteredPosts(
+    params: string,
+    offset: number,
+    length: number
+  ): Observable<any> {
+    return this.http.get(
+      `${this.url}/all?filter=${params}&offset=${offset}&length=${length}`
+    );
+  }
+  public getLatestPosts(length: number): Observable<any> {
+    return this.http.get(`${this.url}/blog/all?length=${length}`);
+  }
+
+  public getRecommendedPost(postId: number): Observable<any> {
+    return this.http.get(`${this.url}/${postId}/getsuggestions`);
+  }
+
+  public getPostByCategory(categoryId: number): Observable<any> {
+    return this.http.get(`${this.url}/category/${categoryId}`);
+  }
+  public getPostByCategoryByLength(
+    categoryId: number,
+    offset: number
+  ): Observable<any> {
+    return this.http.get(`${this.url}/category/${categoryId}?length=${offset}`);
   }
 }
