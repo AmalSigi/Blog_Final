@@ -114,7 +114,7 @@
             class="border-2 rounded p-2"
             [ngClass]="{
               'border-green-500 ':
-                editForm.controls['middle_name'].touched &&
+                editForm.controls['middle_name'].touched ||
                 editForm.controls['middle_name'].value != ''
             }"
           />
@@ -144,66 +144,79 @@
             readonly
           />
         </div>
-        <div class="grid grid-row-2 gap-2">
-          <label class="font-semibold text-base text-stone-600"
-            >Current Password :</label
-          >
-          <input
-            formControlName="password"
-            type="text"
-            name=""
-            id=""
-            class="border-2 rounded p-2"
-            [ngClass]="{
-              'border-red-400 ':
-                editForm.controls['password'].value == '' &&
-                editForm.controls['password'].touched,
-              'border-green-500 ': editForm.controls['password'].touched
-            }"
-          />
-        </div>
-        <div class="grid grid-row-2 gap-2">
-          <label class="font-semibold text-base text-stone-600"
-            >New Password :</label
-          >
-          <input
-            formControlName="new_password"
-            type="text"
-            name=""
-            id=""
-            class="border-2 rounded p-2"
-            [ngClass]="{
-                  'border-red-400 ':editForm.controls['new_password'].errors?.['required']&&editForm.controls['new_password'].touched,
-                  'border-green-500 ':editForm.controls['new_password'].touched
-                }"
-          />
-        </div>
-        <div class="grid grid-row-2 gap-2">
-          <label class="font-semibold text-base text-stone-600"
-            >Confirm Password :</label
-          >
-          <input
-            formControlName="confirm_password"
-            type="text"
-            name=""
-            id=""
-            class="border-2 rounded p-2 outline-none"
-            [ngClass]="{
-              'border-red-400':
-                editForm.controls['confirm_password'].value !=
-                editForm.controls['new_password'].value&&editForm.controls['new_password'].touched,
-              'border-green-500':
-                editForm.controls['confirm_password'].value ===
-                editForm.controls['new_password'].value&& editForm.controls['new_password'].touched,
-            }"
-          />
-        </div>
         <button
-          (click)="update()"
-          class="px-4 py-2 bg-green-500 hover:bg-green-400 mx-auto text-white rounded mt-5"
+        (click)="update()"
+        class="px-4 py-2 bg-green-500 hover:bg-green-400 mx-auto text-white rounded mt-5"
+      >
+        Save
+      </button>
+        <div>
+          <button (click)="editPassword=!editPassword" class="bg-blue-600 text-white p-2 rounded-xl mt-5">Edit Password</button>
+        </div>
+        <div *ngIf="editPassword">
+          <div class="grid grid-row-2 gap-2">
+            <label class="font-semibold text-base text-stone-600"
+              >Current Password :</label
+            >
+            <input
+              formControlName="password"
+              type="text"
+              name=""
+              id=""
+              class="border-2 rounded p-2"
+              [ngClass]="{
+                'border-red-400 ':
+                  editForm.controls['password'].value == '' &&
+                  editForm.controls['password'].touched,
+                'border-green-500 ': editForm.controls['password'].touched
+              }"
+            />
+          </div>
+          <div class="grid grid-row-2 gap-2">
+            <label class="font-semibold text-base text-stone-600"
+              >New Password :</label
+            >
+            <input
+              formControlName="new_password"
+              type="text"
+              name=""
+              id=""
+              class="border-2 rounded p-2"
+              [ngClass]="{
+                    'border-red-400 ':editForm.controls['new_password'].errors?.['required']&&editForm.controls['new_password'].touched,
+                    'border-green-500 ':editForm.controls['new_password'].touched
+                  }"
+            />
+          </div>
+          <div class="grid grid-row-2 gap-2">
+            <label class="font-semibold text-base text-stone-600"
+              >Confirm Password :</label
+            >
+            <input
+              formControlName="confirm_password"
+              type="text"
+              name=""
+              id=""
+              class="border-2 rounded p-2 outline-none"
+              [ngClass]="{
+                'border-red-400':
+                  editForm.controls['confirm_password'].value !=
+                  editForm.controls['new_password'].value&&editForm.controls['new_password'].touched,
+                'border-green-500':
+                  editForm.controls['confirm_password'].value ===
+                  editForm.controls['new_password'].value&& editForm.controls['new_password'].touched,
+              }"
+            />
+          </div>
+          <button
+          (click)="updatePassword()"
+          class="px-4 py-2 flex justify-center bg-green-500 hover:bg-green-400 mx-auto text-white rounded mt-5"
         >
           Save
         </button>
+        </div>
+      
+       
       </div>
     </form>
   </div>

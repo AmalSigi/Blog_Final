@@ -41,7 +41,7 @@ import { MarkdownModule } from 'ngx-markdown';
 import { tagApi } from 'src/app/core/http/tag.service';
 import { PostListComponent } from './pages/admin-posts/components/postList.component';
 import { authenticationApi } from 'src/app/core/http/authentication.service';
-import { userApi } from 'src/app/core/http/userAccount.services';
+import { userApi } from 'src/app/core/http/userAccount.service';
 import { AuthInterceptor } from 'src/app/core/Interceptor/token.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UsersDetailsComponents } from './pages/admin-home/component/userDetails/userDetails.component';

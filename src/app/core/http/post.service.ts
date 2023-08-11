@@ -46,4 +46,8 @@ export class postsAPi {
   public authorizedPosts(authorId:number):Observable<any> {
     return this.http.get(`${this.url}/${authorId}/authoredPosts`)
   }
+  public totalViews(status:string):Observable<any>{
+    return this.http.get(`${this.url}/totalviewcount?status=${status}`)
+
+  }
 }

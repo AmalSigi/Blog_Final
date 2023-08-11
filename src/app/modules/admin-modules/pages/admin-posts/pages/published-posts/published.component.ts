@@ -19,7 +19,6 @@ public posts:any;
 public viewPost:any;
 public showDiv:boolean=true;
 public listIndex!:number;
-public pageLength=5;
 public totalData!:number;
 ngOnInit() {
   this.loadPosts();
@@ -28,7 +27,7 @@ ngOnInit() {
 public loadPosts(){
   const offset = this.toggleOffset.offset();
 
-  this.postsService.getFilteredPosts('Active',offset, this.pageLength).subscribe({
+  this.postsService.getFilteredPosts('Active',offset, this.toggleOffset.pageSize).subscribe({
     next:(response)=>{
         this.posts = response;
         this.totalData=response.totalLength;

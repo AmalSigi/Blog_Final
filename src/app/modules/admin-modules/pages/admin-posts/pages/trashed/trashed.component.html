@@ -2,4 +2,7 @@
     <p class="text center text-">no posts</p>
 
 </div>
-<app-postList [posts]="posts?.posts"></app-postList>
+<app-postList [posts]="posts?.posts"
+[totalData]="totalData"
+(paginate)="pagiantion()"
+></app-postList>

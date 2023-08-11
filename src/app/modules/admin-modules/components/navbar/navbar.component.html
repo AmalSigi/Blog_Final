@@ -28,23 +28,23 @@
   </div>
   <nav class="text-black">
     <ul (click)="closeNavbar()" class="text-xl font-semibold px-3">
-      <li class="admin-navbar">
-        <a routerLink=""><i class="fa-solid fa-house mr-3"></i>Home</a>
-      </li>
-      <li class="admin-navbar">
-        <a routerLink="posts"><i class="fa-solid fa-file-pen mr-3"></i>Posts</a>
-      </li>
-      <li class="admin-navbar">
-        <a routerLink="admin-comments"
-          ><i class="fa-solid fa-comment mr-3"></i>Comments</a
-        >
-      </li>
-      <li class="admin-navbar">
-        <a routerLink="themes"><i class="fa-solid fa-brush mr-3"></i>Themes</a>
-      </li>
-      <li class="admin-navbar">
-        <a href="settings"><i class="fa-solid fa-gear mr-3"></i>Settings</a>
-      </li>
+      <a routerLink=""><li class="admin-navbar">
+        <i class="fa-solid fa-house mr-3"></i>Home
+      </li></a>
+      <a routerLink="posts/published"><li class="admin-navbar">
+        <i class="fa-solid fa-file-pen mr-3"></i>Posts
+      </li></a>
+      <a routerLink="admin-comments/comments"
+          ><li class="admin-navbar">
+        <i class="fa-solid fa-comment mr-3"></i>Comments
+       
+      </li></a>
+      <a routerLink="themes"><li class="admin-navbar">
+        <i class="fa-solid fa-brush mr-3"></i>Themes
+      </li></a>
+      <a href="settings"><li class="admin-navbar">
+        <i class="fa-solid fa-gear mr-3"></i>Settings
+      </li></a>
     </ul>
   </nav>
   <div class="p-6 absolute bottom-0">

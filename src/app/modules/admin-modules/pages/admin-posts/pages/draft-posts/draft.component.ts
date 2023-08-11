@@ -12,24 +12,25 @@ export class PostDraftComponent {
     private readonly toggleOffset: OffsetService
   ) {}
   public posts: any;
-  public pageLength: number = 6;
   public offsetValue: number = 0;
+  public totalData!: number;
+
   ngOnInit() {
     this.loadPosts();
-    console.log('hi')
+    console.log('hi');
   }
   public loadPosts() {
     const offset = this.toggleOffset.offset();
     this.postsService
-      .getFilteredPosts('Draft', offset, this.pageLength)
+      .getFilteredPosts('Draft', offset, this.toggleOffset.pageSize)
       .subscribe({
         next: (response) => {
+          this.totalData = response.totalLength;
           this.posts = response;
         },
       });
   }
-  public pagiantion(){
+  public pagiantion() {
     this.loadPosts();
   }
 }
-

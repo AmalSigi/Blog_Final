@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { postsAPi } from 'src/app/core/http/post.service';
-import { userApi } from 'src/app/core/http/userAccount.services';
+import { userApi } from 'src/app/core/http/userAccount.service';
 import { OffsetService } from 'src/app/core/services/pagination.service';
 
 @Component({
@@ -44,7 +44,7 @@ export class UsersDetailsComponents {
   public userInfo() {
     const offset = this.offsetValue.offset();
     this.userService
-      .getAllUsers(offset, this.pageLength)
+      .getAllUsers(offset, this.offsetValue.pageSize)
       .subscribe((res: any) => {
         console.log(res);
         this.totalData = res.totalLength;
@@ -180,8 +180,15 @@ console.log(apiUrl)
     }
   }
   public toggleEdit(index: number): void {
-    this.showEdit = !this.showEdit;
-    this.index = index;
+    if(this.index===index){
+      this.index=-1
+      this.showEdit = !this.showEdit;
+    }
+    else{
+      this.showEdit = true;
+      this.index = index;
+    }
+   
   }
   public emitPages() {
     this.userInfo();

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { userApi } from 'src/app/core/http/userAccount.services';
+import { userApi } from 'src/app/core/http/userAccount.service';
 
 @Component({
   selector: 'app-admin-profile',
@@ -21,6 +21,7 @@ export class AdminProfileComponent implements OnInit {
   public editOn: boolean = false;
   public picShowDiv: boolean = false;
   public picUpload: boolean = false;
+  public editPassword:boolean=false;
   public editForm = new FormGroup({
     first_name: new FormControl('', Validators.required),
     last_name: new FormControl('', Validators.required),
@@ -87,9 +88,13 @@ export class AdminProfileComponent implements OnInit {
 
   public update() {
     this.editOn = !this.editOn;
-    console.log(this.editForm);
+    // console.log(this.editForm);
     this.updateUserDetails();
+  }
+
+  public updatePassword() {
     this.updateUserPassword();
+
   }
 
   public updateUserDetails() {
@@ -124,6 +129,7 @@ export class AdminProfileComponent implements OnInit {
     this.userService.updatePassword(this.passwordForm.value).subscribe({
       next: (res) => {
         console.log('success', res);
+        this.editPassword=!this.editPassword
       },
       error: (err) => {
         alert('Error');

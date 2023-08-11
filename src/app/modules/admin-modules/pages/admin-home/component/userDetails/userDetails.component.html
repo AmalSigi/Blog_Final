@@ -1,8 +1,8 @@
 <section
-  class="-z-50 h-screen w-full overflow-y-scroll px-6 py-6 bg-red-50 container mx-auto"
+  class=" h-screen w-[80%] overflow-y-auto px-6 py-6 bg-white container mx-auto"
 >
 <div class="flex justify-between">
-  <h1 class="text-3xl font-mono text-blue-500 mt-10">List of Users</h1>
+  <h1 class="text-3xl font-bold text- text-blue-500 mt-10">List of Users</h1>
   <a routerLink="register" class=" border-2 p-4 border-black rounded-md">
     <span><i class="fa-solid fa-user-plus"></i> Add User</span>
   </a>
@@ -110,8 +110,8 @@
                   </td>
                   <td class="px-6 py-6 whitespace-nowrap text-sm">
                     <button (click)="toggleEdit(i)">
-                      <span *ngIf="!showEdit "><i class="fa-solid fa-ellipsis"></i></span>
-                      <span *ngIf="showEdit"><i class="fa-solid fa-xmark"></i></span>
+                      <span *ngIf="index != i"><i class="fa-solid fa-ellipsis"></i></span>
+                      <span *ngIf="showEdit && index == i"><i class="fa-solid fa-xmark"></i></span>
                     </button>
                   </td>
 

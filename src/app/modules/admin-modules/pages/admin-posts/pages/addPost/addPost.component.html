@@ -69,7 +69,7 @@
           <ng-container *ngSwitchCase="1">
             <textarea
               (click)="sectionId = i"
-              class="outline-none w-full text-4xl"
+              class="outline-none w-[80%] text-4xl"
               [formControl]="item.content"
               placeholder="Blog Title..."
             ></textarea>
@@ -122,7 +122,7 @@
 
           <ng-container *ngSwitchCase="4">
             <label
-              (click)="Selected(i)"
+              (click)="Selected(i,4)"
               class="text-white bg-blue-600 p-2"
               for="image"
               >Upload image</label
@@ -140,7 +140,7 @@
             <div>
               <div class="w-[80%] h-[500px] mt-3 overflow-hidden">
                 <img
-                  (click)="sectionId = i"
+                  (click)="Selected(i,4)"
                   [ngStyle]="{
                     height: imgHeight + 'px',
                     width: imgWidth + 'px',
@@ -163,7 +163,7 @@
 
           <ng-container *ngSwitchCase="5">
             <label
-              (click)="Selected(i)"
+              (click)="Selected(i,5)"
               class="text-white bg-blue-600 p-2"
               for="video"
               >Upload a video</label
@@ -179,7 +179,7 @@
             />
             <div>
               <video
-                (click)="sectionId = i"
+              (click)="Selected(i,5)"
                 controls
                 autoplay
                 class="w-[80%] h-[400px] border mt-3"

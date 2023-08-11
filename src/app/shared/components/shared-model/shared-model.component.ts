@@ -40,9 +40,8 @@ export class SharedModelComponent implements OnInit {
   }
 
   public getComments() {
-
     this.commentsApi.getAllCommentsByPost(this.post.id).subscribe((repo) => {
-      this.comments = repo;
+      this.comments = repo.comments;
     });
   }
   public unshowBox() {
