@@ -20,7 +20,7 @@ export class postsAPi {
     return this.http.get(`${this.url}/${postId}`);
   }
   public approvePost(postId: number): Observable<any> {
-    return this.http.patch(`${this.url}/${postId}/apporove`, {});
+    return this.http.patch(`${this.url}/${postId}/publish`, {});
   }
   public deletePost(postId: number): Observable<any> {
     return this.http.delete(`${this.url}/${postId}/delete`);
@@ -59,5 +59,11 @@ export class postsAPi {
     offset: number
   ): Observable<any> {
     return this.http.get(`${this.url}/category/${categoryId}?length=${offset}`);
+  }
+  public authorizedPosts(authorId: number): Observable<any> {
+    return this.http.get(`${this.url}/${authorId}/authoredPosts`);
+  }
+  public totalViews(status: string): Observable<any> {
+    return this.http.get(`${this.url}/totalviewcount?status=${status}`);
   }
 }

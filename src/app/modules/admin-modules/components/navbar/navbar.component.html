@@ -1,35 +1,50 @@
-<section class="md:block h-screen bg-white shadow-2xl">
+<section class="h-screen bg-white shadow-2xl w-[20rem]">
   <div class="flex items-center gap-3 border-b-2 pb-5 px-5 pt-3">
-    <div class="w-16 h-16 bg-gray-400 rounded-full overflow-hidden">
-      <img src="" alt="" />
-    </div>
+    <a routerLink="profile" [queryParams]="{ id: data?.id }">
+      <div class="w-16 h-16 bg-gray-400 rounded-full overflow-hidden">
+        <img
+          *ngIf="data?.profilePicturePath == null"
+          class="h-full w-full overflow-hidden"
+          src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-photo-183042379.jpg"
+          alt=""
+        />
+
+        <img
+          *ngIf="data?.profilePicturePath"
+          class="h-full w-full overflow-hidden"
+          [src]="'http://192.168.29.97:5296/assets/' + data?.profilePicturePath"
+          alt=""
+        />
+      </div>
+    </a>
+
     <div>
-      <p  class="text-black font-semibold">username</p>
+      <p class="text-black font-semibold">{{ data?.firstName }}</p>
+      <p class="text-black font-semibold">{{ data?.email }}</p>
     </div>
-    <button (click)="closeNavbar()" class="md:hidden ml-"><i class="fa-solid fa-xmark"></i></button>
+    <button (click)="closeNavbar()" class="md:hidden ml-36">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
   </div>
-  <nav class=" text-black">
-    <ul (click)="closeNavbar()" class="text-xl font-semibold">
-      <li  class="admin-navbar">
-        <a routerLink=""
-        ><i class="fa-solid fa-house mr-3"></i>Home</a>
-      </li>
-      <li class="admin-navbar">
-        <a routerLink="posts"
-          ><i class="fa-solid fa-file-pen mr-3"></i>Posts</a
-        >
-      </li>
-      <li class="admin-navbar">
-        <a routerLink="admin-comments"
-          ><i class="fa-solid fa-comment mr-3"></i>Comments</a
-        >
-      </li>
-      <li class="admin-navbar">
-        <a routerLink="themes"><i class="fa-solid fa-brush mr-3"></i>Themes</a>
-      </li>
-      <li class="admin-navbar">
-        <a href="settings"><i class="fa-solid fa-gear mr-3"></i>Settings</a>
-      </li>
+  <nav class="text-black">
+    <ul (click)="closeNavbar()" class="text-xl font-semibold px-3">
+      <a routerLink=""><li class="admin-navbar">
+        <i class="fa-solid fa-house mr-3"></i>Home
+      </li></a>
+      <a routerLink="posts/published"><li class="admin-navbar">
+        <i class="fa-solid fa-file-pen mr-3"></i>Posts
+      </li></a>
+      <a routerLink="admin-comments/comments"
+          ><li class="admin-navbar">
+        <i class="fa-solid fa-comment mr-3"></i>Comments
+       
+      </li></a>
+      <a routerLink="themes"><li class="admin-navbar">
+        <i class="fa-solid fa-brush mr-3"></i>Themes
+      </li></a>
+      <a href="settings"><li class="admin-navbar">
+        <i class="fa-solid fa-gear mr-3"></i>Settings
+      </li></a>
     </ul>
   </nav>
   <div class="p-6 absolute bottom-0">

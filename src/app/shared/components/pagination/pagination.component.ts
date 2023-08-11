@@ -11,8 +11,9 @@ export class PaginationComponent {
     @Input() offsetValue!:number;
     @Input() totalData!:any;
     @Input() lengthValue!:number;
+    @Input() totalLength!:number;
     get total():number {
-        return Math.ceil(this.totalData?.length/this.lengthValue)
+        return Math.ceil(this.totalLength/5)
     }
     get pages(): any[] {
         const pages: any=[];
@@ -48,6 +49,7 @@ pages.push(i);
         return pages;
     
       }
+
       @Output() emitPage=new EventEmitter();
      public nextPage(){
       this.currentPage++;
@@ -61,7 +63,12 @@ pages.push(i);
         this.emitPage.emit()
       
         }
-      ngOnInit() {
-        console.log(this.totalData?.length/this.lengthValue)
+     
+      public togglePage(page: number){
+        this.currentPage = page;
+        this.changeOffset.togglePage(page);
+        console.log(page)
+        this.emitPage.emit()
+
       }
 }

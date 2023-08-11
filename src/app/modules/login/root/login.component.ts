@@ -1,15 +1,13 @@
-import { HttpClient } from '@angular/common/http';
 
 import { Component } from '@angular/core';
 
 import {
-  AbstractControl,
-  FormArray,
-  FormBuilder,
   FormControl,
   FormGroup,
-  Validators,
+  Validators
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { authenticationApi } from 'src/app/core/http/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +15,10 @@ import {
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
-  constructor(private readonly http: HttpClient) {}
+  constructor(
+    private readonly authentication: authenticationApi,
+    private readonly route: Router
+  ) {}
 
   public loginForm = new FormGroup({
     email: new FormControl('', Validators.required),
@@ -26,25 +27,27 @@ export class LoginComponent {
   });
 
   public login() {
-    const url = 'http://192.168.29.97:5296/Authentication/login';
-
     if (this.loginForm.valid) {
       const body = this.loginForm.value;
 
       console.log(this.loginForm.value);
 
-      this.http.post(url, body).subscribe((res: any) => {
-        if (res) {
-          localStorage.setItem(
-            'jwtToken',
+      this.authentication.login(body).subscribe({
+        next: (response) => {
+          if (response) {
+            localStorage.setItem(
+              'jwtToken',
 
-            JSON.stringify(res.jwtToken)
-          );
+              JSON.stringify(response.jwtToken)
+            );
 
-          console.log(res.jwtToken);
-        } else {
-          alert('Invalid Credentials');
-        }
+            console.log(response.jwtToken);
+            this.route.navigate(['']);
+          }
+        },
+        error: (error) => {
+          alert('Error: ' + JSON.stringify(error.error));
+        },
       });
     }
   }

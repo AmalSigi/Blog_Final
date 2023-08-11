@@ -13,13 +13,13 @@ export class AdminPostsComponent {
   ngOnInit() {
     this.postApi.getPosts().subscribe({
       next: (res) => {
-        this.draftCount = res.filter(
+        this.draftCount = res?.posts.filter(
           (item: any) => item.postStatus == 'Draft'
         ).length;
-        this.publishCount = res.filter(
+        this.publishCount = res?.posts.filter(
           (item: any) => item.postStatus == 'Active'
         ).length;
-        this.trashCount = res.filter(
+        this.trashCount = res?.posts.filter(
           (item: any) => item.postStatus == 'Deleted'
         ).length;
       },

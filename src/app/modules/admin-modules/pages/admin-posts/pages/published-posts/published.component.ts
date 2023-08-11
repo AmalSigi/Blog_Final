@@ -2,6 +2,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, ElementRef, OnInit } from "@angular/core";
 import { postsAPi } from "src/app/core/http/post.service";
+import { OffsetService } from "src/app/core/services/pagination.service";
 
 @Component({
   selector: 'app-post-published',
@@ -11,19 +12,25 @@ export class PostPublishedComponent implements OnInit {
   commentDiv: boolean=false;
  
 constructor(private readonly postsService: postsAPi,
+  private readonly toggleOffset: OffsetService
+,
   private readonly elementRef:ElementRef){}
 public posts:any;
 public viewPost:any;
 public showDiv:boolean=true;
 public listIndex!:number;
+public totalData!:number;
 ngOnInit() {
   this.loadPosts();
  
 }
 public loadPosts(){
-  this.postsService.getFilteredPosts('Active',0,10).subscribe({
+  const offset = this.toggleOffset.offset();
+
+  this.postsService.getFilteredPosts('Active',offset, this.toggleOffset.pageSize).subscribe({
     next:(response)=>{
         this.posts = response;
+        this.totalData=response.totalLength;
     }
  })
 }
@@ -45,5 +52,8 @@ this.showDiv=!this.showDiv;
       // Clicked outside the child component, close it
       this.showDiv=false;
   }
+  }
+  public pagiantion(){
+    this.loadPosts();
   }
 }

@@ -21,16 +21,27 @@ import { PostDraftComponent } from './pages/admin-posts/pages/draft-posts/draft.
 import { PostPublishedComponent } from './pages/admin-posts/pages/published-posts/published.component';
 import { PostsTrashedComponent } from './pages/admin-posts/pages/trashed/trashed.component';
 import { AdminPostsComponent } from './pages/admin-posts/root/admin-posts.component';
+import { UsersDetailsComponents } from './pages/admin-home/component/userDetails/userDetails.component';
+import { UserPostsComponent } from './pages/admin-home/component/userDetails/pages/userPostList/userPostList.component';
+import { RegisterComponent } from './pages/admin-home/component/userDetails/pages/userRegister/userRegister.component';
 
 const routes: Routes = [
   {
     path: '',
     component: AdminComponent,
     children: [
-      {path: 'posts', component:AdminPostsComponent,
-      children:[
-        {path: '', component:PostPublishedComponent,pathMatch: 'full'},
+      { path: 'users', component: UsersDetailsComponents,
+    children:[
+      { path: 'register', component: RegisterComponent}
+    ] },
+    {path: 'userPosts', component: UserPostsComponent},
 
+
+      {
+        path: 'posts',
+        component: AdminPostsComponent,
+        children: [
+          { path: '', component: PostPublishedComponent, pathMatch: 'full' },
 
           { path: 'published', component: PostPublishedComponent },
           { path: 'drafts', component: PostDraftComponent },

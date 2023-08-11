@@ -12,7 +12,7 @@ export class CommentsComponent implements OnInit {
   constructor(private readonly allPosts: postsAPi) {}
   ngOnInit(): void {
     this.allPosts.getPosts().subscribe((repo) => {
-      this.post = repo;
+      this.post = repo.posts;
     });
   }
   public showBox(postInv: any) {

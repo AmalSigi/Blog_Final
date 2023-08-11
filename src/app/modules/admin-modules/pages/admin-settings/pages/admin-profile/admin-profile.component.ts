@@ -1,13 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { userApi } from 'src/app/core/http/userAccount.service';
 
 @Component({
   selector: 'app-admin-profile',
   templateUrl: './admin-profile.component.html',
 })
 export class AdminProfileComponent implements OnInit {
-  constructor(private readonly http: HttpClient) {}
+  constructor(
+    private readonly http: HttpClient,
+    private readonly userService: userApi,
+    private readonly router: ActivatedRoute
+  ) {}
 
   public fileToUpload!: File;
   public profileDetailes: any;
@@ -15,6 +21,7 @@ export class AdminProfileComponent implements OnInit {
   public editOn: boolean = false;
   public picShowDiv: boolean = false;
   public picUpload: boolean = false;
+  public editPassword:boolean=false;
   public editForm = new FormGroup({
     first_name: new FormControl('', Validators.required),
     last_name: new FormControl('', Validators.required),
@@ -40,15 +47,27 @@ export class AdminProfileComponent implements OnInit {
   }
 
   public getProfile() {
-    this.http
-      .get('http://192.168.29.97:5296/UserAccount/4')
-      .subscribe((repo) => {
-        this.profileDetailes = repo;
-        this.profileDetailes.profilePicturePath =
-          'http://192.168.29.97:5296/assets/' +
-          this.profileDetailes.profilePicturePath;
-        this.populateForm(this.profileDetailes);
-      });
+    this.router.queryParams.subscribe((params) => {
+      if (params['id']) {
+        const id = params['id'];
+        this.userService.getUserAccount(id).subscribe({
+          next: (result) => {
+            this.populateForm(result);
+          },
+        });
+      } else {
+        this.userService.currentUserDetails().subscribe({
+          next: (result) => {
+            this.populateForm(result);
+          },
+        });
+      }
+    });
+
+    // this.http
+    //   .get('http://192.168.29.97:5296/UserAccount/4')
+    //   .subscribe((repo) => {
+    //
   }
   public populateForm(data: any): void {
     this.editForm.patchValue({
@@ -57,6 +76,10 @@ export class AdminProfileComponent implements OnInit {
       last_name: data.lastName,
       email: data.email,
     });
+    this.profileDetailes = data;
+
+    this.profileDetailes.profilePicturePath =
+      'http://192.168.29.97:5296/assets/' + data?.profilePicturePath;
   }
 
   public edit() {
@@ -65,9 +88,13 @@ export class AdminProfileComponent implements OnInit {
 
   public update() {
     this.editOn = !this.editOn;
-    console.log(this.editForm);
+    // console.log(this.editForm);
     this.updateUserDetails();
-    // this.updateUserPassword();
+  }
+
+  public updatePassword() {
+    this.updateUserPassword();
+
   }
 
   public updateUserDetails() {
@@ -76,13 +103,16 @@ export class AdminProfileComponent implements OnInit {
       _LastName: this.editForm.controls['last_name'].value,
       _MiddleName: this.editForm.controls['first_name'].value,
     });
-
-    this.http
-      .patch(
-        'http://192.168.29.97:5296/UserAccount/4/updatedetails',
-        this.editedForm.value
-      )
-      .subscribe((respo) => {});
+    this.userService
+      .updateUserDetails(this.profileDetailes.id, this.editedForm.value)
+      .subscribe({
+        next: (result) => {
+          alert('updated successfully');
+        },
+        error: (err) => {
+          alert('error');
+        },
+      });
   }
   public updateUserPassword() {
     this.passwordForm.patchValue({
@@ -90,12 +120,21 @@ export class AdminProfileComponent implements OnInit {
       newPassword: this.editForm.controls['new_password'].value,
     });
 
-    this.http
-      .patch(
-        'http://192.168.29.97:5296/UserAccount/4/Updatepassword',
-        this.passwordForm.value
-      )
-      .subscribe((respo) => {});
+    // this.http
+    //   .patch(
+    //     'http://192.168.29.97:5296/UserAccount/4/Updatepassword',
+    //     this.passwordForm.value
+    //   )
+    //   .subscribe((respo) => {});
+    this.userService.updatePassword(this.passwordForm.value).subscribe({
+      next: (res) => {
+        console.log('success', res);
+        this.editPassword=!this.editPassword
+      },
+      error: (err) => {
+        alert('Error');
+      },
+    });
   }
 
   public showUpolodtemp() {
@@ -126,17 +165,18 @@ export class AdminProfileComponent implements OnInit {
 
       formData.append('picture', this.fileToUpload, this.fileToUpload.name);
 
-      const apiURL = `http://192.168.29.97:5296/UserAccount/4/updateprofilepic`;
-
-      this.http.patch(apiURL, formData).subscribe(
-        (response) => {
-          console.log('Profile picture updated successfully:', response);
-        },
-
-        (error) => {
-          console.error('Error updating profile picture:', error);
-        }
-      );
+      this.userService
+        .updateUserProfilePic(this.profileDetailes.id, formData)
+        .subscribe({
+          next: (response) => {
+            if (response) {
+              alert('Profile updated');
+            }
+          },
+          error: (response) => {
+            alert('Error updating profile picture:');
+          },
+        });
     }
   }
 }

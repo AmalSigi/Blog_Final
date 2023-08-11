@@ -4,7 +4,7 @@
 
 @layer utilities {
   .admin-navbar {
-    @apply mb-5 hover:bg-red-600 p-3 hover:text-white;
+    @apply mb-5 hover:bg-red-600 px-8 py-3 hover:text-white rounded-xl;
   }
   .admin-login {
     background-image: url("https://images.pexels.com/photos/399160/pexels-photo-399160.jpeg");
@@ -21,6 +21,9 @@
   }
   .external-link {
     @apply text-blue-600 underline;
+  }
+  .currentPage{
+    @apply bg-blue-600 text-white rounded-full
   }
 }
 

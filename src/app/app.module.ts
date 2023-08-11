@@ -21,6 +21,7 @@ import { AuthInterceptor } from './core/Interceptor/token.interceptor';
     ReactiveFormsModule,
     MarkdownModule.forRoot(),
   ],
+
   providers: [
     postsAPi,
     commentsApi,

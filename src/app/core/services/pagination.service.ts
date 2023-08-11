@@ -12,7 +12,13 @@ public nextPage(currentPage:number){
     
 }
 public previousPage(currentPage:number){
-  this.offset.update(offset=>this.pageSize-offset);
+ 
+  this.offset.update(offset=>
+    offset-this.pageSize);
+
+}
+public togglePage(currentPage:number){
+this.offset.set(((currentPage - 1) * this.pageSize))
 
 }
 }

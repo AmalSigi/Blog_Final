@@ -177,8 +177,9 @@ this.sectionId++;
     this.aspectRatio = event.aspectRatio;
   }
 
-  Selected(id: number) {
-  
+  Selected(id: number,type:number) {
+  this.currentTool=type;
+  console.log(type)
     this.sectionId = id;
   }
   public setImageUrl(url: any) {
