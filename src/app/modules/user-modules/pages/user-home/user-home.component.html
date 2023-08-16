@@ -1,0 +1,133 @@
+<section class="container mx-auto mb-10">
+  <!-- trending -->
+  <div
+    class="container h-96 bg-black mx-auto mt-10 rounded-md overflow-hidden flex"
+  >
+    <div class="w-[60%] h-full bg-gray-500">
+      <a>
+        <img
+          class="w-full h-full object-cover"
+          [src]="
+            'http://192.168.29.97:5296/assets/' + latestPost[0]?.img?.content
+          "
+          alt="post image"
+        />
+      </a>
+    </div>
+    <div class="w-[40%] h-full text-gray-500">
+      <h2 class="text-gray-500 text-2xl font-bold mx-5 mt-24">
+        {{ latestPost[0]?.heading?.content }}
+      </h2>
+      <p class="p-4">
+        {{ latestPost[0]?.subHeading?.content }}
+      </p>
+    </div>
+  </div>
+  <!-- latest -->
+  <section class="container mx-auto">
+    <h2 class="text-4xl font-medium mt-20">Latest</h2>
+    <div class="grid grid-cols-12 mx-auto mt-5 gap-4">
+      <ng-container *ngFor="let item of latestPost; let i = index">
+        <div *ngIf="i > 0" class="h-[20rem] col-span-4 mb-10">
+          <div class="h-[75%] w-full bg-red-200">
+            <a>
+              <img
+                class="w-full h-full object-cover hover:shadow-lg hover:shadow-gray-500"
+                [src]="'http://192.168.29.97:5296/assets/' + item?.img?.content"
+                alt=""
+              />
+            </a>
+          </div>
+          <div>
+            <h2 class="text-2xl font-semibold mt-4">
+              {{ item?.heading?.content }}
+            </h2>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </section>
+  <!-- add section -->
+  <section class="container border-2 border-x-0 h-36 mx-auto mt-24 p-5">
+    <div class="mx-auto w-[70%] h-full">
+      <a>
+        <img
+          class="w-full h-full object-cover"
+          src="https://tpc.googlesyndication.com/simgad/1515406221368002761"
+          alt=""
+        />
+      </a>
+    </div>
+  </section>
+
+  <!-- category -->
+
+  <section *ngFor="let item of catgoryDetailes" class="container flex flex-col">
+    <div>
+      <h2 class="text-4xl font-medium mt-20">{{ item.categoryName }}</h2>
+    </div>
+    <div class="mx-auto mt-5 flex align-middle gap-3">
+      <div class="bg-blue-200 w-[70%] h-full">
+        <a>
+          <img
+            class="w-full h-full object-cover hover:shadow-lg hover:shadow-gray-500"
+            [src]="
+              'http://192.168.29.97:5296/assets/' + item?.categoryPost[0]?.img
+            "
+            alt=""
+          />
+        </a>
+      </div>
+      <div *ngFor="let item2 of item.categoryPost" class="grid gap-2">
+        <div class="flex hover:shadow-xl hover:shadow-gray-500">
+          <div class="w-[40%] h-full">
+            <a>
+              <img
+                class="w-full h-full object-cover"
+                src="https://leverageedublog.s3.ap-south-1.amazonaws.com/blog/wp-content/uploads/2019/12/23174648/B-Tech-Degree.jpg"
+                alt=""
+              />
+            </a>
+          </div>
+          <div class="w-[60%] h-full p-2">
+            <a class="text-2xl font-bold hover:text-gray-500"
+              >Lorem ipsum dolor sit amet consectetur.</a
+            >
+          </div>
+        </div>
+        <div class="flex hover:shadow-xl hover:shadow-gray-500">
+          <div class="w-[40%] h-full">
+            <a>
+              <img
+                class="w-full h-full object-cover"
+                src="https://leverageedublog.s3.ap-south-1.amazonaws.com/blog/wp-content/uploads/2019/12/23174648/B-Tech-Degree.jpg"
+                alt=""
+              />
+            </a>
+          </div>
+          <div class="w-[60%] h-full p-2">
+            <a class="text-2xl font-bold hover:text-gray-500"
+              >Lorem ipsum dolor sit amet consectetur.</a
+            >
+          </div>
+        </div>
+        <div class="flex hover:shadow-xl hover:shadow-gray-500">
+          <div class="w-[40%] h-full">
+            <a>
+              <img
+                class="w-full h-full object-cover"
+                src="https://leverageedublog.s3.ap-south-1.amazonaws.com/blog/wp-content/uploads/2019/12/23174648/B-Tech-Degree.jpg"
+                alt=""
+              />
+            </a>
+          </div>
+          <div class="w-[60%] h-full p-2">
+            <a class="text-2xl font-bold hover:text-gray-500"
+              >Lorem ipsum dolor sit amet consectetur.</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>

@@ -48,11 +48,27 @@ export class postsAPi {
     }
 return this.http.get(apiUrl)
   }
-  public authorizedPosts(authorId:number):Observable<any> {
-    return this.http.get(`${this.url}/${authorId}/authoredPosts`)
+  public getLatestPosts(length: number): Observable<any> {
+    return this.http.get(`${this.url}/blog/all?length=${length}`);
   }
-  public totalViews(status:string):Observable<any>{
-    return this.http.get(`${this.url}/totalviewcount?status=${status}`)
 
+  public getRecommendedPost(postId: number): Observable<any> {
+    return this.http.get(`${this.url}/${postId}/getsuggestions`);
+  }
+
+  public getPostByCategory(categoryId: number): Observable<any> {
+    return this.http.get(`${this.url}/category/${categoryId}`);
+  }
+  public getPostByCategoryByLength(
+    categoryId: number,
+    offset: number
+  ): Observable<any> {
+    return this.http.get(`${this.url}/category/${categoryId}?length=${offset}`);
+  }
+  public authorizedPosts(authorId: number): Observable<any> {
+    return this.http.get(`${this.url}/${authorId}/authoredPosts`);
+  }
+  public totalViews(status: string): Observable<any> {
+    return this.http.get(`${this.url}/totalviewcount?status=${status}`);
   }
 }

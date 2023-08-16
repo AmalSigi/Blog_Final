@@ -21,7 +21,13 @@ import { AuthInterceptor } from './core/Interceptor/token.interceptor';
     ReactiveFormsModule,
     MarkdownModule.forRoot(),
   ],
-  providers: [postsAPi, commentsApi, categoryApi,{provide:HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true}],
+
+  providers: [
+    postsAPi,
+    commentsApi,
+    categoryApi,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
