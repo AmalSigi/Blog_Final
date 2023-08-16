@@ -12,7 +12,6 @@ export class AuthInterceptor implements HttpInterceptor {
     const authToken = JSON.parse(localStorage.getItem('jwtToken') || '{}');
 
     if (!request.url.includes('login')) {
-   console.log(request)
       request = request.clone({
         setHeaders: {
           Authorization: ` ${authToken}`,

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { tagApi } from 'src/app/core/http/tag.service';
+import { OffsetService } from 'src/app/core/services/pagination.service';
 import { postData } from 'src/app/core/services/posts.services';
 
 @Component({
@@ -8,8 +9,9 @@ import { postData } from 'src/app/core/services/posts.services';
 })
 export class TagsComponent implements OnInit {
   public tags: any;
+  public totalData!: number;
   constructor(
-    private readonly randTags: postData,
+    private readonly Offset: OffsetService,
     private readonly tagApi: tagApi
   ) {}
   ngOnInit(): void {
@@ -17,9 +19,16 @@ export class TagsComponent implements OnInit {
   }
 
   public getTags() {
-    this.tagApi.getTags().subscribe((respo) => {
+    const offset = this.Offset.offset();
+    const length = this.Offset.pageSize;
+    this.tagApi.getTags(offset, length).subscribe((respo) => {
       console.log(respo);
-      this.tags = respo;
+      this.totalData = respo.totalLength;
+      this.tags = respo.tags;
     });
+  }
+
+  public emitPages() {
+    this.getTags();
   }
 }

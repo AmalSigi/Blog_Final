@@ -28,27 +28,35 @@
   </div>
   <nav class="text-black">
     <ul (click)="closeNavbar()" class="text-xl font-semibold px-3">
-      <a routerLink=""><li class="admin-navbar">
-        <i class="fa-solid fa-house mr-3"></i>Home
-      </li></a>
-      <a routerLink="posts/published"><li class="admin-navbar">
-        <i class="fa-solid fa-file-pen mr-3"></i>Posts
-      </li></a>
+      <a routerLink=""
+        ><li class="admin-navbar">
+          <i class="fa-solid fa-house mr-3"></i>Home
+        </li></a
+      >
+      <a routerLink="posts/published"
+        ><li class="admin-navbar">
+          <i class="fa-solid fa-file-pen mr-3"></i>Posts
+        </li></a
+      >
       <a routerLink="admin-comments/comments"
-          ><li class="admin-navbar">
-        <i class="fa-solid fa-comment mr-3"></i>Comments
-       
-      </li></a>
-      <a routerLink="themes"><li class="admin-navbar">
-        <i class="fa-solid fa-brush mr-3"></i>Themes
-      </li></a>
-      <a href="settings"><li class="admin-navbar">
-        <i class="fa-solid fa-gear mr-3"></i>Settings
-      </li></a>
+        ><li class="admin-navbar">
+          <i class="fa-solid fa-comment mr-3"></i>Comments
+        </li></a
+      >
+      <a routerLink="themes"
+        ><li class="admin-navbar">
+          <i class="fa-solid fa-brush mr-3"></i>Themes
+        </li></a
+      >
+      <a href="settings"
+        ><li class="admin-navbar">
+          <i class="fa-solid fa-gear mr-3"></i>Settings
+        </li></a
+      >
     </ul>
   </nav>
   <div class="p-6 absolute bottom-0">
-    <a class="text-xl text-red-500"
+    <a class="text-xl text-red-500 cursor-pointer" (click)="logOut()"
       ><i class="fa-solid fa-right-from-bracket"></i> LogOut</a
     >
   </div>

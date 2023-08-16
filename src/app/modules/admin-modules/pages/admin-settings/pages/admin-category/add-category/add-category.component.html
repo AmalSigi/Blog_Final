@@ -10,6 +10,7 @@
           class="py-3 px-5 block w-full border-gray-200 rounded border-2 text-sm focus:border-blue-500 focus:ring-blue-500"
           placeholder="Enter a category"
         />
+
         <button
           (click)="postCategory()"
           class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
@@ -19,6 +20,55 @@
       </div>
     </div>
   </form>
+
+  <!-- add cover picture -->
+  <h3 class="text-xl font-semibold py-2">Add Cover Picture</h3>
+  <form [formGroup]="categoryCoverPictureForm">
+    <div class="border-2 p-5">
+      <div class="grid gap-y-5">
+        <h4>Choose Category</h4>
+        <div class="flex">
+          <input
+            formControlName="category"
+            #Category
+            placeholder="Choose one category"
+            class="w-full border-2 p-2"
+            value=""
+            type="text"
+          />
+          <button (click)="openDropdwonAddCover()" class="-ml-5">
+            <i class="fa-solid fa-caret-down"></i>
+          </button>
+        </div>
+        <app-dropdown
+          *ngIf="selectDropDownAddCover"
+          [category]="category"
+          (onChange)="changeCategoryForCoverPicture($event)"
+        ></app-dropdown>
+        <div>
+          <label class="text-white bg-blue-600 p-2" for="image"
+            >Upload image</label
+          >
+          <input
+            (change)="fileImport($event)"
+            #image
+            class="outline-none"
+            type="file"
+            id="image"
+            hidden="true"
+            placeholder="upload image"
+          />
+        </div>
+        <button
+          (click)="postCategoryCoverPicture()"
+          class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+        >
+          Add
+        </button>
+      </div>
+    </div>
+  </form>
+  <!-- sub_category -->
   <h3 class="text-xl font-semibold pb-2 mt-5">Add Sub-Category</h3>
   <div class="border-2 p-5">
     <form [formGroup]="subCategoryForm">
@@ -33,12 +83,12 @@
             value=""
             type="text"
           />
-          <button (click)="openDropdwon()" class="-ml-5">
+          <button (click)="openDropdwonAddSub()" class="-ml-5">
             <i class="fa-solid fa-caret-down"></i>
           </button>
         </div>
         <app-dropdown
-          *ngIf="selectDropDown"
+          *ngIf="selectDropDownAddSub"
           [category]="category"
           (onChange)="changeCategory($event)"
         ></app-dropdown>

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { elementAt } from 'rxjs';
 import { commentsApi } from 'src/app/core/http/comments.service';
 
 @Component({
@@ -20,9 +21,9 @@ export class SharedModelComponent implements OnInit {
   public replayCommentData: any = [];
   constructor(private readonly commentsApi: commentsApi) {}
   public commentForm = new FormGroup({
-    comment: new FormControl('', Validators.required),
-    _ParentId: new FormControl('', Validators.required),
-    _AuthorId: new FormControl(3, Validators.required),
+    content: new FormControl('', Validators.required),
+    ParentId: new FormControl('', Validators.required),
+    AuthorId: new FormControl(3, Validators.required),
   });
   ngOnInit(): void {
     this.getComments();
@@ -38,6 +39,7 @@ export class SharedModelComponent implements OnInit {
 
   public getComments() {
     this.commentsApi.getAllCommentsByPost(this.post.id).subscribe((repo) => {
+      console.log(repo);
       this.comments = repo.comments;
     });
   }
@@ -49,13 +51,20 @@ export class SharedModelComponent implements OnInit {
   public replyBox(comment: any) {
     this.replayInputBox = true;
     this.parentCommentAuthor = `@${comment.author.firstName}`;
-    this.parentId = comment.id;
+    if (comment.id == this.parentId) {
+    } else {
+      this.parentId = comment.id;
+    }
   }
   public sendReply() {
-    this.commentForm.controls['_ParentId'].setValue(this.parentId);
+    this.commentForm.controls['ParentId'].setValue(this.parentId);
     this.commentsApi
       .postComment(this.post.id, this.commentForm.value)
-      .subscribe((_repo) => {});
+      .subscribe((_repo) => {
+        this.getComments();
+        this.commentForm.reset();
+        this.parentCommentAuthor = 'enter comments';
+      });
   }
 
   // view replyComment
@@ -84,11 +93,19 @@ export class SharedModelComponent implements OnInit {
     this.commentsApi.getSingleComment(parentId).subscribe((repo: any) => {
       comment.parentAuthor = repo.author.firstName;
       this.replayCommentData.push(comment);
+      console.log(this.replayCommentData);
     });
   }
 
   public delectComment(commentId: number) {
-    console.log(commentId);
-    this.commentsApi.removeComment(commentId).subscribe((respo) => {});
+    this.commentsApi.removeComment(commentId).subscribe({
+      next: (respo) => {
+        alert('Comment Deleted');
+        this.getComments();
+      },
+      error: (respo) => {
+        alert('Error updating profile picture:');
+      },
+    });
   }
 }

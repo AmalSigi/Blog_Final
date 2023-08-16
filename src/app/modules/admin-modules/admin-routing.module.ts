@@ -24,18 +24,19 @@ import { AdminPostsComponent } from './pages/admin-posts/root/admin-posts.compon
 import { UsersDetailsComponents } from './pages/admin-home/component/userDetails/userDetails.component';
 import { UserPostsComponent } from './pages/admin-home/component/userDetails/pages/userPostList/userPostList.component';
 import { RegisterComponent } from './pages/admin-home/component/userDetails/pages/userRegister/userRegister.component';
+import { ReportedCommnentViewComponent } from './pages/admin-comments/page/spam-comments/reported-commnent-view/reported-commnent-view.component';
 
 const routes: Routes = [
   {
     path: '',
     component: AdminComponent,
     children: [
-      { path: 'users', component: UsersDetailsComponents,
-    children:[
-      { path: 'register', component: RegisterComponent}
-    ] },
-    {path: 'userPosts', component: UserPostsComponent},
-
+      {
+        path: 'users',
+        component: UsersDetailsComponents,
+        children: [{ path: 'register', component: RegisterComponent }],
+      },
+      { path: 'userPosts', component: UserPostsComponent },
 
       {
         path: 'posts',
@@ -77,8 +78,16 @@ const routes: Routes = [
         children: [
           { path: '', component: CommentsComponent },
           { path: 'comments', component: CommentsComponent },
-
-          { path: 'spam-comments', component: SpamCommentsComponent },
+          {
+            path: 'spam-comments',
+            component: SpamCommentsComponent,
+            children: [
+              {
+                path: 'reported-comment-view',
+                component: ReportedCommnentViewComponent,
+              },
+            ],
+          },
         ],
       },
     ],

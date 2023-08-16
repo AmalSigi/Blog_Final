@@ -14,7 +14,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     FooterComponent,
     SharedModelComponent,
     FormatLinksPipe,
-    PaginationComponent
+    PaginationComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, MarkdownModule],
   exports: [
@@ -22,7 +22,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     FooterComponent,
     SharedModelComponent,
     FormatLinksPipe,
-    PaginationComponent
+    PaginationComponent,
   ],
 })
 export class SharedModule {}

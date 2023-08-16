@@ -43,6 +43,12 @@ export class postsAPi {
       `${this.url}/all?filter=${params}&offset=${offset}&length=${length}`
     );
   }
+  public getFilteredCommentPosts(
+    offset: number,
+    length: number
+  ): Observable<any> {
+    return this.http.get(`${this.url}/all?offset=${offset}&length=${length}`);
+  }
   public getLatestPosts(length: number): Observable<any> {
     return this.http.get(`${this.url}/blog/all?length=${length}`);
   }
@@ -65,5 +71,14 @@ export class postsAPi {
   }
   public totalViews(status: string): Observable<any> {
     return this.http.get(`${this.url}/totalviewcount?status=${status}`);
+  }
+  public postHasComment(
+    status: string,
+    length: number,
+    offset: number
+  ): Observable<any> {
+    return this.http.get(
+      `${this.url}/hasComments?status=${status}&length=${length}&offset=${offset}`
+    );
   }
 }

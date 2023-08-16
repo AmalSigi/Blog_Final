@@ -12,12 +12,25 @@ export class AddCategoryComponent implements OnInit {
     private readonly http: HttpClient,
     private readonly categoryService: categoryApi
   ) {}
+  public fileToUpload: any;
   public category: any;
   public newSubCategoryArray: any = [];
-  public selectDropDown: boolean = false;
+  public selectDropDownAddCover: boolean = false;
+  public selectDropDownAddSub: boolean = false;
+
   // caegory form
   public categoryForm: FormGroup = new FormGroup({
     categoryName: new FormControl('', Validators.required),
+  });
+
+  // cover picture form
+
+  public categoryCoverPictureForm: FormGroup = new FormGroup({
+    category: new FormControl(
+      { value: '', disabled: true },
+      Validators.required
+    ),
+    categoryId: new FormControl('', Validators.required),
   });
 
   // subcategory form
@@ -52,8 +65,11 @@ export class AddCategoryComponent implements OnInit {
     });
   }
 
-  public openDropdwon() {
-    this.selectDropDown = !this.selectDropDown;
+  public openDropdwonAddSub() {
+    this.selectDropDownAddSub = !this.selectDropDownAddSub;
+  }
+  public openDropdwonAddCover() {
+    this.selectDropDownAddCover = !this.selectDropDownAddCover;
   }
 
   // SUBCATEGORY
@@ -63,7 +79,7 @@ export class AddCategoryComponent implements OnInit {
       this.category[index - 1].categoryName
     );
     this.subCategoryForm.controls['categoryId'].patchValue(index);
-    this.openDropdwon();
+    this.openDropdwonAddSub();
   }
 
   public postSubCategory() {
@@ -84,5 +100,43 @@ export class AddCategoryComponent implements OnInit {
   removeSubCategory(id: number): void {
     console.log(id);
     this.newSubCategoryArray.splice(id, 1);
+  }
+  // add cover picture
+
+  public changeCategoryForCoverPicture(index: number): void {
+    this.categoryCoverPictureForm.controls['category'].patchValue(
+      this.category[index - 1].categoryName
+    );
+    this.categoryCoverPictureForm.controls['categoryId'].patchValue(index);
+    this.openDropdwonAddCover();
+  }
+  public fileImport(event: any) {
+    this.fileToUpload = event.target.files[0];
+
+    console.log(this.fileToUpload);
+  }
+
+  public postCategoryCoverPicture() {
+    if (this.fileToUpload) {
+      const formData = new FormData();
+
+      formData.append('picture', this.fileToUpload, this.fileToUpload.name);
+
+      console.log(this.categoryCoverPictureForm.value, formData);
+      this.categoryService
+        .postCategoryCoverPicture(
+          this.categoryCoverPictureForm.controls['categoryId'].value,
+          formData
+        )
+        .subscribe({
+          next: (response) => {
+            alert('Profile updated');
+            this.categoryCoverPictureForm.reset();
+          },
+          error: (response) => {
+            alert('Error updating profile picture:');
+          },
+        });
+    }
   }
 }

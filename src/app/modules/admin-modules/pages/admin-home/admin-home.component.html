@@ -9,19 +9,19 @@
         class="h-32 w-96 border-2 rounded-lg hover:bg-gray-200 hover:shadow-lg grid items-center p-3"
       >
         <span><i class="fa-solid fa-eye fa-xl"></i></span>
-    <p>Visitors : {{totalViews}}</p>
+        <p>Visitors : {{ totalViews }}</p>
       </div>
       <div
         class="h-32 w-96 border-2 rounded-lg hover:bg-gray-200 hover:shadow-lg grid items-center p-3"
       >
         <span><i class="fa-brands fa-blogger fa-xl"></i></span>
-        <p>Active Blogs : {{activeBlogs}}</p>
+        <p>Active Blogs : {{ activeBlogs }}</p>
       </div>
       <div
         class="h-32 w-96 border-2 rounded-lg hover:bg-gray-200 hover:shadow-lg grid items-center p-3"
       >
         <span><i class="fa-solid fa-users fa-xl"></i></span>
-        <p>Active Users: {{activeUsers}}</p>
+        <p>Active Users: {{ activeUsers }}</p>
       </div>
     </div>
     <!-- users  -->
@@ -86,7 +86,7 @@
             </td>
 
             <td class="py-2 text-xs sm:text-sm font-medium">
-              {{ post?.postSections[0].content }}
+              {{ post?.postSections[0]?.content }}
             </td>
             <td class="py-2 text-xs sm:text-sm font-medium">
               {{ post.category?.categoryName }}
@@ -108,6 +108,8 @@
     </div>
   </div>
 </section>
-<app-shared-model *ngIf="viewPost" [post]="singlePost"
-(onClick)="viewPost=false"
+<app-shared-model
+  *ngIf="viewPost"
+  [post]="singlePost"
+  (onClick)="viewPost = false"
 ></app-shared-model>

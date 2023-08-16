@@ -54,12 +54,12 @@ export class PostFeaturesComponent implements OnInit {
         this.category = res;
       },
     });
-    this.tagsService.getTags().subscribe({
-      next: (response) => {
-        console.log(response);
-        this.tags = response;
-      },
-    });
+    // this.tagsService.getTags().subscribe({
+    //   next: (response) => {
+    //     console.log(response);
+    //     this.tags = response;
+    //   },
+    // });
   }
   public changeCategory(index: number): void {
     this.featureForm.controls['category'].patchValue(
@@ -81,19 +81,18 @@ export class PostFeaturesComponent implements OnInit {
   }
 
   public onInputChange(event: any): void {
-   
-      const inputValue = event.target.value.trim().toLowerCase();
-      this.filteredTags = this.tags.filter((tag: any) =>
-        tag.tagName.toLowerCase().includes(inputValue)
-      );
-    }
-  
+    const inputValue = event.target.value.trim().toLowerCase();
+    this.filteredTags = this.tags.filter((tag: any) =>
+      tag.tagName.toLowerCase().includes(inputValue)
+    );
+  }
+
   addTag(tag: string): void {
     this.selectedTags?.push(tag);
   }
   removeTag(id: number): void {
     console.log(id);
-    this.selectedTags.splice(id,1);
+    this.selectedTags.splice(id, 1);
   }
   ToOpenCreatePage() {
     this.createPost.emit(this.featureForm.value);

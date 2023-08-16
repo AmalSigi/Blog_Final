@@ -47,6 +47,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UsersDetailsComponents } from './pages/admin-home/component/userDetails/userDetails.component';
 import { UserPostsComponent } from './pages/admin-home/component/userDetails/pages/userPostList/userPostList.component';
 import { RegisterComponent } from './pages/admin-home/component/userDetails/pages/userRegister/userRegister.component';
+import { ReportedCommnentViewComponent } from './pages/admin-comments/page/spam-comments/reported-commnent-view/reported-commnent-view.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { RegisterComponent } from './pages/admin-home/component/userDetails/page
     PostListComponent,
     UsersDetailsComponents,
     UserPostsComponent,
-    RegisterComponent
+    RegisterComponent,
+    ReportedCommnentViewComponent,
   ],
   imports: [
     CommonModule,
@@ -97,7 +99,6 @@ import { RegisterComponent } from './pages/admin-home/component/userDetails/page
     tagApi,
     authenticationApi,
     userApi,
-    
   ],
 })
 export class AdminModule {}

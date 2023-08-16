@@ -10,7 +10,6 @@ import { userApi } from 'src/app/core/http/userAccount.service';
 })
 export class AdminProfileComponent implements OnInit {
   constructor(
-    private readonly http: HttpClient,
     private readonly userService: userApi,
     private readonly router: ActivatedRoute
   ) {}
@@ -21,7 +20,7 @@ export class AdminProfileComponent implements OnInit {
   public editOn: boolean = false;
   public picShowDiv: boolean = false;
   public picUpload: boolean = false;
-  public editPassword:boolean=false;
+  public editPassword: boolean = false;
   public editForm = new FormGroup({
     first_name: new FormControl('', Validators.required),
     last_name: new FormControl('', Validators.required),
@@ -63,11 +62,6 @@ export class AdminProfileComponent implements OnInit {
         });
       }
     });
-
-    // this.http
-    //   .get('http://192.168.29.97:5296/UserAccount/4')
-    //   .subscribe((repo) => {
-    //
   }
   public populateForm(data: any): void {
     this.editForm.patchValue({
@@ -94,7 +88,6 @@ export class AdminProfileComponent implements OnInit {
 
   public updatePassword() {
     this.updateUserPassword();
-
   }
 
   public updateUserDetails() {
@@ -129,7 +122,7 @@ export class AdminProfileComponent implements OnInit {
     this.userService.updatePassword(this.passwordForm.value).subscribe({
       next: (res) => {
         console.log('success', res);
-        this.editPassword=!this.editPassword
+        this.editPassword = !this.editPassword;
       },
       error: (err) => {
         alert('Error');
@@ -169,9 +162,9 @@ export class AdminProfileComponent implements OnInit {
         .updateUserProfilePic(this.profileDetailes.id, formData)
         .subscribe({
           next: (response) => {
-            if (response) {
-              alert('Profile updated');
-            }
+            this.unshowUpolodtemp();
+            this.getProfile();
+            alert('Profile updated');
           },
           error: (response) => {
             alert('Error updating profile picture:');

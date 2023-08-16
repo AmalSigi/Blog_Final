@@ -7,12 +7,15 @@ import { Observable } from 'rxjs';
 export class categoryApi {
   constructor(private readonly http: HttpClient) {}
   public url: string = 'http://192.168.29.97:5296/Category';
+  // category
   public getCategory(): Observable<any> {
     return this.http.get(this.url);
   }
   public postCategory(category: any): Observable<any> {
     return this.http.post(this.url, category);
   }
+
+  // subcategory
   public postSubcategory(subCategoryForm: any): Observable<any> {
     return this.http.post(
       `${this.url}/${subCategoryForm.categoryId}/subcategory`,
@@ -21,5 +24,16 @@ export class categoryApi {
   }
   public getSubcategory(categoryId: number): Observable<any> {
     return this.http.get(`${this.url}/${categoryId}/subcategory`);
+  }
+
+  // cover picture
+  public postCategoryCoverPicture(
+    categoryId: number,
+    img: FormData
+  ): Observable<any> {
+    return this.http.patch(
+      `${this.url}/${categoryId}/udpateCategoryCoverPicture`,
+      img
+    );
   }
 }

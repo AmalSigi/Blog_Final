@@ -28,6 +28,15 @@ export class commentsApi {
     return this.http.patch(`${this.url}/${commentId}/report`, {});
   }
   public removeComment(commentId: number): Observable<any> {
-    return this.http.patch(`${this.url}/${commentId}/remove`, {});
+    return this.http.delete(`${this.url}/${commentId}/delete`, {});
+  }
+  public getCommentsCount(postId: number, status: string): Observable<any> {
+    return this.http.get(`${this.url}/${postId}/count?status=${status}`);
+  }
+  public getCommentsReportedId(
+    postId: number,
+    status: string
+  ): Observable<any> {
+    return this.http.get(`${this.url}/test/${postId}/all?status=${status}`);
   }
 }

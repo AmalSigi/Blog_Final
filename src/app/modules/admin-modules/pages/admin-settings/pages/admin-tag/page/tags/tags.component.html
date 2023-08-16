@@ -18,12 +18,6 @@
                 >
                   Tags
                 </th>
-                <th
-                  scope="col"
-                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
-                >
-                  No of post
-                </th>
 
                 <th
                   scope="col"
@@ -45,9 +39,6 @@
                 >
                   {{ item.tagName }}
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                  {{ item.num_posts }}
-                </td>
 
                 <td
                   class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
@@ -63,4 +54,8 @@
       </div>
     </div>
   </div>
+  <app-pagination
+    [totalLength]="totalData"
+    (emitPage)="emitPages()"
+  ></app-pagination>
 </section>
