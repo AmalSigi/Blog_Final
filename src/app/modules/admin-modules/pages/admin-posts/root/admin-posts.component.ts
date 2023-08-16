@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { postsAPi } from 'src/app/core/http/post.service';
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
+import { EditorsPickComponent } from '../pages/editorsPick/editorsPick.component';
+import { editorsPickApi } from 'src/app/core/http/editorsPick.services';
 
 @Component({
   selector: 'app-admin-posts',
@@ -10,11 +12,13 @@ import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 export class AdminPostsComponent {
   constructor(
     private readonly postApi: postsAPi,
-    private readonly trackCountService: trackDataService
+    private readonly trackCountService: trackDataService,
+    private readonly editPick: editorsPickApi
   ) {}
   public publishCount: number = 0;
   public draftCount: number = 0;
   public trashCount: number = 0;
+  public editorsPick: number = 0;
   public trackCount: Subscription = this.trackCountService
     .getClickEvent1()
     .subscribe(() => {
@@ -36,6 +40,10 @@ export class AdminPostsComponent {
           (item: any) => item.postStatus == 'Deleted'
         ).length;
       },
+    });
+
+    this.editPick.getBlogEditorsPick().subscribe((respo: any) => {
+      this.editorsPick = respo.length;
     });
   }
 }

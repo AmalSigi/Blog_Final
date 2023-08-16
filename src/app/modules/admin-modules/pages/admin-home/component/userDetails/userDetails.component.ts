@@ -46,7 +46,6 @@ export class UsersDetailsComponents {
     this.userService
       .getAllUsers(offset, this.offsetValue.pageSize)
       .subscribe((res: any) => {
-        console.log(res);
         this.totalData = res.totalLength;
         const activeUsers = res.users.filter(
           (user: any) => user.accountStatus !== 'Deleted'
@@ -67,7 +66,6 @@ export class UsersDetailsComponents {
 
   public fetchRoles() {
     this.userService.userRoles().subscribe((roles) => {
-      //console.log(roles)
       this.roles = roles;
     });
   }
@@ -101,7 +99,6 @@ export class UsersDetailsComponents {
   }
   public addRolesToUser() {
     if (this.selectedUserId === null) {
-      console.error('No user selected');
       return;
     }
 
@@ -111,40 +108,30 @@ export class UsersDetailsComponents {
         return { roleId: roleId, _RoleName: role ? role.roleName : '' };
       }),
     };
-    console.log(JSON.stringify(postData));
     this.userService
       .updateRoles(this.selectedUserId, postData.roles)
 
       .subscribe(
         (res) => {
-          console.log('Roles added successfully: ', res);
           this.userInfo();
           this.isModalOpen = false;
         },
-        (error) => {
-          console.error('Failed', error);
-        }
+        (error) => {}
       );
   }
   public resetPassword() {
     if (this.selectedUserId === null) {
-      console.error('no user selectd');
     }
     const postData = {
       newPassword: this.newPassword,
     };
-    console.log(postData);
-    this.userService.resetpassword(this.selectedUserId,postData)
-      .subscribe(
-        (res) => {
-          console.log('Password Reset successfully: ', res);
-          this.userInfo();
-          this.isResetPasswordModelOpen = false;
-        },
-        (error) => {
-          console.error('Password reset failed', error);
-        }
-      );
+    this.userService.resetpassword(this.selectedUserId, postData).subscribe(
+      (res) => {
+        this.userInfo();
+        this.isResetPasswordModelOpen = false;
+      },
+      (error) => {}
+    );
   }
 
   public goProfile(id: number) {
@@ -154,41 +141,34 @@ export class UsersDetailsComponents {
   public toggleUserStatus(userId: number, accountStatus: string) {
     const newStatus = accountStatus === 'Active' ? 'Blocked' : 'Active';
     const apiUrl = newStatus === 'Active' ? 'reActivate' : 'block';
-console.log(apiUrl)
-    this.userService.changeUserStatus(userId,apiUrl)
-      .subscribe(
-        (res) => {
-          console.log(res)
-          this.userInfo();
-        },
-        (error) => {
-        }
-      );
+    this.userService.changeUserStatus(userId, apiUrl).subscribe(
+      (res) => {
+        this.userInfo();
+      },
+      (error) => {}
+    );
   }
 
   public deleteUser(userId: number) {
     if (confirm('Are you sure you want to delete this user?')) {
-      this.userService.deleteUser(userId)
-        .subscribe(
-          (res) => {
-            this.userInfo();
-          },
-          (err) => {
-            alert('error');
-          }
-        );
+      this.userService.deleteUser(userId).subscribe(
+        (res) => {
+          this.userInfo();
+        },
+        (err) => {
+          alert('error');
+        }
+      );
     }
   }
   public toggleEdit(index: number): void {
-    if(this.index===index){
-      this.index=-1
+    if (this.index === index) {
+      this.index = -1;
       this.showEdit = !this.showEdit;
-    }
-    else{
+    } else {
       this.showEdit = true;
       this.index = index;
     }
-   
   }
   public emitPages() {
     this.userInfo();

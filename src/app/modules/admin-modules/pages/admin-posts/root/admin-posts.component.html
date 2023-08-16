@@ -11,11 +11,11 @@
       <i class="fa-solid fa-plus"></i>Add new post
     </a>
   </div>
-  <div class="mt-10 flex border-2 bg-gray-200">
+  <div class="mt-10 flex bg-gray-200">
     <a
       routerLinkActive="active-post-nav"
       routerLink="published"
-      [routerLinkActiveOptions]="{exact:true}"
+      [routerLinkActiveOptions]="{ exact: true }"
       class="post-nav"
       >Published
       <span class="bg-blue-700 text-white px-2 py-1 rounded-full">{{
@@ -34,12 +34,15 @@
         trashCount
       }}</span></a
     >
-    <a routerLinkActive="active-post-nav" routerLink="Editor-pick" class="post-nav"
-    >Editor's pick
-    <span class="bg-blue-700 text-white px-2 py-1 rounded-full">{{
-      trashCount
-    }}</span></a
-  >
+    <a
+      routerLinkActive="active-post-nav"
+      routerLink="Editor-pick"
+      class="post-nav"
+      >Editor's pick
+      <span class="bg-blue-700 text-white px-2 py-1 rounded-full">{{
+        editorsPick
+      }}</span></a
+    >
   </div>
   <div class="mt-5">
     <router-outlet></router-outlet>

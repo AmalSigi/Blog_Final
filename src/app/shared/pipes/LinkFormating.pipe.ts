@@ -13,7 +13,7 @@ export class FormatLinksPipe implements PipeTransform {
     const modifiedContent = content.replace(
       linkPattern,
       (_match, text, url) => {
-        return `<a href="${url}" class="linkcss ">${text}</a>`;
+        return `<a href="${url}" target="_blank" class="linkcss  ">${text}</a>`;
       }
     );
 

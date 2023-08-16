@@ -11,6 +11,9 @@ export class tagApi {
   public getTags(offset: number, length: number): Observable<any> {
     return this.http.get(`${this.url}/all?offset=${offset}&length=${length}`);
   }
+  public getAllTags(): Observable<any> {
+    return this.http.get(`${this.url}/all`);
+  }
   public postTags(body: string): Observable<any> {
     return this.http.post(this.url, body);
   }

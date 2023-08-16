@@ -1,4 +1,3 @@
-
 <!-- navbar -->
 <nav class="w-full h-15 bg-gray-100 border-b-2 p-3 flex justify-between fixed">
   <button class="bg-blue-600 text-white p-2 rounded-md">
@@ -119,7 +118,7 @@
 
           <ng-container *ngSwitchCase="4">
             <label
-              (click)="Selected(i,4)"
+              (click)="Selected(i, 4)"
               class="text-white bg-blue-600 p-2"
               for="image"
               >Upload image</label
@@ -137,7 +136,7 @@
             <div>
               <div class="w-[80%] h-[500px] mt-3 overflow-hidden">
                 <img
-                  (click)="Selected(i,4)"
+                  (click)="Selected(i, 4)"
                   [ngStyle]="{
                     height: imgHeight + 'px',
                     width: imgWidth + 'px',
@@ -160,7 +159,7 @@
 
           <ng-container *ngSwitchCase="5">
             <label
-              (click)="Selected(i,5)"
+              (click)="Selected(i, 5)"
               class="text-white bg-blue-600 p-2"
               for="video"
               >Upload a video</label
@@ -176,7 +175,7 @@
             />
             <div>
               <video
-              (click)="Selected(i,5)"
+                (click)="Selected(i, 5)"
                 controls
                 autoplay
                 class="w-[80%] h-[400px] border mt-3"
@@ -191,21 +190,54 @@
               *ngIf="sectionId == i"
             ></app-toolbar>
           </ng-container>
+          <ng-container *ngSwitchCase="6">
+            <label
+              (click)="Selected(i, 6)"
+              class="text-white bg-blue-600 p-2"
+              for="image"
+              >Upload Ad</label
+            >
+            <input
+              (change)="onFileSelected($event)"
+              #image
+              class="outline-none"
+              type="file"
+              id="image"
+              hidden="true"
+              [formControl]="item.content"
+              placeholder="upload image"
+            />
+            <div>
+              <div class="w-[80%] h-[250px] mt-3 overflow-hidden">
+                <img
+                  (click)="Selected(i, 4)"
+                  class="h-full w-full aspect-square"
+                  [src]="mediaFilePath + item?.dataURL"
+                  alt=""
+                />
+              </div>
+            </div>
+            <app-toolbar
+              (delete)="deleteBlock()"
+              (select)="addBlock($event)"
+              [index]="sectionId"
+              *ngIf="sectionId == i"
+            ></app-toolbar>
+          </ng-container>
         </ng-container>
       </div>
       <div class="h-full w-full">
         <app-addPostSettings
-          *ngIf="currentTool==4 || currentTool==5"
+          *ngIf="currentTool == 4 || currentTool == 5"
           (sendURL)="setImageUrl($event)"
           (onChange)="changeImageSize($event)"
-         [mediaType]="currentTool"
+          [mediaType]="currentTool"
         ></app-addPostSettings>
       </div>
     </form>
   </div>
   <app-postFeatures
-  (createPost)="getPostFeatures($event)"
-  *ngIf="postFeatures"
-></app-postFeatures>
- 
+    (createPost)="getPostFeatures($event)"
+    *ngIf="postFeatures"
+  ></app-postFeatures>
 </section>

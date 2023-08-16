@@ -33,8 +33,7 @@ export class RegisterComponent {
   registrationForm!: FormGroup;
   constructor(
     private readonly http: HttpClient,
-    private formBuilder: FormBuilder,
-   
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -80,12 +79,9 @@ export class RegisterComponent {
       .get<AddUserRoleDto[]>('http://192.168.29.97:5296/UserAccount/roles')
       .subscribe(
         (roles) => {
-          console.log(roles);
           this.roles = roles;
         },
-        (error) => {
-          console.error('Failed');
-        }
+        (error) => {}
       );
   }
 
@@ -98,14 +94,7 @@ export class RegisterComponent {
     );
 
     const url = 'http://192.168.29.97:5296/UserAccount/registeruser';
-    console.log(this.registrationForm.value);
-    console.log(formData);
-    this.http.post(url, formData).subscribe(
-      (res) => {
-        console.log('Registration Successfull', res);
-      },
-      (err) => console.error(`Error Occured ${JSON.stringify(err)}`)
-    );
+    this.http.post(url, formData).subscribe((res) => {});
   }
   transformFormData(data: any): RegisterUserDto {
     const userRoles: TransformedUserRoleDto[] = [];

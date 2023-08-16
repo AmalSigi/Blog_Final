@@ -28,6 +28,7 @@ export class SharedModelComponent implements OnInit {
   ngOnInit(): void {
     this.getComments();
     this.getPost();
+    console.log(this.post);
   }
 
   public getPost() {

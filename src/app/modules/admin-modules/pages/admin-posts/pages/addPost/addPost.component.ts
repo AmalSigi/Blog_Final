@@ -22,7 +22,7 @@ export class AddPostComponent implements OnInit {
   public sectionId: number = 0;
   public mediaFilePath: string = 'http://192.168.29.97:5296/assets/';
   public showToolBar: boolean = false;
-  public TextToolBar:boolean=true;
+  public TextToolBar: boolean = true;
   constructor(
     private formbuilder: FormBuilder,
     private readonly route: ActivatedRoute,
@@ -36,8 +36,8 @@ export class AddPostComponent implements OnInit {
   ngOnInit() {
     this.blogForm = this.formbuilder.group({
       authorId: [1],
-      _CategoryId: new FormControl(),
-      _SubCategoryId: new FormControl(),
+      categoryId: new FormControl(),
+      subCategoryId: new FormControl(),
 
       postSections: this.formbuilder.array([]),
     });
@@ -77,24 +77,21 @@ export class AddPostComponent implements OnInit {
     };
 
     this.dynamicDiv.push(dynamicElement);
-
   }
   public editTool(data: any): void {
     console.log(data.postSections);
-this.sectionId++;
+    this.sectionId++;
     data.postSections.forEach((element: any) => {
-      
       switch (element.sectionTypeId) {
         case 4 || 5:
           this.dynamicFormControls.push(this.formbuilder.control(''));
 
           break;
-       
+
         default:
           this.dynamicFormControls.push(
             this.formbuilder.control(element.content)
           );
-
 
           break;
       }
@@ -144,7 +141,7 @@ this.sectionId++;
       this.dynamicFormArray.push(formGroup);
     });
     if (this.postId == null) {
-      console.log(this.blogForm);
+      console.log(this.blogForm.value);
       this.postService.addPost(this.blogForm.value).subscribe({
         next: (res) => {
           console.log('new post added');
@@ -166,9 +163,11 @@ this.sectionId++;
     }
   }
   getPostFeatures(event: any): void {
+    console.log(event);
     this.postFeatures = false;
-    this.blogForm.controls['_CategoryId']?.setValue(event.categoryId);
-    this.blogForm.controls['_SubCategoryId']?.setValue(event.subCategoryId);
+    this.blogForm.controls['categoryId']?.setValue(event.categoryId);
+    this.blogForm.controls['subCategoryId']?.setValue(event.subCategoryId);
+    console.log(this.blogForm.value);
   }
   changeImageSize(event: any) {
     console.log(event.height.toString());
@@ -177,9 +176,9 @@ this.sectionId++;
     this.aspectRatio = event.aspectRatio;
   }
 
-  Selected(id: number,type:number) {
-  this.currentTool=type;
-  console.log(type)
+  Selected(id: number, type: number) {
+    this.currentTool = type;
+    console.log(type);
     this.sectionId = id;
   }
   public setImageUrl(url: any) {
@@ -227,7 +226,7 @@ this.sectionId++;
   public selectedTextarea!: string;
   getSelectedWord(event: any) {
     const textarea: any = event.target;
-this.TextToolBar=true;
+    this.TextToolBar = true;
     if (
       textarea.selectionStart !== undefined &&
       textarea.selectionEnd !== undefined
@@ -242,37 +241,35 @@ this.TextToolBar=true;
       this.selectedTextarea = selectedText;
     }
   }
-public urlData!:string;
-public getUrl(Url: string):void{
-  this.urlData=Url;
-this.onTextSelected('link')
-}
- public onTextSelected(event: any): void {
-// this.TextToolBar=false;
-let formattedText:string='';
-   if(this.selectedTextarea){
-    switch(event){
-      case 'bold':
-   formattedText = `**${this.selectedTextarea}**`;
-   break;
-   case 'italic':
-    formattedText = `*${this.selectedTextarea}*`;
-    break;
-    case 'link':
-    
-    formattedText = `[${this.selectedTextarea}](${this.urlData})`;
-    break;
-    default:
-      break;
-        
+  public urlData!: string;
+  public getUrl(Url: string): void {
+    this.urlData = Url;
+    this.onTextSelected('link');
+  }
+  public onTextSelected(event: any): void {
+    // this.TextToolBar=false;
+    let formattedText: string = '';
+    if (this.selectedTextarea) {
+      switch (event) {
+        case 'bold':
+          formattedText = `**${this.selectedTextarea}**`;
+          break;
+        case 'italic':
+          formattedText = `*${this.selectedTextarea}*`;
+          break;
+        case 'link':
+          formattedText = `[${this.selectedTextarea}](${this.urlData})`;
+          break;
+        default:
+          break;
+      }
+      const textarea = this.dynamicFormControls[this.sectionId].value;
+      const newText =
+        textarea.slice(0, this.selectionStart) +
+        formattedText +
+        textarea.slice(this.selectionEnd);
+      this.dynamicFormControls[this.sectionId].setValue(newText);
     }
-    const textarea = this.dynamicFormControls[this.sectionId].value;
-    const newText =
-      textarea.slice(0, this.selectionStart) +
-      formattedText +
-      textarea.slice(this.selectionEnd);
-    this.dynamicFormControls[this.sectionId].setValue(newText);
-   }
-  this.selectedTextarea='';
+    this.selectedTextarea = '';
   }
 }

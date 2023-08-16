@@ -10,10 +10,10 @@
     background-image: url("https://images.pexels.com/photos/399160/pexels-photo-399160.jpeg");
   }
   .post-nav {
-    @apply p-6 hover:bg-white;
+    @apply p-6 ;
   }
   .active-post-nav {
-    @apply border-b-black border-2 text-blue-600;
+    @apply  bg-white;
   }
 
   .media-box {

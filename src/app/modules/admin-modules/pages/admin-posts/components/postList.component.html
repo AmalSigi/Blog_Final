@@ -92,11 +92,12 @@
 
             <li
               *ngIf="published"
-              class="hover:bg-red-600 hover:text-white p-3 flex items-center gap-2"
+              (click)="addEditorsPick(post.id)"
+              class="hover:bg-red-600 hover:text-white p-3 cursor-pointer flex items-center gap-2"
             >
               <span><i class="fa-solid fa-chart-simple"></i></span>
 
-              <a href="">stats</a>
+              <a>Add to Editor's pick</a>
             </li>
 
             <li

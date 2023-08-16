@@ -43,10 +43,19 @@
             /></ng-container>
             <ng-container *ngSwitchCase="5"
               ><video
+                class="my-5"
                 controls
                 muted
                 [src]="'http://192.168.29.97:5296/assets/' + postItem?.content"
               ></video
+            ></ng-container>
+            <ng-container *ngSwitchCase="6">
+              <div class="border-y-2 py-2">
+                <p class="text-center">AD</p>
+                <img
+                  class="my-5 w-full h-[200px]"
+                  [src]="'http://192.168.29.97:5296/assets/' + postItem.content"
+                /></div
             ></ng-container>
           </ng-container>
         </div>
@@ -191,7 +200,7 @@
       <!-- sending comments -->
       <form
         [formGroup]="commentForm"
-        class="relative grid grid-cols-12 gap-5 w-full p-4"
+        class="relative grid grid-cols-12 gap-5 w-full px-4 p-2"
       >
         <input
           formControlName="content"

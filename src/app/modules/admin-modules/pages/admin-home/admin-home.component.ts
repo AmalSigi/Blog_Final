@@ -34,15 +34,12 @@ export class AdminHomeComponent {
       next: (response) => {
         this.posts = response;
         this.activeBlogs = response.totalLength;
-
-        console.log(response);
       },
     });
   }
   public getEditorsPick() {
     this.pickApi.getBlogEditorsPick().subscribe({
       next: (response) => {
-        console.log(response);
         response.forEach((post: any) => {
           this.getRecommendedPost(post.id);
         });
@@ -52,14 +49,9 @@ export class AdminHomeComponent {
   public getRecommendedPost(postId: number) {
     this.postAPi.getPostById(postId).subscribe((respo) => {
       this.getPost(respo);
-      console.log(respo);
     });
-
-    // console.log(this.suggestionPost);
   }
   public getPost(post: any) {
-    // console.log(post);
-
     let heading = post.postSections.filter(
       (item: any) => item.sectionTypeId == 1
     );
@@ -82,17 +74,18 @@ export class AdminHomeComponent {
 
     this.editorsPickPost.push(obj);
   }
+
+  public editorView() {}
+
   public getUsers(): void {
     this.userApi.getFilteredUsers('Active', 0, 10).subscribe({
       next: (response) => {
         this.users = response;
         this.activeUsers = response.totalLength;
-        console.log(response);
       },
     });
     this.postAPi.totalViews('Active').subscribe({
       next: (response) => {
-        console.log(response);
         this.totalViews = response.count;
       },
     });

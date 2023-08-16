@@ -17,6 +17,10 @@ export class ReportedCommnentViewComponent {
   comments!: any[];
 
   ngOnInit(): void {
+    this.getReportedComments();
+  }
+
+  public getReportedComments() {
     this.route.queryParams.subscribe((params) => {
       const postId = params['postId'];
 
@@ -25,6 +29,7 @@ export class ReportedCommnentViewComponent {
           .getCommentsReportedId(postId, 'Reported')
           .subscribe((comments: any) => {
             this.comments = comments;
+            console.log(comments);
           });
       }
     });

@@ -1,11 +1,9 @@
-[15:31] Albin Devasia
-
 <section
-  class="h-screen top-0 left-0 bottom-0 right-0 fixed flex justify-center items-center bg-cover overflow-y-scroll bg-white/80"
+  class="h-screen top-0 left-0 bottom-0 right-0 fixed flex justify-center items-center bg-cover overflow-y-scroll bg-black/80"
 >
   <div class="w-[80%] h-[80%] bg-gray-100 overflow-y-scroll overflow-x-hidden">
     <div class="modal-header p-4 flex justify-between">
-      <h2 class="text-2xl font-semibold text-red-600">Reported Comments</h2>
+      <h2 class="text-2xl font-semibold">Reported Comments</h2>
 
       <a routerLink="../" class="w-10 h-10"
         ><i class="fa-solid fa-xmark"></i
@@ -24,9 +22,10 @@
 
           <button
             (click)="removeComment(comment.id)"
-            class="p-2 border-2 border-red-500 rounded-md text-center text-red-500"
+            class="p-2 rounded-md text-center text-red-500"
+            title="delete"
           >
-            <i class="fa-solid fa-trash"></i> Remove
+            <i class="fa-solid fa-trash"></i>
           </button>
         </div>
 
