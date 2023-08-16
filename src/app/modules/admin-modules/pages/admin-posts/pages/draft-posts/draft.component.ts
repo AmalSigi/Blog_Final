@@ -17,12 +17,13 @@ export class PostDraftComponent {
 
   ngOnInit() {
     this.loadPosts();
-    console.log('hi');
+    
   }
-  public loadPosts() {
+  public loadPosts() { 
     const offset = this.toggleOffset.offset();
+    const inputText=this.toggleOffset.searchInput()
     this.postsService
-      .getFilteredPosts('Draft', offset, this.toggleOffset.pageSize)
+      .getFilteredPosts('Draft', offset, this.toggleOffset.pageSize,inputText)
       .subscribe({
         next: (response) => {
           this.totalData = response.totalLength;

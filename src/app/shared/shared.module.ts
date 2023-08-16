@@ -7,6 +7,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { SharedModelComponent } from './components/shared-model/shared-model.component';
 import { FormatLinksPipe } from './pipes/LinkFormating.pipe';
 import { PaginationComponent } from './components/pagination/pagination.component';
+import { LoadingComponent } from './components/loadingPage/loading.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     SharedModelComponent,
     FormatLinksPipe,
     PaginationComponent,
+    LoadingComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, MarkdownModule],
   exports: [
@@ -23,6 +25,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     SharedModelComponent,
     FormatLinksPipe,
     PaginationComponent,
+    LoadingComponent,
   ],
 })
 export class SharedModule {}

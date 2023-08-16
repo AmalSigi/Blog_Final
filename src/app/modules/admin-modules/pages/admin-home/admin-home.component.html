@@ -24,6 +24,60 @@
         <p>Active Users: {{ activeUsers }}</p>
       </div>
     </div>
+    <!-- editors picks -->
+    <div class=" w-full">
+      <h2 class="text-2xl font-serif mt-10">Editors Pick</h2>
+      <section class="container mx-auto">
+        <div class="grid md:grid-cols-12 mx-auto mt-5 gap-4">
+    
+          <ng-container *ngFor="let item of editorsPickPost; let i = index">
+    
+            <div class="h-[20rem] col-span-4 mb-10">
+    
+              <div class="h-[75%] w-full bg-red-200">
+    
+                <a>
+    
+                  <img
+    
+                    class="w-full h-full object-cover hover:shadow-lg hover:shadow-gray-500"
+    
+                    [src]="'http://192.168.29.97:5296/assets/' + item?.img?.content"
+    
+                    alt=""
+    
+                  />
+    
+                </a>
+    
+              </div>
+    
+              <div>
+    
+                <h2 class="text-2xl font-semibold mt-4">
+    
+                  {{ item?.heading?.content }}
+    
+                </h2>
+    
+              </div>
+    
+            </div>
+    
+          </ng-container>
+    
+        </div>
+    
+      </section>
+      <div class="w-full flex items-center text-center">
+        <a
+          routerLink="posts/published"
+          class="mt-3 w-full bg-blue-500 p-2 text-white"
+        >
+          Manage
+        </a>
+      </div>
+    </div>
     <!-- users  -->
     <div class="mt-5 border-b-2 pb-5">
       <h2 class="text-2xl font-serif">Users</h2>
@@ -107,6 +161,8 @@
       </div>
     </div>
   </div>
+<app-loading *ngIf="!posts && !users"></app-loading>
+
 </section>
 <app-shared-model
   *ngIf="viewPost"

@@ -48,9 +48,15 @@ import { UsersDetailsComponents } from './pages/admin-home/component/userDetails
 import { UserPostsComponent } from './pages/admin-home/component/userDetails/pages/userPostList/userPostList.component';
 import { RegisterComponent } from './pages/admin-home/component/userDetails/pages/userRegister/userRegister.component';
 import { ReportedCommnentViewComponent } from './pages/admin-comments/page/spam-comments/reported-commnent-view/reported-commnent-view.component';
+import { postFilterService } from 'src/app/core/services/filteredData.service';
+import { editorsPickApi } from 'src/app/core/http/editorsPick.services';
+import { EditorsPickComponent } from './pages/admin-posts/pages/editorsPick/editorsPick.component';
+import { trackDataService } from 'src/app/core/subjects/trackData.subject';
+import { ClickOutsideDirective } from 'src/app/core/directives/clcickOutside.directive';
 
 @NgModule({
   declarations: [
+    ClickOutsideDirective,
     NavbarComponent,
     AdminHomeComponent,
     AdminThemesComponent,
@@ -83,6 +89,7 @@ import { ReportedCommnentViewComponent } from './pages/admin-comments/page/spam-
     UserPostsComponent,
     RegisterComponent,
     ReportedCommnentViewComponent,
+    EditorsPickComponent,
   ],
   imports: [
     CommonModule,
@@ -99,6 +106,9 @@ import { ReportedCommnentViewComponent } from './pages/admin-comments/page/spam-
     tagApi,
     authenticationApi,
     userApi,
+    postFilterService,
+    editorsPickApi,
+    trackDataService,
   ],
 })
 export class AdminModule {}
