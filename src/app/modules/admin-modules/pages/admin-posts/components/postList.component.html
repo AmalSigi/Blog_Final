@@ -1,11 +1,27 @@
 <section>
-    <div hidden>
+  <!-- <div *ngIf="posts.length==0">
       <p class="text-center text-2xl font-semibold">No posts found.</p>
-    </div>
-    <div
-    *ngIf="!posts"
-    class="flex w-full container mx-auto justify-center"
-  >
+    </div> -->
+  <div class="right-0 mb-5">
+    <button
+      (click)="enableSearch = !enableSearch"
+      class="bg-blue-600 text-white px-3 py-2 rounded-full mr-3"
+    >
+      <span *ngIf="!enableSearch"
+        ><i class="fa-solid fa-magnifying-glass"></i
+      ></span>
+      <span *ngIf="enableSearch"><i class="fa-solid fa-xmark"></i></span>
+    </button>
+    <input
+      *ngIf="enableSearch"
+      (input)="searchPostByName($event)"
+      type="search"
+      placeholder="Search By Post Name.."
+      class="outline-green-600 p-2 border-2 rounded-lg border-blue-500 w-[50%]"
+      type="text"
+    />
+  </div>
+  <div *ngIf="!posts" class="flex w-full container mx-auto justify-center">
     <div class="flex items-center pointer-events-none pl-10">
       <div
         class="animate-spin inline-block w-8 h-8 border-[3px] border-current border-t-transparent text-red-900 rounded-full"
@@ -15,82 +31,101 @@
         <span class="sr-only">Loading...</span>
       </div>
     </div>
-    <p class="m-3 italic bold text-black text-xl font-bold">
-      Please Wait...
-    </p>
+    <p class="m-3 italic bold text-black text-xl font-bold">Please Wait...</p>
   </div>
-    <div class="relative">
-      <ul>
-        <li
-          class="border-2 p-3 mb-2 flex justify-between"
-          *ngFor="let post of posts; let i = index"
+  <div class="relative">
+    <ul >
+      <li
+        class="border-2 p-3 mb-2 flex justify-between"
+        *ngFor="let post of posts; let i = index"
+      >
+        <div>
+          <h2 class="text-lg font-semibold">
+            {{ post.postSections[0]?.content }}
+          </h2>
+        </div>
+        <button (click)="toggleEditMenu(post, i)">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </button>
+        <div
+       
+          *ngIf="showDiv && listIndex == i"
+          class="absolute w-48 bg-white border-2 rounded-lg border-black mt-10 right-0 overflow-hidden"
         >
-          <div>
-            <h2 class="text-lg font-semibold">{{ post.postSections[0]?.content }}</h2>
-            <p class="text-gray-500 text-sm">{{post.postSections[1]?.content}}</p>
-          </div>
-          <img [src]="post.content" class="w-66 h-66" alt="">
-          <button (click)="toggleEditMenu(post, i)">
-            <i class="fa-solid fa-ellipsis-vertical"></i>
-          </button> 
-          <div
-            *ngIf="showDiv && listIndex == i"
-            class="absolute w-48 bg-white border-2 rounded-lg border-black mt-10 right-0 overflow-hidden"
+          <ul 
           >
-            <ul>
+            <a
+              *ngIf="!picks"
+              routerLink="/newPost"
+              [queryParams]="{ postId: post.id }"
+            >
               <li
                 class="hover:bg-red-600 hover:text-white p-3 flex items-center gap-2"
               >
                 <span><i class="fa-solid fa-pen-to-square"></i> </span>
-                <a routerLink="/newPost" [queryParams]="{postId:post.id}">Edit</a>
-              </li>
-              <a (click)="publishPost(post.id)" >  <li
+                Edit
+              </li></a
+            >
+            <a *ngIf="draft || trash" (click)="publishPost(post.id)">
+              <li
+                class="hover:bg-red-600 hover:text-white p-3 flex items-center gap-2"
+              >
+                <span *ngIf="!trash"><i class="fa-solid fa-upload"></i> Publish</span>
+              <span *ngIf="trash"><i class="fa-solid fa-trash-arrow-up"></i> Restore</span>
+
+              </li></a
+            >
+            <li
+              *ngIf="published"
               class="hover:bg-red-600 hover:text-white p-3 flex items-center gap-2"
             >
-              <span><i class="fa-solid fa-upload"></i> Publish</span>
-              
-            </li></a>
-              <li
-                class="hover:bg-red-600 hover:text-white p-3 flex items-center gap-2"
-              >
-                <span><i class="fa-solid fa-chart-simple"></i></span>
-                <a href="">stats</a>
-              </li>
-              <li
-                class="hover:bg-red-600 hover:text-white p-3 flex items-center gap-2"
-              >
-                <span><i class="fa-solid fa-eye"></i> </span>
-                <button (click)="showBox(i)">view</button>
-              </li>
-              <li
-                class="hover:bg-red-600 hover:text-white p-3 flex items-center gap-2"
-              >
-                <span><i class="fa-solid fa-comments"></i></span>
-                <a href=""> comments</a>
-              </li>
-             
-              <li
+              <span><i class="fa-solid fa-chart-simple"></i></span>
+              <a href="">stats</a>
+            </li>
+            <li
+              (click)="showBox(i)"
+              class="hover:bg-red-600 hover:text-white p-3 flex items-center gap-2"
+            >
+              <span><i class="fa-solid fa-eye"></i> view</span>
+            </li>
+            <li
+              class="hover:bg-red-600 hover:text-white p-3 flex items-center gap-2"
+            >
+              <span><i class="fa-solid fa-comments"></i></span>
+              <a href=""> comments</a>
+            </li>
+
+            <li
+              *ngIf="!picks"
               (click)="deletePost(post.id)"
-                class="hover:bg-red-600 hover:text-white p-3 flex items-center gap-2"
-              >
-                <span><i class="fa-solid fa-trash"></i> delete</span>
-               
-              </li>
-            </ul>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <app-pagination *ngIf="posts" [offsetValue]="offsetValue"
-[totalLength]="totalData"
+              class="hover:bg-red-600 hover:text-white p-3 flex items-center gap-2"
+            >
+              <span *ngIf="!trash"><i class="fa-solid fa-trash"></i> delete</span>
+              
+            </li>
+            <li
+              *ngIf="picks"
+              (click)="RemovePick(post.id)"
+              class="hover:bg-red-600 hover:text-white p-3 flex items-center gap-2"
+            >
+              <span><i class="fa-solid fa-trash"></i> Remove</span>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <app-pagination
+    *ngIf="posts"
+    [offsetValue]="offsetValue"
+    [totalLength]="totalData"
     (emitPage)="emitPages()"
     [lengthValue]="pageLength"
     [totalData]="posts"
-    ></app-pagination>
-  </section>
-  <app-shared-model
-    *ngIf="commentDiv"
-    (onClick)="commentDiv = false"
-    [post]="viewPost"
-  ></app-shared-model>
-  
+  ></app-pagination>
+</section>
+<app-shared-model
+  *ngIf="commentDiv"
+  (onClick)="commentDiv = false"
+  [post]="viewPost"
+></app-shared-model>

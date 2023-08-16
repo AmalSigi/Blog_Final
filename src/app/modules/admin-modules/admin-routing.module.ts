@@ -24,6 +24,7 @@ import { AdminPostsComponent } from './pages/admin-posts/root/admin-posts.compon
 import { UsersDetailsComponents } from './pages/admin-home/component/userDetails/userDetails.component';
 import { UserPostsComponent } from './pages/admin-home/component/userDetails/pages/userPostList/userPostList.component';
 import { RegisterComponent } from './pages/admin-home/component/userDetails/pages/userRegister/userRegister.component';
+import { EditorsPickComponent } from './pages/admin-posts/pages/editorsPick/editorsPick.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,7 @@ const routes: Routes = [
           { path: 'published', component: PostPublishedComponent },
           { path: 'drafts', component: PostDraftComponent },
           { path: 'trashed', component: PostsTrashedComponent },
+          { path: 'Editor-pick', component: EditorsPickComponent },
         ],
       },
       { path: '', component: AdminHomeComponent },

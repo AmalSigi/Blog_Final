@@ -1,48 +1,45 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-// import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-// import { SharedModelComponent } from '../shared/components/shared-model/shared-model.component';
+import { postsAPi } from 'src/app/core/http/post.service';
+import { postFilterService } from 'src/app/core/services/filteredData.service';
 
 @Component({
   selector: 'app-user-posts',
   templateUrl: './userPostList.component.html',
-
 })
 export class UserPostsComponent {
-  constructor(private route:ActivatedRoute,private http:HttpClient){}
+  constructor(
+    private route: ActivatedRoute,
+    private http: HttpClient,
+    private postService: postsAPi,
+    private readonly filterPosts: postFilterService
+  ) {}
 
-userId!:number
-userPosts:any[]=[];
-public viewPost:boolean = false;
-public post!:any;
+  userId!: number;
+  userPosts: any[] = [];
+  public allPosts!: any;
+  public viewPost: boolean = false;
+  public post!: any;
 
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      this.userId = params['userId'];
+      this.loadPosts();
+    });
+  }
 
-ngOnInit():void{
-  this.route.queryParams.subscribe(params=>{
-    this.userId= params['userId'];
-    console.log(this.userId);
-    this.loadPosts()
+  public loadPosts() {
+    this.postService.authorizedPosts(this.userId).subscribe((response: any) => {
+      this.allPosts = response;
+      response.forEach((post: any) => {
+        this.userPosts.push(this.filterPosts.getPost(post));
+      });
+    });
+  }
+  public openModal(index: any) {
+    this.viewPost = true;
 
-  })
-}
-
-public loadPosts(){
-  this.http.get<any[]>(`http://192.168.29.97:5296/Post/${this.userId}/authoredPosts`)
-  .subscribe((posts:any[])=>{
-    
-    this.userPosts=posts
-    console.log(this.userPosts)
-  })
-}
-public openModal(index:any){
-this.viewPost=true;
-
-this.post=this.userPosts[index];
-//   const modalRef=this.modalService.open(SharedModelComponent,{
-//     size:'lg',
-//   });
-
-//   modalRef.componentInstance.post=post;
-}
+    this.post = this.allPosts[index];
+  }
 }

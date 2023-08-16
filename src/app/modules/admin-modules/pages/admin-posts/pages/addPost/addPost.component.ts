@@ -134,7 +134,7 @@ this.sectionId++;
     // this.dynamicFormControls[this.sectionId].setValue(formData);
   }
 
-  publish() {
+  public publish() {
     this.dynamicDiv.forEach((element) => {
       const formGroup = this.formbuilder.group({
         sectionTypeId: element.type,

@@ -47,9 +47,15 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UsersDetailsComponents } from './pages/admin-home/component/userDetails/userDetails.component';
 import { UserPostsComponent } from './pages/admin-home/component/userDetails/pages/userPostList/userPostList.component';
 import { RegisterComponent } from './pages/admin-home/component/userDetails/pages/userRegister/userRegister.component';
+import { postFilterService } from 'src/app/core/services/filteredData.service';
+import { editorsPickApi } from 'src/app/core/http/editorsPick.services';
+import { EditorsPickComponent } from './pages/admin-posts/pages/editorsPick/editorsPick.component';
+import { trackDataService } from 'src/app/core/subjects/trackData.subject';
+import { ClickOutsideDirective } from 'src/app/core/directives/clcickOutside.directive';
 
 @NgModule({
   declarations: [
+    ClickOutsideDirective,
     NavbarComponent,
     AdminHomeComponent,
     AdminThemesComponent,
@@ -80,7 +86,8 @@ import { RegisterComponent } from './pages/admin-home/component/userDetails/page
     PostListComponent,
     UsersDetailsComponents,
     UserPostsComponent,
-    RegisterComponent
+    RegisterComponent,
+    EditorsPickComponent
   ],
   imports: [
     CommonModule,
@@ -97,6 +104,9 @@ import { RegisterComponent } from './pages/admin-home/component/userDetails/page
     tagApi,
     authenticationApi,
     userApi,
+    postFilterService,
+    editorsPickApi,
+    trackDataService
     
   ],
 })

@@ -1,7 +1,4 @@
-<app-postFeatures
-  (createPost)="getPostFeatures($event)"
-  *ngIf="postFeatures"
-></app-postFeatures>
+
 <!-- navbar -->
 <nav class="w-full h-15 bg-gray-100 border-b-2 p-3 flex justify-between fixed">
   <button class="bg-blue-600 text-white p-2 rounded-md">
@@ -206,4 +203,9 @@
       </div>
     </form>
   </div>
+  <app-postFeatures
+  (createPost)="getPostFeatures($event)"
+  *ngIf="postFeatures"
+></app-postFeatures>
+ 
 </section>

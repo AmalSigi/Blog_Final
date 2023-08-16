@@ -37,11 +37,16 @@ export class postsAPi {
   public getFilteredPosts(
     params: string,
     offset: number,
-    length: number
+    length: number,
+    searchInput: string | undefined
   ): Observable<any> {
-    return this.http.get(
-      `${this.url}/all?status=${params}&offset=${offset}&length=${length}`
-    );
+    let apiUrl=  `${this.url}/all?status=${params}&offset=${offset}&length=${length}`;
+    
+     
+    if(searchInput!=undefined){
+      apiUrl+=`&search=${searchInput}`
+    }
+return this.http.get(apiUrl)
   }
   public authorizedPosts(authorId:number):Observable<any> {
     return this.http.get(`${this.url}/${authorId}/authoredPosts`)
