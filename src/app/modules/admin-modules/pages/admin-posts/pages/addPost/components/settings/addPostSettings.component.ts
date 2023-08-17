@@ -36,16 +36,17 @@ export class AddPostSettingsComponent {
     this.http
       .get(`http://192.168.29.97:5296/Media/${type}`)
       .subscribe((data) => {
-        console.log(data);
         this.images = data;
       });
   }
 
   changeHeight(event: any): void {
-    console.log(this.imgForm.value);
     this.onChange.emit(this.imgForm.value);
   }
   public sendImage(image: string): void {
     this.sendURL.emit(image);
+  }
+  public closeModal(): void {
+    this.onChange.emit()
   }
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { tagApi } from 'src/app/core/http/tag.service';
 import { OffsetService } from 'src/app/core/services/pagination.service';
-import { postData } from 'src/app/core/services/posts.services';
 
 @Component({
   selector: 'app-tags',
@@ -27,6 +26,7 @@ export class TagsComponent implements OnInit {
     console.log(input);
     this.tagApi.getTags(offset, length, input).subscribe((respo) => {
       console.log(respo);
+
       this.totalData = respo.totalLength;
       this.tags = respo.tags;
     });

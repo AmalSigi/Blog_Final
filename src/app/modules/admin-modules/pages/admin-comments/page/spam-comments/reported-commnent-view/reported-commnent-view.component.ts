@@ -29,7 +29,6 @@ export class ReportedCommnentViewComponent {
           .getCommentsReportedId(postId, 'Reported')
           .subscribe((comments: any) => {
             this.comments = comments;
-            console.log(comments);
           });
       }
     });
@@ -38,12 +37,10 @@ export class ReportedCommnentViewComponent {
     if (confirm('Are you sure you want to delete this comment?')) {
       this.commentApi.removeComment(commentId).subscribe(
         (response) => {
-          // console.log('Comment deleted successfully:', response);
-          this.ngOnInit();
+          this.getReportedComments();
         },
 
         (error) => {
-          // alert(error)
         }
       );
     }

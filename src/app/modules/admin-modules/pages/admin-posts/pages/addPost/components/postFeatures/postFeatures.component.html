@@ -1,6 +1,6 @@
-<section class="h-screen md:w-[20rem] w-full bg-gray-300">
+<section class="md:h-[600px] md:w-[20rem] w-full bg-gray-300">
   <div
-    class="w-full h-full container mx-auto bg-white border-2 rounded-lg overflow-y-auto"
+    class="w-full h-full container mx-auto bg-white border-2 pt-10  overflow-y-auto"
   >
     <h1 class="text-center text-2xl font-bold">Post Details</h1>
     <form action="" [formGroup]="featureForm">
@@ -79,7 +79,7 @@
             <button (click)="removeTag(i)"><i class="fa-solid fa-xmark"></i></button>
           </div>
         </div>
-        <div class="w-full h-52 mt-5 overflow-y-auto">
+        <div *ngIf="tag.value" class="w-full h-32 mt-5 overflow-y-auto">
           <ul>
             <li
               (click)="addTag(tag)"
@@ -91,13 +91,8 @@
           </ul>
         </div>
       </div>
-      <div class="mt-10 flex justify-between mb-10">
-        <a
-        routerLink="/posts"
-          class="text-white bg-red-600 p-2 rounded-md font-semibold hover:shadow-2xl hover:shadow-red-800 cursor-pointer"
-          >back</a
-        >
-
+      <div class="mt-4 flex justify-between mb-10">
+      
         <button
         (click)="ToOpenCreatePage()"
           class="text-white bg-blue-600 p-2 hover:shadow-2xl hover:shadow-blue-800 rounded-md font-semibold"

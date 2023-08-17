@@ -35,7 +35,7 @@ export class userApi {
     return this.http.patch(`${this.url}/${userId}/updateprofilepic`, imgPath);
   }
   public updatePassword(body: any): Observable<any> {
-    return this.http.post(`${this.url}/UpdateOwnPassword`, body);
+    return this.http.patch(`${this.url}/UpdateOwnPassword`, body);
   }
   public userRoles(): Observable<any> {
     return this.http.get(`${this.url}/roles`);

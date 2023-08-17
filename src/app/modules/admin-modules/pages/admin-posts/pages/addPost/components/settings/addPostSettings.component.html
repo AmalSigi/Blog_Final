@@ -1,11 +1,13 @@
 <section
-  class="border-2 border-black mr-5 w-[25%] absolute right-0 top-2 h-full rounded-lg p-5 bg-white"
+  class="border-2 border-black mr-5 w-[90%] md:w-[25%]  absolute right-0 top-2 h-[600px] sm:min-h-[500px] rounded-lg p-5 bg-white"
 >
-  <h1 class="text-xl font-semibol p-3 border-b-2">Media</h1>
-  <div class="flex justify-around mt-3">
+<div class="flex justify-between">
+
+  <h1 class="text-xl font-semibol p-3">Media</h1>
+  <button (click)="closeModal()"><i class="fa-solid fa-xmark"></i></button>
   </div>
 
-  <section class="w-full h-[90%] overflow-auto container mx-auto px-2">
+  <section class="w-full h-[90%] overflow-auto container mx-auto px-2 mt-5">
     <ul [ngSwitch]="mediaType">
       <li
         (click)="sendImage(image.mediaPath)"
@@ -21,8 +23,10 @@
         </ng-container>
         <ng-container *ngSwitchCase="5">
           <video
+          
           controls
-          autoplay
+          muted
+          
             [src]="'http://192.168.29.97:5296/assets/' + image.mediaPath"
           ></video>
         </ng-container>

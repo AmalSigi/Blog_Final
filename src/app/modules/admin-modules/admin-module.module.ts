@@ -53,6 +53,7 @@ import { editorsPickApi } from 'src/app/core/http/editorsPick.services';
 import { EditorsPickComponent } from './pages/admin-posts/pages/editorsPick/editorsPick.component';
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 import { ClickOutsideDirective } from 'src/app/core/directives/clcickOutside.directive';
+import { loginQuards } from 'src/app/core/quards/login.quard';
 
 @NgModule({
   declarations: [
@@ -109,6 +110,7 @@ import { ClickOutsideDirective } from 'src/app/core/directives/clcickOutside.dir
     postFilterService,
     editorsPickApi,
     trackDataService,
+    loginQuards
   ],
 })
 export class AdminModule {}

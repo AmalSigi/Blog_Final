@@ -21,7 +21,7 @@ export class AddPostComponent implements OnInit {
   public objectFit: string = 'fill';
   public sectionId: number = 0;
   public mediaFilePath: string = 'http://192.168.29.97:5296/assets/';
-  public showToolBar: boolean = false;
+  public mediaToolBar: boolean = false;
   public TextToolBar: boolean = true;
   constructor(
     private formbuilder: FormBuilder,
@@ -35,7 +35,7 @@ export class AddPostComponent implements OnInit {
 
   ngOnInit() {
     this.blogForm = this.formbuilder.group({
-      authorId: [1],
+      authorId: new FormControl(),
       categoryId: new FormControl(),
       subCategoryId: new FormControl(),
 
@@ -45,7 +45,6 @@ export class AddPostComponent implements OnInit {
     this.route.queryParams.subscribe((params: any) => {
       if (params['postId']) {
         this.postId = params['postId'];
-        console.log(this.postId);
         this.postService.getPostById(this.postId).subscribe({
           next: (data) => {
             const postData = data;
@@ -63,6 +62,13 @@ export class AddPostComponent implements OnInit {
   }
   //dynamic form control to the FormArray
   selectTool(type: number) {
+    if(type==4 || type==5){
+      this.mediaToolBar=true;
+    }
+    else{
+      this.mediaToolBar=false;
+    }
+
     this.currentTool = type;
     this.sectionId++;
     this.dynamicFormControls.push(this.formbuilder.control(''));
@@ -79,7 +85,6 @@ export class AddPostComponent implements OnInit {
     this.dynamicDiv.push(dynamicElement);
   }
   public editTool(data: any): void {
-    console.log(data.postSections);
     this.sectionId++;
     data.postSections.forEach((element: any) => {
       switch (element.sectionTypeId) {
@@ -141,20 +146,16 @@ export class AddPostComponent implements OnInit {
       this.dynamicFormArray.push(formGroup);
     });
     if (this.postId == null) {
-      console.log(this.blogForm.value);
       this.postService.addPost(this.blogForm.value).subscribe({
         next: (res) => {
-          console.log('new post added');
           this.router.navigate(['/posts']);
         },
         error: (err) => {
-          console.log(err);
         },
       });
     }
 
     if (this.postId != null) {
-      console.log('null');
       this.postService.editPost(this.postId, this.blogForm.value).subscribe({
         next: (response) => {
           this.router.navigate(['/posts']);
@@ -163,34 +164,39 @@ export class AddPostComponent implements OnInit {
     }
   }
   getPostFeatures(event: any): void {
-    console.log(event);
     this.postFeatures = false;
     this.blogForm.controls['categoryId']?.setValue(event.categoryId);
     this.blogForm.controls['subCategoryId']?.setValue(event.subCategoryId);
-    console.log(this.blogForm.value);
+    this.blogForm.controls['authorId']?.setValue(event.authorId);
+
   }
-  changeImageSize(event: any) {
-    console.log(event.height.toString());
-    this.imgHeight = event.height?.toString();
-    this.imgWidth = event.width?.toString();
-    this.aspectRatio = event.aspectRatio;
+  public closeModal() {
+    this.mediaToolBar =false;
   }
 
   Selected(id: number, type: number) {
     this.currentTool = type;
-    console.log(type);
     this.sectionId = id;
+    if(type==4 || type==5){
+      this.mediaToolBar=true;
+
+    }
+    else{
+      this.mediaToolBar=false;
+    }
   }
   public setImageUrl(url: any) {
-    console.log(url);
     this.dynamicDiv[this.sectionId].dataURL = url;
-    this.showToolBar = false;
+    this.mediaToolBar = false;
   }
   addBlock(type: number) {
-    if (type == 4) {
-      this.showToolBar = true;
+    console.log(type)
+    if (type == 4 || type ==5) {
+      this.mediaToolBar = true;
     }
-    console.log(type);
+    else{
+      this.mediaToolBar=false;
+    }
     this.dynamicFormControls.splice(
       this.sectionId + 1,
       0,
@@ -212,7 +218,6 @@ export class AddPostComponent implements OnInit {
     this.dynamicFormControls.splice(this.sectionId, 1);
 
     this.dynamicDiv.splice(this.sectionId, 1);
-    console.log(this.dynamicDiv);
     this.setId();
   }
   public setId() {
@@ -247,7 +252,6 @@ export class AddPostComponent implements OnInit {
     this.onTextSelected('link');
   }
   public onTextSelected(event: any): void {
-    // this.TextToolBar=false;
     let formattedText: string = '';
     if (this.selectedTextarea) {
       switch (event) {

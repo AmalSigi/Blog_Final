@@ -34,10 +34,7 @@ export class PostFeaturesComponent implements OnInit {
   @Output() createPost = new EventEmitter();
   public featureForm: FormGroup = new FormGroup({
     author: new FormControl({ value: '', disabled: true }, Validators.required),
-    authorId: new FormControl(
-      { value: '', disabled: true },
-      Validators.required
-    ),
+    authorId: new FormControl('', Validators.required),
     category: new FormControl(
       { value: '', disabled: true },
       Validators.required
@@ -57,23 +54,21 @@ export class PostFeaturesComponent implements OnInit {
   public getData() {
     this.categoryService.getCategory().subscribe({
       next: (res) => {
-        console.log(res);
         this.category = res;
       },
     });
 
     this.tagsService.getAllTags().subscribe({
       next: (response) => {
-        console.log(response);
         this.tags = response.tags;
       },
     });
     this.userService.currentUserDetails().subscribe({
       next: (response) => {
-        console.log(response);
         this.featureForm.controls['author'].patchValue(
           `${response.firstName} ${response.lastName}`
         );
+        this.featureForm.controls['authorId'].patchValue(response.id);
       },
     });
   }
@@ -88,7 +83,6 @@ export class PostFeaturesComponent implements OnInit {
       },
     });
     this.selectDropDown = '';
-    console.log(this.subCategory);
   }
   public changeSubCategory(index: number): void {
     const location = this.subCategory.findIndex((i) => i.id == index);
@@ -107,22 +101,18 @@ export class PostFeaturesComponent implements OnInit {
     );
   }
 
-  addTag(tag: string): void {
+  public addTag(tag: string): void {
     this.selectedTags?.push(tag);
   }
-  removeTag(id: number): void {
-    console.log(id);
+  public removeTag(id: number): void {
     this.selectedTags.splice(id, 1);
   }
-  ToOpenCreatePage() {
+  public ToOpenCreatePage() {
     this.createPost.emit(this.featureForm.value);
-    this.selectedTags.forEach((tag: any) => {
-      console.log(tag);
-      // this.tagList.push(tag);
-    });
-    console.log(this.featureForm.value);
+    // this.selectedTags.forEach((tag: any) => {
+    // });
   }
-  openDropDown(type: string) {
+  public openDropDown(type: string) {
     this.showDropDown = !this.showDropDown;
     this.selectDropDown = type;
   }

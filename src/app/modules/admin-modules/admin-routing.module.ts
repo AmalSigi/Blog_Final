@@ -1,6 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, mapToCanActivate } from '@angular/router';
 import { CommentsComponent } from './pages/admin-comments/page/comments/comments.component';
 import { SpamCommentsComponent } from './pages/admin-comments/page/spam-comments/spam-comments.component';
 import { AdminCommentsComponent } from './pages/admin-comments/root/admin-comments.component';
@@ -26,11 +26,13 @@ import { UserPostsComponent } from './pages/admin-home/component/userDetails/pag
 import { RegisterComponent } from './pages/admin-home/component/userDetails/pages/userRegister/userRegister.component';
 import { ReportedCommnentViewComponent } from './pages/admin-comments/page/spam-comments/reported-commnent-view/reported-commnent-view.component';
 import { EditorsPickComponent } from './pages/admin-posts/pages/editorsPick/editorsPick.component';
+import { loginQuards } from 'src/app/core/quards/login.quard';
 
 const routes: Routes = [
   {
     path: '',
     component: AdminComponent,
+    canActivate:mapToCanActivate([loginQuards]),
     children: [
       {
         path: 'users',

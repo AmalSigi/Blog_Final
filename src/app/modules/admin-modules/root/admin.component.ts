@@ -16,7 +16,6 @@ export class AdminComponent implements OnInit {
   ngOnInit(){
     this.userService.currentUserDetails().subscribe({
       next:(result) =>{
-        console.log(result);
         this.data = result;
 
       }
