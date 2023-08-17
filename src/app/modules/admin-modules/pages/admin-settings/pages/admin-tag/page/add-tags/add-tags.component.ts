@@ -18,9 +18,7 @@ export class AddTagsComponent implements OnInit {
   ngOnInit(): void {}
 
   public postTag() {
-    console.log(JSON.stringify(this.newTagArray));
     this.tagApi.addTag(this.newTagArray).subscribe((respo) => {
-      console.log(respo);
     });
   }
 
@@ -31,7 +29,6 @@ export class AddTagsComponent implements OnInit {
   }
 
   removeTag(id: number): void {
-    console.log(id);
     this.newTagArray.splice(id, 1);
   }
 }

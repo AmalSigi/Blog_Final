@@ -23,7 +23,6 @@ export class EditorsPickComponent implements OnInit{
 this.editorService.EditorsPick(offset,length).subscribe({
     next:(resp)=>{
       this.totalData=resp.length;
-        console.log(resp);
         resp.forEach((post:any)=>{
             this.getPost(post?.id)
 
@@ -35,7 +34,6 @@ this.editorService.EditorsPick(offset,length).subscribe({
     public getPost(postId: number) {
 this.postApi.getPostById(postId).subscribe({
   next:(response)=>{
-    console.log(response)
     this.posts.push(response);
   }
 })

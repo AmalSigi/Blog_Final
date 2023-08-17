@@ -22,7 +22,6 @@ export class TagsComponent implements OnInit {
     const offset = this.Offset.offset();
     const length = this.Offset.pageSize;
     this.tagApi.getTags(offset, length).subscribe((respo) => {
-      console.log(respo);
       this.totalData = respo.totalLength;
       this.tags = respo.tags;
     });

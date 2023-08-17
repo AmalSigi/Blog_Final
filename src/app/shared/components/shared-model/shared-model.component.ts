@@ -13,12 +13,13 @@ export class SharedModelComponent implements OnInit {
   @Input() post: any;
   public commentDiv: boolean = false;
   public replayInputBox: boolean = false;
-  public viewRelpayComments: boolean = false;
-  public parentCommentAuthor: string = 'enter comments';
+  public viewReplyComments: boolean = false;
+  public parentCommentAuthor: string = '';
   public parentId: any;
   public comments: any;
   public commentboxId: any;
   public replayCommentData: any = [];
+  public toggleReply: boolean = false;
   constructor(private readonly commentsApi: commentsApi) {}
   public commentForm = new FormGroup({
     content: new FormControl('', Validators.required),
@@ -28,7 +29,6 @@ export class SharedModelComponent implements OnInit {
   ngOnInit(): void {
     this.getComments();
     this.getPost();
-    console.log(this.post);
   }
 
   public getPost() {
@@ -40,7 +40,6 @@ export class SharedModelComponent implements OnInit {
 
   public getComments() {
     this.commentsApi.getAllCommentsByPost(this.post.id).subscribe((repo) => {
-      console.log(repo);
       this.comments = repo.comments;
     });
   }
@@ -51,20 +50,32 @@ export class SharedModelComponent implements OnInit {
   //reply comments
   public replyBox(comment: any) {
     this.replayInputBox = true;
+    this.toggleReply = true;
+
     this.parentCommentAuthor = `@${comment.author.firstName}`;
-    if (comment.id == this.parentId) {
-    } else {
+
+    if (comment.id != this.parentId) {
       this.parentId = comment.id;
     }
   }
+  public closeReplyTag(){
+    this.toggleReply = false;
+    this.parentCommentAuthor = '';
+  }
   public sendReply() {
+    
     this.commentForm.controls['ParentId'].setValue(this.parentId);
+    console.log(this.commentForm.value)
+
     this.commentsApi
       .postComment(this.post.id, this.commentForm.value)
       .subscribe((_repo) => {
         this.getComments();
         this.commentForm.reset();
-        this.parentCommentAuthor = 'enter comments';
+        this.toggleReply=false
+        this.parentId = null;
+        this.commentboxId=-1
+        this.viewReplyComments=false
       });
   }
 
@@ -72,11 +83,11 @@ export class SharedModelComponent implements OnInit {
 
   public viewReplyBox(id: any, comment: any) {
     if (this.commentboxId == id) {
-      this.viewRelpayComments = false;
+      this.viewReplyComments = false;
       this.replayInputBox = false;
       this.commentboxId = -1;
     } else {
-      this.viewRelpayComments = true;
+      this.viewReplyComments = true;
       this.commentboxId = id;
       this.replyComment(comment);
     }
@@ -98,7 +109,7 @@ export class SharedModelComponent implements OnInit {
     });
   }
 
-  public delectComment(commentId: number) {
+  public deleteComment(commentId: number) {
     this.commentsApi.removeComment(commentId).subscribe({
       next: (respo) => {
         alert('Comment Deleted');

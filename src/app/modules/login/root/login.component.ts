@@ -30,7 +30,6 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       const body = this.loginForm.value;
 
-      console.log(this.loginForm.value);
 
       this.authentication.login(body).subscribe({
         next: (response) => {
@@ -41,7 +40,6 @@ export class LoginComponent {
               JSON.stringify(response.jwtToken)
             );
 
-            console.log(response.jwtToken);
             this.route.navigate(['']);
           }
         },

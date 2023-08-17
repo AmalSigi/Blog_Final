@@ -9,7 +9,6 @@ export class DropdownComponent implements OnInit {
     constructor(){}
     @Input() category!:any[];
     ngOnInit(): void {
-        console.log(this.category);
         
     }
     @Output() onChange = new EventEmitter();

@@ -83,7 +83,6 @@ export class AddCategoryComponent implements OnInit {
   }
 
   public postSubCategory() {
-    console.log(this.subCategoryForm.value);
     this.categoryService
       .postSubcategory(this.subCategoryForm.value)
       .subscribe((respo) => {
@@ -98,7 +97,6 @@ export class AddCategoryComponent implements OnInit {
   }
 
   removeSubCategory(id: number): void {
-    console.log(id);
     this.newSubCategoryArray.splice(id, 1);
   }
   // add cover picture
@@ -113,7 +111,6 @@ export class AddCategoryComponent implements OnInit {
   public fileImport(event: any) {
     this.fileToUpload = event.target.files[0];
 
-    console.log(this.fileToUpload);
   }
 
   public postCategoryCoverPicture() {
@@ -122,7 +119,6 @@ export class AddCategoryComponent implements OnInit {
 
       formData.append('picture', this.fileToUpload, this.fileToUpload.name);
 
-      console.log(this.categoryCoverPictureForm.value, formData);
       this.categoryService
         .postCategoryCoverPicture(
           this.categoryCoverPictureForm.controls['categoryId'].value,

@@ -43,7 +43,7 @@ export class CommentsComponent implements OnInit {
 
     const length = this.offsetService.pageSize;
 
-    const status = '';
+    const status = 'Active';
 
     this.allPosts.postHasComment(status, length, offset).subscribe((repo) => {
       const posts = repo.posts;
@@ -61,7 +61,7 @@ export class CommentsComponent implements OnInit {
           return commentCount > 0;
         });
 
-        this.totalLength = repo.posts.length;
+        this.totalLength = repo.totalLength;
       });
     });
   }

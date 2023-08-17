@@ -1,11 +1,11 @@
-<section>
+<section   >
   <!-- <div *ngIf="posts.length==0">
 
       <p class="text-center text-2xl font-semibold">No posts found.</p>
 
     </div> -->
 
-  <div class="right-0 mb-5">
+  <div class="right-0 mb-5 ">
     <button
       (click)="enableSearch = !enableSearch"
       class="bg-blue-600 text-white px-3 py-2 rounded-full mr-3"
@@ -42,7 +42,7 @@
   </div>
 
   <div class="relative">
-    <ul>
+    <ul class="z-99">
       <li
         class="border-2 p-3 mb-2 flex justify-between"
         *ngFor="let post of posts; let i = index"
@@ -53,7 +53,7 @@
           </h2>
         </div>
 
-        <button (click)="toggleEditMenu(post, i)">
+        <button class="w-20" (click)="toggleEditMenu(post, i)">
           <i class="fa-solid fa-ellipsis-vertical"></i>
         </button>
 
@@ -61,7 +61,7 @@
           *ngIf="showDiv && listIndex == i"
           class="absolute w-48 bg-white border-2 rounded-lg border-black mt-10 right-0 overflow-hidden"
         >
-          <ul>
+          <ul (click)="showDiv=false">
             <a
               *ngIf="!picks"
               routerLink="/newPost"
@@ -107,13 +107,7 @@
               <span><i class="fa-solid fa-eye"></i> view</span>
             </li>
 
-            <li
-              class="hover:bg-red-600 hover:text-white p-3 flex items-center gap-2"
-            >
-              <span><i class="fa-solid fa-comments"></i></span>
-
-              <a href=""> comments</a>
-            </li>
+         
 
             <li
               *ngIf="!picks"

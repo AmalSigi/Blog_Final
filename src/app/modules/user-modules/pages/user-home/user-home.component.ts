@@ -27,6 +27,8 @@ export class UserHomeComponent implements OnInit {
     });
   }
 
+
+  // category
   public getCategory() {
     let categoryId: any;
     let categoryName: any;
@@ -38,18 +40,19 @@ export class UserHomeComponent implements OnInit {
     });
   }
 
-  public getCategoryPost(post: any) {
+  public getCategoryPost(category: any) {
     this.postApi
-      .getPostByCategoryByLength(post.id, 4)
+      .getPostByCategoryByLength(category.id, 4)
       .subscribe((respo: any) => {
-        if (respo.length != 0) {
+      
+        if (respo.length > 0) {
           let obj = {
-            categoryId: post.id,
-            categoryName: post.categoryName,
+            categoryId: category.id,
+            categoryName: category.categoryName,
             categoryPost: this.postToArray(respo),
           };
           this.catgoryDetailes.push(obj);
-          console.log(this.catgoryDetailes);
+        console.log(this.catgoryDetailes)
         }
       });
   }

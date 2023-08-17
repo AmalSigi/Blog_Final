@@ -10,7 +10,6 @@ export class SubCategoryComponent implements OnInit {
 
   constructor() {}
   ngOnInit(): void {
-    console.log(this.category);
   }
   public modelUnShow(): void {
     const value: boolean = false;

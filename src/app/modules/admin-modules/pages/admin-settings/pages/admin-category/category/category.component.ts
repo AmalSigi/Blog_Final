@@ -24,7 +24,6 @@ export class CategoryComponent implements OnInit {
   public getCategory() {
     this.categoryServices.getCategory().subscribe((repo) => {
       this.category = repo;
-      console.log(repo);
     });
   }
   public modelShowAdd(category: any): void {

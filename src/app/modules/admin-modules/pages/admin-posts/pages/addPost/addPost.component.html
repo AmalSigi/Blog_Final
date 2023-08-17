@@ -1,12 +1,8 @@
 <!-- navbar -->
-<nav class="w-full h-15 bg-gray-100 border-b-2 p-3 flex justify-between fixed">
-  <button class="bg-blue-600 text-white p-2 rounded-md">
-    <i class="fa-solid fa-plus"></i>
-  </button>
-  <div class="flex justify-between gap-8">
-    <button class="text-white p-2 rounded-md hover:text-blue-600">
-      save draft
-    </button>
+<nav class="w-full h-15 bg-gray-100 border-b-2 p-3 flex justify-end fixed">
+  
+  <div class="">
+    
     <button (click)="publish()" class="bg-blue-600 text-white p-2 rounded-md">
       <span *ngIf="postId == null">Publish</span>
       <span *ngIf="postId != null">Update</span>
@@ -210,7 +206,7 @@
             <div>
               <div class="w-[80%] h-[250px] mt-3 overflow-hidden">
                 <img
-                  (click)="Selected(i, 4)"
+                  (click)="Selected(i, 6)"
                   class="h-full w-full aspect-square"
                   [src]="mediaFilePath + item?.dataURL"
                   alt=""
@@ -228,9 +224,9 @@
       </div>
       <div class="h-full w-full">
         <app-addPostSettings
-          *ngIf="currentTool == 4 || currentTool == 5"
+          *ngIf="mediaToolBar"
           (sendURL)="setImageUrl($event)"
-          (onChange)="changeImageSize($event)"
+          (onChange)="closeModal()"
           [mediaType]="currentTool"
         ></app-addPostSettings>
       </div>

@@ -62,72 +62,88 @@
 
   <!-- category -->
 
-  <section *ngFor="let item of catgoryDetailes" class="container flex flex-col">
+  <section *ngFor="let item of catgoryDetailes" class="container mx-auto  border-2 border-emerald-500 grid  gap-5 ">
+    <!-- category name -->
+  <h1 class="text-4xl  font-medium mt-20">{{item.categoryName}}</h1>
+<!-- category post -->
+<div class=" flex h-1/2">
+  <!-- category main post -->
+<div class="w-1/2   border-2 border-red-500 grid">
+<div class="w-full h-2/3 overflow-hidden">
+  <img class="w-full h-full object-cover hover:shadow-lg hover:shadow-gray-500"
+  [src]="
+    'http://192.168.29.97:5296/assets/' + item?.categoryPost[0]?.img?.content
+  "
+  alt="">
+</div>
+<p></p>
+
+</div>
+<!-- category sub post -->
+<div class=" w-1/2 h-96 border-2 border-yellow-500 grid">
+  <div class="w-36 h-36 border-2 border-orange-500 grid">
     <div>
-      <h2 class="text-4xl font-medium mt-20">{{ item.categoryName }}</h2>
+      <img src="" alt="">
     </div>
-    <div class="mx-auto mt-5 flex align-middle gap-3">
-      <div class="bg-blue-200 w-[70%] h-full">
-        <a>
-          <img
-            class="w-full h-full object-cover hover:shadow-lg hover:shadow-gray-500"
-            [src]="
-              'http://192.168.29.97:5296/assets/' + item?.categoryPost[0]?.img
-            "
-            alt=""
-          />
-        </a>
-      </div>
-      <div *ngFor="let item2 of item.categoryPost" class="grid gap-2">
-        <div class="flex hover:shadow-xl hover:shadow-gray-500">
-          <div class="w-[40%] h-full">
-            <a>
-              <img
-                class="w-full h-full object-cover"
-                src="https://leverageedublog.s3.ap-south-1.amazonaws.com/blog/wp-content/uploads/2019/12/23174648/B-Tech-Degree.jpg"
-                alt=""
-              />
-            </a>
-          </div>
-          <div class="w-[60%] h-full p-2">
-            <a class="text-2xl font-bold hover:text-gray-500"
-              >Lorem ipsum dolor sit amet consectetur.</a
-            >
-          </div>
-        </div>
-        <div class="flex hover:shadow-xl hover:shadow-gray-500">
-          <div class="w-[40%] h-full">
-            <a>
-              <img
-                class="w-full h-full object-cover"
-                src="https://leverageedublog.s3.ap-south-1.amazonaws.com/blog/wp-content/uploads/2019/12/23174648/B-Tech-Degree.jpg"
-                alt=""
-              />
-            </a>
-          </div>
-          <div class="w-[60%] h-full p-2">
-            <a class="text-2xl font-bold hover:text-gray-500"
-              >Lorem ipsum dolor sit amet consectetur.</a
-            >
-          </div>
-        </div>
-        <div class="flex hover:shadow-xl hover:shadow-gray-500">
-          <div class="w-[40%] h-full">
-            <a>
-              <img
-                class="w-full h-full object-cover"
-                src="https://leverageedublog.s3.ap-south-1.amazonaws.com/blog/wp-content/uploads/2019/12/23174648/B-Tech-Degree.jpg"
-                alt=""
-              />
-            </a>
-          </div>
-          <div class="w-[60%] h-full p-2">
-            <a class="text-2xl font-bold hover:text-gray-500"
-              >Lorem ipsum dolor sit amet consectetur.</a
-            >
-          </div>
-        </div>
-      </div>
-    </div>
+<p></p>  
+</div>
+<div class="w-36 h-36 border-2 border-blue-500 grid">
+  <div>
+    <img src="" alt="">
+  </div>
+<p></p>  
+</div>
+<div class="w-36 h-36 border-2 border-pink-500 grid">
+  <div>
+    <img src="" alt="">
+  </div>
+<p></p>  
+</div>
+</div>
+
+</div>
   </section>
 </section>
+
+
+
+
+  <!-- category heading
+  <div>
+    <h2 class="text-4xl font-medium mt-20">{{ item.categoryName }}</h2>
+  </div>
+  category post
+  <div class="mx-auto mt-5  align-middle grid grid-col-2 ">
+    category main post
+    <div class="bg-blue-200 w-[70%] h-full">
+      <a>
+        <img
+          class="w-full h-full object-cover hover:shadow-lg hover:shadow-gray-500"
+          [src]="
+            'http://192.168.29.97:5296/assets/' + item?.categoryPost[0]?.img
+          "
+          alt=""
+        />
+      </a>
+    </div>
+    category subpost
+    <div *ngFor="let item2 of item.categoryPost" class="grid">
+      <div class="flex hover:shadow-xl hover:shadow-gray-500">
+        <div class="w-[40%] h-full">
+          <a>
+            <img
+              class="w-full h-full object-cover"
+              src="https://leverageedublog.s3.ap-south-1.amazonaws.com/blog/wp-content/uploads/2019/12/23174648/B-Tech-Degree.jpg"
+              alt=""
+            />
+          </a>
+        </div>
+        <div class="w-[60%] h-full p-2">
+          <a class="text-2xl font-bold hover:text-gray-500"
+            >Lorem ipsum dolor sit amet consectetur.</a
+          >
+        </div>
+      </div>
+
+    </div>
+  </div> -->
