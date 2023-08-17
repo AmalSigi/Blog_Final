@@ -9,6 +9,8 @@ import { postData } from 'src/app/core/services/posts.services';
 })
 export class TagsComponent implements OnInit {
   public tags: any;
+  public enableSearch: boolean = false;
+
   public totalData!: number;
   constructor(
     private readonly Offset: OffsetService,
@@ -21,7 +23,9 @@ export class TagsComponent implements OnInit {
   public getTags() {
     const offset = this.Offset.offset();
     const length = this.Offset.pageSize;
-    this.tagApi.getTags(offset, length).subscribe((respo) => {
+    const input = this.Offset.searchInput();
+    console.log(input);
+    this.tagApi.getTags(offset, length, input).subscribe((respo) => {
       console.log(respo);
       this.totalData = respo.totalLength;
       this.tags = respo.tags;
@@ -29,6 +33,11 @@ export class TagsComponent implements OnInit {
   }
 
   public emitPages() {
+    this.getTags();
+  }
+  public searchPostByName(event: any) {
+    console.log(event.target.value);
+    this.Offset.toggleInputData(event.target.value);
     this.getTags();
   }
 }

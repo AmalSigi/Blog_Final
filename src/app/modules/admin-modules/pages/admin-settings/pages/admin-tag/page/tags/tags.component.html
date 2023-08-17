@@ -1,4 +1,25 @@
-<section class="p-10">
+<section class="py-10">
+  <div class="right-0 mb-5">
+    <button
+      (click)="enableSearch = !enableSearch"
+      class="bg-blue-600 text-white px-3 py-2 rounded-full mr-3"
+    >
+      <span *ngIf="!enableSearch"
+        ><i class="fa-solid fa-magnifying-glass"></i
+      ></span>
+
+      <span *ngIf="enableSearch"><i class="fa-solid fa-xmark"></i></span>
+    </button>
+
+    <input
+      *ngIf="enableSearch"
+      (input)="searchPostByName($event)"
+      type="search"
+      placeholder="Search By Tag Name.."
+      class="outline-green-600 p-2 border-2 rounded-lg border-blue-500 w-[50%]"
+      type="text"
+    />
+  </div>
   <div class="flex flex-col border-2">
     <div class="-m-1.5 overflow-x-auto">
       <div class="p-1.5 min-w-full inline-block align-middle">

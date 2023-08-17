@@ -8,8 +8,18 @@ import { Observable } from 'rxjs';
 export class tagApi {
   constructor(private readonly http: HttpClient) {}
   public url: string = 'http://192.168.29.97:5296/Tags';
-  public getTags(offset: number, length: number): Observable<any> {
-    return this.http.get(`${this.url}/all?offset=${offset}&length=${length}`);
+  public getTags(
+    offset: number,
+    length: number,
+    searchInput: string | undefined
+  ): Observable<any> {
+    let apiUrl = `${this.url}/all?offset=${offset}&length=${length}`;
+    console.log(searchInput);
+    if (searchInput != undefined) {
+      apiUrl += `&search=%23${searchInput}`;
+    }
+    console.log(apiUrl);
+    return this.http.get(apiUrl);
   }
   public getAllTags(): Observable<any> {
     return this.http.get(`${this.url}/all`);
