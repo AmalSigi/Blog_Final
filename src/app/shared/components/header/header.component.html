@@ -16,36 +16,37 @@
     class="bg-slate-300 w-full h-24 mt-8 flex justify-center items-center"
   >
     <div class="text-gray-500 text-xl text-center container mx-auto \">
-      <div class="flex justify-around">
-        <a
-          class="border-2 border-transparent hover:border-b-white"
-          href="blog_category.html"
-          >Travel</a
-        >
-        <a
-          class="border-2 border-transparent hover:border-b-white"
-          href="blog_category.html"
-          >Buying Guides</a
-        >
-        <a
-          class="border-2 border-transparent hover:border-b-white"
-          href="blog_category.html"
-        >
-          Tech
-        </a>
-        <a
-          class="border-2 border-transparent hover:border-b-white"
-          href="blog_category.html"
-          >Cars</a
-        >
-        <a
-          class="border-2 border-transparent hover:border-b-white"
-          href="blog_category.html"
-          >Gaming</a
-        >
-        <a
-          class="border-2 border-transparent hover:border-b-white"
-          href="blog_category.html"
+      <div class="flex justify-between items-center">
+        <div *ngFor="let cat of category; let i = index" class="grid relative">
+          <div class="flex items-center gap-1">
+            <a
+              (click)="reload()"
+              routerLink="category/{{ cat.id }}"
+              class="border-2 border-transparent hover:border-b-white"
+              >{{ cat.categoryName }}
+            </a>
+            <button
+              *ngIf="cat.subCategories.length != 0"
+              (click)="showSubCategory(i)"
+              class="p-1"
+            >
+              <i class="fa-solid fa-caret-down"></i>
+            </button>
+          </div>
+          <div
+            title="sub-category"
+            *ngIf="i == index && showSubCat"
+            class="absolute rounded w-40 p-3 bg-white shadow-lg grid mt-10 gap-2 text-left"
+          >
+            <a
+              *ngFor="let sub of cat.subCategories"
+              class="border-2 border-transparent hover:border-b-gray-400"
+              >{{ sub.subCategoryName }}</a
+            >
+          </div>
+        </div>
+
+        <a class="border-2 border-transparent hover:border-b-white" href=""
           >More</a
         >
       </div>

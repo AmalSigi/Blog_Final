@@ -15,6 +15,7 @@ import { commentsApi } from 'src/app/core/http/comments.service';
 import { postsAPi } from 'src/app/core/http/post.service';
 import { tagApi } from 'src/app/core/http/tag.service';
 import { postData } from 'src/app/core/services/posts.services';
+import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,13 @@ import { postData } from 'src/app/core/services/posts.services';
     SharedModule,
     MarkdownModule.forRoot(),
   ],
-  providers: [postsAPi, commentsApi, categoryApi, postData, tagApi],
+  providers: [
+    postsAPi,
+    commentsApi,
+    categoryApi,
+    postData,
+    tagApi,
+    trackDataService,
+  ],
 })
 export class UserModule {}

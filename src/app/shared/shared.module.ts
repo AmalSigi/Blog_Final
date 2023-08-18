@@ -8,6 +8,8 @@ import { SharedModelComponent } from './components/shared-model/shared-model.com
 import { FormatLinksPipe } from './pipes/LinkFormating.pipe';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { LoadingComponent } from './components/loadingPage/loading.component';
+import { RouterModule } from '@angular/router';
+import { UserRoutingModule } from '../modules/user-modules/user-routing.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,12 @@ import { LoadingComponent } from './components/loadingPage/loading.component';
     PaginationComponent,
     LoadingComponent,
   ],
-  imports: [CommonModule, ReactiveFormsModule, MarkdownModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MarkdownModule,
+    UserRoutingModule,
+  ],
   exports: [
     HeaderComponent,
     FooterComponent,

@@ -1,7 +1,9 @@
 <main class="w-full mx-auto">
   <div class="text-center">
     <div class="absolute mt-9 ml-[20%]">
-      <h2 class="text-6xl font-bold text-white text-center">Travel</h2>
+      <h2 class="text-xl font-bold text-white text-center">
+        {{ categoryName }}
+      </h2>
       <p class="text-lg font-bold text-gray-100 my-5">
         Find expert travel tips, city guides, and hotel recommendations to plan
         your next weekend getaway or faraway adventure.
@@ -33,162 +35,14 @@
             </div>
             <div class="w-[75%] p-5">
               <h3 class="text-lg font-bold">
-                Lorem ipsum dolor sit amet.lorem5Lorem ipsum dolor sit
-                amet.lorem5
+                {{ post?.heading?.content }}
               </h3>
               <p class="mt-5 text-medium text-gray-600">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit
-                ipsa voluptatibus sit, ut cumque neque et maiores deserunt
-                suscipit perspiciatis?
+                {{ post?.subHeading?.content }}
               </p>
             </div>
           </div>
         </a>
-      </div>
-
-      <!-- center ad -->
-      <div class="w-full border-b-2">
-        <div class="w-[500px] mx-auto text-white h-[200px] bg-black my-5">
-          <h1 class="text-5xl text-center font-bold text-gray-100 p-16">AD</h1>
-        </div>
-      </div>
-
-      <!-- content -->
-
-      <div
-        class="flex my-5 border-b-2 p-5 hover:shadow-sm hover:shadow-gray-400"
-      >
-        <div class="w-3/6">
-          <img
-            class="w-full h-full object-cover"
-            src="https://images.pexels.com/photos/4436363/pexels-photo-4436363.jpeg"
-            alt=""
-          />
-        </div>
-        <div class="w-[75%] p-5">
-          <h3 class="text-lg font-bold">
-            Lorem ipsum dolor sit amet.lorem5Lorem ipsum dolor sit amet.lorem5
-          </h3>
-          <p class="mt-5 text-medium text-gray-600">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit ipsa
-            voluptatibus sit, ut cumque neque et maiores deserunt suscipit
-            perspiciatis?
-          </p>
-        </div>
-      </div>
-      <div
-        class="flex my-5 border-b-2 p-5 hover:shadow-sm hover:shadow-gray-400"
-      >
-        <div class="w-3/6">
-          <img
-            class="w-full h-full object-cover"
-            src="https://images.pexels.com/photos/984869/pexels-photo-984869.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt=""
-          />
-        </div>
-        <div class="w-[75%] p-5">
-          <h3 class="text-lg font-bold">
-            Lorem ipsum dolor sit amet.lorem5Lorem ipsum dolor sit amet.lorem5
-          </h3>
-          <p class="mt-5 text-medium text-gray-600">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit ipsa
-            voluptatibus sit, ut cumque neque et maiores deserunt suscipit
-            perspiciatis?
-          </p>
-        </div>
-      </div>
-      <div
-        class="flex my-5 border-b-2 p-5 hover:shadow-sm hover:shadow-gray-400"
-      >
-        <div class="w-3/6">
-          <img
-            class="w-full h-full object-cover"
-            src="https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt=""
-          />
-        </div>
-        <div class="w-[75%] p-5">
-          <h3 class="text-lg font-bold">
-            Lorem ipsum dolor sit amet.lorem5Lorem ipsum dolor sit amet.lorem5
-          </h3>
-          <p class="mt-5 text-medium text-gray-600">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit ipsa
-            voluptatibus sit, ut cumque neque et maiores deserunt suscipit
-            perspiciatis?
-          </p>
-        </div>
-      </div>
-
-      <!-- center ad -->
-      <div class="w-full border-b-2">
-        <div class="w-[500px] mx-auto text-white h-[200px] bg-black my-5">
-          <h1 class="text-5xl text-center font-bold text-gray-100 p-16">AD</h1>
-        </div>
-      </div>
-
-      <!-- content -->
-      <div
-        class="flex my-5 border-b-2 p-5 hover:shadow-sm hover:shadow-gray-400"
-      >
-        <div class="w-3/6">
-          <img
-            class="w-full h-full object-cover"
-            src="https://images.pexels.com/photos/1310788/pexels-photo-1310788.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt=""
-          />
-        </div>
-        <div class="w-[75%] p-5">
-          <h3 class="text-lg font-bold">
-            Lorem ipsum dolor sit amet.lorem5Lorem ipsum dolor sit amet.lorem5
-          </h3>
-          <p class="mt-5 text-medium text-gray-600">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit ipsa
-            voluptatibus sit, ut cumque neque et maiores deserunt suscipit
-            perspiciatis?
-          </p>
-        </div>
-      </div>
-      <div
-        class="flex my-5 border-b-2 p-5 hover:shadow-sm hover:shadow-gray-400"
-      >
-        <div class="w-3/6">
-          <img
-            class="w-full h-full object-cover"
-            src="https://images.pexels.com/photos/221457/pexels-photo-221457.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt=""
-          />
-        </div>
-        <div class="w-[75%] p-5">
-          <h3 class="text-lg font-bold">
-            Lorem ipsum dolor sit amet.lorem5Lorem ipsum dolor sit amet.lorem5
-          </h3>
-          <p class="mt-5 text-medium text-gray-600">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit ipsa
-            voluptatibus sit, ut cumque neque et maiores deserunt suscipit
-            perspiciatis?
-          </p>
-        </div>
-      </div>
-      <div
-        class="flex my-5 border-b-2 p-5 hover:shadow-sm hover:shadow-gray-400"
-      >
-        <div class="w-3/6">
-          <img
-            class="w-full h-full object-cover"
-            src="https://images.pexels.com/photos/1718337/pexels-photo-1718337.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt=""
-          />
-        </div>
-        <div class="w-[75%] p-5">
-          <h3 class="text-lg font-bold">
-            Lorem ipsum dolor sit amet.lorem5Lorem ipsum dolor sit amet.lorem5
-          </h3>
-          <p class="mt-5 text-medium text-gray-600">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit ipsa
-            voluptatibus sit, ut cumque neque et maiores deserunt suscipit
-            perspiciatis?
-          </p>
-        </div>
       </div>
     </div>
 

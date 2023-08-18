@@ -7,7 +7,9 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { categoryApi } from 'src/app/core/http/category.service';
+import { postsAPi } from 'src/app/core/http/post.service';
 import { tagApi } from 'src/app/core/http/tag.service';
 import { userApi } from 'src/app/core/http/userAccount.service';
 
@@ -19,7 +21,9 @@ export class PostFeaturesComponent implements OnInit {
   constructor(
     private readonly categoryService: categoryApi,
     private readonly tagsService: tagApi,
-    private readonly userService: userApi
+    private readonly userService: userApi,
+    private readonly postService: postsAPi,
+    private readonly route: ActivatedRoute
   ) {}
   public category!: any[];
   public tags!: any[];
@@ -49,6 +53,32 @@ export class PostFeaturesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      if (params['postId']) {
+        const postId = params['postId'];
+
+        this.postService.getPostById(postId).subscribe({
+          next: (data) => {
+            const postData = data;
+
+            console.log(postData);
+
+            this.featureForm.controls['author'].setValue(
+              `${postData.author.firstName} ${postData.author.lastName}`
+            );
+
+            this.featureForm.controls['category'].setValue(
+              postData.category.categoryName
+            );
+
+            this.featureForm.controls['subCategory'].setValue(
+              postData.subCategory.subCategoryName
+            );
+          },
+        });
+      }
+    });
+
     this.getData();
   }
   public getData() {

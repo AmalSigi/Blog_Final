@@ -49,6 +49,7 @@ export class AddPostComponent implements OnInit {
           next: (data) => {
             const postData = data;
             this.editTool(postData);
+            console.log(postData);
           },
         });
       } else {
@@ -62,11 +63,10 @@ export class AddPostComponent implements OnInit {
   }
   //dynamic form control to the FormArray
   selectTool(type: number) {
-    if(type==4 || type==5){
-      this.mediaToolBar=true;
-    }
-    else{
-      this.mediaToolBar=false;
+    if (type == 4 || type == 5) {
+      this.mediaToolBar = true;
+    } else {
+      this.mediaToolBar = false;
     }
 
     this.currentTool = type;
@@ -150,8 +150,7 @@ export class AddPostComponent implements OnInit {
         next: (res) => {
           this.router.navigate(['/posts']);
         },
-        error: (err) => {
-        },
+        error: (err) => {},
       });
     }
 
@@ -168,21 +167,18 @@ export class AddPostComponent implements OnInit {
     this.blogForm.controls['categoryId']?.setValue(event.categoryId);
     this.blogForm.controls['subCategoryId']?.setValue(event.subCategoryId);
     this.blogForm.controls['authorId']?.setValue(event.authorId);
-
   }
   public closeModal() {
-    this.mediaToolBar =false;
+    this.mediaToolBar = false;
   }
 
   Selected(id: number, type: number) {
     this.currentTool = type;
     this.sectionId = id;
-    if(type==4 || type==5){
-      this.mediaToolBar=true;
-
-    }
-    else{
-      this.mediaToolBar=false;
+    if (type == 4 || type == 5) {
+      this.mediaToolBar = true;
+    } else {
+      this.mediaToolBar = false;
     }
   }
   public setImageUrl(url: any) {
@@ -190,12 +186,11 @@ export class AddPostComponent implements OnInit {
     this.mediaToolBar = false;
   }
   addBlock(type: number) {
-    console.log(type)
-    if (type == 4 || type ==5) {
+    console.log(type);
+    if (type == 4 || type == 5) {
       this.mediaToolBar = true;
-    }
-    else{
-      this.mediaToolBar=false;
+    } else {
+      this.mediaToolBar = false;
     }
     this.dynamicFormControls.splice(
       this.sectionId + 1,

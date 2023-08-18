@@ -55,6 +55,7 @@ export class AddCategoryComponent implements OnInit {
       .postCategory(this.categoryForm.value)
       .subscribe((respo) => {
         this.categoryForm.reset();
+        this.getCategory();
       });
   }
   public getCategory() {
@@ -91,9 +92,12 @@ export class AddCategoryComponent implements OnInit {
   }
 
   public addNewSubToarray(addSub: any) {
-    const subOj = { subcategoryName: addSub };
-    this.newSubCategoryArray?.push(subOj);
-    this.subCategoryForm.get('newSub')?.reset();
+    if (addSub != '') {
+      const subOj = { subcategoryName: addSub };
+      this.newSubCategoryArray?.push(subOj);
+      this.subCategoryForm.get('newSub')?.reset();
+      this.newSubCategoryArray = [];
+    }
   }
 
   removeSubCategory(id: number): void {
@@ -110,7 +114,6 @@ export class AddCategoryComponent implements OnInit {
   }
   public fileImport(event: any) {
     this.fileToUpload = event.target.files[0];
-
   }
 
   public postCategoryCoverPicture() {

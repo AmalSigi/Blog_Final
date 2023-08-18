@@ -110,7 +110,7 @@ import { loginQuards } from 'src/app/core/quards/login.quard';
     postFilterService,
     editorsPickApi,
     trackDataService,
-    loginQuards
+    loginQuards,
   ],
 })
 export class AdminModule {}
