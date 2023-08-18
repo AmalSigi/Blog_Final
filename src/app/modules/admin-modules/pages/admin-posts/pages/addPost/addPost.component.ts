@@ -38,7 +38,7 @@ export class AddPostComponent implements OnInit {
       authorId: new FormControl(),
       categoryId: new FormControl(),
       subCategoryId: new FormControl(),
-
+      postTags: this.formbuilder.array([]),
       postSections: this.formbuilder.array([]),
     });
 
@@ -47,6 +47,7 @@ export class AddPostComponent implements OnInit {
         this.postId = params['postId'];
         this.postService.getPostById(this.postId).subscribe({
           next: (data) => {
+            console.log(data);
             const postData = data;
             this.editTool(postData);
           },
@@ -60,13 +61,15 @@ export class AddPostComponent implements OnInit {
   get dynamicFormArray(): FormArray {
     return this.blogForm.get('postSections') as FormArray;
   }
+  get dynamicTags(): FormArray {
+    return this.blogForm.get('postTags') as FormArray;
+  }
   //dynamic form control to the FormArray
   selectTool(type: number) {
-    if(type==4 || type==5){
-      this.mediaToolBar=true;
-    }
-    else{
-      this.mediaToolBar=false;
+    if (type == 4 || type == 5) {
+      this.mediaToolBar = true;
+    } else {
+      this.mediaToolBar = false;
     }
 
     this.currentTool = type;
@@ -150,8 +153,7 @@ export class AddPostComponent implements OnInit {
         next: (res) => {
           this.router.navigate(['/posts']);
         },
-        error: (err) => {
-        },
+        error: (err) => {},
       });
     }
 
@@ -164,25 +166,28 @@ export class AddPostComponent implements OnInit {
     }
   }
   getPostFeatures(event: any): void {
-    this.postFeatures = false;
+    // this.postFeatures = false;
     this.blogForm.controls['categoryId']?.setValue(event.categoryId);
     this.blogForm.controls['subCategoryId']?.setValue(event.subCategoryId);
     this.blogForm.controls['authorId']?.setValue(event.authorId);
-
+    event.tags.forEach((tag: any) => {
+      const postTags = new FormGroup({
+        tagId: new FormControl(tag.id),
+      });
+      this.dynamicTags.push(postTags);
+    });
   }
   public closeModal() {
-    this.mediaToolBar =false;
+    this.mediaToolBar = false;
   }
 
   Selected(id: number, type: number) {
     this.currentTool = type;
     this.sectionId = id;
-    if(type==4 || type==5){
-      this.mediaToolBar=true;
-
-    }
-    else{
-      this.mediaToolBar=false;
+    if (type == 4 || type == 5) {
+      this.mediaToolBar = true;
+    } else {
+      this.mediaToolBar = false;
     }
   }
   public setImageUrl(url: any) {
@@ -190,12 +195,11 @@ export class AddPostComponent implements OnInit {
     this.mediaToolBar = false;
   }
   addBlock(type: number) {
-    console.log(type)
-    if (type == 4 || type ==5) {
+    console.log(type);
+    if (type == 4 || type == 5) {
       this.mediaToolBar = true;
-    }
-    else{
-      this.mediaToolBar=false;
+    } else {
+      this.mediaToolBar = false;
     }
     this.dynamicFormControls.splice(
       this.sectionId + 1,
