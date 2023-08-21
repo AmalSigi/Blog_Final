@@ -8,6 +8,7 @@ import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 })
 export class HeaderComponent implements OnInit {
   public showSubCat: boolean = false;
+  public showCategory: boolean = false;
   public index!: number;
   public category: any;
   constructor(
@@ -32,5 +33,9 @@ export class HeaderComponent implements OnInit {
   }
   public reload() {
     this.reloadData.sendClickEvent1();
+    this.showCategory = false;
+  }
+  public moreCategory() {
+    this.showCategory = !this.showCategory;
   }
 }

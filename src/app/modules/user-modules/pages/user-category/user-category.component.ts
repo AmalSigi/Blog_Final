@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { postsAPi } from 'src/app/core/http/post.service';
+import { OffsetService } from 'src/app/core/services/pagination.service';
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 
 @Component({
@@ -17,7 +18,7 @@ export class UserCategoryComponent implements OnInit {
 
   public categoryPost: any = [];
   public categoryName: any;
-  public categoryCoverPic: any;
+  public categoryCoverPic!: any;
   ngOnInit(): void {
     this.mainCall();
   }
@@ -41,7 +42,6 @@ export class UserCategoryComponent implements OnInit {
       for (const post of respo) {
         this.categoryName = post.category.categoryName;
         this.categoryCoverPic = post.category.coverPicturePath;
-        console.log(post);
         this.getPost(post);
       }
     });
@@ -50,7 +50,6 @@ export class UserCategoryComponent implements OnInit {
     return this.postApi.getPostById(postId);
   }
   public getPost(post: any) {
-    console.log(post);
     this.postCall(post.id).subscribe((repo) => {
       let heading = repo.postSections.filter(
         (item: any) => item.sectionTypeId == 1

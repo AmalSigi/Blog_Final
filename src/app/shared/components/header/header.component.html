@@ -45,10 +45,30 @@
             >
           </div>
         </div>
-
-        <a class="border-2 border-transparent hover:border-b-white" href=""
-          >More</a
-        >
+        <div class="grid">
+          <button
+            (click)="moreCategory()"
+            class="border-2 border-transparent hover:border-b-white"
+          >
+            More
+          </button>
+          <div
+            *ngIf="showCategory"
+            class="absolute rounded w-40 p-3 bg-white shadow-lg mt-10 text-left"
+          >
+            <ul>
+              <li class="grid gap-2" *ngFor="let cat of category">
+                <a
+                  (click)="reload()"
+                  routerLink="category/{{ cat.id }}"
+                  class="border-2 border-transparent hover:border-b-gray-400"
+                >
+                  {{ cat.categoryName }}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </section>
