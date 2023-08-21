@@ -8,7 +8,6 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { authenticationApi } from 'src/app/core/http/authentication.service';
-import { toastrService } from 'src/app/core/services/toastr.service';
 
 @Component({
   selector: 'app-login',
@@ -18,8 +17,7 @@ import { toastrService } from 'src/app/core/services/toastr.service';
 export class LoginComponent {
   constructor(
     private readonly authentication: authenticationApi,
-    private readonly route: Router,
-    private readonly toastr:toastrService
+    private readonly route: Router
   ) {}
 
   public loginForm = new FormGroup({
@@ -41,12 +39,12 @@ export class LoginComponent {
 
               JSON.stringify(response.jwtToken)
             );
-this.toastr.showSuccess("login successfully..")
+
             this.route.navigate(['']);
           }
         },
         error: (error) => {
-          this.toastr.showError(error.error)
+          alert('Error: ' + JSON.stringify(error.error));
         },
       });
     }

@@ -14,4 +14,10 @@ export class authenticationApi {
   public isAuthorized(): Observable<any> {
     return this.http.post(`${this.url}/login`,{});
   }
+  public getRefreshToken(): Observable<any>{
+    return this.http.post(`${this.url}/Authentication/refreshToken)`,{});
+  }
+  public logOut(): Observable<any>{
+    return this.http.post(`${this.url}/Authentication/logout`,{});
+  }
 }

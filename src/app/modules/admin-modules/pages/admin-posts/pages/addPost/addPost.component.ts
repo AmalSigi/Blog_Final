@@ -12,6 +12,7 @@ import { DynamicDIvElement } from 'src/app/shared/interfaces/dynamicPost.interfa
 export class AddPostComponent implements OnInit {
   blogForm!: FormGroup;
   public postFeatures: boolean = true;
+  public loading: boolean = false;
   dynamicDiv: DynamicDIvElement[] = [];
   dynamicFormControls: FormControl[] = [];
   currentTool!: number;
@@ -43,11 +44,12 @@ export class AddPostComponent implements OnInit {
     });
 
     this.route.queryParams.subscribe((params: any) => {
+      this.loading=true;
       if (params['postId']) {
         this.postId = params['postId'];
         this.postService.getPostById(this.postId).subscribe({
           next: (data) => {
-            console.log(data);
+            this.loading = false;
             const postData = data;
             this.editTool(postData);
           },
@@ -151,17 +153,26 @@ export class AddPostComponent implements OnInit {
     if (this.postId == null) {
       this.postService.addPost(this.blogForm.value).subscribe({
         next: (res) => {
-          this.router.navigate(['/posts']);
+          alert('New post created..')
+
+          this.router.navigate(['/posts/published']);
         },
-        error: (err) => {},
+        error: (err) => {
+          alert('Error please try again..')
+        },
       });
     }
 
     if (this.postId != null) {
       this.postService.editPost(this.postId, this.blogForm.value).subscribe({
         next: (response) => {
+          alert('Post updated successfully')
+
           this.router.navigate(['/posts']);
         },
+        error: (response) => {
+          alert(response.error+ ", Please try again...")
+        }
       });
     }
   }
