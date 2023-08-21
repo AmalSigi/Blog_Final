@@ -7,13 +7,15 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { userApi } from 'src/app/core/http/userAccount.service';
 interface RegisterUserDto {
   firstName: string;
   lastName: string;
   email: string;
   password: string;
   confirmPassword: string;
-  _UserRoles: AddUserRoleDto[];
+  userRoles: AddUserRoleDto[];
 }
 interface AddUserRoleDto {
   id: number;
@@ -21,7 +23,6 @@ interface AddUserRoleDto {
 }
 interface TransformedUserRoleDto {
   roleId: number;
-  _RoleName: string;
 }
 
 @Component({
@@ -33,7 +34,9 @@ export class RegisterComponent {
   registrationForm!: FormGroup;
   constructor(
     private readonly http: HttpClient,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private readonly router: Router,
+    private readonly userService: userApi
   ) {}
 
   ngOnInit(): void {
@@ -45,12 +48,12 @@ export class RegisterComponent {
       {
         firstName: new FormControl('', Validators.required),
         lastName: new FormControl('', Validators.required),
-        _MiddleName: '',
+        middleName: '',
         email: new FormControl('', Validators.required),
         password: new FormControl('', Validators.required),
         confirmPassword: new FormControl('', Validators.required),
 
-        _UserRoles: [null, Validators.required],
+        userRoles: [null, Validators.required],
       },
       {
         validator: this.passwordMatchValidator,
@@ -77,11 +80,14 @@ export class RegisterComponent {
   fetchRoles() {
     this.http
       .get<AddUserRoleDto[]>('http://192.168.29.97:5296/UserAccount/roles')
-      .subscribe(
-        (roles) => {
+      this.userService.userRoles()
+      .subscribe({
+        next:(roles)=>{
           this.roles = roles;
-        },
-        (error) => {}
+
+        }
+      }
+        
       );
   }
 
@@ -94,19 +100,26 @@ export class RegisterComponent {
     );
 
     const url = 'http://192.168.29.97:5296/UserAccount/registeruser';
-    this.http.post(url, formData).subscribe((res) => {});
+this.userService.registerUser(formData).subscribe({
+  next:()=>{
+    this.router.navigate(['/users']);
+  },
+  error:(error)=>{
+    alert(error.message);
+  }
+
+})
   }
   transformFormData(data: any): RegisterUserDto {
     const userRoles: TransformedUserRoleDto[] = [];
 
-    if (data._UserRoles) {
+    if (data.userRoles) {
       const selectedRole = this.roles.find(
-        (role) => role.id === data._UserRoles
+        (role) => role.id === data.userRoles
       );
       if (selectedRole) {
         userRoles.push({
           roleId: selectedRole.id,
-          _RoleName: selectedRole.roleName,
         });
       }
     }
@@ -114,7 +127,7 @@ export class RegisterComponent {
     delete data.confirmPassword;
     return {
       ...data,
-      _UserRoles: userRoles,
+      userRoles: userRoles,
     };
   }
 

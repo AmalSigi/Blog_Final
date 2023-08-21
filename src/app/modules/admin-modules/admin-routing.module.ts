@@ -33,7 +33,9 @@ const routes: Routes = [
     path: '',
     component: AdminComponent,
     canActivate:mapToCanActivate([loginQuards]),
+    canActivateChild:mapToCanActivate([loginQuards]),
     children: [
+      
       {
         path: 'users',
         component: UsersDetailsComponents,

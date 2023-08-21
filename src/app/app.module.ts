@@ -11,6 +11,8 @@ import { SharedModule } from './shared/shared.module';
 import { MarkdownModule } from 'ngx-markdown';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/Interceptor/token.interceptor';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +22,8 @@ import { AuthInterceptor } from './core/Interceptor/token.interceptor';
     SharedModule,
     ReactiveFormsModule,
     MarkdownModule.forRoot(),
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule
   ],
 
   providers: [

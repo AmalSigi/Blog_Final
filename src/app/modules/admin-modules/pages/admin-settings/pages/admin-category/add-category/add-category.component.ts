@@ -83,14 +83,6 @@ export class AddCategoryComponent implements OnInit {
     this.openDropdwonAddSub();
   }
 
-  public postSubCategory() {
-    this.categoryService
-      .postSubcategory(this.subCategoryForm.value)
-      .subscribe((respo) => {
-        this.subCategoryForm.reset();
-      });
-  }
-
   public addNewSubToarray(addSub: any) {
     if (addSub != '') {
       const subOj = { subcategoryName: addSub };
@@ -100,6 +92,16 @@ export class AddCategoryComponent implements OnInit {
     }
   }
 
+  public postSubCategory() {
+    this.categoryService
+      .postSubcategory(this.subCategoryForm.value)
+      .subscribe((respo) => {
+        this.subCategoryForm.reset();
+        this.newSubCategoryArray=[]
+      });
+  }
+
+
   removeSubCategory(id: number): void {
     this.newSubCategoryArray.splice(id, 1);
   }
@@ -107,7 +109,7 @@ export class AddCategoryComponent implements OnInit {
 
   public changeCategoryForCoverPicture(index: number): void {
     this.categoryCoverPictureForm.controls['category'].patchValue(
-      this.category[index - 1].categoryName
+      this.category[index - 1]!.categoryName
     );
     this.categoryCoverPictureForm.controls['categoryId'].patchValue(index);
     this.openDropdwonAddCover();
