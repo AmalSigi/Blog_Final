@@ -32,7 +32,7 @@ export class UserPostsComponent {
   public loadPosts() {
     this.postService.authorizedPosts(this.userId).subscribe((response: any) => {
       this.allPosts = response;
-      response.forEach((post: any) => {
+      response.posts.forEach((post: any) => {
         this.userPosts.push(this.filterPosts.getPost(post));
       });
     });

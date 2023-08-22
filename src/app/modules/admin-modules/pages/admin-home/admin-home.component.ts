@@ -41,7 +41,7 @@ export class AdminHomeComponent {
     this.pickApi.getBlogEditorsPick().subscribe({
       next: (response) => {
         response.forEach((post: any) => {
-          this.getRecommendedPost(post.id);
+          this.getRecommendedPost(post.postId);
         });
       },
     });

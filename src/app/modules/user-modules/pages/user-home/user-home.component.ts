@@ -23,10 +23,10 @@ export class UserHomeComponent implements OnInit {
   public getLatestPost() {
     const length = 4;
     this.postApi.getLatestPosts(length).subscribe((respo) => {
+      console.log(respo);
       this.latestPost = this.postToArray(respo);
     });
   }
-
 
   // category
   public getCategory() {
@@ -44,7 +44,6 @@ export class UserHomeComponent implements OnInit {
     this.postApi
       .getPostByCategoryByLength(category.id, 4)
       .subscribe((respo: any) => {
-      
         if (respo.length > 0) {
           let obj = {
             categoryId: category.id,
@@ -52,7 +51,7 @@ export class UserHomeComponent implements OnInit {
             categoryPost: this.postToArray(respo),
           };
           this.catgoryDetailes.push(obj);
-        console.log(this.catgoryDetailes)
+          console.log(this.catgoryDetailes);
         }
       });
   }

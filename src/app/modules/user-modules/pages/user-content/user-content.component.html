@@ -40,6 +40,16 @@
               <ng-container *ngSwitchCase="5"
                 ><video [src]="postItem.content"></video
               ></ng-container>
+              <ng-container *ngSwitchCase="6">
+                <div class="border-y-2 py-2">
+                  <p class="text-center">AD</p>
+                  <img
+                    class="my-5 w-full h-[200px]"
+                    [src]="
+                      'http://192.168.29.97:5296/assets/' + postItem.content
+                    "
+                  /></div
+              ></ng-container>
             </ng-container>
           </div>
         </div>
@@ -48,13 +58,14 @@
 
       <div class="h-auto border-2 border-gray-200 m-5 p-4">
         <h3 class="text-2xl font-semibold">Comments</h3>
-
         <div class="h-[85%] overflow-y-auto p-3">
           <!-- whole comment -->
           <ng-container *ngFor="let item of comments">
             <ng-container *ngFor="let item2 of item">
               <div
-                *ngIf="item2.parentId === null && item2.commentStatus"
+                *ngIf="
+                  item2.parentId === null && item2.commentStatus == 'Active'
+                "
                 class="p-3 border-b-2 pb-2"
               >
                 <div>
@@ -87,7 +98,7 @@
 
                 <!-- replay comments view -->
                 <div
-                  *ngIf="commentOpen.id == commentboxId && viewRelpayComments"
+                  *ngIf="commentOpen.id == commentboxId && viewReplyComments"
                   class="w-full h-36 overflow-y-auto my-5 p-4"
                 >
                   <div
@@ -122,10 +133,17 @@
             </ng-container>
           </ng-container>
         </div>
+      </div>
+
+      <div class="border-2 border-gray-200 m-5 p-4">
         <!-- sending comments -->
         <!-- guest users comment form -->
-        <form [formGroup]="guestCommentForm" class="w-full p-4">
-          <div formGroupName="_tempUser" class="grid grid-cols-2 gap-4">
+        <form
+          *ngIf="!loginStatus"
+          [formGroup]="guestCommentForm"
+          class="w-full p-4"
+        >
+          <div formGroupName="tempUser" class="grid grid-cols-2 gap-4">
             <div class="grid grid-row-2 gap-2">
               <label class="font-semibold text-base text-stone-600"
                 >First Name*:</label
@@ -142,7 +160,7 @@
               >
 
               <input
-                formControlName="_MiddleName"
+                formControlName="middleName"
                 type="text"
                 class="border-2 rounded p-2 outline-none"
               />
@@ -179,7 +197,7 @@
             >
 
             <textarea
-              formControlName="comment"
+              formControlName="content"
               class="py-3 px-4 block border-gray-200 col-span-10 border-2 rounded p-2 outline-nonetext-sm focus:border-blue-500 focus:ring-blue-500"
               rows="3"
               [placeholder]="parentCommentAuthor"
@@ -203,14 +221,18 @@
         </div>
 
         <!-- login users comment form -->
-        <form [formGroup]="commentForm" class="grid grid-cols-1 gap-3 p-4">
+        <form
+          *ngIf="loginStatus"
+          [formGroup]="commentForm"
+          class="grid grid-cols-1 gap-3 p-4"
+        >
           <div class="grid grid-rows-1 gap-2">
             <label class="font-semibold text-base text-stone-600"
               >Comment :</label
             >
 
             <textarea
-              formControlName="comment"
+              formControlName="content"
               class="py-3 px-4 block border-gray-200 col-span-10 border-2 rounded p-2 outline-nonetext-sm focus:border-blue-500 focus:ring-blue-500"
               rows="3"
               [placeholder]="parentCommentAuthor"

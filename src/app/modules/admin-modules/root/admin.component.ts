@@ -7,18 +7,17 @@ import { userApi } from 'src/app/core/http/userAccount.service';
   templateUrl: './admin.component.html',
 })
 export class AdminComponent implements OnInit {
-  constructor(private readonly userService: userApi){}
-  public navBar: boolean=false;
+  constructor(private readonly userService: userApi) {}
+  public navBar: boolean = false;
   public data: any;
-  public showNavbar(){
+  public showNavbar() {
     this.navBar = false;
   }
-  ngOnInit(){
+  ngOnInit() {
     this.userService.currentUserDetails().subscribe({
-      next:(result) =>{
+      next: (result) => {
         this.data = result;
-
-      }
-    })
+      },
+    });
   }
 }

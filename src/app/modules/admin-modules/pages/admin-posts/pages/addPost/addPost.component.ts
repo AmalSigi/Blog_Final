@@ -52,6 +52,7 @@ export class AddPostComponent implements OnInit {
             this.loading = false;
             const postData = data;
             this.editTool(postData);
+            console.log(postData);
           },
         });
       } else {
@@ -181,6 +182,7 @@ export class AddPostComponent implements OnInit {
     this.blogForm.controls['categoryId']?.setValue(event.categoryId);
     this.blogForm.controls['subCategoryId']?.setValue(event.subCategoryId);
     this.blogForm.controls['authorId']?.setValue(event.authorId);
+
     event.tags.forEach((tag: any) => {
       const postTags = new FormGroup({
         tagId: new FormControl(tag.id),

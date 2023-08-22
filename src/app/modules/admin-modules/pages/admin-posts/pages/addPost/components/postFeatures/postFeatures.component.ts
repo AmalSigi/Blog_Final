@@ -22,8 +22,9 @@ export class PostFeaturesComponent implements OnInit {
     private readonly categoryService: categoryApi,
     private readonly tagsService: tagApi,
     private readonly userService: userApi,
-    private readonly postService:postsAPi,
-    private readonly route:ActivatedRoute
+
+    private readonly postService: postsAPi,
+    private readonly route: ActivatedRoute
   ) {}
   public category!: any[];
   public tags!: any[];
@@ -53,7 +54,7 @@ export class PostFeaturesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       if (params['postId']) {
         const postId = params['postId'];
         this.postService.getPostById(postId).subscribe({
@@ -68,16 +69,14 @@ export class PostFeaturesComponent implements OnInit {
             );
             this.featureForm.controls['subCategory'].setValue(
               postData.subCategory.subCategoryName
-
-            )
-            data.postTags.forEach((tag:any)=>{
-this.selectedTags.push(tag.tag)
-            })
+            );
+            data.postTags.forEach((tag: any) => {
+              this.selectedTags.push(tag.tag);
+            });
           },
-
         });
       }
-    })
+    });
     this.getData();
   }
   public getData() {
@@ -146,7 +145,7 @@ this.selectedTags.push(tag.tag)
     });
     this.createPost.emit(this.featureForm.value);
 
-    console.log(this.featureForm.value)
+    console.log(this.featureForm.value);
   }
   public openDropDown(type: string) {
     this.showDropDown = !this.showDropDown;
