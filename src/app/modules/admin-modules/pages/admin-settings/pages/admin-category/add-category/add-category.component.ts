@@ -87,8 +87,8 @@ export class AddCategoryComponent implements OnInit {
     if (addSub != '') {
       const subOj = { subcategoryName: addSub };
       this.newSubCategoryArray?.push(subOj);
+      console.log(this.newSubCategoryArray);
       this.subCategoryForm.get('newSub')?.reset();
-      this.newSubCategoryArray = [];
     }
   }
 
@@ -97,10 +97,9 @@ export class AddCategoryComponent implements OnInit {
       .postSubcategory(this.subCategoryForm.value)
       .subscribe((respo) => {
         this.subCategoryForm.reset();
-        this.newSubCategoryArray=[]
+        this.newSubCategoryArray = [];
       });
   }
-
 
   removeSubCategory(id: number): void {
     this.newSubCategoryArray.splice(id, 1);

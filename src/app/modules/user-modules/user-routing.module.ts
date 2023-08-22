@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserHomeComponent } from './pages/user-home/user-home.component';
 import { UserContentComponent } from './pages/user-content/user-content.component';
 import { UserCategoryComponent } from './pages/user-category/user-category.component';
+import { UserSubcategoryComponent } from './pages/user-subcategory/user-subcategory.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,10 @@ const routes: Routes = [
       { path: 'home', component: UserHomeComponent },
       { path: 'content/:postId', component: UserContentComponent },
       { path: 'category/:categoryId', component: UserCategoryComponent },
+      {
+        path: 'subcategory/:subcategoryId',
+        component: UserSubcategoryComponent,
+      },
     ],
   },
 ];

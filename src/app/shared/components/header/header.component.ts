@@ -22,8 +22,6 @@ export class HeaderComponent implements OnInit {
   public getCategory() {
     this.categoryApi.getCategory().subscribe((response: any) => {
       this.category = response;
-
-      console.log(response);
     });
   }
 
@@ -34,6 +32,7 @@ export class HeaderComponent implements OnInit {
   public reload() {
     this.reloadData.sendClickEvent1();
     this.showCategory = false;
+    this.showSubCat = !this.showSubCat;
   }
   public moreCategory() {
     this.showCategory = !this.showCategory;

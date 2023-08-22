@@ -4,7 +4,7 @@
     class="container h-96 bg-black mx-auto mt-10 rounded-md overflow-hidden flex"
   >
     <div class="w-[60%] h-full bg-gray-500">
-      <a>
+      <a routerLink="/content/{{ latestPost[0]?.postId }}">
         <img
           class="w-full h-full object-cover"
           [src]="
@@ -27,10 +27,10 @@
   <section class="container mx-auto">
     <h2 class="text-4xl font-medium mt-20">Latest</h2>
     <div class="grid grid-cols-12 mx-auto mt-5 gap-4">
-      <ng-container *ngFor="let item of latestPost; let i = index">
+      <ng-container *ngFor="let item of latestPost!; let i = index">
         <div *ngIf="i > 0" class="h-[20rem] col-span-4 mb-10">
           <div class="h-[75%] w-full">
-            <a routerLink="/content/9">
+            <a routerLink="/content/{{ item.postId }}">
               <img
                 class="w-full h-full object-cover hover:shadow-lg hover:shadow-gray-500"
                 [src]="'http://192.168.29.97:5296/assets/' + item?.img?.content"

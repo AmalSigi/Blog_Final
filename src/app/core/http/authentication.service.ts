@@ -12,6 +12,6 @@ export class authenticationApi {
     return this.http.post(`${this.url}/login`, body);
   }
   public isAuthorized(): Observable<any> {
-    return this.http.post(`${this.url}/login`,{});
+    return this.http.post(`${this.url}/login`, {});
   }
 }

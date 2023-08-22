@@ -52,9 +52,19 @@ export class userApi {
   public changeUserStatus(userId: number, status: string): Observable<any> {
     return this.http.patch(`${this.url}/${userId}/${status}`, {});
   }
-  public getFilteredUsers(status:string,offsetValue: number, pageLength: number): Observable<any> {
+  public getFilteredUsers(
+    status: string,
+    offsetValue: number,
+    pageLength: number
+  ): Observable<any> {
     return this.http.get(
       `${this.url}/allusers?accountstatus=${status}&offset=${offsetValue}&length=${pageLength}`
+    );
+  }
+  public refrehToken() {
+    return this.http.post(
+      `http://192.168.29.97:5296/Authentication/refreshToken`,
+      {}
     );
   }
 }

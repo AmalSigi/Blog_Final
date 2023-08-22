@@ -12,12 +12,12 @@
           <div *ngFor="let postItem of post?.postSections" class="w-full">
             <ng-container [ngSwitch]="postItem.sectionTypeId">
               <ng-container *ngSwitchCase="1"
-                ><h1 class="text-4xl font-extrabold mb-4">
+                ><h1 class="text-5xl font-extrabold my-4">
                   {{ postItem.content }}
                 </h1></ng-container
               >
               <ng-container *ngSwitchCase="2"
-                ><h2 class="text-lg font-semibold my-5">
+                ><h2 class="text-3xl font-medium my-5">
                   {{ postItem.content }}
                 </h2></ng-container
               >
@@ -249,59 +249,20 @@
       </div>
       <div class="mt-16">
         <h4 class="text-xl font-black">More Articles</h4>
-        <div class="my-5 border-b-2">
-          <div class="">
-            <img
-              class="h-full object-cover"
-              src="https://images.pexels.com/photos/1230302/pexels-photo-1230302.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              alt=""
-            />
+
+        <div *ngFor="let post of moreArticlePost" class="my-5 border-b-2">
+          <div class="hover:shadow-xl">
+            <a routerLink="/user/content/{{ post.postId }}">
+              <img
+                class="h-full object-cover hover:rounded-md"
+                [src]="'http://192.168.29.97:5296/assets/' + post?.img?.content"
+                alt=""
+              />
+            </a>
           </div>
           <div class="py-4">
             <h3 class="text-medium font-bold">
-              Lorem ipsum dolor sit amet.lorem5Lorem ipsum dolor sit amet.lorem5
-            </h3>
-          </div>
-        </div>
-        <div class="my-5 border-b-2">
-          <div class="">
-            <img
-              class="w-full h-full object-cover"
-              src="https://images.pexels.com/photos/2915263/pexels-photo-2915263.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              alt=""
-            />
-          </div>
-          <div class="py-4">
-            <h3 class="text-medium font-bold">
-              Lorem ipsum dolor sit amet.lorem5Lorem ipsum dolor sit amet.lorem5
-            </h3>
-          </div>
-        </div>
-        <div class="my-5 border-b-2">
-          <div class="">
-            <img
-              class="w-full h-full object-cover"
-              src="https://images.pexels.com/photos/5341407/pexels-photo-5341407.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              alt=""
-            />
-          </div>
-          <div class="py-4">
-            <h3 class="text-medium font-bold">
-              Lorem ipsum dolor sit amet.lorem5Lorem ipsum dolor sit amet.lorem5
-            </h3>
-          </div>
-        </div>
-        <div class="my-5 border-b-2">
-          <div class="">
-            <img
-              class="w-full h-full object-cover"
-              src="https://images.pexels.com/photos/3933989/pexels-photo-3933989.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              alt=""
-            />
-          </div>
-          <div class="py-4">
-            <h3 class="text-medium font-bold">
-              Lorem ipsum dolor sit amet.lorem5Lorem ipsum dolor sit amet.lorem5
+              {{ post?.heading.content }}
             </h3>
           </div>
         </div>

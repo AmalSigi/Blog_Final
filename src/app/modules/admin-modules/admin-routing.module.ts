@@ -27,15 +27,16 @@ import { RegisterComponent } from './pages/admin-home/component/userDetails/page
 import { ReportedCommnentViewComponent } from './pages/admin-comments/page/spam-comments/reported-commnent-view/reported-commnent-view.component';
 import { EditorsPickComponent } from './pages/admin-posts/pages/editorsPick/editorsPick.component';
 import { loginQuards } from 'src/app/core/quards/login.quard';
+import { AdminSiteSettingComponent } from './pages/admin-settings/pages/admin-site-setting/root/admin-site-setting.component';
+import { AdminBlogSettingComponent } from './pages/admin-settings/pages/admin-site-setting/admin-blog-setting/admin-blog-setting.component';
 
 const routes: Routes = [
   {
     path: '',
     component: AdminComponent,
-    canActivate:mapToCanActivate([loginQuards]),
-    canActivateChild:mapToCanActivate([loginQuards]),
+    canActivate: mapToCanActivate([loginQuards]),
+    canActivateChild: mapToCanActivate([loginQuards]),
     children: [
-      
       {
         path: 'users',
         component: UsersDetailsComponents,
@@ -76,6 +77,13 @@ const routes: Routes = [
           { path: '', component: TagsComponent },
           { path: 'tags', component: TagsComponent },
           { path: 'add-tags', component: AddTagsComponent },
+        ],
+      },
+      {
+        path: 'admin-site-setting',
+        component: AdminSiteSettingComponent,
+        children: [
+          { path: 'admin-blog-setting', component: AdminBlogSettingComponent },
         ],
       },
       {

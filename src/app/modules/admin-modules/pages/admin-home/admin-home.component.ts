@@ -10,7 +10,6 @@ import { postData } from 'src/app/core/services/posts.services';
 })
 export class AdminHomeComponent {
   constructor(
-    private readonly postData: postData,
     private readonly postAPi: postsAPi,
     private readonly userApi: userApi,
     private readonly pickApi: editorsPickApi
@@ -28,6 +27,9 @@ export class AdminHomeComponent {
     this.getPosts();
     this.getUsers();
     this.getEditorsPick();
+    this.userApi.refrehToken().subscribe((repo: any) => {
+      console.log(repo);
+    });
   }
   public getPosts(): void {
     this.postAPi.getFilteredPosts('Active', 0, 10, undefined).subscribe({
@@ -41,17 +43,17 @@ export class AdminHomeComponent {
     this.pickApi.getBlogEditorsPick().subscribe({
       next: (response) => {
         response.forEach((post: any) => {
-          this.getRecommendedPost(post.id);
+          this.getPost(post.id);
         });
       },
     });
   }
-  public getRecommendedPost(postId: number) {
+  public getPost(postId: number) {
     this.postAPi.getPostById(postId).subscribe((respo) => {
-      this.getPost(respo);
+      this.getFilteredPost(respo);
     });
   }
-  public getPost(post: any) {
+  public getFilteredPost(post: any) {
     let heading = post.postSections.filter(
       (item: any) => item.sectionTypeId == 1
     );
