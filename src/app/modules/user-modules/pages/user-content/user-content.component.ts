@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { commentsApi } from 'src/app/core/http/comments.service';
 import { postsAPi } from 'src/app/core/http/post.service';
+import { siteSettingApi } from 'src/app/core/http/site-setting.service';
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 
 @Component({
@@ -22,12 +23,14 @@ export class UserContentComponent implements OnInit {
     private readonly commentsApi: commentsApi,
     private fb: FormBuilder,
     private readonly route: ActivatedRoute,
-    private readonly trackDataService: trackDataService
+    private readonly trackDataService: trackDataService,
+    private readonly sitesetting: siteSettingApi
   ) {}
   public post: any;
   public categoryId: any;
   public suggestionPost: any = [];
   public moreArticlePost: any = [];
+  public commentStatus: boolean = false;
   public commentDiv: boolean = false;
   public replayInputBox: boolean = false;
   public viewReplyComments: boolean = false;
@@ -35,6 +38,7 @@ export class UserContentComponent implements OnInit {
   public parentCommentAuthor: string = 'comments';
   public parentId: any = null;
   public comments: any;
+  public Testcomments: any[][] = [];
   public commentboxId: any;
   public replayCommentData: any = [];
   public totalCount = 0;
@@ -64,6 +68,7 @@ export class UserContentComponent implements OnInit {
         this.moreArticlePost = [];
         this.getMainPost(postId);
         this.getComments(postId);
+        this.commentEnable();
       }
     });
   }
@@ -133,10 +138,39 @@ export class UserContentComponent implements OnInit {
   }
 
   // // comments
-  public getComments(postId: number) {
-    this.commentsApi.getAllCommentsForBolg(postId).subscribe((repo) => {
-      this.comments = repo.comments;
+
+  public commentEnable() {
+    this.sitesetting.getSiteSetting().subscribe((respo: any) => {
+      let commentStatus = respo.find((item: any) => item.id == 4);
+      this.commentStatus = JSON.parse(commentStatus.settingValue);
+      console.log(this.commentStatus);
     });
+  }
+
+  public getComments(postId: number) {
+    this.commentsApi.getAllCommentsForBolg(postId).subscribe((respo: any) => {
+      this.comments = this.getParentsWithChildComments(respo.comments);
+    });
+  }
+
+  public getParentsWithChildComments(comments: any[]): any[][] {
+    let parentComments = comments.filter((c) => c.parentId == null);
+    let listOfParentsWithChildren: any[][] = [];
+    for (const comment of parentComments) {
+      let parentWithChild: any[] = [];
+      getallchildren(comment);
+      listOfParentsWithChildren.push(parentWithChild);
+
+      function getallchildren(parent: any) {
+        parentWithChild.push(parent);
+        for (const comment of comments) {
+          if (comment.parentId == parent.id) {
+            getallchildren(comment);
+          }
+        }
+      }
+    }
+    return listOfParentsWithChildren;
   }
 
   // //reply comments
@@ -201,7 +235,7 @@ export class UserContentComponent implements OnInit {
   }
   // // Recommended
   public getRecommendedPost() {
-    this.postApi.getRecommendedPost(this.post.id).subscribe((respo) => {
+    this.postApi.getRecommendedPost(9, this.post.id).subscribe((respo) => {
       for (const post of respo) {
         this.getFilteredPostForRecommend(post);
       }

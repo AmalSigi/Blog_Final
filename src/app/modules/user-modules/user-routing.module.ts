@@ -12,8 +12,9 @@ const routes: Routes = [
     path: '',
     component: UserComponent,
     children: [
+      { path: '', component: UserHomeComponent },
       { path: 'home', component: UserHomeComponent },
-      { path: 'content/:postId', component: UserContentComponent },
+      { path: 'user/content/:postId', component: UserContentComponent },
       { path: 'category/:categoryId', component: UserCategoryComponent },
       {
         path: 'subcategory/:subcategoryId',

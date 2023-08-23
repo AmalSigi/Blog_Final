@@ -39,10 +39,33 @@ export class SharedModelComponent implements OnInit {
   }
 
   public getComments() {
-    this.commentsApi.getAllCommentsByPost(this.post.id).subscribe((repo) => {
-      this.comments = repo.comments;
-    });
+    this.commentsApi
+      .getAllCommentsByPostAdmin(this.post.id)
+      .subscribe((repo) => {
+        this.comments = this.getParentsWithChildComments(repo);
+      });
   }
+
+  public getParentsWithChildComments(comments: any[]): any[][] {
+    let parentComments = comments.filter((c) => c.parentId == null);
+    let listOfParentsWithChildren: any[][] = [];
+    for (const comment of parentComments) {
+      let parentWithChild: any[] = [];
+      getallchildren(comment);
+      listOfParentsWithChildren.push(parentWithChild);
+
+      function getallchildren(parent: any) {
+        parentWithChild.push(parent);
+        for (const comment of comments) {
+          if (comment.parentId == parent.id) {
+            getallchildren(comment);
+          }
+        }
+      }
+    }
+    return listOfParentsWithChildren;
+  }
+
   public unshowBox() {
     this.onClick.emit();
   }
@@ -58,24 +81,23 @@ export class SharedModelComponent implements OnInit {
       this.parentId = comment.id;
     }
   }
-  public closeReplyTag(){
+  public closeReplyTag() {
     this.toggleReply = false;
     this.parentCommentAuthor = '';
   }
   public sendReply() {
-    
     this.commentForm.controls['ParentId'].setValue(this.parentId);
-    console.log(this.commentForm.value)
+    console.log(this.commentForm.value);
 
     this.commentsApi
       .postComment(this.post.id, this.commentForm.value)
       .subscribe((_repo) => {
         this.getComments();
         this.commentForm.reset();
-        this.toggleReply=false
+        this.toggleReply = false;
         this.parentId = null;
-        this.commentboxId=-1
-        this.viewReplyComments=false
+        this.commentboxId = -1;
+        this.viewReplyComments = false;
       });
   }
 

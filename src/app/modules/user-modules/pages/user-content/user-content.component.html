@@ -55,199 +55,201 @@
         </div>
       </div>
       <!-- comments -->
+      <div *ngIf="!commentStatus"></div>
+      <div *ngIf="commentStatus">
+        <div class="h-auto border-2 border-gray-200 m-5 p-4">
+          <h3 class="text-2xl font-semibold">Comments</h3>
+          <div class="h-[85%] overflow-y-auto p-3">
+            <!-- whole comment -->
+            <ng-container *ngFor="let item of comments">
+              <ng-container *ngFor="let item2 of item">
+                <div
+                  *ngIf="
+                    item2.parentId === null && item2.commentStatus == 'Active'
+                  "
+                  class="p-3 border-b-2 pb-2"
+                >
+                  <div>
+                    <p class="text-lg font-bold">
+                      {{ item2.author.firstName }} {{ item2.author.lastName }}
+                    </p>
+                    <p class="text-xs text-gray-400">
+                      {{ item2.createdAt | date }}
+                    </p>
+                    <p class="text-sm">
+                      {{ item2.content }}
+                    </p>
 
-      <div class="h-auto border-2 border-gray-200 m-5 p-4">
-        <h3 class="text-2xl font-semibold">Comments</h3>
-        <div class="h-[85%] overflow-y-auto p-3">
-          <!-- whole comment -->
-          <ng-container *ngFor="let item of comments">
-            <ng-container *ngFor="let item2 of item">
-              <div
-                *ngIf="
-                  item2.parentId === null && item2.commentStatus == 'Active'
-                "
-                class="p-3 border-b-2 pb-2"
-              >
-                <div>
-                  <p class="text-lg font-bold">
-                    {{ item2.author.firstName }} {{ item2.author.lastName }}
-                  </p>
-                  <p class="text-xs text-gray-400">
-                    {{ item2.createdAt | date }}
-                  </p>
-                  <p class="text-sm">
-                    {{ item2.content }}
-                  </p>
+                    <div class="flex gap-5">
+                      <button (click)="replyBox(item2)" class="text-blue-500">
+                        Reply
+                      </button>
+                      <div>
+                        <button
+                          [id]="item2.id"
+                          #commentOpen
+                          (click)="viewReplyBox(commentOpen.id, item)"
+                          class="text-blue-500"
+                        >
+                          <i class="fa-solid fa-chevron-down"></i> replies
+                        </button>
+                      </div>
+                    </div>
+                  </div>
 
-                  <div class="flex gap-5">
-                    <button (click)="replyBox(item2)" class="text-blue-500">
-                      Reply
-                    </button>
-                    <div>
+                  <!-- replay comments view -->
+                  <div
+                    *ngIf="commentOpen.id == commentboxId && viewReplyComments"
+                    class="w-full h-36 overflow-y-auto my-5 p-4"
+                  >
+                    <div
+                      *ngFor="let replayComment of replayCommentData"
+                      class="mb-5"
+                    >
+                      <div class="flex gap-4 items-center">
+                        <p class="text-base font-semibold">
+                          {{ replayComment.author.firstName }}
+                          {{ replayComment.author.lastName }}
+                        </p>
+                        <p class="text-xs text-gray-400">
+                          {{ replayComment.createdAt | date }}
+                        </p>
+                      </div>
+                      <p class="text-base">
+                        <span class="lowercase text-blue-500 text-sm"
+                          >@ {{ replayComment.parentAuthor }}</span
+                        >
+                        {{ replayComment.content }}
+                      </p>
                       <button
-                        [id]="item2.id"
-                        #commentOpen
-                        (click)="viewReplyBox(commentOpen.id, item)"
-                        class="text-blue-500"
+                        (click)="replyBox(replayComment)"
+                        class="text-blue-500 text-sm"
                       >
-                        <i class="fa-solid fa-chevron-down"></i> replies
+                        Reply
                       </button>
                     </div>
                   </div>
+                  <!--  -->
                 </div>
-
-                <!-- replay comments view -->
-                <div
-                  *ngIf="commentOpen.id == commentboxId && viewReplyComments"
-                  class="w-full h-36 overflow-y-auto my-5 p-4"
-                >
-                  <div
-                    *ngFor="let replayComment of replayCommentData"
-                    class="mb-5"
-                  >
-                    <div class="flex gap-4 items-center">
-                      <p class="text-base font-semibold">
-                        {{ replayComment.author.firstName }}
-                        {{ replayComment.author.lastName }}
-                      </p>
-                      <p class="text-xs text-gray-400">
-                        {{ replayComment.createdAt | date }}
-                      </p>
-                    </div>
-                    <p class="text-base">
-                      <span class="lowercase text-blue-500 text-sm"
-                        >@ {{ replayComment.parentAuthor }}</span
-                      >
-                      {{ replayComment.content }}
-                    </p>
-                    <button
-                      (click)="replyBox(replayComment)"
-                      class="text-blue-500 text-sm"
-                    >
-                      Reply
-                    </button>
-                  </div>
-                </div>
-                <!--  -->
-              </div>
+              </ng-container>
             </ng-container>
-          </ng-container>
-        </div>
-      </div>
-
-      <div class="border-2 border-gray-200 m-5 p-4">
-        <!-- sending comments -->
-        <!-- guest users comment form -->
-        <form [formGroup]="guestCommentForm" class="w-full p-4">
-          <div formGroupName="tempUser" class="grid grid-cols-2 gap-4">
-            <div class="grid grid-row-2 gap-2">
-              <label class="font-semibold text-base text-stone-600"
-                >First Name*:</label
-              >
-              <input
-                formControlName="firstName"
-                type="text"
-                class="border-2 rounded p-2 outline-none"
-              />
-            </div>
-            <div class="grid grid-row-2 gap-2">
-              <label class="font-semibold text-base text-stone-600"
-                >Middle Name :</label
-              >
-
-              <input
-                formControlName="middleName"
-                type="text"
-                class="border-2 rounded p-2 outline-none"
-              />
-            </div>
-
-            <div class="grid grid-row-2 gap-2">
-              <label class="font-semibold text-base text-stone-600"
-                >Last Name* :</label
-              >
-
-              <input
-                formControlName="lastName"
-                type="text"
-                class="border-2 rounded p-2 outline-none"
-              />
-            </div>
-            <div class="grid grid-row-2 gap-2">
-              <label class="font-semibold text-base text-stone-600"
-                >Email*:</label
-              >
-              <input
-                formControlName="email"
-                type="text"
-                name=""
-                id=""
-                class="border-2 rounded p-2 outline-none"
-              />
-            </div>
           </div>
-
-          <div class="grid grid-rows-1 gap-2">
-            <label class="font-semibold text-base text-stone-600"
-              >Comment :</label
-            >
-
-            <textarea
-              formControlName="content"
-              class="py-3 px-4 block border-gray-200 col-span-10 border-2 rounded p-2 outline-nonetext-sm focus:border-blue-500 focus:ring-blue-500"
-              rows="3"
-              [placeholder]="parentCommentAuthor"
-            ></textarea>
-          </div>
-
-          <button
-            (click)="sendReply()"
-            class="my-5 flex justify-center top-10 text-white w-1/6 mx-auto bg-green-500 rounded p-2"
-          >
-            Send
-          </button>
-        </form>
-
-        <div class="text-center p-5">
-          <p>
-            <a href="" class="text-blue-500 hover:underline"> login</a> to avoid
-            re-entering detailes next time
-          </p>
-          <p class="text-xs">* required</p>
         </div>
 
-        <!-- login users comment form -->
-        <form [formGroup]="commentForm" class="grid grid-cols-1 gap-3 p-4">
-          <div class="grid grid-rows-1 gap-2">
-            <label class="font-semibold text-base text-stone-600"
-              >Comment :</label
-            >
+        <div class="border-2 border-gray-200 m-5 p-4">
+          <!-- sending comments -->
+          <!-- guest users comment form -->
+          <form [formGroup]="guestCommentForm" class="w-full p-4">
+            <div formGroupName="tempUser" class="grid grid-cols-2 gap-4">
+              <div class="grid grid-row-2 gap-2">
+                <label class="font-semibold text-base text-stone-600"
+                  >First Name*:</label
+                >
+                <input
+                  formControlName="firstName"
+                  type="text"
+                  class="border-2 rounded p-2 outline-none"
+                />
+              </div>
+              <div class="grid grid-row-2 gap-2">
+                <label class="font-semibold text-base text-stone-600"
+                  >Middle Name :</label
+                >
 
-            <textarea
-              formControlName="content"
-              class="py-3 px-4 block border-gray-200 col-span-10 border-2 rounded p-2 outline-nonetext-sm focus:border-blue-500 focus:ring-blue-500"
-              rows="3"
-              [placeholder]="parentCommentAuthor"
-            ></textarea>
+                <input
+                  formControlName="middleName"
+                  type="text"
+                  class="border-2 rounded p-2 outline-none"
+                />
+              </div>
+
+              <div class="grid grid-row-2 gap-2">
+                <label class="font-semibold text-base text-stone-600"
+                  >Last Name* :</label
+                >
+
+                <input
+                  formControlName="lastName"
+                  type="text"
+                  class="border-2 rounded p-2 outline-none"
+                />
+              </div>
+              <div class="grid grid-row-2 gap-2">
+                <label class="font-semibold text-base text-stone-600"
+                  >Email*:</label
+                >
+                <input
+                  formControlName="email"
+                  type="text"
+                  name=""
+                  id=""
+                  class="border-2 rounded p-2 outline-none"
+                />
+              </div>
+            </div>
+
+            <div class="grid grid-rows-1 gap-2">
+              <label class="font-semibold text-base text-stone-600"
+                >Comment :</label
+              >
+
+              <textarea
+                formControlName="content"
+                class="py-3 px-4 block border-gray-200 col-span-10 border-2 rounded p-2 outline-nonetext-sm focus:border-blue-500 focus:ring-blue-500"
+                rows="3"
+                [placeholder]="parentCommentAuthor"
+              ></textarea>
+            </div>
+
+            <button
+              (click)="sendReply()"
+              class="my-5 flex justify-center top-10 text-white w-1/6 mx-auto bg-green-500 rounded p-2"
+            >
+              Send
+            </button>
+          </form>
+
+          <div class="text-center p-5">
+            <p>
+              <a href="" class="text-blue-500 hover:underline"> login</a> to
+              avoid re-entering detailes next time
+            </p>
+            <p class="text-xs">* required</p>
           </div>
 
-          <button
-            (click)="sendReply()"
-            class="col-span-2 top-10 text-white w-1/6 mx-auto bg-green-500 rounded p-2"
-          >
-            Send
-          </button>
-        </form>
+          <!-- login users comment form -->
+          <form [formGroup]="commentForm" class="grid grid-cols-1 gap-3 p-4">
+            <div class="grid grid-rows-1 gap-2">
+              <label class="font-semibold text-base text-stone-600"
+                >Comment :</label
+              >
+
+              <textarea
+                formControlName="content"
+                class="py-3 px-4 block border-gray-200 col-span-10 border-2 rounded p-2 outline-nonetext-sm focus:border-blue-500 focus:ring-blue-500"
+                rows="3"
+                [placeholder]="parentCommentAuthor"
+              ></textarea>
+            </div>
+
+            <button
+              (click)="sendReply()"
+              class="col-span-2 top-10 text-white w-1/6 mx-auto bg-green-500 rounded p-2"
+            >
+              Send
+            </button>
+          </form>
+        </div>
       </div>
     </section>
 
     <!-- left side -->
 
-    <div class="w-2/6 p-5">
+    <div class="w-2/6 p-5 mt-10">
       <div class="w-full h-64 bg-black">
         <h1 class="text-5xl text-center font-bold text-gray-100 p-16">AD</h1>
       </div>
-      <div class="mt-16">
+      <div *ngIf="moreArticlePost.length != 0" class="mt-16">
         <h4 class="text-xl font-black">More Articles</h4>
 
         <div *ngFor="let post of moreArticlePost" class="my-5 border-b-2">
@@ -275,7 +277,7 @@
 
   <!-- recommended -->
   <div class="my-5 border-t-2">
-    <section class="my-5">
+    <section *ngIf="suggestionPost.length != 0" class="my-5">
       <h3 class="text-xl font-bold text-gray-500">Recommended</h3>
       <div class="grid grid-cols-3 mx-auto mt-5 gap-4">
         <ng-container *ngFor="let post of suggestionPost">

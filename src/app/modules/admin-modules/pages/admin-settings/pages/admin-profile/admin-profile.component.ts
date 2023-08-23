@@ -113,12 +113,6 @@ export class AdminProfileComponent implements OnInit {
       newPassword: this.editForm.controls['new_password'].value,
     });
 
-    // this.http
-    //   .patch(
-    //     'http://192.168.29.97:5296/UserAccount/4/Updatepassword',
-    //     this.passwordForm.value
-    //   )
-    //   .subscribe((respo) => {});
     this.userService.updatePassword(this.passwordForm.value).subscribe({
       next: (res) => {
         console.log('success', res);

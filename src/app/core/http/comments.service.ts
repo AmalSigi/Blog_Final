@@ -11,12 +11,10 @@ export class commentsApi {
   public getSingleComment(commentId: number): Observable<any> {
     return this.http.get(`${this.url}/${commentId}`);
   }
-  public getAllCommentsByPost(postId: number): Observable<any> {
+  public getAllCommentsByPostAdmin(postId: number): Observable<any> {
     return this.http.get(`${this.url}/${postId}/all`);
   }
-  public getAllCommentsForBolg(postId: number): Observable<any> {
-    return this.http.get(`${this.url}/blog/${postId}/all`);
-  }
+
   public postComment(postId: number, comment: any): Observable<any> {
     return this.http.post(`${this.url}/new/${postId}`, comment);
   }
@@ -38,5 +36,8 @@ export class commentsApi {
     status: string
   ): Observable<any> {
     return this.http.get(`${this.url}/test/${postId}/all?status=${status}`);
+  }
+  public getAllCommentsForBolg(postid: number): Observable<any> {
+    return this.http.get(`${this.url}/blog/${postid}/all`);
   }
 }
