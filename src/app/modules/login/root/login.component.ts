@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
             );
           alert('Login successfully..');
 
-            this.route.navigate(['']);
+            this.route.navigate(['/admin']);
           
         },
         error: (error) => {

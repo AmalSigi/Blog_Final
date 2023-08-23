@@ -6,6 +6,7 @@ import {
   Output,
   Renderer2,
 } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 import { ActivatedRoute } from '@angular/router';
 
@@ -16,7 +17,6 @@ import { postsAPi } from 'src/app/core/http/post.service';
 import { OffsetService } from 'src/app/core/services/pagination.service';
 
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
-
 
 @Component({
   selector: 'app-postList',
@@ -38,6 +38,7 @@ export class PostListComponent {
     private readonly route: ActivatedRoute,
 
     private readonly trackCount: trackDataService,
+    private readonly postApi: postsAPi,
 
     private renderer: Renderer2,
     private el: ElementRef
@@ -78,7 +79,6 @@ export class PostListComponent {
 
         const enableTrash = url.some((segment) => segment.path == 'trashed');
 
-
         if (enablePublish) {
           this.published = true;
         } else if (enableDarafts) {
@@ -87,12 +87,14 @@ export class PostListComponent {
           this.trash = true;
         } else {
           this.picks = true;
-          this.posts=this.posts.post;
+          this.posts = this.posts.post;
         }
       },
     });
   }
-
+  public enableCommentForm: FormGroup = new FormGroup({
+    enableComment: new FormControl(''),
+  });
   public toggleEditMenu(data: any, index: number) {
     if (this.listIndex == index && this.showDiv == true) {
       this.showDiv = false;
@@ -100,6 +102,14 @@ export class PostListComponent {
       this.listIndex = index;
       this.showDiv = true;
     }
+    this.postApi.getPostById(data.id).subscribe({
+      next: (result) => {
+        const commentStatus=JSON.parse(result?.enableComments);
+        this.enableCommentForm.controls['enableComment'].setValue(
+          commentStatus
+        );
+      },
+    });
   }
 
   public showBox(index: number) {
@@ -206,12 +216,22 @@ export class PostListComponent {
 
     this.editorsPickApi.postEditorsPick(bodyarray).subscribe({
       next: (respo: any) => {
-       
         alert("This post is added to Editor's Pick");
         this.paginate.emit();
         this.trackCount.sendClickEvent1();
       },
       error: (error) => {},
     });
+  }
+  public onCheckboxChange(event: any,id:number) {
+  //  const status=event.target.checked
+   this.postApi.toggleComments(id).subscribe({
+    next:()=>{
+
+    },
+    error:(error)=>{
+      alert(error.message+ 'please try again');
+    }
+   })
   }
 }

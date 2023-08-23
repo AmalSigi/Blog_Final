@@ -15,6 +15,9 @@ export class HeaderComponent implements OnInit {
   public userDetails:any;
   public showLogOut:boolean=false;
   public showUserDetails:boolean=false;
+  public indexPosition!:number;
+  public subIndexPosition!:number;
+
 
   @Output() onChange: EventEmitter<any> = new EventEmitter()
   constructor(
@@ -52,10 +55,11 @@ export class HeaderComponent implements OnInit {
     this.index = index;
     this.showSubCat = !this.showSubCat;
   }
-  public reload() {
+  public reload(index: number) {
+    this.indexPosition=index;
     this.reloadData.sendClickEvent1();
     this.showCategory = false;
-    this.showSubCat = !this.showSubCat;
+    this.showSubCat = false;
   }
   public moreCategory() {
     this.showCategory = !this.showCategory;
