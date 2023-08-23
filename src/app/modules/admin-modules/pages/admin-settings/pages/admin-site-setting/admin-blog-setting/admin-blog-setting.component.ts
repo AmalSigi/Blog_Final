@@ -43,7 +43,7 @@ export class AdminBlogSettingComponent implements OnInit {
       if (commentStatus) {
         this.commentActiveForm.patchValue({
           id: commentStatus.id,
-          settingValue: JSON.parse( commentStatus.settingValue),
+          settingValue: JSON.parse(commentStatus.settingValue),
         });
       }
 
@@ -59,6 +59,7 @@ export class AdminBlogSettingComponent implements OnInit {
   }
 
   public onCheckboxChange(event: any) {
+    console.log(event.target.checked);
     let settiingArray: any = [];
     this.commentActiveForm.patchValue({
       settingValue: event.target.checked,
