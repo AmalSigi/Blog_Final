@@ -31,12 +31,10 @@ export class postsAPi {
   public addPostTags(postId: number, tag: any): Observable<any> {
     return this.http.post(`${this.url}/${postId}/addtags`, tag);
   }
-  public enableComments(postId: number): Observable<any> {
-    return this.http.patch(`${this.url}/${postId}/enablecomments`, {});
+  public toggleComments(postId: number): Observable<any> {
+    return this.http.patch(`${this.url}/${postId}/toggleCommentsOnOff`, {});
   }
-  public disableComments(postId: number): Observable<any> {
-    return this.http.patch(`${this.url}/${postId}/disablecomments`, {});
-  }
+ 
   public getFilteredPosts(
     params: string,
     offset: number,

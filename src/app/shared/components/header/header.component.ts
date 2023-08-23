@@ -13,10 +13,12 @@ export class HeaderComponent implements OnInit {
   public showCategory: boolean = false;
   public index!: number;
   public category: any;
+
   public userDetails: any;
   public showLogOut: boolean = false;
   public showUserDetails: boolean = false;
   public indexPosition!: number;
+  public subIndexPosition!: number;
 
   @Output() onChange: EventEmitter<any> = new EventEmitter();
   public siteName: any;
@@ -56,7 +58,6 @@ export class HeaderComponent implements OnInit {
   }
   public reload(index: number) {
     this.indexPosition = index;
-
     this.reloadData.sendClickEvent1();
 
     this.showCategory = false;

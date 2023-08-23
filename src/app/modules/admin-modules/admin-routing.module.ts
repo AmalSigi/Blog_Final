@@ -108,7 +108,6 @@ const routes: Routes = [
   },
   { path: 'newPost', component: AddPostComponent },
 ];
-
 @NgModule({
   imports: [RouterModule.forChild(routes), HttpClientModule],
   exports: [RouterModule],

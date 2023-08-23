@@ -13,6 +13,7 @@ import { postsAPi } from 'src/app/core/http/post.service';
 import { checkLoginService } from 'src/app/core/services/checkUserStatus.service';
 import { siteSettingApi } from 'src/app/core/http/site-setting.service';
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
+import { authenticationApi } from 'src/app/core/http/authentication.service';
 
 @Component({
   selector: 'app-user-content',
@@ -26,7 +27,8 @@ export class UserContentComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly loginStatusService: checkLoginService,
     private readonly trackDataService: trackDataService,
-    private readonly sitesetting: siteSettingApi
+    private readonly sitesetting: siteSettingApi,
+    private readonly authApi: authenticationApi
   ) {}
   public post: any;
   public categoryId: any;
@@ -45,6 +47,8 @@ export class UserContentComponent implements OnInit {
   public replayCommentData: any = [];
   public totalCount = 0;
   public loginStatus!: boolean;
+  public enableComments!: boolean;
+  public postId!: number;
 
   // //  form.......
   // // form user
@@ -71,15 +75,22 @@ export class UserContentComponent implements OnInit {
   public getContent(): void {
     this.route.params.subscribe((params) => {
       if (params['postId']) {
-        const postId = params['postId'];
+        this.postId = params['postId'];
         this.moreArticlePost = [];
-        this.getMainPost(postId);
-        this.getComments(postId);
+        this.getMainPost(this.postId);
+        this.getComments(this.postId);
         this.commentEnable();
       }
     });
-    this.loginStatusService.checkLogin();
-    this.loginStatus = this.loginStatusService.autherized();
+
+    this.authApi.isAuthorized().subscribe({
+      next: () => {
+        this.loginStatus = true;
+      },
+      error: () => {
+        this.loginStatus = false;
+      },
+    });
   }
 
   public reloadData: Subscription = this.trackDataService
@@ -99,6 +110,8 @@ export class UserContentComponent implements OnInit {
       console.log(repo);
       this.post = repo;
       this.getRecommendedPost(repo.id);
+      this.enableComments = repo.enableComments;
+
       this.getMoreArticles(repo.subCategoryId);
     });
   }
@@ -147,7 +160,6 @@ export class UserContentComponent implements OnInit {
       };
 
       this.moreArticlePost.push(obj);
-      console.log(this.moreArticlePost);
     });
   }
 
@@ -157,7 +169,6 @@ export class UserContentComponent implements OnInit {
     this.sitesetting.getSiteSetting().subscribe((respo: any) => {
       let commentStatus = respo.find((item: any) => item.id == 4);
       this.commentStatus = JSON.parse(commentStatus.settingValue);
-      console.log(this.commentStatus);
     });
   }
 
@@ -199,14 +210,15 @@ export class UserContentComponent implements OnInit {
     this.parentCommentAuthor = '';
   }
   public sendReply() {
-    if (false) {
+    if (this.loginStatus) {
       // // logged user send function
       this.commentForm.controls['parentId'].setValue(this.parentId);
-      // this.commentsApi
-      //   .postComment(this.post.id, this.commentForm.value)
-      //   .subscribe((_repo) => {
-      //     this.commentForm.reset()
-      //   });
+      this.commentsApi
+        .postComment(this.post.id, this.commentForm.value)
+        .subscribe((_repo) => {
+          this.commentForm.reset();
+          this.getComments(this.postId);
+        });
     } else {
       // // guest user send function
       this.guestCommentForm.controls['parentId'].setValue(this.parentId);
@@ -215,6 +227,7 @@ export class UserContentComponent implements OnInit {
         .postGuestUserComment(this.post.id, this.guestCommentForm.value)
         .subscribe((repo) => {
           this.guestCommentForm.reset();
+          this.getComments(this.postId);
         });
     }
   }
