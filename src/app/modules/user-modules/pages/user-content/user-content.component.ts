@@ -24,7 +24,7 @@ export class UserContentComponent implements OnInit {
     private readonly commentsApi: commentsApi,
     private fb: FormBuilder,
     private readonly route: ActivatedRoute,
-    private readonly loginStatusService:checkLoginService,
+    private readonly loginStatusService: checkLoginService,
     private readonly trackDataService: trackDataService,
     private readonly sitesetting: siteSettingApi
   ) {}
@@ -44,7 +44,7 @@ export class UserContentComponent implements OnInit {
   public commentboxId: any;
   public replayCommentData: any = [];
   public totalCount = 0;
-  public loginStatus!:boolean
+  public loginStatus!: boolean;
 
   // //  form.......
   // // form user
@@ -65,9 +65,10 @@ export class UserContentComponent implements OnInit {
   });
 
   ngOnInit(): void {
-this.getContent();
+    this.getContent();
   }
-  public getContent():void{
+
+  public getContent(): void {
     this.route.params.subscribe((params) => {
       if (params['postId']) {
         const postId = params['postId'];
@@ -77,8 +78,8 @@ this.getContent();
         this.commentEnable();
       }
     });
-this.loginStatusService.checkLogin();
-this.loginStatus=this.loginStatusService.autherized();
+    this.loginStatusService.checkLogin();
+    this.loginStatus = this.loginStatusService.autherized();
   }
 
   public reloadData: Subscription = this.trackDataService
@@ -86,7 +87,6 @@ this.loginStatus=this.loginStatusService.autherized();
     .subscribe(() => {
       this.moreArticlePost = [];
       this.getContent();
-
     });
   // // Post
 
@@ -96,14 +96,17 @@ this.loginStatus=this.loginStatusService.autherized();
 
   public getMainPost(postId: number) {
     this.postCall(postId).subscribe((repo) => {
+      console.log(repo);
       this.post = repo;
-      this.getRecommendedPost();
+      this.getRecommendedPost(repo.id);
       this.getMoreArticles(repo.subCategoryId);
     });
   }
 
   public getFilteredPostForRecommend(post: any) {
+    this.suggestionPost = [];
     this.postCall(post.postId).subscribe((repo) => {
+      console.log(repo);
       let heading = repo.postSections.filter(
         (item: any) => item.sectionTypeId == 1
       );
@@ -115,7 +118,7 @@ this.loginStatus=this.loginStatusService.autherized();
         (item: any) => item.sectionTypeId == 2
       );
       let obj = {
-        postId: post.postId,
+        postId: repo.id,
         heading: heading[0],
         subHeading: subHeading[0],
         img: img[0],
@@ -149,7 +152,6 @@ this.loginStatus=this.loginStatusService.autherized();
   }
 
   // // comments
-
 
   public commentEnable() {
     this.sitesetting.getSiteSetting().subscribe((respo: any) => {
@@ -246,8 +248,9 @@ this.loginStatus=this.loginStatusService.autherized();
     });
   }
   // // Recommended
-  public getRecommendedPost() {
-    this.postApi.getRecommendedPost(9, this.post.id).subscribe((respo) => {
+  public getRecommendedPost(postId: number) {
+    this.postApi.getRecommendedPost(9, postId).subscribe((respo) => {
+      console.log(respo);
       for (const post of respo) {
         this.getFilteredPostForRecommend(post);
       }
