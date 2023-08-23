@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 export class UserComponent {
   constructor() {}
   public userLogin: boolean = false;
+  public userSignup: boolean = false;
 }

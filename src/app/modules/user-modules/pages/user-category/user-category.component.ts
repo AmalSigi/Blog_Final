@@ -22,18 +22,21 @@ export class UserCategoryComponent implements OnInit {
   public categoryName: any;
   public categoryCoverPic!: any;
   ngOnInit(): void {
+    //this.categoryPost = [];
+
     this.mainCall();
   }
   public reloadData: Subscription = this.trackDataService
     .getClickEvent1()
     .subscribe(() => {
-      this.categoryPost = [];
+      //  this.categoryPost = [];
     });
 
   public mainCall() {
     this.route.params.subscribe((params) => {
       if (params['categoryId']) {
         const categoryId = params['categoryId'];
+        this.categoryPost = [];
         this.getPostByCategory(categoryId);
         this.getCategoryDetailesById(categoryId);
       }
@@ -50,34 +53,30 @@ export class UserCategoryComponent implements OnInit {
 
   public getPostByCategory(categoryId: number) {
     this.postApi.getPostByCategory(categoryId).subscribe((respo) => {
+      console.log(respo);
       for (const post of respo) {
-        this.getPost(post);
+        let heading = post.postSections.filter(
+          (item: any) => item.sectionTypeId == 1
+        );
+        let img = post.postSections.filter(
+          (item: any) => item.sectionTypeId == 4
+        );
+
+        let subHeading = post.postSections.filter(
+          (item: any) => item.sectionTypeId == 2
+        );
+        let obj = {
+          postId: post.id,
+          heading: heading[0],
+          subHeading: subHeading[0],
+          img: img[0],
+        };
+
+        this.categoryPost.push(obj);
       }
     });
   }
   public postCall(postId: any) {
     return this.postApi.getBlogPostById(postId);
-  }
-  public getPost(post: any) {
-    this.postCall(post.id).subscribe((repo) => {
-      let heading = repo.postSections.filter(
-        (item: any) => item.sectionTypeId == 1
-      );
-      let img = repo.postSections.filter(
-        (item: any) => item.sectionTypeId == 4
-      );
-
-      let subHeading = repo.postSections.filter(
-        (item: any) => item.sectionTypeId == 2
-      );
-      let obj = {
-        postId: post.id,
-        heading: heading[0],
-        subHeading: subHeading[0],
-        img: img[0],
-      };
-
-      this.categoryPost.push(obj);
-    });
   }
 }

@@ -28,7 +28,8 @@ export class UserContentComponent implements OnInit {
     private readonly loginStatusService: checkLoginService,
     private readonly trackDataService: trackDataService,
     private readonly sitesetting: siteSettingApi,
-    private readonly authApi: authenticationApi
+    private readonly authApi: authenticationApi,
+    private readonly subject: trackDataService
   ) {}
   public post: any;
   public categoryId: any;
@@ -46,9 +47,12 @@ export class UserContentComponent implements OnInit {
   public commentboxId: any;
   public replayCommentData: any = [];
   public totalCount = 0;
-  public loginStatus!: boolean;
+  public loginStatus: boolean = false;
   public enableComments!: boolean;
   public postId!: number;
+  public reload: Subscription = this.subject.getClickEvent1().subscribe(() => {
+    this.getContent();
+  });
 
   // //  form.......
   // // form user
@@ -175,6 +179,7 @@ export class UserContentComponent implements OnInit {
   public getComments(postId: number) {
     this.commentsApi.getAllCommentsForBolg(postId).subscribe((respo: any) => {
       this.comments = this.getParentsWithChildComments(respo.comments);
+      console.log(this.comments);
     });
   }
 

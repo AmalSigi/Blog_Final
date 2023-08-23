@@ -1,4 +1,10 @@
 <app-header (onChange)="userLogin = true" class="z-99"></app-header>
 <router-outlet></router-outlet>
 <app-footer></app-footer>
-<app-userLogin (close)="userLogin = false" *ngIf="userLogin"></app-userLogin>
+<app-userLogin
+  (close)="userLogin = false"
+  (onSignup)="userSignup = true"
+  *ngIf="userLogin"
+></app-userLogin>
+<app-userRegister (close)="userSignup = false" *ngIf="userSignup">
+</app-userRegister>

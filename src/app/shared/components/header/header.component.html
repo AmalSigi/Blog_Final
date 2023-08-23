@@ -18,12 +18,14 @@
         {{ userDetails?.email }}
       </p>
 
-      <a
+      <button
         *ngIf="!showUserDetails"
         class="text-gray-500 border-2 border-transparent hover:border-b-white p-3"
         (click)="login()"
-        >Login</a
       >
+        Login
+      </button>
+
       <div *ngIf="showLogOut" class="bg-white p-2 absolute mt-20 mr-14">
         <button (click)="logOut()">
           <span>LogOut</span>
@@ -40,8 +42,7 @@
           <div *ngIf="i < 4" class="grid relative">
             <div class="flex items-center gap-1">
               <a
-                [ngClass]="{ 'pointer-events-none': indexPosition == i }"
-                (click)="reload(i)"
+                (click)="reload()"
                 routerLink="category/{{ cat.id }}"
                 class="border-2 border-transparent hover:border-b-white"
                 >{{ cat.categoryName }}
@@ -64,7 +65,7 @@
                 <li *ngFor="let sub of cat.subCategories; let j = index">
                   <a
                     [ngClass]="{ 'pointer-events-none': indexPosition == j }"
-                    (click)="reload(j)"
+                    (click)="reload()"
                     [routerLink]="['/subcategory', sub.id]"
                     [queryParams]="{
                       subcategory: sub.subCategoryName
@@ -97,7 +98,6 @@
               >
                 <a
                   [ngClass]="{ 'pointer-events-none': indexPosition == k }"
-                  (click)="reload(k)"
                   routerLink="category/{{ cat.id }}"
                   class="border-2 border-transparent hover:border-b-gray-400"
                 >

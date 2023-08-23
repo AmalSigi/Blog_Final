@@ -71,9 +71,9 @@
       <div *ngIf="commentStatus">
         <div class="h-auto border-2 border-gray-200 m-5 p-4">
           <h3 class="text-2xl font-semibold">Comments</h3>
-<div *ngIf="comments.length" class="flex justify-center">
-  <p>No comments Yet.</p>
-</div>
+          <div *ngIf="comments == ''" class="flex justify-center">
+            <p>No comments Yet.</p>
+          </div>
           <div class="h-[85%] overflow-y-auto p-3">
             <!-- whole comment -->
 
@@ -161,15 +161,19 @@
             </ng-container>
           </div>
         </div>
-<div *ngIf="!enableComments" class="flex justify-center ">
-  <p>Comments disabled</p>
-</div>
+        <div *ngIf="!enableComments" class="flex justify-center">
+          <p>Comments disabled</p>
+        </div>
         <div *ngIf="enableComments" class="border-2 border-gray-200 m-5 p-4">
           <!-- sending comments -->
 
           <!-- guest users comment form -->
 
-          <form *ngIf="!loginStatus" [formGroup]="guestCommentForm" class="w-full p-4">
+          <form
+            *ngIf="!loginStatus"
+            [formGroup]="guestCommentForm"
+            class="w-full p-4"
+          >
             <div formGroupName="tempUser" class="grid grid-cols-2 gap-4">
               <div class="grid grid-row-2 gap-2">
                 <label class="font-medium text-base text-stone-600"
@@ -254,7 +258,11 @@
 
           <!-- login users comment form -->
 
-          <form *ngIf="loginStatus" [formGroup]="commentForm" class="grid grid-cols-1 gap-3 p-4">
+          <form
+            *ngIf="loginStatus"
+            [formGroup]="commentForm"
+            class="grid grid-cols-1 gap-3 p-4"
+          >
             <div class="grid grid-rows-1 gap-2">
               <label class="font-medium text-base text-stone-600"
                 >Comment :</label
@@ -308,7 +316,7 @@
         </div>
       </div>
 
-      <div class="w-full h-64 bg-black">
+      <div class="w-full h-64 bg-black mt-10">
         <h1 class="text-5xl text-center font-bold text-gray-100 p-16">AD</h1>
       </div>
     </div>
