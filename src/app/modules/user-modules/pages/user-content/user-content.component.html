@@ -254,7 +254,7 @@
 
         <div *ngFor="let post of moreArticlePost" class="my-5 border-b-2">
           <div class="hover:shadow-xl">
-            <a routerLink="/user/content/{{ post.postId }}">
+            <a routerLink="/content/{{ post.postId }}">
               <img
                 class="h-full object-cover hover:rounded-md"
                 [src]="'http://192.168.29.97:5296/assets/' + post?.img?.content"
