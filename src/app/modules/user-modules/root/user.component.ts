@@ -4,4 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-user',
   templateUrl: './user.component.html',
 })
-export class UserComponent {}
+export class UserComponent {
+  constructor(){}
+  public userLogin: boolean = false;
+}

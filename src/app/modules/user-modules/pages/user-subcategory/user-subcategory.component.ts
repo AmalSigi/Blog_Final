@@ -1,16 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { categoryApi } from 'src/app/core/http/category.service';
 import { postsAPi } from 'src/app/core/http/post.service';
-import { OffsetService } from 'src/app/core/services/pagination.service';
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 
 @Component({
-  selector: 'app-user-category',
-  templateUrl: './user-category.component.html',
+  selector: 'app-user-subcategory',
+  templateUrl: './user-subcategory.component.html',
 })
-export class UserCategoryComponent implements OnInit {
+export class UserSubcategoryComponent implements OnInit {
   constructor(
     private readonly postApi: postsAPi,
     private readonly route: ActivatedRoute,
@@ -18,8 +17,9 @@ export class UserCategoryComponent implements OnInit {
     private readonly categoryApi: categoryApi
   ) {}
 
-  public categoryPost: any = [];
+  public subcategoryPost: any = [];
   public categoryName: any;
+  public subCategoryName: any;
   public categoryCoverPic!: any;
   ngOnInit(): void {
     this.mainCall();
@@ -27,29 +27,32 @@ export class UserCategoryComponent implements OnInit {
   public reloadData: Subscription = this.trackDataService
     .getClickEvent1()
     .subscribe(() => {
-      this.categoryPost = [];
+      this.subcategoryPost = [];
     });
 
   public mainCall() {
     this.route.params.subscribe((params) => {
-      if (params['categoryId']) {
-        const categoryId = params['categoryId'];
-        this.getPostByCategory(categoryId);
-        this.getCategoryDetailesById(categoryId);
+      if (params['subcategoryId']) {
+        const subcategoryId = params['subcategoryId'];
+        this.getSubCategory(subcategoryId);
+        this.getSubCategoryById(subcategoryId);
       }
     });
   }
 
-  public getCategoryDetailesById(categoryId: number) {
-    this.categoryApi.getCategoryById(categoryId).subscribe((respo: any) => {
-      console.log(respo);
-      this.categoryName = respo.categoryName;
-      this.categoryCoverPic = respo.coverPicturePath;
-    });
+  public getSubCategoryById(subcategoryId: any) {
+    this.categoryApi
+      .getSubcategoryById(subcategoryId)
+      .subscribe((respo: any) => {
+        console.log(respo);
+        this.categoryName = respo.category.categoryName;
+        this.categoryCoverPic = respo.category.coverPicturePath;
+        this.subCategoryName = respo.subCategoryName;
+      });
   }
 
-  public getPostByCategory(categoryId: number) {
-    this.postApi.getPostByCategory(categoryId).subscribe((respo) => {
+  public getSubCategory(subcategoryId: number) {
+    this.postApi.getPostBySubCategory(subcategoryId).subscribe((respo) => {
       for (const post of respo) {
         this.getPost(post);
       }
@@ -77,7 +80,7 @@ export class UserCategoryComponent implements OnInit {
         img: img[0],
       };
 
-      this.categoryPost.push(obj);
+      this.subcategoryPost.push(obj);
     });
   }
 }

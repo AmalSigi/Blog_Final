@@ -12,7 +12,7 @@ export class authenticationApi {
     return this.http.post(`${this.url}/login`, body);
   }
   public isAuthorized(): Observable<any> {
-    return this.http.post(`${this.url}/login`,{});
+    return this.http.post(`${this.url}/isAuthorized`, {});
   }
   public getRefreshToken(): Observable<any>{
     return this.http.post(`${this.url}/Authentication/refreshToken)`,{});

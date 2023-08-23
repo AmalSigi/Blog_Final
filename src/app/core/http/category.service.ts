@@ -11,6 +11,11 @@ export class categoryApi {
   public getCategory(): Observable<any> {
     return this.http.get(this.url);
   }
+
+  public getCategoryById(categoryId: number): Observable<any> {
+    return this.http.get(`${this.url}/${categoryId}`);
+  }
+
   public postCategory(category: any): Observable<any> {
     return this.http.post(this.url, category);
   }
@@ -24,6 +29,9 @@ export class categoryApi {
   }
   public getSubcategory(categoryId: number): Observable<any> {
     return this.http.get(`${this.url}/${categoryId}/subcategory`);
+  }
+  public getSubcategoryById(subcategoryId: number): Observable<any> {
+    return this.http.get(`${this.url}/subcategory/${subcategoryId}`);
   }
 
   // cover picture

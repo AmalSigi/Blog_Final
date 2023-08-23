@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { authenticationApi } from '../http/authentication.service';
 
 @Injectable({
@@ -8,20 +8,27 @@ export class checkLoginService {
     constructor(private authService: authenticationApi){
 
     }
-    public checkLogin():boolean{
-const token=localStorage.getItem('jwtToken')
-if(token){
-    // this.authService.isAuthorized().subscribe({
-    //     next:()=>{
-    //         return true;
-    //     },
-      
-    // })
-    return true
-}
-else{
-    return false;
-}
-    }
+    public autherized = signal(true);
+    public checkLogin(){
+
+    this.authService.isAuthorized().subscribe({
+        next:()=>{
+            this.autherized.set(true);
+            console.log('authorized')
+        },
+      error:(error)=>{
+        if(error.message=="Unauthorized"){
+            this.autherized.set(false);
+
+        }
+      }
+    })
+
     
 }
+
+
+    
+}
+
+

@@ -54,6 +54,8 @@ import { EditorsPickComponent } from './pages/admin-posts/pages/editorsPick/edit
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 import { ClickOutsideDirective } from 'src/app/core/directives/clcickOutside.directive';
 import { loginQuards } from 'src/app/core/quards/login.quard';
+import { AdminSiteSettingComponent } from './pages/admin-settings/pages/admin-site-setting/root/admin-site-setting.component';
+import { AdminBlogSettingComponent } from './pages/admin-settings/pages/admin-site-setting/admin-blog-setting/admin-blog-setting.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +93,8 @@ import { loginQuards } from 'src/app/core/quards/login.quard';
     RegisterComponent,
     ReportedCommnentViewComponent,
     EditorsPickComponent,
+    AdminSiteSettingComponent,
+    AdminBlogSettingComponent,
   ],
   imports: [
     CommonModule,

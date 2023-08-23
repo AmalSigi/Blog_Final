@@ -1,11 +1,6 @@
+import { Component, OnInit } from '@angular/core';
 
-import { Component } from '@angular/core';
-
-import {
-  FormControl,
-  FormGroup,
-  Validators
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { authenticationApi } from 'src/app/core/http/authentication.service';
 
@@ -14,11 +9,12 @@ import { authenticationApi } from 'src/app/core/http/authentication.service';
 
   templateUrl: './login.component.html',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   constructor(
     private readonly authentication: authenticationApi,
-    private readonly route: Router
+    private readonly route: Router,
   ) {}
+  ngOnInit(): void {}
 
   public loginForm = new FormGroup({
     email: new FormControl('', Validators.required),
@@ -30,18 +26,18 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       const body = this.loginForm.value;
 
-
       this.authentication.login(body).subscribe({
         next: (response) => {
-          if (response) {
+          
             localStorage.setItem(
               'jwtToken',
 
               JSON.stringify(response.jwtToken)
             );
+          alert('Login successfully..');
 
             this.route.navigate(['']);
-          }
+          
         },
         error: (error) => {
           alert('Error: ' + JSON.stringify(error.error));

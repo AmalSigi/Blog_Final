@@ -20,6 +20,7 @@ export class postsAPi {
     return this.http.get(`${this.url}/${postId}`);
   }
   public getBlogPostById(postId: number): Observable<any> {
+
     return this.http.get(`${this.url}/blog/${postId}`);
   }
   public approvePost(postId: number): Observable<any> {
@@ -43,13 +44,12 @@ export class postsAPi {
     length: number,
     searchInput: string | undefined
   ): Observable<any> {
-    let apiUrl=  `${this.url}/all?status=${params}&offset=${offset}&length=${length}`;
-    
-     
-    if(searchInput!=undefined){
-      apiUrl+=`&search=${searchInput}`
+    let apiUrl = `${this.url}/all?status=${params}&offset=${offset}&length=${length}`;
+
+    if (searchInput != undefined) {
+      apiUrl += `&search=${searchInput}`;
     }
-return this.http.get(apiUrl)
+    return this.http.get(apiUrl);
   }
   public getFilteredCommentPosts(
     offset: number,
@@ -68,12 +68,26 @@ return this.http.get(apiUrl)
   public getPostByCategory(categoryId: number): Observable<any> {
     return this.http.get(`${this.url}/category/${categoryId}`);
   }
+
+  public getPostBySubCategory(subcategory: number): Observable<any> {
+    return this.http.get(`${this.url}/subcategory/${subcategory}`);
+  }
+
   public getPostByCategoryByLength(
     categoryId: number,
-    offset: number
+    length: number
   ): Observable<any> {
-    return this.http.get(`${this.url}/category/${categoryId}?length=${offset}`);
+    return this.http.get(`${this.url}/category/${categoryId}?length=${length}`);
   }
+  public getPostBySubategoryByLength(
+    subcategoryId: number,
+    length: number
+  ): Observable<any> {
+    return this.http.get(
+      `${this.url}/subcategory/${subcategoryId}?length=${length}`
+    );
+  }
+
   public authorizedPosts(authorId: number): Observable<any> {
     return this.http.get(`${this.url}/${authorId}/authoredPosts`);
   }

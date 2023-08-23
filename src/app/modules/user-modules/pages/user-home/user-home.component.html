@@ -1,10 +1,10 @@
 <section class="container mx-auto mb-10 w-[70%]">
   <!-- trending -->
   <div
-    class="container h-96 bg-black mx-auto mt-10 rounded-md overflow-hidden flex"
+    class="container md:h-96 md:flex bg-black mx-auto mt-10 rounded-md overflow-hidden grid"
   >
-    <div class="w-[60%] h-full bg-gray-500">
-      <a>
+    <div class="w-full md:w-[60%] h-full bg-gray-500">
+      <a routerLink="/content/{{ latestPost[0]?.postId }}">
         <img
           class="w-full h-full object-cover"
           [src]="
@@ -14,7 +14,7 @@
         />
       </a>
     </div>
-    <div class="w-[40%] h-full text-gray-500">
+    <div class="w-full md:w-[40%] h-full text-gray-500">
       <h2 class="text-gray-500 text-2xl font-bold mx-5 mt-24">
         {{ latestPost[0]?.heading?.content }}
       </h2>
@@ -26,11 +26,11 @@
   <!-- latest -->
   <section class="container mx-auto">
     <h2 class="text-4xl font-medium mt-20">Latest</h2>
-    <div class="grid grid-cols-12 mx-auto mt-5 gap-4">
-      <ng-container *ngFor="let item of latestPost; let i = index">
-        <div *ngIf="i > 0" class="h-[20rem] col-span-4 mb-10">
+    <div class="grid md:grid-cols-12 mx-auto mt-5 gap-4">
+      <ng-container *ngFor="let item of latestPost!; let i = index">
+        <div *ngIf="i > 0" class="h-[20rem] md:col-span-4 mb-10">
           <div class="h-[75%] w-full">
-            <a routerLink="/content/9">
+            <a routerLink="/content/{{ item.postId }}">
               <img
                 class="w-full h-full object-cover hover:shadow-lg hover:shadow-gray-500"
                 [src]="'http://192.168.29.97:5296/assets/' + item?.img?.content"
@@ -64,10 +64,10 @@
 
   <section
     *ngFor="let item of catgoryDetailes"
-    class="container mx-auto grid gap-5 w-full h-full"
+    class="container mx-auto md:grid md:gap-5 w-full h-full"
   >
     <h1 class="text-4xl font-medium mt-20">{{ item.categoryName }}</h1>
-    <div class="grid grid-cols-3 gap-3">
+    <div class="grid gap-5 md:grid-cols-3 md:gap-3">
       <div routerLink="/user/content/{{ item.categoryPost[0].postId }}" class="col-span-2">
         <img
           class="h-full w-full"
@@ -83,7 +83,7 @@
       </div>
 
 
-      <div class="grid grid-cols-1 gap-3 text-justify">
+      <div class="grid md:grid-cols-1 gap-5 text-justify">
         <div
         routerLink="/user/content/{{ post.postId }}"
           *ngFor="let post of item.categoryPost.slice(1)"
