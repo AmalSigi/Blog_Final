@@ -17,7 +17,6 @@ import { OffsetService } from 'src/app/core/services/pagination.service';
 
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 
-import { ClickOutsideDirective } from 'src/app/core/directives/clcickOutside.directive';
 
 @Component({
   selector: 'app-postList',
@@ -79,9 +78,6 @@ export class PostListComponent {
 
         const enableTrash = url.some((segment) => segment.path == 'trashed');
 
-        const enablePicks = url.some(
-          (segment) => segment.path == 'Editor-pick'
-        );
 
         if (enablePublish) {
           this.published = true;
@@ -91,6 +87,7 @@ export class PostListComponent {
           this.trash = true;
         } else {
           this.picks = true;
+          this.posts=this.posts.post;
         }
       },
     });
@@ -205,9 +202,11 @@ export class PostListComponent {
       postId: postId,
     };
     bodyarray.push(body);
+    console.log(bodyarray);
 
     this.editorsPickApi.postEditorsPick(bodyarray).subscribe({
       next: (respo: any) => {
+       
         alert("This post is added to Editor's Pick");
         this.paginate.emit();
         this.trackCount.sendClickEvent1();

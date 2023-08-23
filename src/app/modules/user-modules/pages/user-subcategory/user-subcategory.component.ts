@@ -59,7 +59,7 @@ export class UserSubcategoryComponent implements OnInit {
     });
   }
   public postCall(postId: any) {
-    return this.postApi.getPostByIdForBlog(postId);
+    return this.postApi.getBlogPostById(postId);
   }
   public getPost(post: any) {
     this.postCall(post.id).subscribe((repo) => {

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { categoryApi } from 'src/app/core/http/category.service';
+import { userApi } from 'src/app/core/http/userAccount.service';
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 
 @Component({
@@ -11,12 +12,34 @@ export class HeaderComponent implements OnInit {
   public showCategory: boolean = false;
   public index!: number;
   public category: any;
+  public userDetails:any;
+  public showLogOut:boolean=false;
+  public showUserDetails:boolean=false;
+
+  @Output() onChange: EventEmitter<any> = new EventEmitter()
   constructor(
     private readonly categoryApi: categoryApi,
-    private readonly reloadData: trackDataService
+    private readonly reloadData: trackDataService,
+    private readonly userApiService:userApi,
+    private readonly refreshData: trackDataService
   ) {}
   ngOnInit(): void {
     this.getCategory();
+    this.getUserDetails();
+    
+  }
+  public getUserDetails(){
+    this.userApiService.currentUserDetails().subscribe({
+      next:(response)=>{
+       this.userDetails = response;
+      this.showUserDetails=true;
+      },
+      error:()=>{
+        this.showUserDetails=false;
+
+      }
+
+    })
   }
 
   public getCategory() {
@@ -36,5 +59,19 @@ export class HeaderComponent implements OnInit {
   }
   public moreCategory() {
     this.showCategory = !this.showCategory;
+  }
+  public login(){
+this.onChange.emit();
+this.getUserDetails();
+  }
+  public logOut(){
+    if(confirm("Are you sure you want to log out ?")){
+      localStorage.removeItem('jwtToken');
+      this.getUserDetails();
+      this.showLogOut=false;
+      this.refreshData.sendClickEvent1();
+    }
+  
+    
   }
 }

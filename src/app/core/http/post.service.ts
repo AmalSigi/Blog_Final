@@ -19,7 +19,8 @@ export class postsAPi {
   public getPostById(postId: number): Observable<any> {
     return this.http.get(`${this.url}/${postId}`);
   }
-  public getPostByIdForBlog(postId: number): Observable<any> {
+  public getBlogPostById(postId: number): Observable<any> {
+
     return this.http.get(`${this.url}/blog/${postId}`);
   }
   public approvePost(postId: number): Observable<any> {

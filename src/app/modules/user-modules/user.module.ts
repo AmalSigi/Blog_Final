@@ -16,7 +16,9 @@ import { postsAPi } from 'src/app/core/http/post.service';
 import { tagApi } from 'src/app/core/http/tag.service';
 import { postData } from 'src/app/core/services/posts.services';
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
+import { checkLoginService } from 'src/app/core/services/checkUserStatus.service';
 import { UserSubcategoryComponent } from './pages/user-subcategory/user-subcategory.component';
+import { UserLoginComponent } from './pages/userAutentication/login/userLogin.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { UserSubcategoryComponent } from './pages/user-subcategory/user-subcateg
     UserCategoryComponent,
     UserContentComponent,
     UserSubcategoryComponent,
+    UserLoginComponent
   ],
   imports: [
     CommonModule,
@@ -41,6 +44,7 @@ import { UserSubcategoryComponent } from './pages/user-subcategory/user-subcateg
     postData,
     tagApi,
     trackDataService,
+    checkLoginService
   ],
 })
 export class UserModule {}

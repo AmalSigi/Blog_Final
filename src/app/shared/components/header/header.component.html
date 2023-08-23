@@ -1,15 +1,29 @@
 <header class="w-full bg-black">
   <nav class="w-full h-24 flex justify-between container pt-8 mx-auto">
-    <a href="">
+    <a routerLink="">
       <h1 class="text-white font-bold text-3xl uppercase">blog</h1>
     </a>
-    <div>
-      <a href=""><i class="fa-solid fa-house text-gray-500"></i></a>
+    <div class="flex justify-center items-center relative">
+      <div *ngIf="showUserDetails" (click)="showLogOut=!showLogOut" class="h-10 w-10 rounded-full overflow-hidden hover:border-2">
+        <img
+          src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-photo-183042379.jpg"
+          alt=""
+        />
+      </div>
+      <p *ngIf="showUserDetails" class="text-gray-300 ml-3">{{userDetails?.email}}</p>
+
       <a
+      *ngIf="!showUserDetails"
         class="text-gray-500 border-2 border-transparent hover:border-b-white p-3"
-        href=""
+        (click)="login()"
         >Login</a
       >
+      <div *ngIf="showLogOut" class="bg-white p-2 absolute mt-20 mr-14">
+        <button (click)="logOut()">
+          <span>LogOut</span>
+        </button>
+      </div>
+
     </div>
   </nav>
   <section

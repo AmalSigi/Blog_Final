@@ -19,23 +19,7 @@
   <div class="w-[80%] mx-auto mt-5 flex gap-5">
     <div class="w-4/6 mb-5">
       <h1 class="mb-5 text-4xl uppercase">{{ subCategoryName }}</h1>
-      <!-- <div
-        *ngIf="subcategoryPost == ''"
-        class="flex mt-10 w-full container mx-auto justify-center"
-      >
-        <div class="flex items-center pointer-events-none pl-10">
-          <div
-            class="animate-spin inline-block w-8 h-8 border-[3px] border-current border-t-transparent text-red-900 rounded-full"
-            role="status"
-            aria-label="loading"
-          >
-            <span class="sr-only">Loading...</span>
-          </div>
-        </div>
-        <p class="m-3 italic bold text-black text-xl font-bold">
-          Please Wait...
-        </p>
-      </div> -->
+
       <div
         *ngIf="subcategoryPost == ''"
         class="container text-center text-gray-400 text-lg py-5"
@@ -43,7 +27,7 @@
         No Blog avaliable in this Sub-category
       </div>
       <div *ngFor="let post of subcategoryPost">
-        <a routerLink="/user/content/{{ post.postId }}">
+        <a routerLink="/content/{{ post.postId }}">
           <div
             class="flex my-5 border-b-2 p-5 hover:shadow-sm hover:shadow-gray-400"
           >

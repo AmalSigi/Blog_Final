@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { commentsApi } from 'src/app/core/http/comments.service';
 import { postsAPi } from 'src/app/core/http/post.service';
+import { checkLoginService } from 'src/app/core/services/checkUserStatus.service';
 import { siteSettingApi } from 'src/app/core/http/site-setting.service';
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 
@@ -23,6 +24,7 @@ export class UserContentComponent implements OnInit {
     private readonly commentsApi: commentsApi,
     private fb: FormBuilder,
     private readonly route: ActivatedRoute,
+    private readonly loginStatusService:checkLoginService,
     private readonly trackDataService: trackDataService,
     private readonly sitesetting: siteSettingApi
   ) {}
@@ -42,6 +44,7 @@ export class UserContentComponent implements OnInit {
   public commentboxId: any;
   public replayCommentData: any = [];
   public totalCount = 0;
+  public loginStatus!:boolean
 
   // //  form.......
   // // form user
@@ -62,6 +65,9 @@ export class UserContentComponent implements OnInit {
   });
 
   ngOnInit(): void {
+this.getContent();
+  }
+  public getContent():void{
     this.route.params.subscribe((params) => {
       if (params['postId']) {
         const postId = params['postId'];
@@ -71,16 +77,21 @@ export class UserContentComponent implements OnInit {
         this.commentEnable();
       }
     });
+this.loginStatusService.checkLogin();
+this.loginStatus=this.loginStatusService.autherized();
   }
+
   public reloadData: Subscription = this.trackDataService
     .getClickEvent1()
     .subscribe(() => {
       this.moreArticlePost = [];
+      this.getContent();
+
     });
   // // Post
 
   public postCall(postId: any) {
-    return this.postApi.getPostByIdForBlog(postId);
+    return this.postApi.getBlogPostById(postId);
   }
 
   public getMainPost(postId: number) {
@@ -138,6 +149,7 @@ export class UserContentComponent implements OnInit {
   }
 
   // // comments
+
 
   public commentEnable() {
     this.sitesetting.getSiteSetting().subscribe((respo: any) => {

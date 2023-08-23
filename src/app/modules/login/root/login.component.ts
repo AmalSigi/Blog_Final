@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { authenticationApi } from 'src/app/core/http/authentication.service';
-import { toastrService } from 'src/app/core/services/toastr.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +13,6 @@ export class LoginComponent implements OnInit {
   constructor(
     private readonly authentication: authenticationApi,
     private readonly route: Router,
-    private readonly toastr: toastrService
   ) {}
   ngOnInit(): void {}
 
@@ -30,18 +28,19 @@ export class LoginComponent implements OnInit {
 
       this.authentication.login(body).subscribe({
         next: (response) => {
-          if (response) {
+          
             localStorage.setItem(
               'jwtToken',
 
               JSON.stringify(response.jwtToken)
             );
-            this.toastr.showSuccess('login successfully..');
+          alert('Login successfully..');
+
             this.route.navigate(['']);
-          }
+          
         },
         error: (error) => {
-          this.toastr.showError(error.error);
+          alert('Error: ' + JSON.stringify(error.error));
         },
       });
     }

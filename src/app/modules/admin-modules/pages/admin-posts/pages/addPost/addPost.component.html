@@ -56,7 +56,7 @@
     class="container mx-auto w-full h-screen overflow-y-auto pb-20 border-t-2 md:border-0"
   >
     <form [formGroup]="blogForm" *ngFor="let item of dynamicDiv; let i = index">
-      <div class="pb-20 w-full">
+      <div class="pb-20 w-[80%] container mx-auto">
         <ng-container [ngSwitch]="item.type">
           <ng-container *ngSwitchCase="1">
             <textarea
@@ -179,6 +179,19 @@
                 alt=""
               ></video>
             </div>
+            <div class="flex w-full absolute ml-32">
+              <div class="flex items-center pointer-events-none pl-10">
+                <div
+                  class="animate-spin inline-block w-8 h-8 border-[3px] border-current border-t-transparent text-red-900 rounded-full"
+                  role="status"
+                  aria-label="loading"
+                >
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+          
+              <p class="m-3 italic bold text-black text-xl font-bold">Uploading...</p>
+            </div>
             <app-toolbar
               (delete)="deleteBlock()"
               (select)="addBlock($event)"
@@ -237,3 +250,4 @@
     *ngIf="postFeatures"
   ></app-postFeatures>
 </section>
+<!-- <app-loading class="w-full" *ngIf="loading"></app-loading> -->

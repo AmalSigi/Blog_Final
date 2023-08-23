@@ -42,6 +42,7 @@ export class AdminHomeComponent {
   public getEditorsPick() {
     this.pickApi.getBlogEditorsPick().subscribe({
       next: (response) => {
+        console.log(response);
         response.forEach((post: any) => {
           this.getPost(post.postId);
         });
@@ -75,6 +76,7 @@ export class AdminHomeComponent {
     };
 
     this.editorsPickPost.push(obj);
+    console.log(this.editorsPickPost)
   }
 
   public editorView() {}
