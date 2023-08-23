@@ -20,7 +20,6 @@ export class postsAPi {
     return this.http.get(`${this.url}/${postId}`);
   }
   public getBlogPostById(postId: number): Observable<any> {
-
     return this.http.get(`${this.url}/blog/${postId}`);
   }
   public approvePost(postId: number): Observable<any> {
@@ -63,6 +62,9 @@ export class postsAPi {
 
   public getRecommendedPost(count: number, postId: number): Observable<any> {
     return this.http.get(`${this.url}/${postId}/getsuggestions?count=${count}`);
+  }
+  public getRecommendedPost2(postId: number): Observable<any> {
+    return this.http.get(`${this.url}/${postId}/getsuggestions`);
   }
 
   public getPostByCategory(categoryId: number): Observable<any> {

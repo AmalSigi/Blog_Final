@@ -1,5 +1,5 @@
 <div class="container py-10">
-  <h3 class="text-xl font-semibold pb-2">Add Category</h3>
+  <h3 class="text-xl font-medium pb-2">Add Category</h3>
   <form [formGroup]="categoryForm">
     <div class="border-2 p-5">
       <div class="grid gap-y-5">
@@ -12,8 +12,9 @@
         />
 
         <button
+          [disabled]="categoryForm.controls['categoryName'].value == ''"
           (click)="postCategory()"
-          class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+          class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-medium bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
         >
           Add
         </button>
@@ -22,7 +23,7 @@
   </form>
 
   <!-- add cover picture -->
-  <h3 class="text-xl font-semibold py-2">Add Cover Picture</h3>
+  <h3 class="text-xl font-medium py-2">Add Cover Picture</h3>
   <form [formGroup]="categoryCoverPictureForm">
     <div class="border-2 p-5">
       <div class="grid gap-y-5">
@@ -61,7 +62,7 @@
         </div>
         <button
           (click)="postCategoryCoverPicture()"
-          class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+          class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-medium bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
         >
           Add
         </button>
@@ -69,7 +70,7 @@
     </div>
   </form>
   <!-- sub_category -->
-  <h3 class="text-xl font-semibold pb-2 mt-5">Add Sub-Category</h3>
+  <h3 class="text-xl font-medium pb-2 mt-5">Add Sub-Category</h3>
   <div class="border-2 p-5">
     <form [formGroup]="subCategoryForm">
       <div class="grid gap-y-5">
@@ -124,7 +125,7 @@
             <button
               (click)="addNewSubToarray(newsubCategory.value)"
               type="button"
-              class="inline-flex flex-shrink-0 justify-center items-center h-[2.875rem] w-[2.875rem] rounded-r-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+              class="inline-flex flex-shrink-0 justify-center items-center h-[2.875rem] w-[2.875rem] rounded-r-md border border-transparent font-medium bg-blue-500 text-white hover:bg-blue-600 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
             >
               <i class="fa-solid fa-plus"></i>
             </button>
@@ -132,8 +133,9 @@
         </div>
 
         <button
+          [disabled]="newSubCategoryArray.length == 0"
           (click)="postSubCategory()"
-          class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
+          class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-medium bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800"
         >
           Add
         </button>

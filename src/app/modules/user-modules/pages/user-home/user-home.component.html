@@ -47,6 +47,31 @@
       </ng-container>
     </div>
   </section>
+
+  <!-- editorial pick -->
+  <section class="container mx-auto">
+    <h2 class="text-4xl font-medium mt-20">Editorial Pick</h2>
+    <div class="grid md:grid-cols-12 mx-auto mt-5 gap-4">
+      <ng-container *ngFor="let item of editorialPick!; let i = index">
+        <div *ngIf="i < 4" class="h-[20rem] md:col-span-4 mb-10">
+          <div class="h-[75%] w-full">
+            <a routerLink="/content/{{ item.postId }}">
+              <img
+                class="w-full h-full object-cover hover:shadow-lg hover:shadow-gray-500"
+                [src]="'http://192.168.29.97:5296/assets/' + item?.img?.content"
+                alt=""
+              />
+            </a>
+          </div>
+          <div>
+            <h2 class="text-2xl font-semibold mt-4">
+              {{ item?.heading?.content }}
+            </h2>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </section>
   <!-- ads section -->
   <section class="container border-2 border-x-0 mx-auto mt-24 p-5">
     <div class="mx-auto w-[70%] h-full">
@@ -62,39 +87,40 @@
 
   <!-- category -->
 
-  <section
-    *ngFor="let item of catgoryDetailes"
-    class="container mx-auto md:grid md:gap-5 w-full h-full"
-  >
-    <h1 class="text-4xl font-medium mt-20">{{ item.categoryName }}</h1>
-    <div class="grid gap-5 md:grid-cols-3 md:gap-3">
-      <div routerLink="/content/{{ item.categoryPost[0].postId }}" class="col-span-2">
-        <img
-          class="h-full w-full"
-          [src]="
-            'http://192.168.29.97:5296/assets/' +
-            item?.categoryPost[0]?.img?.content
-          "
-          alt=""
-        />
-        <h2 class="text-2xl font-semibold">
-          {{ item?.categoryPost[0]?.heading?.content }}
-        </h2>
-      </div>
-
-
-      <div class="grid md:grid-cols-1 gap-5 text-justify">
+  <section *ngFor="let item of catgoryDetailes" class="my-10">
+    <div class="container mx-auto md:grid md:gap-5 w-full h-full py-16">
+      <h1 class="text-4xl font-medium">{{ item.categoryName }}</h1>
+      <div class="grid gap-5 md:grid-cols-3 md:gap-3">
         <div
-        routerLink="/content/{{ post.postId }}"
-          *ngFor="let post of item.categoryPost.slice(1)"
-          class="flex gap-2 items-center"
+          routerLink="/content/{{ item.categoryPost[0].postId }}"
+          class="col-span-2 hover:rounded"
         >
           <img
-            class="h-[10rem] w-[10rem]"
-            [src]="'http://192.168.29.97:5296/assets/' + post?.img?.content"
+            class="h-full w-full"
+            [src]="
+              'http://192.168.29.97:5296/assets/' +
+              item?.categoryPost[0]?.img?.content
+            "
             alt=""
           />
-          <h2 class="text-2xl font-semibold">{{ post?.heading?.content }}</h2>
+          <h2 class="text-3xl mt-2">
+            {{ item?.categoryPost[0]?.heading?.content }}
+          </h2>
+        </div>
+
+        <div class="grid md:grid-cols-1 gap-5 text-justify">
+          <div
+            routerLink="/content/{{ post.postId }}"
+            *ngFor="let post of item.categoryPost.slice(1)"
+            class="flex gap-2 items-center hover:shadow-lg shadow-slate-300"
+          >
+            <img
+              class="h-[10rem] w-[10rem]"
+              [src]="'http://192.168.29.97:5296/assets/' + post?.img?.content"
+              alt=""
+            />
+            <h2 class="text-2xl text-start">{{ post?.heading?.content }}</h2>
+          </div>
         </div>
       </div>
     </div>

@@ -19,15 +19,15 @@
     </a>
 
     <div>
-      <p class="text-black font-semibold">{{ data?.firstName }}</p>
-      <p class="text-black font-semibold">{{ data?.email }}</p>
+      <p class="text-black font-medium">{{ data?.firstName }}</p>
+      <p class="text-black font-medium">{{ data?.email }}</p>
     </div>
     <button (click)="closeNavbar()" class="md:hidden ml-36">
       <i class="fa-solid fa-xmark"></i>
     </button>
   </div>
   <nav class="text-black">
-    <ul (click)="closeNavbar()" class="text-xl font-semibold px-3">
+    <ul (click)="closeNavbar()" class="text-xl font-medium px-3">
       <a routerLink="/admin"
         ><li class="admin-navbar">
           <i class="fa-solid fa-house mr-3"></i>Home

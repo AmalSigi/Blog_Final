@@ -9,13 +9,13 @@ export class siteSettingApi {
   constructor(private readonly http: HttpClient) {}
   public url: string = 'http://192.168.29.97:5296/SiteSetting';
 
-  public getSiteSetting() {
+  public getSiteSetting(): Observable<any> {
     return this.http.get(`${this.url}`);
   }
-  public patchSiteSetting(setting: any) {
+  public patchSiteSetting(setting: any): Observable<any> {
     return this.http.patch(`${this.url}`, setting);
   }
-  public patchLogo(img: FormData) {
+  public patchLogo(img: FormData): Observable<any> {
     console.log(img.get.length);
     return this.http.patch(`${this.url}/updateSiteLogo`, img);
   }

@@ -12,7 +12,7 @@ import { authenticationApi } from 'src/app/core/http/authentication.service';
 export class LoginComponent implements OnInit {
   constructor(
     private readonly authentication: authenticationApi,
-    private readonly route: Router,
+    private readonly route: Router
   ) {}
   ngOnInit(): void {}
 
@@ -28,16 +28,14 @@ export class LoginComponent implements OnInit {
 
       this.authentication.login(body).subscribe({
         next: (response) => {
-          
-            localStorage.setItem(
-              'jwtToken',
+          localStorage.setItem(
+            'jwtToken',
 
-              JSON.stringify(response.jwtToken)
-            );
+            JSON.stringify(response.jwtToken)
+          );
           alert('Login successfully..');
 
-            this.route.navigate(['']);
-          
+          this.route.navigate(['/admin']);
         },
         error: (error) => {
           alert('Error: ' + JSON.stringify(error.error));

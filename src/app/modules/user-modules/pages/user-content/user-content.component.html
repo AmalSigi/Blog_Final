@@ -13,17 +13,19 @@
 
           <div *ngFor="let postItem of post?.postSections" class="w-full">
             <ng-container [ngSwitch]="postItem.sectionTypeId">
+              <!-- main title -->
               <ng-container *ngSwitchCase="1"
                 ><h1 class="text-5xl font-extrabold my-4">
                   {{ postItem.content }}
                 </h1></ng-container
               >
-
+              <!-- sub heading -->
               <ng-container *ngSwitchCase="2"
                 ><h2 class="text-3xl font-medium my-5">
                   {{ postItem.content }}
                 </h2></ng-container
               >
+              <!-- paragraph -->
 
               <ng-container *ngSwitchCase="3"
                 ><p class="my-5 text-[20px] text-gray-600 text-justify">
@@ -32,19 +34,20 @@
                   </markdown>
                 </p></ng-container
               >
-
+              <!-- image -->
               <ng-container *ngSwitchCase="4"
                 ><img
-                  class="mb-5"
+                  class="mb-5 w-full"
                   [src]="
                     'http://192.168.29.97:5296/assets/' + postItem.content
                   "
               /></ng-container>
+              <!-- video -->
 
               <ng-container *ngSwitchCase="5"
                 ><video [src]="postItem.content"></video
               ></ng-container>
-
+              <!-- ad -->
               <ng-container *ngSwitchCase="6">
                 <div class="border-y-2 py-2">
                   <p class="text-center">AD</p>
@@ -81,7 +84,7 @@
                   class="p-3 border-b-2 pb-2"
                 >
                   <div>
-                    <p class="text-lg font-bold">
+                    <p class="text-lg font-medium">
                       {{ item2.author.firstName }} {{ item2.author.lastName }}
                     </p>
 
@@ -122,7 +125,7 @@
                       class="mb-5"
                     >
                       <div class="flex gap-4 items-center">
-                        <p class="text-base font-semibold">
+                        <p class="text-base font-medium">
                           {{ replayComment.author.firstName }}
 
                           {{ replayComment.author.lastName }}
@@ -165,7 +168,7 @@
           <form [formGroup]="guestCommentForm" class="w-full p-4">
             <div formGroupName="tempUser" class="grid grid-cols-2 gap-4">
               <div class="grid grid-row-2 gap-2">
-                <label class="font-semibold text-base text-stone-600"
+                <label class="font-medium text-base text-stone-600"
                   >First Name*:</label
                 >
 
@@ -177,7 +180,7 @@
               </div>
 
               <div class="grid grid-row-2 gap-2">
-                <label class="font-semibold text-base text-stone-600"
+                <label class="font-medium text-base text-stone-600"
                   >Middle Name :</label
                 >
 
@@ -189,7 +192,7 @@
               </div>
 
               <div class="grid grid-row-2 gap-2">
-                <label class="font-semibold text-base text-stone-600"
+                <label class="font-medium text-base text-stone-600"
                   >Last Name* :</label
                 >
 
@@ -201,7 +204,7 @@
               </div>
 
               <div class="grid grid-row-2 gap-2">
-                <label class="font-semibold text-base text-stone-600"
+                <label class="font-medium text-base text-stone-600"
                   >Email*:</label
                 >
 
@@ -216,7 +219,7 @@
             </div>
 
             <div class="grid grid-rows-1 gap-2">
-              <label class="font-semibold text-base text-stone-600"
+              <label class="font-medium text-base text-stone-600"
                 >Comment :</label
               >
 
@@ -249,7 +252,7 @@
 
           <form [formGroup]="commentForm" class="grid grid-cols-1 gap-3 p-4">
             <div class="grid grid-rows-1 gap-2">
-              <label class="font-semibold text-base text-stone-600"
+              <label class="font-medium text-base text-stone-600"
                 >Comment :</label
               >
 
@@ -317,15 +320,19 @@
         <ng-container *ngFor="let post of suggestionPost">
           <div class="hover:shadow-md">
             <div class="h-56 w-full bg-red-200">
-              <img
-                class="w-full h-full object-cover"
-                [src]="'http://192.168.29.97:5296/assets/' + post?.img?.content"
-                alt=""
-              />
+              <a routerLink="/content/{{ post.postId }}">
+                <img
+                  class="w-full h-full object-cover"
+                  [src]="
+                    'http://192.168.29.97:5296/assets/' + post?.img?.content
+                  "
+                  alt=""
+                />
+              </a>
             </div>
 
             <div class="">
-              <h2 class="text-2xl font-semibold mt-4">
+              <h2 class="text-2xl font-medium mt-4">
                 {{ post?.heading.content }}
               </h2>
 
