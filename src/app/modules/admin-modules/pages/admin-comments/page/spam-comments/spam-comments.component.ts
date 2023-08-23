@@ -48,14 +48,12 @@ export class SpamCommentsComponent {
 
     this.allPosts.postHasComment(status, length, offset).subscribe((repo) => {
       const posts = repo.posts;
-      console.log(posts)
 
       const fetchCommentCounts = posts.map((post: any) => {
         return this.commentApi.getCommentsCount(post.id, 'Reported');
       });
 
       combineLatest(fetchCommentCounts).subscribe((commentCounts: any) => {
- 
         this.post = posts.filter(
           (post: { totalLength: any }, index: number) => {
             const commentCount = commentCounts[index].count;

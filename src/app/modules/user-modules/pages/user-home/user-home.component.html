@@ -68,7 +68,7 @@
   >
     <h1 class="text-4xl font-medium mt-20">{{ item.categoryName }}</h1>
     <div class="grid gap-5 md:grid-cols-3 md:gap-3">
-      <div routerLink="/user/content/{{ item.categoryPost[0].postId }}" class="col-span-2">
+      <div routerLink="/content/{{ item.categoryPost[0].postId }}" class="col-span-2">
         <img
           class="h-full w-full"
           [src]="
@@ -85,7 +85,7 @@
 
       <div class="grid md:grid-cols-1 gap-5 text-justify">
         <div
-        routerLink="/user/content/{{ post.postId }}"
+        routerLink="/content/{{ post.postId }}"
           *ngFor="let post of item.categoryPost.slice(1)"
           class="flex gap-2 items-center"
         >

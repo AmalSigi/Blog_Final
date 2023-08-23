@@ -56,6 +56,7 @@ import { ClickOutsideDirective } from 'src/app/core/directives/clcickOutside.dir
 import { loginQuards } from 'src/app/core/quards/login.quard';
 import { AdminSiteSettingComponent } from './pages/admin-settings/pages/admin-site-setting/root/admin-site-setting.component';
 import { AdminBlogSettingComponent } from './pages/admin-settings/pages/admin-site-setting/admin-blog-setting/admin-blog-setting.component';
+import { siteSettingApi } from 'src/app/core/http/site-setting.service';
 
 @NgModule({
   declarations: [
@@ -115,6 +116,7 @@ import { AdminBlogSettingComponent } from './pages/admin-settings/pages/admin-si
     editorsPickApi,
     trackDataService,
     loginQuards,
+    siteSettingApi,
   ],
 })
 export class AdminModule {}

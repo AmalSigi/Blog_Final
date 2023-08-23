@@ -61,8 +61,8 @@ export class postsAPi {
     return this.http.get(`${this.url}/blog/all?length=${length}`);
   }
 
-  public getRecommendedPost(postId: number): Observable<any> {
-    return this.http.get(`${this.url}/${postId}/getsuggestions`);
+  public getRecommendedPost(count: number, postId: number): Observable<any> {
+    return this.http.get(`${this.url}/${postId}/getsuggestions?count=${count}`);
   }
 
   public getPostByCategory(categoryId: number): Observable<any> {
