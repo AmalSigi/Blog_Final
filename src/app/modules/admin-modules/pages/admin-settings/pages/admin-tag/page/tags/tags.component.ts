@@ -35,6 +35,16 @@ export class TagsComponent implements OnInit {
   public emitPages() {
     this.getTags();
   }
+
+  public deleteTag(tagId: number) {
+    console.log(tagId);
+    this.tagApi.deletTag(tagId).subscribe({
+      next: () => {
+        alert('Tag Delete Successfully');
+        this.getTags();
+      },
+    });
+  }
   public searchPostByName(event: any) {
     console.log(event.target.value);
     this.Offset.toggleInputData(event.target.value);

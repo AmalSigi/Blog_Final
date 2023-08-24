@@ -44,7 +44,7 @@ export class AddPostComponent implements OnInit {
     });
 
     this.route.queryParams.subscribe((params: any) => {
-      this.loading=true;
+      this.loading = true;
       if (params['postId']) {
         this.postId = params['postId'];
         this.postService.getPostById(this.postId).subscribe({
@@ -154,12 +154,12 @@ export class AddPostComponent implements OnInit {
     if (this.postId == null) {
       this.postService.addPost(this.blogForm.value).subscribe({
         next: (res) => {
-          alert('New post created..')
+          alert('New post created..');
 
-          this.router.navigate(['/posts/published']);
+          this.router.navigate(['/admin/posts/published']);
         },
         error: (err) => {
-          alert('Error please try again..')
+          alert('Error please try again..');
         },
       });
     }
@@ -167,13 +167,13 @@ export class AddPostComponent implements OnInit {
     if (this.postId != null) {
       this.postService.editPost(this.postId, this.blogForm.value).subscribe({
         next: (response) => {
-          alert('Post updated successfully')
+          alert('Post updated successfully');
 
-          this.router.navigate(['/posts']);
+          this.router.navigate(['/admin/posts/published']);
         },
         error: (response) => {
-          alert(response.error+ ", Please try again...")
-        }
+          alert(response.error + ', Please try again...');
+        },
       });
     }
   }

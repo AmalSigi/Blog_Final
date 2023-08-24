@@ -51,12 +51,16 @@ export class AddCategoryComponent implements OnInit {
   }
   // CATEGORY
   public postCategory() {
-    this.categoryService
-      .postCategory(this.categoryForm.value)
-      .subscribe((respo) => {
+    this.categoryService.postCategory(this.categoryForm.value).subscribe({
+      next: (respo: any) => {
         this.categoryForm.reset();
         this.getCategory();
-      });
+      },
+      error: () => {},
+      complete: () => {
+        alert('New Category Added');
+      },
+    });
   }
   public getCategory() {
     this.categoryService.getCategory().subscribe({
@@ -93,12 +97,16 @@ export class AddCategoryComponent implements OnInit {
   }
 
   public postSubCategory() {
-    this.categoryService
-      .postSubcategory(this.subCategoryForm.value)
-      .subscribe((respo) => {
+    this.categoryService.postSubcategory(this.subCategoryForm.value).subscribe({
+      next: (repo: any) => {
         this.subCategoryForm.reset();
         this.newSubCategoryArray = [];
-      });
+      },
+      error: () => {},
+      complete: () => {
+        alert('New Subcategory is Added ');
+      },
+    });
   }
 
   removeSubCategory(id: number): void {
@@ -130,7 +138,7 @@ export class AddCategoryComponent implements OnInit {
         )
         .subscribe({
           next: (response) => {
-            alert('Profile updated');
+            alert('Category Cover Picture updated');
             this.categoryCoverPictureForm.reset();
           },
           error: (response) => {

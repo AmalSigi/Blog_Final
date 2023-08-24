@@ -67,4 +67,10 @@ export class userApi {
       {}
     );
   }
+
+  // blog users
+
+  public userSignUpForBlog(body: any): Observable<any> {
+    return this.http.post(`${this.url}/blog/usersignup`, body);
+  }
 }

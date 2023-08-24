@@ -86,10 +86,6 @@ export class AdminProfileComponent implements OnInit {
     this.updateUserDetails();
   }
 
-  public updatePassword() {
-    this.updateUserPassword();
-  }
-
   public updateUserDetails() {
     this.editedForm.patchValue({
       _FirstName: this.editForm.controls['first_name'].value,
@@ -107,7 +103,7 @@ export class AdminProfileComponent implements OnInit {
         },
       });
   }
-  public updateUserPassword() {
+  public updatePassword() {
     this.passwordForm.patchValue({
       currentPassword: this.editForm.controls['password'].value,
       newPassword: this.editForm.controls['new_password'].value,
@@ -116,10 +112,11 @@ export class AdminProfileComponent implements OnInit {
     this.userService.updatePassword(this.passwordForm.value).subscribe({
       next: (res) => {
         console.log('success', res);
+        alert('Paasword Updated Successfully');
         this.editPassword = !this.editPassword;
       },
       error: (err) => {
-        alert('Error');
+        alert('Incorret Old Password');
       },
     });
   }
@@ -130,10 +127,6 @@ export class AdminProfileComponent implements OnInit {
   }
   public unshowUpolodtemp(): void {
     this.picShowDiv = false;
-  }
-
-  public confirmingPassword(event: any) {
-    console.log(event);
   }
 
   public fileImport(event: any) {

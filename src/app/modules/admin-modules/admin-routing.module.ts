@@ -29,6 +29,7 @@ import { EditorsPickComponent } from './pages/admin-posts/pages/editorsPick/edit
 import { loginQuards } from 'src/app/core/quards/login.quard';
 import { AdminSiteSettingComponent } from './pages/admin-settings/pages/admin-site-setting/root/admin-site-setting.component';
 import { AdminBlogSettingComponent } from './pages/admin-settings/pages/admin-site-setting/admin-blog-setting/admin-blog-setting.component';
+import { UncategorizedComponent } from './pages/admin-posts/pages/uncategorized/uncategorized.component';
 
 const routes: Routes = [
   {
@@ -54,6 +55,7 @@ const routes: Routes = [
           { path: 'drafts', component: PostDraftComponent },
           { path: 'trashed', component: PostsTrashedComponent },
           { path: 'Editor-pick', component: EditorsPickComponent },
+          { path: 'Uncategorized-post', component: UncategorizedComponent },
         ],
       },
       { path: '', component: AdminHomeComponent },

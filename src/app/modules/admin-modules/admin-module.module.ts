@@ -57,6 +57,7 @@ import { loginQuards } from 'src/app/core/quards/login.quard';
 import { AdminSiteSettingComponent } from './pages/admin-settings/pages/admin-site-setting/root/admin-site-setting.component';
 import { AdminBlogSettingComponent } from './pages/admin-settings/pages/admin-site-setting/admin-blog-setting/admin-blog-setting.component';
 import { siteSettingApi } from 'src/app/core/http/site-setting.service';
+import { UncategorizedComponent } from './pages/admin-posts/pages/uncategorized/uncategorized.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +97,7 @@ import { siteSettingApi } from 'src/app/core/http/site-setting.service';
     EditorsPickComponent,
     AdminSiteSettingComponent,
     AdminBlogSettingComponent,
+    UncategorizedComponent,
   ],
   imports: [
     CommonModule,

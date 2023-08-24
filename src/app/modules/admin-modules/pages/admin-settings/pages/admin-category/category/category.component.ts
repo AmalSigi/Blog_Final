@@ -15,7 +15,7 @@ export class CategoryComponent implements OnInit {
   ) {}
   public showmodel1: boolean = false;
   public showmodel2: boolean = false;
-  public modelCategory: any;
+  public modelCategoryId: any;
   public category: any;
   ngOnInit(): void {
     this.getCategory();
@@ -26,12 +26,13 @@ export class CategoryComponent implements OnInit {
       this.category = repo;
     });
   }
-  public modelShowAdd(category: any): void {
-    this.modelCategory = category;
+  public modelShowAdd(categoryId: any): void {
+    this.modelCategoryId = categoryId;
     this.showmodel1 = true;
   }
   public modelUnShowAdd(value: boolean): void {
     this.showmodel1 = value;
     this.showmodel2 = value;
+    this.getCategory();
   }
 }

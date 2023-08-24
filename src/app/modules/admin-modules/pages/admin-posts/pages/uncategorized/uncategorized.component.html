@@ -1,0 +1,8 @@
+<div *ngIf="posts?.length == 0" class="h-[50%] w-full text-center">
+  <p class="text center text-xl">no posts</p>
+</div>
+<app-postList
+  (paginate)="pagiantion()"
+  [totalData]="totalData"
+  [posts]="posts?.posts"
+></app-postList>

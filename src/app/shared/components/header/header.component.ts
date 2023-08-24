@@ -10,6 +10,8 @@ import { trackDataService } from 'src/app/core/subjects/trackData.subject';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit {
+  @Output() onChange: EventEmitter<any> = new EventEmitter();
+
   public showSubCat: boolean = false;
   public showCategory: boolean = false;
   public index!: number;
@@ -21,9 +23,8 @@ export class HeaderComponent implements OnInit {
   public indexPosition!: number;
   public subIndexPosition!: number;
 
-  @Output() onChange: EventEmitter<any> = new EventEmitter();
-
   public siteName: any;
+  public siteLogo: any;
   constructor(
     private readonly categoryApi: categoryApi,
     private readonly reloadData: trackDataService,
@@ -65,8 +66,6 @@ export class HeaderComponent implements OnInit {
     this.showSubCat = !this.showSubCat;
   }
   public reload() {
-    // this.indexPosition = index;
-    // this.reloadData.sendClickEvent1();
     this.showCategory = false;
     this.showSubCat = false;
   }
@@ -77,8 +76,12 @@ export class HeaderComponent implements OnInit {
   public getSetting() {
     this.siteSettingApi.getSiteSetting().subscribe((respo: any) => {
       let blogName = respo.find((item: any) => item.id == 1);
+      let blogLogo = respo.find((item: any) => item.id == 2);
       if (blogName) {
         this.siteName = blogName.settingValue;
+      }
+      if (blogLogo) {
+        this.siteLogo = blogLogo.settingValue;
       }
     });
   }

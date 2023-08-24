@@ -44,4 +44,11 @@ export class categoryApi {
       img
     );
   }
+
+  public deleteCat(catId: number): Observable<any> {
+    return this.http.delete(`${this.url}/${catId}/delete`);
+  }
+  public deleteSubCat(subcatId: number): Observable<any> {
+    return this.http.delete(`${this.url}/subcategory/${subcatId}/delete`);
+  }
 }
