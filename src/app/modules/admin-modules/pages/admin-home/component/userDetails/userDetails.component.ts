@@ -59,6 +59,7 @@ export class UsersDetailsComponents {
             .authorizedPosts(user.id)
             .subscribe((userPosts: any[]) => {
               user.userPosts = userPosts;
+              console.log(this.users);
             });
         });
       });

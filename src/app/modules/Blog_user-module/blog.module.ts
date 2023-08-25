@@ -7,15 +7,14 @@ import { authenticationApi } from 'src/app/core/http/authentication.service';
 import { BlogComponent } from './root/blog.component';
 import { blogRoutingModule } from './blog-routing.module';
 
-
 @NgModule({
   declarations: [BlogComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     blogRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [authenticationApi]
+  providers: [authenticationApi],
 })
-export class blogModule { }
+export class blogModule {}
