@@ -91,7 +91,7 @@ export class postsAPi {
   public ownPosts(
  
     status: string,
-    
+
     offset: number
   ): Observable<any> {
     return this.http.get(

@@ -41,5 +41,6 @@ export class UserPostsComponent {
     this.viewPost = true;
     this.post = this.allPosts.posts[index];
    
+
   }
 }

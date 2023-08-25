@@ -5,12 +5,16 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./modules/Blog_user-module/blog.module').then((m) => m.blogModule),
+      import('./modules/Blog_user-module/blog.module').then(
+        (m) => m.blogModule
+      ),
   },
   {
     path: 'author',
     loadChildren: () =>
-      import('./modules/author-module/author-module').then((m) => m.AuthorModule),
+      import('./modules/author-module/author-module').then(
+        (m) => m.AuthorModule
+      ),
   },
 
   {
