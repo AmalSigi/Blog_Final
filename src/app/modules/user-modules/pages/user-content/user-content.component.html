@@ -6,7 +6,7 @@
       <div class="h-full w-full overflow-y-auto md:border-r-2">
         <!-- content -->
 
-        <div class="container mx-auto w-[80%] my-5">
+        <div class="container mx-auto md:w-[80%] my-5">
           <p class="text-red-500 font-bold text-xl">
             {{ post?.category?.categoryName }}
           </p>
@@ -298,8 +298,11 @@
     <!-- left side -->
 
     <div class="md:w-2/6 p-5 mt-10">
-      <div class="w-full hidden md:block h-64 bg-black">
-        <h1 class="text-5xl text-center font-bold text-gray-100 p-16">AD</h1>
+      <div class="w-full hidden md:block h-64">
+        <img
+          src="https://i.pinimg.com/originals/6e/82/e2/6e82e20e9b013926af71dcfc12bfd88c.gif"
+          alt=""
+        />
       </div>
 
       <div *ngIf="moreArticlePost.length != 0" class="mt-16">
@@ -324,8 +327,11 @@
         </div>
       </div>
 
-      <div class="w-full hidden md:block h-64 bg-black mt-10">
-        <h1 class="text-5xl text-center font-bold text-gray-100 p-16">AD</h1>
+      <div class="w-full hidden md:block h-64 mt-10">
+        <img
+          src="https://i.pinimg.com/originals/6e/82/e2/6e82e20e9b013926af71dcfc12bfd88c.gif"
+          alt=""
+        />
       </div>
     </div>
   </div>

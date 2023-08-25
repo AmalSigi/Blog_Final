@@ -1,6 +1,9 @@
 <footer class="w-full h-36 bg-black">
-  <section class="container mx-auto w-full h-24 flex justify-around">
-    <div class="mt-8 text-gray-500 text-xl container">
+  <section class="container mx-auto w-full h-24 pt-5">
+    <div
+      class="mt-8 flex items-center justify-between text-gray-500 text-xl container"
+    >
+      <!-- site name and logo -->
       <div class="flex items-center gap-2">
         <div class="w-10 h-10 bg-gray-400 rounded-full overflow-hidden">
           <img
@@ -12,20 +15,23 @@
         <h1 class="uppercase text-white">{{ siteName }}</h1>
       </div>
 
-      <p class="text-sm mb-2">© 2023 Copyright</p>
-      <a
-        class=""
-        href="https://www.facebook.com/login/?privacy_mutation_token=eyJ0eXBlIjowLCJjcmVhdGlvbl90aW1lIjoxNjkyNjczMjkwLCJjYWxsc2l0ZV9pZCI6MjY5NTQ4NDUzMDcyMDk1MX0%3D"
-        ><i class="fa-brands fa-facebook"></i
-      ></a>
+      <!--  -->
+      <div>
+        <p class="text-sm mb-2">© 2023 Copyright {{ siteName }}</p>
+        <a
+          class=""
+          href="https://www.facebook.com/login/?privacy_mutation_token=eyJ0eXBlIjowLCJjcmVhdGlvbl90aW1lIjoxNjkyNjczMjkwLCJjYWxsc2l0ZV9pZCI6MjY5NTQ4NDUzMDcyMDk1MX0%3D"
+          ><i class="fa-brands fa-facebook"></i
+        ></a>
 
-      <a class="ml-5" href="https://www.instagram.com/accounts/login/"
-        ><i class="fa-brands fa-instagram"></i
-      ></a>
+        <a class="ml-5" href="https://www.instagram.com/accounts/login/"
+          ><i class="fa-brands fa-instagram"></i
+        ></a>
 
-      <a class="ml-5" href="https://www.youtube.com/"
-        ><i class="fa-brands fa-youtube"></i
-      ></a>
+        <a class="ml-5" href="https://www.youtube.com/"
+          ><i class="fa-brands fa-youtube"></i
+        ></a>
+      </div>
     </div>
   </section>
 </footer>

@@ -1,5 +1,11 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { categoryApi } from 'src/app/core/http/category.service';
 import { editorsPickApi } from 'src/app/core/http/editorsPick.services';
 import { postsAPi } from 'src/app/core/http/post.service';
@@ -12,14 +18,17 @@ import Swiper from 'swiper';
     trigger('slideAnimation', [
       transition('* <=> *', [
         style({ opacity: 0, transform: 'translateX(100%)' }),
-        animate('500ms ease-out', style({ opacity: 1, transform: 'translateX(0)' })),
+        animate(
+          '500ms ease-out',
+          style({ opacity: 1, transform: 'translateX(0)' })
+        ),
       ]),
     ]),
   ],
 })
-export class UserHomeComponent  implements OnInit {
+export class UserHomeComponent implements OnInit {
   @ViewChild('swiperContainer') swiperContainer: any;
-  apiSlides: any[]=[];
+  apiSlides: any[] = [];
   currentSlideIndex = 0;
   public latestPost?: any = [];
   public catgoryDetailes: any = [];
@@ -27,14 +36,14 @@ export class UserHomeComponent  implements OnInit {
   public editorialPick?: any = [];
   constructor(
     private readonly postApi: postsAPi,
-    private readonly categoryApi:categoryApi,
+    private readonly categoryApi: categoryApi,
     private readonly editorsPickApi: editorsPickApi
   ) {}
   ngOnInit(): void {
     this.getLatestPost();
     this.getCategory();
-   // this.initSwiper();
-    this.getEditorsPick()
+    // this.initSwiper();
+    this.getEditorsPick();
   }
   public getEditorsPick() {
     this.editorsPickApi.getBlogEditorsPick().subscribe({
@@ -48,7 +57,6 @@ export class UserHomeComponent  implements OnInit {
   }
   public getPost(postId: number) {
     this.postApi.getBlogPostById(postId).subscribe((respo) => {
-      
       this.temparray.push(respo);
       this.editorialPick = this.postToArray(this.temparray);
       console.log(this.editorialPick);
@@ -59,12 +67,11 @@ export class UserHomeComponent  implements OnInit {
     const length = 4;
     this.postApi.getLatestPosts(length).subscribe((respo) => {
       console.log(respo);
-      const categoryName = respo.category?.categoryName ;
+      const categoryName = respo.category?.categoryName;
       this.latestPost = this.postToArray(respo);
-   
-  
-      console.log(this.latestPost)
-      this.apiSlides=[...this.latestPost];
+
+      console.log(this.latestPost);
+      this.apiSlides = [...this.latestPost];
     });
   }
 
@@ -90,14 +97,13 @@ export class UserHomeComponent  implements OnInit {
             categoryId: category.id,
             categoryName: category.categoryName,
             categoryPost: this.postToArray(respo),
-            
           };
           this.catgoryDetailes.push(obj);
-         // console.log(this.catgoryDetailes);
+          // console.log(this.catgoryDetailes);
         }
       });
   }
- 
+
   public postToArray(post: any) {
     let temp: any = [];
     post.forEach((element: any) => {
@@ -117,8 +123,8 @@ export class UserHomeComponent  implements OnInit {
         subHeading: subHeading[0],
         img: img[0],
         categoryName: element.category?.categoryName || 'Uncategorized',
-        viewCount:element.viewCount,
-        createdAt:element.createdAt
+        viewCount: element.viewCount,
+        createdAt: element.createdAt,
       };
 
       temp.push(obj);
@@ -127,14 +133,14 @@ export class UserHomeComponent  implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.initSwiper(); 
+    this.initSwiper();
   }
 
   initSwiper() {
     new Swiper(this.swiperContainer.nativeElement, {
-      loop: true, 
+      loop: true,
       autoplay: {
-        delay: 3000, 
+        delay: 3000,
       },
       navigation: {
         nextEl: '.swiper-button-next',
@@ -145,7 +151,4 @@ export class UserHomeComponent  implements OnInit {
   getImageUrl(imgPath: string): string {
     return 'http://192.168.29.97:5296/assets/' + imgPath;
   }
-
 }
-
-
