@@ -44,7 +44,7 @@ export class UserHomeComponent implements OnInit {
     });
   }
   public getPost(postId: number) {
-    this.postApi.getPostById(postId).subscribe((respo) => {
+    this.postApi.getBlogPostById(postId).subscribe((respo) => {
       this.temparray.push(respo);
       this.editorialPick = this.postToArray(this.temparray);
       console.log(this.editorialPick);

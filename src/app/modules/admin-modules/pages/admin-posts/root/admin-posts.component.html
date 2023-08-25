@@ -6,7 +6,7 @@
     </div>
     <a
       routerLink="/admin/newPost"
-      class="bg-blue-600 p-2 text-white font-semibold rounded-md hover:shadow-xl"
+      class="bg-blue-600 pt-3 px-3 text-white font-semibold rounded-md hover:shadow-xl"
     >
       <i class="fa-solid fa-plus"></i>Add new post
     </a>
@@ -41,6 +41,15 @@
       >Editor's pick
       <span class="bg-blue-700 text-white px-2 py-1 rounded-full">{{
         editorsPick
+      }}</span></a
+    >
+    <a
+      routerLinkActive="active-post-nav"
+      routerLink="Uncategorized-post"
+      class="post-nav"
+      >Uncategorized Post
+      <span class="bg-blue-700 text-white px-2 py-1 rounded-full">{{
+        uncategorizrdPost
       }}</span></a
     >
   </div>

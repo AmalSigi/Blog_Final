@@ -59,6 +59,7 @@ export class PostListComponent {
   public trash!: boolean;
 
   public picks!: boolean;
+  public uncategorized!: boolean;
 
   @Input() posts: any;
 
@@ -78,6 +79,9 @@ export class PostListComponent {
         const enableDarafts = url.some((segment) => segment.path == 'drafts');
 
         const enableTrash = url.some((segment) => segment.path == 'trashed');
+        const enableUncategorized = url.some(
+          (segment) => segment.path == 'Uncategorized-post'
+        );
 
         if (enablePublish) {
           this.published = true;
@@ -85,6 +89,8 @@ export class PostListComponent {
           this.draft = true;
         } else if (enableTrash) {
           this.trash = true;
+        } else if (enableUncategorized) {
+          this.uncategorized = true;
         } else {
           this.picks = true;
           this.posts = this.posts.post;
@@ -104,7 +110,7 @@ export class PostListComponent {
     }
     this.postApi.getPostById(data.id).subscribe({
       next: (result) => {
-        const commentStatus=JSON.parse(result?.enableComments);
+        const commentStatus = JSON.parse(result?.enableComments);
         this.enableCommentForm.controls['enableComment'].setValue(
           commentStatus
         );
@@ -223,15 +229,13 @@ export class PostListComponent {
       error: (error) => {},
     });
   }
-  public onCheckboxChange(event: any,id:number) {
-  //  const status=event.target.checked
-   this.postApi.toggleComments(id).subscribe({
-    next:()=>{
-
-    },
-    error:(error)=>{
-      alert(error.message+ 'please try again');
-    }
-   })
+  public onCheckboxChange(event: any, id: number) {
+    //  const status=event.target.checked
+    this.postApi.toggleComments(id).subscribe({
+      next: () => {},
+      error: (error) => {
+        alert(error.message + 'please try again');
+      },
+    });
   }
 }

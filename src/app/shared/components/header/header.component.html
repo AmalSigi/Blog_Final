@@ -1,6 +1,13 @@
 <header class="w-full bg-black">
   <nav class="w-full h-24 flex justify-between container pt-8 mx-auto">
-    <a routerLink="">
+    <a routerLink="" class="flex items-center gap-2">
+      <div class="w-16 h-16 bg-gray-400 rounded-full overflow-hidden">
+        <img
+          class="h-full w-full overflow-hidden"
+          [src]="'http://192.168.29.97:5296/assets/' + siteLogo"
+          alt=""
+        />
+      </div>
       <h1 class="text-white font-bold text-3xl uppercase">{{ siteName }}</h1>
     </a>
     <div class="flex justify-center items-center relative">

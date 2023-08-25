@@ -1,9 +1,9 @@
-<main class="container mx-auto w-3/4 my-5 p-5">
-  <div class="flex gap-3">
+<main class="md:container mx-auto md:w-3/4 my-5 p-5">
+  <div class="md:flex gap-3">
     <section class="container h-full mx-auto">
       <!-- post -->
 
-      <div class="h-full w-full overflow-y-auto border-r-2">
+      <div class="h-full w-full overflow-y-auto md:border-r-2">
         <!-- content -->
 
         <div class="container mx-auto w-[80%] my-5">
@@ -15,20 +15,22 @@
             <ng-container [ngSwitch]="postItem.sectionTypeId">
               <!-- main title -->
               <ng-container *ngSwitchCase="1"
-                ><h1 class="text-5xl font-extrabold my-4">
+                ><h1 class="md:text-5xl text-2xl font-extrabold my-4">
                   {{ postItem.content }}
                 </h1></ng-container
               >
               <!-- sub heading -->
               <ng-container *ngSwitchCase="2"
-                ><h2 class="text-3xl font-medium my-5">
+                ><h2 class="md:text-3xl text-base font-medium my-5">
                   {{ postItem.content }}
                 </h2></ng-container
               >
               <!-- paragraph -->
 
               <ng-container *ngSwitchCase="3"
-                ><p class="my-5 text-[20px] text-gray-600 text-justify">
+                ><p
+                  class="my-5 md:text-base text-sm text-gray-600 text-justify"
+                >
                   <markdown>
                     {{ postItem.content | formatLinks }}
                   </markdown>
@@ -175,7 +177,7 @@
             [formGroup]="guestCommentForm"
             class="w-full p-4"
           >
-            <div formGroupName="tempUser" class="grid grid-cols-2 gap-4">
+            <div formGroupName="tempUser" class="md:grid md:grid-cols-2 gap-4">
               <div class="grid grid-row-2 gap-2">
                 <label class="font-medium text-base text-stone-600"
                   >First Name*:</label
@@ -242,7 +244,7 @@
 
             <button
               (click)="sendReply()"
-              class="my-5 flex justify-center top-10 text-white w-1/6 mx-auto bg-green-500 rounded p-2"
+              class="my-5 flex justify-center top-10 text-white md:w-1/6 mx-auto bg-green-500 rounded p-2"
             >
               Send
             </button>
@@ -295,13 +297,13 @@
 
     <!-- left side -->
 
-    <div class="w-2/6 p-5 mt-10">
-      <div class="w-full h-64 bg-black">
+    <div class="md:w-2/6 p-5 mt-10">
+      <div class="w-full hidden md:block h-64 bg-black">
         <h1 class="text-5xl text-center font-bold text-gray-100 p-16">AD</h1>
       </div>
 
       <div *ngIf="moreArticlePost.length != 0" class="mt-16">
-        <h4 class="text-xl font-black">More Articles</h4>
+        <h4 class="text-xl font-black flex md:grid">More Articles</h4>
 
         <div *ngFor="let post of moreArticlePost" class="my-5 border-b-2">
           <div class="hover:shadow-xl">
@@ -322,7 +324,7 @@
         </div>
       </div>
 
-      <div class="w-full h-64 bg-black mt-10">
+      <div class="w-full hidden md:block h-64 bg-black mt-10">
         <h1 class="text-5xl text-center font-bold text-gray-100 p-16">AD</h1>
       </div>
     </div>
@@ -334,7 +336,7 @@
     <section *ngIf="suggestionPost.length != 0" class="my-5">
       <h3 class="text-xl font-bold text-gray-500">Recommended</h3>
 
-      <div class="grid grid-cols-3 mx-auto mt-5 gap-4">
+      <div class="grid md:grid-cols-3 mx-auto mt-5 gap-4">
         <ng-container *ngFor="let post of suggestionPost">
           <div class="hover:shadow-md">
             <div class="h-56 w-full bg-red-200">
@@ -354,7 +356,7 @@
                 {{ post?.heading.content }}
               </h2>
 
-              <p class="mt-3">
+              <p class="mt-3 hidden md:block">
                 {{ post?.subHeading.content }}
               </p>
             </div>
@@ -364,4 +366,11 @@
     </section>
   </div>
 </main>
-<app-userLogin (close)="openLogin = false" *ngIf="openLogin"></app-userLogin>
+
+<app-userLogin
+  (close)="openLogin = false"
+  (onSignup)="userSignup = true"
+  *ngIf="openLogin"
+></app-userLogin>
+<app-userRegister (close)="userSignup = false" *ngIf="userSignup">
+</app-userRegister>

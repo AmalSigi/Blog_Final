@@ -35,29 +35,28 @@ import { PostPublishedComponent } from './pages/admin-posts/pages/published-post
 import { PostsTrashedComponent } from './pages/admin-posts/pages/trashed/trashed.component';
 import { AdminPostsComponent } from './pages/admin-posts/root/admin-posts.component';
 
-import { SharedModule } from 'src/app/shared/shared.module';
-import { TextToolbarComponent } from './pages/admin-posts/pages/addPost/components/textToolBar/textToolBar.component';
 import { MarkdownModule } from 'ngx-markdown';
-import { tagApi } from 'src/app/core/http/tag.service';
-import { PostListComponent } from './pages/admin-posts/components/postList.component';
+import { ClickOutsideDirective } from 'src/app/core/directives/clcickOutside.directive';
 import { authenticationApi } from 'src/app/core/http/authentication.service';
+import { editorsPickApi } from 'src/app/core/http/editorsPick.services';
+import { siteSettingApi } from 'src/app/core/http/site-setting.service';
+import { tagApi } from 'src/app/core/http/tag.service';
 import { userApi } from 'src/app/core/http/userAccount.service';
-import { AuthInterceptor } from 'src/app/core/Interceptor/token.interceptor';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { UsersDetailsComponents } from './pages/admin-home/component/userDetails/userDetails.component';
+import { loginQuards } from 'src/app/core/quards/login.quard';
+import { postFilterService } from 'src/app/core/services/filteredData.service';
+import { selectTheme } from 'src/app/core/services/selectTheme.service';
+import { trackDataService } from 'src/app/core/subjects/trackData.subject';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { ReportedCommnentViewComponent } from './pages/admin-comments/page/spam-comments/reported-commnent-view/reported-commnent-view.component';
 import { UserPostsComponent } from './pages/admin-home/component/userDetails/pages/userPostList/userPostList.component';
 import { RegisterComponent } from './pages/admin-home/component/userDetails/pages/userRegister/userRegister.component';
-import { ReportedCommnentViewComponent } from './pages/admin-comments/page/spam-comments/reported-commnent-view/reported-commnent-view.component';
-import { postFilterService } from 'src/app/core/services/filteredData.service';
-import { editorsPickApi } from 'src/app/core/http/editorsPick.services';
+import { UsersDetailsComponents } from './pages/admin-home/component/userDetails/userDetails.component';
+import { PostListComponent } from './pages/admin-posts/components/postList.component';
+import { TextToolbarComponent } from './pages/admin-posts/pages/addPost/components/textToolBar/textToolBar.component';
 import { EditorsPickComponent } from './pages/admin-posts/pages/editorsPick/editorsPick.component';
-import { trackDataService } from 'src/app/core/subjects/trackData.subject';
-import { ClickOutsideDirective } from 'src/app/core/directives/clcickOutside.directive';
-import { loginQuards } from 'src/app/core/quards/login.quard';
-import { AdminSiteSettingComponent } from './pages/admin-settings/pages/admin-site-setting/root/admin-site-setting.component';
+import { UncategorizedComponent } from './pages/admin-posts/pages/uncategorized/uncategorized.component';
 import { AdminBlogSettingComponent } from './pages/admin-settings/pages/admin-site-setting/admin-blog-setting/admin-blog-setting.component';
-import { siteSettingApi } from 'src/app/core/http/site-setting.service';
-import { selectTheme } from 'src/app/core/services/selectTheme.service';
+import { AdminSiteSettingComponent } from './pages/admin-settings/pages/admin-site-setting/root/admin-site-setting.component';
 import { SamplePageComponent } from './pages/admin-themes/component/sample.component';
 
 @NgModule({
@@ -98,7 +97,8 @@ import { SamplePageComponent } from './pages/admin-themes/component/sample.compo
     EditorsPickComponent,
     AdminSiteSettingComponent,
     AdminBlogSettingComponent,
-    SamplePageComponent
+    SamplePageComponent,
+    UncategorizedComponent,
   ],
   imports: [
     CommonModule,

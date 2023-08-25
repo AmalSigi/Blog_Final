@@ -19,6 +19,7 @@ export class AdminPostsComponent {
   public draftCount: number = 0;
   public trashCount: number = 0;
   public editorsPick: number = 0;
+  public uncategorizrdPost: number = 0;
   public trackCount: Subscription = this.trackCountService
     .getClickEvent1()
     .subscribe(() => {
@@ -44,6 +45,10 @@ export class AdminPostsComponent {
 
     this.editPick.getBlogEditorsPick().subscribe((respo: any) => {
       this.editorsPick = respo.length;
+    });
+
+    this.postApi.getUncategorizedPost().subscribe((respo: any) => {
+      this.uncategorizrdPost = respo.totalLength;
     });
   }
 }

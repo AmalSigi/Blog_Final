@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 export class postsAPi {
   constructor(private readonly http: HttpClient) {}
   public url: string = 'http://192.168.29.97:5296/Post';
+
+  // admin side
   public getPosts(): Observable<any> {
     return this.http.get(`${this.url}/all`);
   }
@@ -19,9 +21,7 @@ export class postsAPi {
   public getPostById(postId: number): Observable<any> {
     return this.http.get(`${this.url}/${postId}`);
   }
-  public getBlogPostById(postId: number): Observable<any> {
-    return this.http.get(`${this.url}/blog/${postId}`);
-  }
+
   public approvePost(postId: number): Observable<any> {
     return this.http.patch(`${this.url}/${postId}/publish`, {});
   }
@@ -53,9 +53,6 @@ export class postsAPi {
     length: number
   ): Observable<any> {
     return this.http.get(`${this.url}/all?offset=${offset}&length=${length}`);
-  }
-  public getLatestPosts(length: number): Observable<any> {
-    return this.http.get(`${this.url}/blog/all?length=${length}`);
   }
 
   public getRecommendedPost(count: number, postId: number): Observable<any> {
@@ -140,5 +137,29 @@ export class postsAPi {
     return this.http.get(
       `${this.url}/${authorId}/authoredPosts?status=${status}&length=${length}&offset=${offset}`
     );
+  }
+  public getUncategorizedPost(): Observable<any> {
+    return this.http.get(`${this.url}/uncategorized`);
+  }
+  public getFilteredUncategorizedPost(
+    params: string,
+    offset: number,
+    length: number,
+    searchInput: string | undefined
+  ): Observable<any> {
+    let apiUrl = `${this.url}/uncategorized?status=${params}&offset=${offset}&length=${length}`;
+
+    if (searchInput != undefined) {
+      apiUrl += `&search=${searchInput}`;
+    }
+    return this.http.get(apiUrl);
+  }
+
+  // user side
+  public getBlogPostById(postId: number): Observable<any> {
+    return this.http.get(`${this.url}/blog/${postId}`);
+  }
+  public getLatestPosts(length: number): Observable<any> {
+    return this.http.get(`${this.url}/blog/all?length=${length}`);
   }
 }

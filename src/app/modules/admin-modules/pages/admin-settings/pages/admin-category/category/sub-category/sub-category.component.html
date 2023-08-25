@@ -7,8 +7,16 @@
   >
     <div class="flex flex-col bg-slate-100 border shadow-sm rounded-xl">
       <div class="flex justify-between items-center py-3 px-4 border-b">
-        <p class="font-bold text-[28px] dark:text-gray-800 flex">
-          {{ category.categoryName }}
+        <p
+          class="font-bold text-[28px] dark:text-gray-800 flex items-center gap-5"
+        >
+          {{ category?.categoryName }}
+          <button
+            (click)="deleteCategory(category.id)"
+            class="text-base text-red-500"
+          >
+            <i class="fa-regular fa-trash-can fa-lg"></i>
+          </button>
         </p>
         <button
           type="button"
@@ -37,7 +45,14 @@
         <div class="-m-1.5 overflow-x-auto">
           <div class="p-1.5 min-w-full inline-block align-middle">
             <div class="overflow-hidden">
+              <p
+                *ngIf="category?.subCategories.length == 0"
+                class="text-center text-gray-500 my-10"
+              >
+                No Sub Category
+              </p>
               <table
+                *ngIf="category?.subCategories.length != 0"
                 class="min-w-full divide-y divide-gray-200 dark:divide-gray-700"
               >
                 <thead>
@@ -57,9 +72,10 @@
                     </th>
                   </tr>
                 </thead>
+
                 <tbody class="divide-y divide-gray-200">
                   <tr
-                    *ngFor="let subcat of category.subCategories"
+                    *ngFor="let subcat of category?.subCategories"
                     class="hover:bg-slate-200"
                   >
                     <td
@@ -71,9 +87,13 @@
                     <td
                       class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
                     >
-                      <a class="text-blue-500 hover:text-blue-700" href="#"
-                        >Delete</a
+                      <button
+                        (click)="deleteSubcategory(subcat.id)"
+                        class="text-red-500 hover:text-red-700"
+                        href="#"
                       >
+                        <i class="fa-regular fa-trash-can fa-lg"></i>
+                      </button>
                     </td>
                   </tr>
                 </tbody>

@@ -2,7 +2,7 @@
   <!-- Category -->
   <div
     *ngFor="let item of category"
-    (click)="modelShowAdd(item)"
+    (click)="modelShowAdd(item.id)"
     class="h-20 border-2 rounded flex items-center justify-between px-5 hover:bg-gray-200 hover:shadow-xl"
   >
     <h2 class="text-xl font-medium">{{ item.categoryName }}</h2>
@@ -15,5 +15,5 @@
 <app-sub-category
   *ngIf="showmodel1"
   (childEvent)="modelUnShowAdd($event)"
-  [category]="modelCategory"
+  [categoryId]="modelCategoryId"
 ></app-sub-category>

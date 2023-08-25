@@ -21,6 +21,7 @@ export class UserCategoryComponent implements OnInit {
   public categoryPost: any = [];
   public categoryName: any;
   public categoryCoverPic!: any;
+  public loading: boolean = true;
   ngOnInit(): void {
     //this.categoryPost = [];
 
@@ -44,10 +45,16 @@ export class UserCategoryComponent implements OnInit {
   }
 
   public getCategoryDetailesById(categoryId: number) {
-    this.categoryApi.getCategoryById(categoryId).subscribe((respo: any) => {
-      console.log(respo);
-      this.categoryName = respo.categoryName;
-      this.categoryCoverPic = respo.coverPicturePath;
+    this.categoryApi.getCategoryById(categoryId).subscribe({
+      next: (respo: any) => {
+        console.log(respo);
+        this.categoryName = respo.categoryName;
+        this.categoryCoverPic = respo.coverPicturePath;
+      },
+      error: (error) => {},
+      complete: () => {
+        this.loading = false;
+      },
     });
   }
 

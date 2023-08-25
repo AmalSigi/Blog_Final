@@ -176,7 +176,7 @@ export class AddPostComponent implements OnInit {
         next: (res) => {
           alert('New post created..');
 
-          this.router.navigate(['/posts/published']);
+          this.router.navigate(['/admin/posts/published']);
         },
         error: (err) => {
           alert('Error please try again..');
@@ -189,7 +189,7 @@ export class AddPostComponent implements OnInit {
         next: (response) => {
           alert('Post updated successfully');
 
-          this.router.navigate(['/posts']);
+          this.router.navigate(['/admin/posts/published']);
         },
         error: (response) => {
           alert(response.error + ', Please try again...');

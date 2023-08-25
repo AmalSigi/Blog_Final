@@ -31,12 +31,14 @@ export class PostFeaturesComponent implements OnInit {
   public filteredTags!: any[];
   public selectedTags: any = [];
   public subCategory!: any[];
+
   public selectDropDown!: string;
   public showDropDown: boolean = false;
   @ViewChild('Category') catagoryInput!: ElementRef;
   @ViewChild('subCatgory') subCatagoryInput!: ElementRef;
   @ViewChild('tags') tagsInput!: ElementRef;
   @Output() createPost = new EventEmitter();
+
   public featureForm: FormGroup = new FormGroup({
     author: new FormControl({ value: '', disabled: true }, Validators.required),
     authorId: new FormControl('', Validators.required),
@@ -48,6 +50,7 @@ export class PostFeaturesComponent implements OnInit {
     subCategoryId: new FormControl(null, Validators.required),
     subCategory: new FormControl({ value: '', disabled: true }),
     tags: new FormArray([]),
+    newTag: new FormControl(''),
   });
   get tagList(): FormArray {
     return this.featureForm.get('tags') as FormArray;
@@ -60,7 +63,6 @@ export class PostFeaturesComponent implements OnInit {
         this.postService.getPostById(postId).subscribe({
           next: (data) => {
             const postData = data;
-            console.log(postData);
             this.featureForm.controls['author'].setValue(
               `${postData.author.firstName} ${postData.author.lastName}`
             );
@@ -132,9 +134,24 @@ export class PostFeaturesComponent implements OnInit {
   public addTag(tag: string): void {
     this.selectedTags?.push(tag);
   }
+
   public removeTag(id: number): void {
     this.selectedTags.splice(id, 1);
   }
+  public addnewTag() {
+    const newTagArray: any = [];
+    const obj = {
+      tagname: '#' + this.featureForm.controls['newTag'].value,
+    };
+    newTagArray.push(obj);
+    this.tagsService.postTags(newTagArray).subscribe({
+      next: () => {
+        this.featureForm.controls['newTag'].reset();
+        this.getData();
+      },
+    });
+  }
+
   public ToOpenCreatePage() {
     this.selectedTags.forEach((tag: any) => {
       const tagFormGroup = new FormGroup({
@@ -144,8 +161,6 @@ export class PostFeaturesComponent implements OnInit {
       this.tagList.push(tagFormGroup);
     });
     this.createPost.emit(this.featureForm.value);
-
-    console.log(this.featureForm.value);
   }
   public openDropDown(type: string) {
     this.showDropDown = !this.showDropDown;

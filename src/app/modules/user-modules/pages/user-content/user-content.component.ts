@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -20,6 +20,7 @@ import { authenticationApi } from 'src/app/core/http/authentication.service';
   templateUrl: './user-content.component.html',
 })
 export class UserContentComponent implements OnInit {
+  @Output() onChange: EventEmitter<any> = new EventEmitter();
   constructor(
     private readonly postApi: postsAPi,
     private readonly commentsApi: commentsApi,
@@ -34,22 +35,23 @@ export class UserContentComponent implements OnInit {
   public post: any;
   public openLogin: boolean = false;
   public categoryId: any;
+  public comments: any;
+  public commentboxId: any;
+  public parentId: any = null;
   public suggestionPost: any = [];
   public moreArticlePost: any = [];
+  public replayCommentData: any = [];
+  public Testcomments: any[][] = [];
   public commentStatus: boolean = false;
   public commentDiv: boolean = false;
   public replayInputBox: boolean = false;
   public viewReplyComments: boolean = false;
   public toggleReply: boolean = false;
-  public parentCommentAuthor: string = 'comments';
-  public parentId: any = null;
-  public comments: any;
-  public Testcomments: any[][] = [];
-  public commentboxId: any;
-  public replayCommentData: any = [];
-  public totalCount = 0;
   public loginStatus: boolean = false;
+  public userSignup: boolean = false;
   public enableComments!: boolean;
+  public parentCommentAuthor: string = 'comments';
+  public totalCount = 0;
   public postId!: number;
   public reload: Subscription = this.subject.getClickEvent1().subscribe(() => {
     this.getContent();

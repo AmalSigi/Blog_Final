@@ -18,8 +18,14 @@ export class AddTagsComponent implements OnInit {
   ngOnInit(): void {}
 
   public postTag() {
-    this.tagApi.addTag(this.newTagArray).subscribe((respo) => {
-      this.newTagArray = [];
+    this.tagApi.addTag(this.newTagArray).subscribe({
+      next: (respo: any) => {
+        this.newTagArray = [];
+      },
+      error: () => {},
+      complete: () => {
+        alert('New tag Added');
+      },
     });
   }
 

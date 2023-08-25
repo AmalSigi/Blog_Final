@@ -36,4 +36,7 @@ export class tagApi {
   public getTagById(tagId: number): Observable<any> {
     return this.http.get(`${this.url}/${tagId}`);
   }
+  public deletTag(tagId: number): Observable<any> {
+    return this.http.delete(`${this.url}/${tagId}/delete`);
+  }
 }

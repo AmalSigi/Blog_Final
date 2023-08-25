@@ -1,7 +1,17 @@
 <footer class="w-full h-36 bg-black">
   <section class="container mx-auto w-full h-24 flex justify-around">
     <div class="mt-8 text-gray-500 text-xl container">
-      <h1 class="uppercase text-white">{{ siteName }}</h1>
+      <div class="flex items-center gap-2">
+        <div class="w-10 h-10 bg-gray-400 rounded-full overflow-hidden">
+          <img
+            class="h-full w-full overflow-hidden"
+            [src]="'http://192.168.29.97:5296/assets/' + siteLogo"
+            alt=""
+          />
+        </div>
+        <h1 class="uppercase text-white">{{ siteName }}</h1>
+      </div>
+
       <p class="text-sm mb-2">© 2023 Copyright</p>
       <a
         class=""

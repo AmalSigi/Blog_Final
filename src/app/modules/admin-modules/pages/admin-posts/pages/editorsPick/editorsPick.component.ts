@@ -24,10 +24,12 @@ export class EditorsPickComponent implements OnInit {
     const length = this.setOffsetService.pageSize;
     this.editorService.EditorsPick(offset, length).subscribe({
       next: (resp) => {
+        console.log(resp);
         this.totalData = resp.length;
-        resp.forEach((post: any) => {
-          this.getPost(post);
-        });
+        this.posts=resp;
+        // resp.forEach((post: any) => {
+        //   this.getPost(post);
+        // });
       },
     });
   }
