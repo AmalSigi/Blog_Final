@@ -18,6 +18,8 @@ export class TextToolbarComponent{
         this.boldSelected.emit(item)
     }
    public applyUrl(){
-this.sendUrl.emit(this.urlForm.controls['url'].value)
+this.sendUrl.emit(this.urlForm.controls['url'].value);
+this.showUrlInput=false;
+this.urlForm.reset()
     }
 }

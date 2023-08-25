@@ -39,7 +39,7 @@ export class UserPostsComponent {
   }
   public openModal(index: any) {
     this.viewPost = true;
-
-    this.post = this.allPosts[index];
+    this.post = this.allPosts.posts[index];
+   
   }
 }

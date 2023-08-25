@@ -31,6 +31,7 @@ export class AdminPostsComponent {
   public getdataCount(): void {
     this.postApi.getPosts().subscribe({
       next: (res) => {
+        console.log(res)
         this.draftCount = res?.posts.filter(
           (item: any) => item.postStatus == 'Draft'
         ).length;

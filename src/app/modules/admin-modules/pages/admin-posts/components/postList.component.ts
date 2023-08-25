@@ -61,7 +61,7 @@ export class PostListComponent {
   public picks!: boolean;
   public uncategorized!: boolean;
 
-  @Input() posts: any;
+  @Input() posts?: any;
 
   @Input() offsetValue!: number;
 
@@ -70,6 +70,7 @@ export class PostListComponent {
   @Input() totalData!: number;
 
   ngOnInit() {
+    console.log(this.posts)
     this.route.url.subscribe({
       next: (url) => {
         const enablePublish = url.some(

@@ -36,7 +36,7 @@ export class AuthorDraftComponent{
         const offset = this.toggleOffset.offset();
         const length = this.toggleOffset.pageSize;
       
-        this.postsService.ownPosts(userId,'Draft',offset).subscribe({
+        this.postsService.ownPosts('Draft',offset).subscribe({
         next:(response)=>{
           this.totalData=response.totalLength;
             this.posts = response.posts;

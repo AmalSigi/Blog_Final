@@ -37,7 +37,7 @@ export class AuthorPublishComponent{
     const offset = this.toggleOffset.offset();
     const length = this.toggleOffset.pageSize;
   
-    this.postsService.ownPosts(userId,'Active',offset).subscribe({
+    this.postsService.ownPosts('Active',offset).subscribe({
       next:(response)=>{
         this.totalData=response.totalLength;
           this.posts = response.posts;

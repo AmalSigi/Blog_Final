@@ -36,7 +36,7 @@ export class AuthorTrashedComponent{
         const offset = this.toggleOffset.offset();
         const length = this.toggleOffset.pageSize;
       
-        this.postsService.ownPosts(userId,'Deleted',offset).subscribe({
+        this.postsService.ownPosts('Deleted',offset).subscribe({
         next:(response)=>{
           this.totalData=response.totalLength;
             this.posts = response.posts;

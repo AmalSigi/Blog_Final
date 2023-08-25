@@ -22,27 +22,33 @@ export class EditorsPickComponent implements OnInit {
   public loadPost() {
     const offset = this.setOffsetService.offset();
     const length = this.setOffsetService.pageSize;
-    this.editorService.EditorsPick(offset, length).subscribe({
+    this.editorService.getBlogEditorsPick().subscribe({
       next: (resp) => {
         console.log(resp);
         this.totalData = resp.length;
-        this.posts=resp;
-        // resp.forEach((post: any) => {
-        //   this.getPost(post);
-        // });
+        
+        resp.forEach((post: any) => {
+         
+          this.posts.push( this.getPost(post.postId))
+        });
+        
       },
     });
   }
-  public getPost(post: any) {
-    this.postApi.getPostById(post.postId).subscribe({
+  public getPost(postId: number) {
+    let temp: any 
+    this.postApi.getPostById(postId).subscribe({
       next: (response) => {
-        const body = {
-          id: post.id,
-          post: response,
-        };
-        this.posts.push(body);
+        console.log(response);
+        temp=response;
+
+        // const body = {
+        //   id: post.id,
+        //   post: response,
+        // };
       },
     });
+    return temp;
     console.log(this.posts);
   }
   public pagiantion() {

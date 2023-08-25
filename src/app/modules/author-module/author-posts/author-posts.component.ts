@@ -22,7 +22,7 @@ export class AuthorPosts{
    
     }
     public fetchPosts(userId: number) {
-      this.postApi.allOwnPosts(userId).subscribe({
+      this.postApi.allOwnPosts().subscribe({
         next: (res) => {
           const activePosts = res?.posts.filter((item: any) => item.postStatus === 'Active');
       const draftPosts = res?.posts.filter((item: any) => item.postStatus === 'Draft');

@@ -10,7 +10,7 @@ export class postsAPi {
 
   // admin side
   public getPosts(): Observable<any> {
-    return this.http.get(`${this.url}/all`);
+    return this.http.get(`${this.url}/testing/all`);
   }
   public addPost(post: any): Observable<any> {
     return this.http.post(`${this.url}/addnewpost`, post);
@@ -41,7 +41,7 @@ export class postsAPi {
     length: number,
     searchInput: string | undefined
   ): Observable<any> {
-    let apiUrl = `${this.url}/all?status=${params}&offset=${offset}&length=${length}`;
+    let apiUrl = `${this.url}/testing/all?status=${params}&offset=${offset}&length=${length}`;
 
     if (searchInput != undefined) {
       apiUrl += `&search=${searchInput}`;
@@ -89,21 +89,21 @@ export class postsAPi {
     return this.http.get(`${this.url}/${authorId}/authoredPosts`);
   }
   public ownPosts(
-    authorId: number,
+ 
     status: string,
     
     offset: number
   ): Observable<any> {
     return this.http.get(
-      `${this.url}/${authorId}/ownPosts?status=${status}&offset=${offset}`
+      `${this.url}/ownPosts?status=${status}&offset=${offset}`
     );
   }
   public allOwnPosts(
-    authorId: number,
+  
     
   ): Observable<any> {
     return this.http.get(
-      `${this.url}/${authorId}/ownPosts`
+      `${this.url}/ownPosts`
     );
   }
   public totalViews(status: string): Observable<any> {
@@ -160,6 +160,6 @@ export class postsAPi {
     return this.http.get(`${this.url}/blog/${postId}`);
   }
   public getLatestPosts(length: number): Observable<any> {
-    return this.http.get(`${this.url}/blog/all?length=${length}`);
+    return this.http.get(`${this.url}/testing/blog/all?length=${length}`);
   }
 }

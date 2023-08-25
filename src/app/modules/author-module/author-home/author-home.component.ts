@@ -39,7 +39,7 @@ public fetchPosts(userId:number){
   //const offset = this.toggleOffset.offset();
   //const length = this.toggleOffset.pageSize;
 
-  this.postData.allOwnPosts(userId).subscribe((res)=>{
+  this.postData.allOwnPosts().subscribe((res)=>{
   //  console.log(res)
     this.totalLength = res.totalLength;
     this.posts=res.posts;
