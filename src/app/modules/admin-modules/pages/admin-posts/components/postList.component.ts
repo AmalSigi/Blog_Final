@@ -70,7 +70,6 @@ export class PostListComponent {
   @Input() totalData!: number;
 
   ngOnInit() {
-    console.log(this.posts)
     this.route.url.subscribe({
       next: (url) => {
         const enablePublish = url.some(
@@ -219,7 +218,6 @@ export class PostListComponent {
       postId: postId,
     };
     bodyarray.push(body);
-    console.log(bodyarray);
 
     this.editorsPickApi.postEditorsPick(bodyarray).subscribe({
       next: (respo: any) => {

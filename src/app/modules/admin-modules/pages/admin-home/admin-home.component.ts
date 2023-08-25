@@ -27,9 +27,7 @@ export class AdminHomeComponent {
     this.getPosts();
     this.getUsers();
     this.getEditorsPick();
-    this.userApi.refrehToken().subscribe((repo: any) => {
-      console.log(repo);
-    });
+    this.userApi.refrehToken().subscribe((repo: any) => {});
   }
   public getPosts(): void {
     this.postAPi.getFilteredPosts('Active', 0, 10, undefined).subscribe({
@@ -42,7 +40,6 @@ export class AdminHomeComponent {
   public getEditorsPick() {
     this.pickApi.getBlogEditorsPick().subscribe({
       next: (response) => {
-        console.log(response);
         response.forEach((post: any) => {
           this.getPost(post.postId);
         });
@@ -76,7 +73,6 @@ export class AdminHomeComponent {
     };
 
     this.editorsPickPost.push(obj);
-    console.log(this.editorsPickPost)
   }
 
   public editorView() {}
