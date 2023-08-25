@@ -11,6 +11,7 @@ import { SharedModule } from './shared/shared.module';
 import { MarkdownModule } from 'ngx-markdown';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/Interceptor/token.interceptor';
+import { selectTheme } from './core/services/selectTheme.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,6 +27,7 @@ import { AuthInterceptor } from './core/Interceptor/token.interceptor';
     postsAPi,
     commentsApi,
     categoryApi,
+    selectTheme,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],

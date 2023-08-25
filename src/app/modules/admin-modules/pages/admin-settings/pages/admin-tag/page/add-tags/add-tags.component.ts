@@ -19,6 +19,7 @@ export class AddTagsComponent implements OnInit {
 
   public postTag() {
     this.tagApi.addTag(this.newTagArray).subscribe((respo) => {
+      this.newTagArray = [];
     });
   }
 

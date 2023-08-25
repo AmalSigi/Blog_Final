@@ -44,7 +44,7 @@ export class AddPostComponent implements OnInit {
     });
 
     this.route.queryParams.subscribe((params: any) => {
-      this.loading=true;
+      this.loading = true;
       if (params['postId']) {
         this.postId = params['postId'];
         this.postService.getPostById(this.postId).subscribe({
@@ -112,7 +112,11 @@ export class AddPostComponent implements OnInit {
         content: this.dynamicFormControls[this.dynamicFormControls.length - 1],
         sectionAttributes: [],
       };
-      if (element.sectionTypeId == 4 || element.sectionTypeId == 5) {
+      if (
+        element.sectionTypeId == 4 ||
+        element.sectionTypeId == 5 ||
+        element.sectionTypeId == 6
+      ) {
         dynamicElement.dataURL = element.content;
       }
 
@@ -121,6 +125,7 @@ export class AddPostComponent implements OnInit {
   }
 
   // File input change event for image
+  public mediaFormat!: string;
   onFileSelected(event: any) {
     const selectedFile = event.target.files.item(0);
 
@@ -131,8 +136,23 @@ export class AddPostComponent implements OnInit {
       mediaPath: string;
     }
     formData.append('file', selectedFile, selectedFile.name);
+
+    switch (this.currentTool) {
+      case 4:
+        this.mediaFormat = 'Image';
+        break;
+      case 5:
+        this.mediaFormat = 'Video';
+        break;
+      case 6:
+        this.mediaFormat = 'Advertisement_Image';
+        break;
+    }
     this.http
-      .post<ServerResponse>('http://192.168.29.97:5296/Media', formData)
+      .post<ServerResponse>(
+        `http://192.168.29.97:5296/Media/${this.mediaFormat}`,
+        formData
+      )
       .subscribe({
         next: (res) => {
           this.dynamicDiv[this.sectionId].dataURL = res.mediaPath;
@@ -154,12 +174,12 @@ export class AddPostComponent implements OnInit {
     if (this.postId == null) {
       this.postService.addPost(this.blogForm.value).subscribe({
         next: (res) => {
-          alert('New post created..')
+          alert('New post created..');
 
           this.router.navigate(['/posts/published']);
         },
         error: (err) => {
-          alert('Error please try again..')
+          alert('Error please try again..');
         },
       });
     }
@@ -167,13 +187,13 @@ export class AddPostComponent implements OnInit {
     if (this.postId != null) {
       this.postService.editPost(this.postId, this.blogForm.value).subscribe({
         next: (response) => {
-          alert('Post updated successfully')
+          alert('Post updated successfully');
 
           this.router.navigate(['/posts']);
         },
         error: (response) => {
-          alert(response.error+ ", Please try again...")
-        }
+          alert(response.error + ', Please try again...');
+        },
       });
     }
   }
@@ -189,6 +209,7 @@ export class AddPostComponent implements OnInit {
       });
       this.dynamicTags.push(postTags);
     });
+    this.postFeatures=false;
   }
   public closeModal() {
     this.mediaToolBar = false;

@@ -13,17 +13,19 @@
 
           <div *ngFor="let postItem of post?.postSections" class="w-full">
             <ng-container [ngSwitch]="postItem.sectionTypeId">
+              <!-- main title -->
               <ng-container *ngSwitchCase="1"
                 ><h1 class="text-5xl font-extrabold my-4">
                   {{ postItem.content }}
                 </h1></ng-container
               >
-
+              <!-- sub heading -->
               <ng-container *ngSwitchCase="2"
                 ><h2 class="text-3xl font-medium my-5">
                   {{ postItem.content }}
                 </h2></ng-container
               >
+              <!-- paragraph -->
 
               <ng-container *ngSwitchCase="3"
                 ><p class="my-5 text-[20px] text-gray-600 text-justify">
@@ -32,19 +34,20 @@
                   </markdown>
                 </p></ng-container
               >
-
+              <!-- image -->
               <ng-container *ngSwitchCase="4"
                 ><img
-                  class="mb-5"
+                  class="mb-5 w-full"
                   [src]="
                     'http://192.168.29.97:5296/assets/' + postItem.content
                   "
               /></ng-container>
+              <!-- video -->
 
               <ng-container *ngSwitchCase="5"
                 ><video [src]="postItem.content"></video
               ></ng-container>
-
+              <!-- ad -->
               <ng-container *ngSwitchCase="6">
                 <div class="border-y-2 py-2">
                   <p class="text-center">AD</p>
@@ -69,6 +72,9 @@
         <div class="h-auto border-2 border-gray-200 m-5 p-4">
           <h3 class="text-2xl font-semibold">Comments</h3>
 
+          <div *ngIf="comments == ''" class="flex justify-center">
+            <p>No comments Yet.</p>
+          </div>
           <div class="h-[85%] overflow-y-auto p-3">
             <!-- whole comment -->
 
@@ -81,7 +87,7 @@
                   class="p-3 border-b-2 pb-2"
                 >
                   <div>
-                    <p class="text-lg font-bold">
+                    <p class="text-lg font-medium">
                       {{ item2.author.firstName }} {{ item2.author.lastName }}
                     </p>
 
@@ -122,7 +128,7 @@
                       class="mb-5"
                     >
                       <div class="flex gap-4 items-center">
-                        <p class="text-base font-semibold">
+                        <p class="text-base font-medium">
                           {{ replayComment.author.firstName }}
 
                           {{ replayComment.author.lastName }}
@@ -156,18 +162,22 @@
             </ng-container>
           </div>
         </div>
-<div *ngIf="!enableComments" class="flex justify-center ">
-  <p>Comments disabled</p>
-</div>
+        <div *ngIf="!enableComments" class="flex justify-center">
+          <p>Comments disabled</p>
+        </div>
         <div *ngIf="enableComments" class="border-2 border-gray-200 m-5 p-4">
           <!-- sending comments -->
 
           <!-- guest users comment form -->
 
-          <form *ngIf="!loginStatus" [formGroup]="guestCommentForm" class="w-full p-4">
+          <form
+            *ngIf="!loginStatus"
+            [formGroup]="guestCommentForm"
+            class="w-full p-4"
+          >
             <div formGroupName="tempUser" class="grid grid-cols-2 gap-4">
               <div class="grid grid-row-2 gap-2">
-                <label class="font-semibold text-base text-stone-600"
+                <label class="font-medium text-base text-stone-600"
                   >First Name*:</label
                 >
 
@@ -179,7 +189,7 @@
               </div>
 
               <div class="grid grid-row-2 gap-2">
-                <label class="font-semibold text-base text-stone-600"
+                <label class="font-medium text-base text-stone-600"
                   >Middle Name :</label
                 >
 
@@ -191,7 +201,7 @@
               </div>
 
               <div class="grid grid-row-2 gap-2">
-                <label class="font-semibold text-base text-stone-600"
+                <label class="font-medium text-base text-stone-600"
                   >Last Name* :</label
                 >
 
@@ -203,7 +213,7 @@
               </div>
 
               <div class="grid grid-row-2 gap-2">
-                <label class="font-semibold text-base text-stone-600"
+                <label class="font-medium text-base text-stone-600"
                   >Email*:</label
                 >
 
@@ -218,7 +228,7 @@
             </div>
 
             <div class="grid grid-rows-1 gap-2">
-              <label class="font-semibold text-base text-stone-600"
+              <label class="font-medium text-base text-stone-600"
                 >Comment :</label
               >
 
@@ -240,8 +250,13 @@
 
           <div *ngIf="!loginStatus" class="text-center p-5">
             <p>
-              <a href="" class="text-blue-500 hover:underline"> login</a> to
-              avoid re-entering detailes next time
+              <button
+                (click)="openLogin = true"
+                class="text-blue-500 hover:underline"
+              >
+                login
+              </button>
+              to avoid re-entering detailes next time
             </p>
 
             <p class="text-xs">* required</p>
@@ -249,9 +264,13 @@
 
           <!-- login users comment form -->
 
-          <form *ngIf="loginStatus" [formGroup]="commentForm" class="grid grid-cols-1 gap-3 p-4">
+          <form
+            *ngIf="loginStatus"
+            [formGroup]="commentForm"
+            class="grid grid-cols-1 gap-3 p-4"
+          >
             <div class="grid grid-rows-1 gap-2">
-              <label class="font-semibold text-base text-stone-600"
+              <label class="font-medium text-base text-stone-600"
                 >Comment :</label
               >
 
@@ -303,7 +322,7 @@
         </div>
       </div>
 
-      <div class="w-full h-64 bg-black">
+      <div class="w-full h-64 bg-black mt-10">
         <h1 class="text-5xl text-center font-bold text-gray-100 p-16">AD</h1>
       </div>
     </div>
@@ -319,15 +338,19 @@
         <ng-container *ngFor="let post of suggestionPost">
           <div class="hover:shadow-md">
             <div class="h-56 w-full bg-red-200">
-              <img
-                class="w-full h-full object-cover"
-                [src]="'http://192.168.29.97:5296/assets/' + post?.img?.content"
-                alt=""
-              />
+              <a routerLink="/content/{{ post.postId }}">
+                <img
+                  class="w-full h-full object-cover"
+                  [src]="
+                    'http://192.168.29.97:5296/assets/' + post?.img?.content
+                  "
+                  alt=""
+                />
+              </a>
             </div>
 
             <div class="">
-              <h2 class="text-2xl font-semibold mt-4">
+              <h2 class="text-2xl font-medium mt-4">
                 {{ post?.heading.content }}
               </h2>
 
@@ -341,3 +364,4 @@
     </section>
   </div>
 </main>
+<app-userLogin (close)="openLogin = false" *ngIf="openLogin"></app-userLogin>

@@ -1,0 +1,90 @@
+<section
+  class="border-2 border-black mr-5 w-[25%] absolute right-0 top-2 h-full rounded-lg p-5 bg-white"
+>
+  <h1 class="text-xl font-semibol p-3 border-b-2">Image Settings</h1>
+  <div class="flex justify-around mt-3">
+    <button class="click:border-b-2">Media</button>
+    <button>settings</button>
+  </div>
+
+  <section class="w-full h-[90%] overflow-auto container mx-auto px-2">
+    <ul [ngSwitch]="mediaType">
+      <li
+        (click)="sendImage(image.mediaPath)"
+        class="border-2 p-b-3"
+        *ngFor="let image of images"
+      >
+        <ng-container *ngSwitchCase="4">
+          <img
+            class="w-[80%] h-52"
+            [src]="'http://192.168.29.97:5296/assets/' + image.mediaPath"
+            alt="load"
+          />
+        </ng-container>
+        <ng-container *ngSwitchCase="5">
+          <video
+          controls
+          autoplay
+            [src]="'http://192.168.29.97:5296/assets/' + image.mediaPath"
+          ></video>
+        </ng-container>
+      </li>
+    </ul>
+  </section>
+  <div class="m-3 grid">
+    <label class="text-sm font-medium" for="alt-text">Alternative Text</label>
+    <textarea
+      class="border-2 p-2 mt-2 outline-blue-500"
+      name=""
+      id="alt-text"
+      cols="30"
+      rows="5"
+    ></textarea>
+  </div>
+  <form action="" [formGroup]="imgForm" (submit)="changeHeight($event)">
+    <div class="flex gap-3 m-3">
+      <div class="grid">
+        <label class="text-sm font-medium" for="caption">Height</label>
+        <input
+          (input)="changeHeight($event)"
+          formControlName="height"
+          class="w-32 border-2 outline-blue-500"
+          type="number"
+        />
+      </div>
+      <div class="grid">
+        <label class="text-sm font-medium" for="caption">WIDTH</label>
+        <input
+          formControlName="width"
+          (input)="changeHeight($event)"
+          class="w-32 border-2 outline-blue-500"
+          type="number"
+        />
+      </div>
+      <button
+        type="submit"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Submit
+      </button>
+    </div>
+    <div>
+      <label class="text-sm font-medium" for="caption">Aspect-Ratio</label>
+      <input
+        (input)="changeHeight($event)"
+        formControlName="aspectRatio"
+        class="w-32 border-2 outline-blue-500"
+        type="text"
+      />
+    </div>
+    <div>
+      <label class="text-sm font-medium" for="caption">object-fit</label>
+      <input
+        (input)="changeHeight($event)"
+        formControlName="objectFit"
+        class="w-32 border-2 outline-blue-500"
+        type="text"
+      />
+    </div>
+  </form>
+</section>

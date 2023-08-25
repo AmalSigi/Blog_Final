@@ -10,10 +10,10 @@
     background-image: url("https://images.pexels.com/photos/399160/pexels-photo-399160.jpeg");
   }
   .post-nav {
-    @apply p-6 ;
+    @apply p-6;
   }
   .active-post-nav {
-    @apply  bg-white;
+    @apply bg-white;
   }
 
   .media-box {
@@ -22,19 +22,115 @@
   .external-link {
     @apply text-blue-600 underline;
   }
-  .currentPage{
-    @apply bg-blue-600 text-white rounded-full
+  .currentPage {
+    @apply bg-blue-600 text-white rounded-full;
   }
 }
 
 .linkcss {
-color: blue;
-text-decoration: underline;
+  color: blue;
+  text-decoration: underline;
 }
 
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+@import "~swiper/swiper-bundle.css";
 
+.swiper-container {
+  width: 100%;
 
+  height: 400px; /* Adjust the height as needed */
 
+  position: relative;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+  margin: 0 auto;
+
+  .swiper-wrapper {
+    display: flex;
+  }
+
+  .swiper-slide {
+    width: 100%;
+
+    height: 100%;
+
+    justify-content: center;
+
+    align-items: center;
+
+    img {
+      max-width: 100%;
+
+      max-height: 100%;
+
+      object-fit: cover;
+    }
+  }
+
+  .swiper-pagination {
+    position: absolute;
+
+    bottom: 20px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    display: flex;
+
+    .swiper-pagination-bullet {
+      width: 10px;
+
+      height: 10px;
+
+      background-color: rgba(255, 255, 255, 0.5);
+
+      border-radius: 50%;
+
+      margin: 0 5px;
+
+      cursor: pointer;
+
+      transition: background-color 0.3s ease;
+
+      &.swiper-pagination-bullet-active {
+        background-color: #ffffff;
+      }
+    }
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: #b94242;
+
+    font-size: 24px;
+
+    position: absolute;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    cursor: pointer;
+
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #007bff;
+    }
+  }
+
+  .swiper-button-next {
+    right: 10px;
+  }
+
+  .swiper-button-prev {
+    left: 10px;
+  }
+}

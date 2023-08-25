@@ -1,0 +1,22 @@
+
+
+<div class="grid row-span-4 gap-y-10 mx-16 py-5">
+    <!-- Category -->
+    <div
+      *ngFor="let item of category"
+      (click)="modelShowAdd(item)"
+      class="h-20 border-2 rounded flex items-center justify-between px-5 hover:bg-gray-200 hover:shadow-xl"
+    >
+      <h2 class="text-xl font-semibold">{{ item.categoryName }}</h2>
+      <button>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+
+  <author-sub-category
+    *ngIf="showmodel1"
+    (childEvent)="modelUnShowAdd($event)"
+    [category]="modelCategory"
+  ></author-sub-category>
+  

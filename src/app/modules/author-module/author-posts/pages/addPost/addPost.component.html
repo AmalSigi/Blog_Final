@@ -1,0 +1,211 @@
+<div class="w-full">
+<author-postFeatures
+  (createPost)="getPostFeatures($event)"
+  *ngIf="postFeatures"
+></author-postFeatures>
+<!-- navbar -->
+<nav class="w-full h-15 bg-gray-100 border-b-2 p-3 flex justify-between fixed">
+  <!-- <button class="bg-blue-600 text-white p-2 rounded-md">
+    <i class="fa-solid fa-plus"></i>
+  </button> -->
+  <div class="flex justify-between gap-8">
+    <!-- <button class="text-red-500 p-2 rounded-md hover:text-blue-600">
+      save draft
+    </button> -->
+    <button (click)="publish()" class="bg-blue-600 text-white p-2 rounded-md">
+      <span *ngIf="postId == null">Publish</span>
+      <span *ngIf="postId != null">Update</span>
+    </button>
+  </div>
+</nav>
+<!-- toolbar -->
+<section
+  class="grid md:flex overflow-hidden mt-24 fixed h-screen w-full gap-5 p-5"
+>
+  <div class="block w-[30%] lg:w-[20%] p-3 h-full">
+    <div class="flex md:grid gap-3 md:border-2 py-5">
+      <button
+        (click)="selectTool(2)"
+        class="hover:bg-red-600 w-28 hover:text-white grid p-2"
+      >
+        <span><i class="fa-solid fa-heading"></i></span>
+        Sub Heading
+      </button>
+      <button
+        (click)="selectTool(3)"
+        class="hover:bg-red-600 w-28 hover:text-white p-2 grid"
+      >
+        <span><i class="fa-solid fa-paragraph"></i></span>
+        Paragraph
+      </button>
+      <button
+        (click)="selectTool(4)"
+        class="hover:bg-red-600 w-28 hover:text-white p-2 grid"
+      >
+        <span><i class="fa-solid fa-image"></i></span>
+        Image
+      </button>
+      <button
+        (click)="selectTool(5)"
+        class="hover:bg-red-600 w-28 hover:text-white p-2 grid"
+      >
+        <span><i class="fa-solid fa-file-video"></i></span>
+        video</button
+      ><button
+        (click)="selectTool(6)"
+        class="hover:bg-red-600 w-28 hover:text-white p-4 grid"
+      >
+        <span><i class="fa-brands fa-buysellads"></i></span>
+        Ads
+      </button>
+    </div>
+  </div>
+  <!-- edit page -->
+  <div
+    class="container mx-auto w-full h-screen overflow-y-auto pb-20 border-t-2 md:border-0"
+  >
+    <form [formGroup]="blogForm" *ngFor="let item of dynamicDiv; let i = index">
+      <div class="pb-20 w-full">
+        <ng-container [ngSwitch]="item.type">
+          <ng-container *ngSwitchCase="1">
+            <textarea
+              (click)="sectionId = i"
+              class="outline-none w-full text-4xl"
+              [formControl]="item.content"
+              placeholder="Blog Title..."
+            ></textarea>
+            <author-toolbar
+              (delete)="deleteBlock()"
+              (select)="addBlock($event)"
+              [index]="sectionId"
+              *ngIf="sectionId == i"
+            ></author-toolbar>
+          </ng-container>
+          <!-- For heading type -->
+          <ng-container *ngSwitchCase="2">
+            <textarea
+              (click)="sectionId = i"
+              class="outline-none w-full text-2xl"
+              [formControl]="item.content"
+              placeholder="Write your Sub heading"
+            ></textarea>
+            <author-toolbar
+              (select)="addBlock($event)"
+              (delete)="deleteBlock()"
+              *ngIf="sectionId == i"
+            ></author-toolbar>
+          </ng-container>
+          <!-- For paragraph type -->
+          <ng-container *ngSwitchCase="3">
+            <author-text-Toolbar
+              *ngIf="sectionId == i && TextToolBar"
+              (boldSelected)="onTextSelected($event)"
+              (sendUrl)="getUrl($event)"
+              [text]="selectedTextarea"
+            ></author-text-Toolbar>
+            <textarea
+              #myTextarea
+              (mouseup)="getSelectedWord($event)"
+              (click)="sectionId = i"
+              rows="10"
+              cols="80"
+              class="outline-none full"
+              [formControl]="item.content"
+              placeholder="write your paragraph"
+            ></textarea>
+            <author-toolbar
+              (delete)="deleteBlock()"
+              (select)="addBlock($event)"
+              [index]="sectionId"
+              *ngIf="sectionId == i"
+            ></author-toolbar>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="4">
+            <label
+              (click)="Selected(i)"
+              class="text-white bg-blue-600 p-2"
+              for="image"
+              >Upload image</label
+            >
+            <input
+              (change)="onFileSelected($event)"
+              #image
+              class="outline-none"
+              type="file"
+              id="image"
+              hidden="true"
+              [formControl]="item.content"
+              placeholder="upload image"
+            />
+            <div>
+              <div class="w-[80%] h-[500px] mt-3 overflow-hidden">
+                <img
+                  (click)="sectionId = i"
+                  [ngStyle]="{
+                    height: imgHeight + 'px',
+                    width: imgWidth + 'px',
+                    aspectRatio: aspectRatio,
+                    objectFit: objectFit
+                  }"
+                  class="h-full w-full aspect-square"
+                  [src]="mediaFilePath + item?.dataURL"
+                  alt=""
+                />
+              </div>
+            </div>
+            <author-toolbar
+              (delete)="deleteBlock()"
+              (select)="addBlock($event)"
+              [index]="sectionId"
+              *ngIf="sectionId == i"
+            ></author-toolbar>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="5">
+            <label
+              (click)="Selected(i)"
+              class="text-white bg-blue-600 p-2"
+              for="video"
+              >Upload a video</label
+            >
+            <input
+              (change)="onFileSelected($event)"
+              id="video"
+              hidden="true"
+              #video
+              class="outline-none"
+              type="file"
+              [formControl]="item.content"
+            />
+            <div>
+              <video
+                (click)="sectionId = i"
+                controls
+                autoplay
+                class="w-[80%] h-[400px] border mt-3"
+                [src]="mediaFilePath + item?.dataURL"
+                alt=""
+              ></video>
+            </div>
+            <author-toolbar
+              (delete)="deleteBlock()"
+              (select)="addBlock($event)"
+              [index]="sectionId"
+              *ngIf="sectionId == i"
+            ></author-toolbar>
+          </ng-container>
+        </ng-container>
+      </div>
+      <div class="h-full w-full">
+        <author-addPostSettings
+          *ngIf="currentTool==4 || currentTool==5"
+          (sendURL)="setImageUrl($event)"
+          (onChange)="changeImageSize($event)"
+         [mediaType]="currentTool"
+        ></author-addPostSettings>
+      </div>
+    </form>
+  </div>
+</section>
+</div>

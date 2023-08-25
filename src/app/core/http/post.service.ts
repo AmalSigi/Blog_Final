@@ -20,7 +20,6 @@ export class postsAPi {
     return this.http.get(`${this.url}/${postId}`);
   }
   public getBlogPostById(postId: number): Observable<any> {
-
     return this.http.get(`${this.url}/blog/${postId}`);
   }
   public approvePost(postId: number): Observable<any> {
@@ -35,7 +34,7 @@ export class postsAPi {
   public toggleComments(postId: number): Observable<any> {
     return this.http.patch(`${this.url}/${postId}/toggleCommentsOnOff`, {});
   }
- 
+
   public getFilteredPosts(
     params: string,
     offset: number,
@@ -61,6 +60,9 @@ export class postsAPi {
 
   public getRecommendedPost(count: number, postId: number): Observable<any> {
     return this.http.get(`${this.url}/${postId}/getsuggestions?count=${count}`);
+  }
+  public getRecommendedPost2(postId: number): Observable<any> {
+    return this.http.get(`${this.url}/${postId}/getsuggestions`);
   }
 
   public getPostByCategory(categoryId: number): Observable<any> {
@@ -89,6 +91,24 @@ export class postsAPi {
   public authorizedPosts(authorId: number): Observable<any> {
     return this.http.get(`${this.url}/${authorId}/authoredPosts`);
   }
+  public ownPosts(
+    authorId: number,
+    status: string,
+    
+    offset: number
+  ): Observable<any> {
+    return this.http.get(
+      `${this.url}/${authorId}/ownPosts?status=${status}&offset=${offset}`
+    );
+  }
+  public allOwnPosts(
+    authorId: number,
+    
+  ): Observable<any> {
+    return this.http.get(
+      `${this.url}/${authorId}/ownPosts`
+    );
+  }
   public totalViews(status: string): Observable<any> {
     return this.http.get(`${this.url}/totalviewcount?status=${status}`);
   }
@@ -99,6 +119,26 @@ export class postsAPi {
   ): Observable<any> {
     return this.http.get(
       `${this.url}/hasComments?status=${status}&length=${length}&offset=${offset}`
+    );
+  }
+
+  public AuthorpostHasComment(
+    status: string,
+    length: number,
+    offset: number
+  ): Observable<any> {
+    return this.http.get(
+      `${this.url}/autheredPostHasComments?status=${status}&length=${length}&offset=${offset}`
+    );
+  }
+  public userPosts(
+    authorId: number,
+    status: string,
+    length: number,
+    offset: number
+  ): Observable<any> {
+    return this.http.get(
+      `${this.url}/${authorId}/authoredPosts?status=${status}&length=${length}&offset=${offset}`
     );
   }
 }

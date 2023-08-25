@@ -25,12 +25,14 @@ export class UserContentComponent implements OnInit {
     private readonly commentsApi: commentsApi,
     private fb: FormBuilder,
     private readonly route: ActivatedRoute,
-    private readonly loginStatusService:checkLoginService,
+    private readonly loginStatusService: checkLoginService,
     private readonly trackDataService: trackDataService,
     private readonly sitesetting: siteSettingApi,
-    private readonly authApi: authenticationApi
+    private readonly authApi: authenticationApi,
+    private readonly subject: trackDataService
   ) {}
   public post: any;
+  public openLogin: boolean = false;
   public categoryId: any;
   public suggestionPost: any = [];
   public moreArticlePost: any = [];
@@ -46,9 +48,12 @@ export class UserContentComponent implements OnInit {
   public commentboxId: any;
   public replayCommentData: any = [];
   public totalCount = 0;
-  public loginStatus!:boolean;
+  public loginStatus: boolean = false;
   public enableComments!: boolean;
-  public postId!:number;
+  public postId!: number;
+  public reload: Subscription = this.subject.getClickEvent1().subscribe(() => {
+    this.getContent();
+  });
 
   // //  form.......
   // // form user
@@ -69,9 +74,10 @@ export class UserContentComponent implements OnInit {
   });
 
   ngOnInit(): void {
-this.getContent();
+    this.getContent();
   }
-  public getContent():void{
+
+  public getContent(): void {
     this.route.params.subscribe((params) => {
       if (params['postId']) {
         this.postId = params['postId'];
@@ -81,15 +87,15 @@ this.getContent();
         this.commentEnable();
       }
     });
+
     this.authApi.isAuthorized().subscribe({
-      next:()=>{
+      next: () => {
         this.loginStatus = true;
       },
-      error:()=>{
-this.loginStatus =false;
-      }
-    })
-
+      error: () => {
+        this.loginStatus = false;
+      },
+    });
   }
 
   public reloadData: Subscription = this.trackDataService
@@ -97,7 +103,6 @@ this.loginStatus =false;
     .subscribe(() => {
       this.moreArticlePost = [];
       this.getContent();
-
     });
   // // Post
 
@@ -107,15 +112,19 @@ this.loginStatus =false;
 
   public getMainPost(postId: number) {
     this.postCall(postId).subscribe((repo) => {
+      console.log(repo);
       this.post = repo;
-      this.enableComments=repo.enableComments;
-      this.getRecommendedPost();
+      this.getRecommendedPost(repo.id);
+      this.enableComments = repo.enableComments;
+
       this.getMoreArticles(repo.subCategoryId);
     });
   }
 
   public getFilteredPostForRecommend(post: any) {
+    this.suggestionPost = [];
     this.postCall(post.postId).subscribe((repo) => {
+      console.log(repo);
       let heading = repo.postSections.filter(
         (item: any) => item.sectionTypeId == 1
       );
@@ -127,7 +136,7 @@ this.loginStatus =false;
         (item: any) => item.sectionTypeId == 2
       );
       let obj = {
-        postId: post.postId,
+        postId: repo.id,
         heading: heading[0],
         subHeading: subHeading[0],
         img: img[0],
@@ -156,24 +165,22 @@ this.loginStatus =false;
       };
 
       this.moreArticlePost.push(obj);
-
     });
   }
 
   // // comments
 
-
   public commentEnable() {
     this.sitesetting.getSiteSetting().subscribe((respo: any) => {
       let commentStatus = respo.find((item: any) => item.id == 4);
       this.commentStatus = JSON.parse(commentStatus.settingValue);
-    
     });
   }
 
   public getComments(postId: number) {
     this.commentsApi.getAllCommentsForBolg(postId).subscribe((respo: any) => {
       this.comments = this.getParentsWithChildComments(respo.comments);
+      console.log(this.comments);
     });
   }
 
@@ -215,9 +222,8 @@ this.loginStatus =false;
       this.commentsApi
         .postComment(this.post.id, this.commentForm.value)
         .subscribe((_repo) => {
-          this.commentForm.reset()
-        this.getComments(this.postId);
-
+          this.commentForm.reset();
+          this.getComments(this.postId);
         });
     } else {
       // // guest user send function
@@ -227,8 +233,7 @@ this.loginStatus =false;
         .postGuestUserComment(this.post.id, this.guestCommentForm.value)
         .subscribe((repo) => {
           this.guestCommentForm.reset();
-        this.getComments(this.postId);
-
+          this.getComments(this.postId);
         });
     }
   }
@@ -262,8 +267,9 @@ this.loginStatus =false;
     });
   }
   // // Recommended
-  public getRecommendedPost() {
-    this.postApi.getRecommendedPost(9, this.post.id).subscribe((respo) => {
+  public getRecommendedPost(postId: number) {
+    this.postApi.getRecommendedPost(9, postId).subscribe((respo) => {
+      console.log(respo);
       for (const post of respo) {
         this.getFilteredPostForRecommend(post);
       }

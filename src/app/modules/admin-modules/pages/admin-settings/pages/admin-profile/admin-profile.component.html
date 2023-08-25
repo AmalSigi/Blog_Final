@@ -27,7 +27,7 @@
     >
       <div class="grid grid-row-3 gap-2 mb-2 w-full">
         <div class="grid grid-row-2 gap-2">
-          <label class="font-semibold text-base text-stone-600"
+          <label class="font-medium text-base text-stone-600"
             >First Name :</label
           >
           <input
@@ -44,7 +44,7 @@
           "
           class="grid grid-row-2 gap-2"
         >
-          <label class="font-semibold text-base text-stone-600"
+          <label class="font-medium text-base text-stone-600"
             >Middle Name :</label
           >
 
@@ -56,7 +56,7 @@
           />
         </div>
         <div class="grid grid-row-2 gap-2">
-          <label class="font-semibold text-base text-stone-600"
+          <label class="font-medium text-base text-stone-600"
             >Last Name :</label
           >
 
@@ -71,7 +71,7 @@
           />
         </div>
         <div class="grid grid-row-2 gap-2">
-          <label class="font-semibold text-base text-stone-600">Email :</label>
+          <label class="font-medium text-base text-stone-600">Email :</label>
           <input
             formControlName="email"
             type="text"
@@ -91,7 +91,7 @@
     >
       <div class="grid grid-row-5 gap-2 mb-2 w-full">
         <div class="grid grid-row-2 gap-2">
-          <label class="font-semibold text-base text-stone-600"
+          <label class="font-medium text-base text-stone-600"
             >First Name :</label
           >
           <input
@@ -104,7 +104,7 @@
           />
         </div>
         <div class="grid grid-row-2 gap-2">
-          <label class="font-semibold text-base text-stone-600"
+          <label class="font-medium text-base text-stone-600"
             >Middle Name :</label
           >
 
@@ -120,7 +120,7 @@
           />
         </div>
         <div class="grid grid-row-2 gap-2">
-          <label class="font-semibold text-base text-stone-600"
+          <label class="font-medium text-base text-stone-600"
             >Last Name :</label
           >
 
@@ -134,7 +134,7 @@
           />
         </div>
         <div class="grid grid-row-2 gap-2">
-          <label class="font-semibold text-base text-stone-600">Email :</label>
+          <label class="font-medium text-base text-stone-600">Email :</label>
           <input
             formControlName="email"
             type="text"
@@ -145,17 +145,22 @@
           />
         </div>
         <button
-        (click)="update()"
-        class="px-4 py-2 bg-green-500 hover:bg-green-400 mx-auto text-white rounded mt-5"
-      >
-        Save
-      </button>
+          (click)="update()"
+          class="px-4 py-2 bg-green-500 hover:bg-green-400 mx-auto text-white rounded mt-5"
+        >
+          Save
+        </button>
         <div>
-          <button (click)="editPassword=!editPassword" class="bg-blue-600 text-white p-2 rounded-xl mt-5">Edit Password</button>
+          <button
+            (click)="editPassword = !editPassword"
+            class="bg-blue-600 text-white p-2 rounded-xl mt-5"
+          >
+            Edit Password
+          </button>
         </div>
         <div *ngIf="editPassword">
           <div class="grid grid-row-2 gap-2">
-            <label class="font-semibold text-base text-stone-600"
+            <label class="font-medium text-base text-stone-600"
               >Current Password :</label
             >
             <input
@@ -173,7 +178,7 @@
             />
           </div>
           <div class="grid grid-row-2 gap-2">
-            <label class="font-semibold text-base text-stone-600"
+            <label class="font-medium text-base text-stone-600"
               >New Password :</label
             >
             <input
@@ -189,7 +194,7 @@
             />
           </div>
           <div class="grid grid-row-2 gap-2">
-            <label class="font-semibold text-base text-stone-600"
+            <label class="font-medium text-base text-stone-600"
               >Confirm Password :</label
             >
             <input
@@ -209,14 +214,12 @@
             />
           </div>
           <button
-          (click)="updatePassword()"
-          class="px-4 py-2 flex justify-center bg-green-500 hover:bg-green-400 mx-auto text-white rounded mt-5"
-        >
-          Save
-        </button>
+            (click)="updatePassword()"
+            class="px-4 py-2 flex justify-center bg-green-500 hover:bg-green-400 mx-auto text-white rounded mt-5"
+          >
+            Save
+          </button>
         </div>
-      
-       
       </div>
     </form>
   </div>
@@ -263,7 +266,7 @@
 
         <div class="">
           <label
-            class="bg-blue-500 p-2 w-full text-center rounded font-semibold text-white text-sm"
+            class="bg-blue-500 p-2 w-full text-center rounded font-medium text-white text-sm"
           >
             <span> select from computer</span>
 

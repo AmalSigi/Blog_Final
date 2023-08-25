@@ -57,6 +57,8 @@ import { loginQuards } from 'src/app/core/quards/login.quard';
 import { AdminSiteSettingComponent } from './pages/admin-settings/pages/admin-site-setting/root/admin-site-setting.component';
 import { AdminBlogSettingComponent } from './pages/admin-settings/pages/admin-site-setting/admin-blog-setting/admin-blog-setting.component';
 import { siteSettingApi } from 'src/app/core/http/site-setting.service';
+import { selectTheme } from 'src/app/core/services/selectTheme.service';
+import { SamplePageComponent } from './pages/admin-themes/component/sample.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +98,7 @@ import { siteSettingApi } from 'src/app/core/http/site-setting.service';
     EditorsPickComponent,
     AdminSiteSettingComponent,
     AdminBlogSettingComponent,
+    SamplePageComponent
   ],
   imports: [
     CommonModule,
@@ -117,6 +120,7 @@ import { siteSettingApi } from 'src/app/core/http/site-setting.service';
     trackDataService,
     loginQuards,
     siteSettingApi,
+    selectTheme
   ],
 })
 export class AdminModule {}

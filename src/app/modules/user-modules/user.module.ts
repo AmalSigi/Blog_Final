@@ -19,6 +19,7 @@ import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 import { checkLoginService } from 'src/app/core/services/checkUserStatus.service';
 import { UserSubcategoryComponent } from './pages/user-subcategory/user-subcategory.component';
 import { UserLoginComponent } from './pages/userAutentication/login/userLogin.component';
+import { UserRegisterComponent } from './pages/userAutentication/register/userRegister.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { UserLoginComponent } from './pages/userAutentication/login/userLogin.co
     UserCategoryComponent,
     UserContentComponent,
     UserSubcategoryComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    UserRegisterComponent,
   ],
   imports: [
     CommonModule,
@@ -44,7 +46,7 @@ import { UserLoginComponent } from './pages/userAutentication/login/userLogin.co
     postData,
     tagApi,
     trackDataService,
-    checkLoginService
+    checkLoginService,
   ],
 })
 export class UserModule {}

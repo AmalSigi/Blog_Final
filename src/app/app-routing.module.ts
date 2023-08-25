@@ -5,8 +5,14 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./modules/user-modules/user.module').then((m) => m.UserModule),
+      import('./modules/Blog_user-module/blog.module').then((m) => m.blogModule),
   },
+  {
+    path: 'author',
+    loadChildren: () =>
+      import('./modules/author-module/author-module').then((m) => m.AuthorModule),
+  },
+
   {
     path: 'admin',
     loadChildren: () =>
@@ -23,7 +29,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, {
+      scrollPositionRestoration: 'enabled',
+    }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

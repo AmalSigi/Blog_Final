@@ -102,7 +102,7 @@ export class RegisterComponent {
     const url = 'http://192.168.29.97:5296/UserAccount/registeruser';
 this.userService.registerUser(formData).subscribe({
   next:()=>{
-    this.router.navigate(['/users']);
+    this.router.navigate(['admin/users']);
   },
   error:(error)=>{
     alert(error.message);

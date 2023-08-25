@@ -1,16 +1,21 @@
-import { Component, EventEmitter, Output } from "@angular/core";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { authenticationApi } from "src/app/core/http/authentication.service";
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { authenticationApi } from 'src/app/core/http/authentication.service';
+import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 
 @Component({
-    selector:'app-userLogin',
-    templateUrl: './userLogin.component.html'
+  selector: 'app-userLogin',
+  templateUrl: './userLogin.component.html',
 })
-export class UserLoginComponent{
-   constructor(private authentication:authenticationApi){}
-   public loginForm = new FormGroup({
+export class UserLoginComponent {
+  @Output() close = new EventEmitter();
+  @Output() onSignup = new EventEmitter();
+  constructor(
+    private authentication: authenticationApi,
+    private readonly subject: trackDataService
+  ) {}
+  public loginForm = new FormGroup({
     email: new FormControl('', Validators.required),
-
     password: new FormControl('', Validators.required),
   });
   public login() {
@@ -19,15 +24,9 @@ export class UserLoginComponent{
 
       this.authentication.login(body).subscribe({
         next: (response) => {
-          
-            localStorage.setItem(
-              'jwtToken',
-
-              JSON.stringify(response.jwtToken)
-            );
-
-            this.close.emit();
-          
+          localStorage.setItem('jwtToken', JSON.stringify(response.jwtToken));
+          this.subject.sendClickEvent1();
+          this.close.emit();
         },
         error: (error) => {
           alert('Error: ' + JSON.stringify(error.error));
@@ -35,8 +34,12 @@ export class UserLoginComponent{
       });
     }
   }
-   @Output() close = new EventEmitter();
-   public closeModal(){
+
+  public closeModal() {
     this.close.emit();
-   }
+  }
+
+  public signUp() {
+    this.onSignup.emit();
+  }
 }

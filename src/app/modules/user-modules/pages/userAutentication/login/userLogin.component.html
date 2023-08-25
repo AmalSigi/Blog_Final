@@ -5,7 +5,7 @@
     <button (click)="closeModal()" class="p-3 ml-72">
       <i class="fa-solid fa-xmark"></i>
     </button>
-    <form [formGroup]="loginForm" (submit)="login()">
+    <form [formGroup]="loginForm">
       <div class="flex">
         <span class="mx-auto flex justify-center mb-8 text-3xl">
           <i class="fa-regular fa-user"></i
@@ -34,7 +34,7 @@
           type="password"
         />
       </div>
-      <div class="flex justify-between mt-8 text-white font-semibold">
+      <!-- <div class="flex justify-between mt-8 text-white font-semibold">
         <div class="flex items-center">
           <input
             id="email"
@@ -47,13 +47,18 @@
           <span><i class="fa-solid fa-envelope mr-3"></i></span>
           <a>Forgot password?</a>
         </div>
-      </div>
+      </div> -->
       <button
-        type="submit"
+        (click)="login()"
+        type="button"
         class="w-full bg-blue-500 p-3 rounded-lg mt-5 text-white"
       >
         Login
       </button>
     </form>
+    <p class="text-center">
+      click here to
+      <button (click)="signUp()" class="text-green-500">signup</button>
+    </p>
   </div>
 </section>

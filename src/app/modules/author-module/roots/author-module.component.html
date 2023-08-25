@@ -1,0 +1,10 @@
+<section class="md:grid grid-cols-12">
+    <div class="md:col-span-2 flex col-span-2 ">
+     <button (click)="navBar=true" class="md:hidden m-4"><i class="fa-solid fa-bars fa-xl md:hidden"></i></button>
+       <author-navbar [data]="data"  class="hidden md:block /author/AddNew"></author-navbar>
+     </div>
+     <div class="h-screen overflow-y-scroll w-full md:col-span-10 ">
+       <router-outlet></router-outlet>
+     </div>
+   </section>
+   <author-navbar [data]="data" *ngIf="navBar" (onClick)="showNavbar()" class="fixed top-0 bottom-0 left-0 right-0 h-screen w-[80%] md:hidden"></author-navbar>

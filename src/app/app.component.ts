@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { themeApi } from './core/http/themes.services';
+import { siteSettingApi } from './core/http/site-setting.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'Blog';
+  constructor(){}
+
+ 
+
 }

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { authenticationApi } from 'src/app/core/http/authentication.service';
+import { userApi } from 'src/app/core/http/userAccount.service';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private readonly authentication: authenticationApi,
     private readonly route: Router,
+    private readonly userApi: userApi
   ) {}
   ngOnInit(): void {}
 
@@ -28,16 +30,29 @@ export class LoginComponent implements OnInit {
 
       this.authentication.login(body).subscribe({
         next: (response) => {
-          
-            localStorage.setItem(
-              'jwtToken',
+          localStorage.setItem(
+            'jwtToken',
 
-              JSON.stringify(response.jwtToken)
-            );
-          alert('Login successfully..');
+            JSON.stringify(response.jwtToken)
+          );
+          // alert('Login successfully..');
+this.userApi.currentUserDetails().subscribe({
+  next: (response) => {
+    console.log(response)
+    const userRole=response.userRoles
+    console.log(userRole[0].role.roleName)
 
-            this.route.navigate(['/admin']);
-          
+    if(userRole[0].role.roleName=='Author'){
+this.route.navigate(['/author']);
+    }
+    else{
+this.route.navigate(['/admin']);
+
+    }
+
+}});
+
+        
         },
         error: (error) => {
           alert('Error: ' + JSON.stringify(error.error));

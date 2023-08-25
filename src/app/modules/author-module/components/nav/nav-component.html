@@ -1,0 +1,58 @@
+<section class="h-screen bg-white shadow-2xl w-[20rem]">
+    <div class="flex items-center gap-3 border-b-2 pb-5 px-5 pt-3">
+      <a routerLink="profile" >
+        <div class="w-16 h-16 bg-gray-400 rounded-full overflow-hidden">
+          <img
+            *ngIf="user?.profilePicturePath == null"
+            class="h-full w-full overflow-hidden"
+            src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-photo-183042379.jpg"
+            alt=""
+          />
+        
+          <img
+            *ngIf="user?.profilePicturePath"
+            class="h-full w-full overflow-hidden"
+            [src]="'http://192.168.29.97:5296/assets/' + user?.profilePicturePath"
+            alt=""
+          />
+        </div>
+      </a>
+  
+      <div>
+        <p class="text-black font-semibold">{{ user?.firstName + " " +user?.lastName }}</p>
+        <!-- <p class="text-black font-semibold">Albin</p> -->
+        <!-- <p class="text-black font-semibold">{{ user?.email }}</p> -->
+        <!-- <p class="text-black font-semibold">albin@gmail.com</p> -->
+      </div>
+      <button (click)="closeNavbar()" class="md:hidden ml-36">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <nav class="text-black ">
+      <ul (click)="closeNavbar()" class="text-xl font-semibold px-3">
+        <li routerLink="/author" class="admin-navbar">
+          <a ><i class="fa-solid fa-house mr-3"></i>Home</a>
+        </li>
+        <li routerLink="AuthorPosts" class="admin-navbar">
+          <a ><i class="fa-solid fa-file-pen mr-3"></i>Posts</a>
+        </li>
+        <li routerLink="comment" class="admin-navbar">
+          <a 
+            ><i class="fa-solid fa-comment mr-3"></i>Comments</a
+          >
+        </li>
+        <li routerLink="profile" class="admin-navbar">
+          <a ><i class="fa-regular fa-user mr-3"></i>Profile</a>
+        </li>
+        <li routerLink="settings" class="admin-navbar">
+          <a ><i class="fa-solid fa-gear mr-3"></i>Settings</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="p-6 absolute bottom-0">
+      <button (click)="logOut()" class="text-xl text-red-500"
+        ><i class="fa-solid fa-right-from-bracket"></i> LogOut</button
+      >
+    </div>
+  </section>
+  

@@ -2,7 +2,7 @@
 <nav class="w-full h-15 bg-gray-100 border-b-2 p-3 flex justify-end fixed">
   
   <div class="">
-    
+    <button (click)="postFeatures=!postFeatures" class="p-3"><i class="fa-solid fa-gear"></i></button>
     <button (click)="publish()" class="bg-blue-600 text-white p-2 rounded-md">
       <span *ngIf="postId == null">Publish</span>
       <span *ngIf="postId != null">Update</span>

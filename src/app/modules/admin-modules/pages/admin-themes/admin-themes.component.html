@@ -3,56 +3,56 @@
 <section class="p-5 h-screen">
   <div class="container mx-auto w-[80%] pb-10 bg-white">
     <!-- current themes -->
-    <div class="border-b-2 border-gray-900 p-5 relative group">
-      <h2 class="text-3xl font-semibold">Current Themes</h2>
-      <div class="w-[25rem] h-80 py-5">
+    <div class="border-b-2 border-gray-900 p-5 relative">
+      <h2 class="text-3xl font-semibold mb-5">Current Themes</h2>
+      <div
+        class="w-[25rem] h-80 transition-all duration-300 p-5 group hover:border-2 hover:shadow-xl"
+      >
         <img
-          [src]="'http://192.168.29.97:5296/assets/'+currentTheme?.coverPicture"
+          [src]="
+            'http://192.168.29.97:5296/assets/' + currentTheme?.coverPicture
+          "
           alt=""
           width="full"
           height="full"
         />
+        <button
+          (click)="openSampleView(currentTheme)"
+          class="bg-green-600 rounded-lg transition-all duration-300 text-black p-2 absolute top-48 ml-40 hidden group-hover:block shadow-xl"
+        >
+          view
+        </button>
       </div>
-      <button
-        class="bg-green-600 text-black p-2 absolute top-44 ml-40 hidden group-hover:block shadow-xl"
-      >
-        view
-      </button>
     </div>
     <!-- additional themes -->
     <div class="p-5">
       <h2 class="text-3xl font-semibold">Themes</h2>
       <div class="grid grid-cols-3 gap-6">
         <!-- indv themes -->
-        <div *ngFor="let item of themes" class="w-94 hover:shadow-lg py-4">
-          <div class="w-94 h-80 overflow-hidden">
-            <img class="w-full h-full object-fill" [src]="item.src" alt="" />
-          </div>
-
-          <div class="flex justify-center gap-2 mt-5">
+        <div *ngFor="let item of themes" class="flex gap-5">
+          <div
+            class="w-[25rem] h-80 transition-all duration-300 p-5 group hover:border-2 hover:shadow-xl"
+          >
+            <img
+              [src]="'http://192.168.29.97:5296/assets/' + item?.coverPicture"
+              alt=""
+              width="full"
+              height="full"
+            />
             <button
-              class="p-5 bg-green-400 hover:bg-green-500 hover:text-white rounded font-semibold"
+              (click)="openSampleView(item)"
+              class="bg-green-600 rounded-lg transition-all duration-300 text-black p-2 absolute hidden group-hover:block shadow-xl ml-40 -mt-20"
             >
-              View
-            </button>
-            <button
-              class="p-5 bg-orange-400 hover:bg-orange-500 hover:text-white rounded font-semibold"
-            >
-              Add
+              view
             </button>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="top-0 right-0 bottom-0 left-0 fixed bg-white/80 px-10 items-center h-screen">
-    <div class="h-[80%] w-[80%] container mx-auto bg-white item-center mt-20">
-      <button class="p-3 text-white bg-blue-600 flex mb-10">Activate</button>
-      <iframe class="w-[80%] h-full" src="http://localhost:4200/" frameborder="0"
-      >clcik here</iframe
-    >
-    </div>
-
-  </div>
-  
 </section>
+<app-samplePage
+  [data]="selectedTheme"
+  (onChange)="closeSampleView()"
+  *ngIf="openSample"
+></app-samplePage>

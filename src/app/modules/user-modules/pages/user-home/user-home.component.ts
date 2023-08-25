@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, empty } from 'rxjs';
 import { categoryApi } from 'src/app/core/http/category.service';
+import { editorsPickApi } from 'src/app/core/http/editorsPick.services';
 import { postsAPi } from 'src/app/core/http/post.service';
 
 @Component({
@@ -9,22 +10,44 @@ import { postsAPi } from 'src/app/core/http/post.service';
 })
 export class UserHomeComponent implements OnInit {
   public latestPost?: any = [];
+  public editorialPick?: any = [];
   public catgoryDetailes: any = [];
+  public temparray: any = [];
 
   constructor(
     private readonly postApi: postsAPi,
-    private readonly categoryApi: categoryApi
+    private readonly categoryApi: categoryApi,
+    private readonly editorsPickApi: editorsPickApi
   ) {}
   ngOnInit(): void {
     this.getLatestPost();
     this.getCategory();
+    this.getEditorsPick();
   }
 
   public getLatestPost() {
     const length = 4;
+
     this.postApi.getLatestPosts(length).subscribe((respo) => {
-      console.log(respo);
       this.latestPost = this.postToArray(respo);
+    });
+  }
+
+  public getEditorsPick() {
+    this.editorsPickApi.getBlogEditorsPick().subscribe({
+      next: (response) => {
+        console.log(response);
+        response.forEach((post: any) => {
+          this.getPost(post.postId);
+        });
+      },
+    });
+  }
+  public getPost(postId: number) {
+    this.postApi.getPostById(postId).subscribe((respo) => {
+      this.temparray.push(respo);
+      this.editorialPick = this.postToArray(this.temparray);
+      console.log(this.editorialPick);
     });
   }
 
@@ -51,12 +74,12 @@ export class UserHomeComponent implements OnInit {
             categoryPost: this.postToArray(respo),
           };
           this.catgoryDetailes.push(obj);
-          console.log(this.catgoryDetailes);
         }
       });
   }
 
   public postToArray(post: any) {
+    // console.log(post);
     let temp: any = [];
     post.forEach((element: any) => {
       let heading = element.postSections.filter(

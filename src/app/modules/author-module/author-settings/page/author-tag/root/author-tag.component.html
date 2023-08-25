@@ -1,0 +1,27 @@
+
+
+<section class="p-5 ml-12">
+  <div class="container pb-10 border-2 border-gray-500">
+
+    <nav class="flex space-x-2 h-20 bg-gray-300" aria-label="Tabs">
+      <a
+        class="flex gap-1 items-center py-3 px-4 text-sm font-medium text-center text-slate-900 rounded-se-md focus:z-10 hover:text-black"
+        routerLink="tag"
+        routerLinkActive="bg-white"
+      >
+        <i class="fa-solid fa-database fa-2x mr-1"></i>
+        Tags
+      </a>
+
+      <a
+        class="flex items-center gap-1 py-3 px-4 text-sm font-medium text-center text-slate-900 rounded-t-lg focus:z-10 hover:text-black"
+        routerLink="AddTags"
+        routerLinkActive="bg-white"
+      >
+        <i class="fa-solid fa-circle-plus fa-2x"></i>
+        Add Tags
+      </a>
+    </nav>
+    <router-outlet></router-outlet>
+  </div>
+</section>
