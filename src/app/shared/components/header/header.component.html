@@ -34,6 +34,14 @@
       >
         Login
       </button>
+      <a>
+        <button
+          class="text-gray-500 border-2 border-transparent hover:border-b-white p-3 cursor-pointer"
+          routerLink="/Theme1/contact"
+        >
+          contact
+        </button></a
+      >
 
       <div *ngIf="showLogOut" class="bg-white p-2 absolute mt-20 mr-14">
         <button (click)="logOut()">
@@ -45,8 +53,10 @@
   <section
     class="bg-slate-300 w-full h-24 mt-8 flex justify-center items-center"
   >
-    <div class="text-gray-500 text-xl text-center container mx-auto md:-px-5">
-      <div class="flex justify-evenly items-center">
+    <div
+      class="flex justify-evenly items-center text-gray-500 text-xl text-center container mx-auto md:-px-5"
+    >
+      <div class="flex items-center">
         <ng-container *ngFor="let cat of category; let i = index">
           <div *ngIf="i < 4" class="grid relative">
             <div class="flex items-center gap-1">
@@ -117,6 +127,7 @@
           </div>
         </div>
       </div>
+      <div><a routerLink="/Theme1/contact">contact us</a></div>
     </div>
   </section>
 </header>

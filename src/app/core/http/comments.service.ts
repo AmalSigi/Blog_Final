@@ -14,9 +14,15 @@ export class commentsApi {
   public getAllCommentsByPostAdmin(postId: number): Observable<any> {
     return this.http.get(`${this.url}/${postId}/all`);
   }
+  public getAllReportd(): Observable<any> {
+    return this.http.get(`${this.url}/reported`);
+  }
 
   public postComment(postId: number, comment: any): Observable<any> {
     return this.http.post(`${this.url}/new/${postId}`, comment);
+  }
+  public getAllCommentsByPostAuthor(postId: number): Observable<any> {
+    return this.http.get(`${this.url}/ownPosts/${postId}/all`);
   }
 
   public postGuestUserComment(postId: number, comment: any): Observable<any> {
@@ -35,9 +41,14 @@ export class commentsApi {
     postId: number,
     status: string
   ): Observable<any> {
-    return this.http.get(`${this.url}/test/${postId}/all?status=${status}`);
+    return this.http.get(`${this.url}/${postId}/all?status=${status}`);
   }
   public getAllCommentsForBolg(postid: number): Observable<any> {
     return this.http.get(`${this.url}/blog/${postid}/all`);
+  }
+
+  // delete
+  public removeCommentdeletePermanently(commentId: number): Observable<any> {
+    return this.http.delete(`${this.url}/${commentId}/deletePermanently`, {});
   }
 }

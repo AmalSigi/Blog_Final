@@ -87,9 +87,12 @@ export class UserContentComponent implements OnInit {
         this.getMainPost(this.postId);
         this.getComments(this.postId);
         this.commentEnable();
+        this.checkigLogin();
       }
     });
+  }
 
+  public checkigLogin() {
     this.authApi.isAuthorized().subscribe({
       next: () => {
         this.loginStatus = true;
@@ -206,16 +209,41 @@ export class UserContentComponent implements OnInit {
     return listOfParentsWithChildren;
   }
 
+  public report(cmt: any) {
+    console.log(cmt.author.firstName);
+
+    if (this.loginStatus) {
+      this.commentsApi.reportComment(cmt.id).subscribe({
+        next: (respo) => {
+          alert(
+            `You have reported ${cmt.author.firstName} ${cmt.author.lastName} comment`
+          );
+        },
+      });
+    } else {
+      alert('login to report');
+      this.openLogin = true;
+    }
+  }
+
   // //reply comments
   public replyBox(comment: any) {
     this.replayInputBox = true;
+    this.toggleReply = true;
+
     this.parentCommentAuthor = `@${comment.author.firstName}`;
-    this.parentId = comment.id;
+
+    if (comment.id != this.parentId) {
+      this.parentId = comment.id;
+    }
   }
 
   public closeReplyTag() {
+    this.commentForm.reset();
     this.toggleReply = false;
-    this.parentCommentAuthor = '';
+    this.parentId = null;
+    this.commentboxId = -1;
+    this.viewReplyComments = false;
   }
   public sendReply() {
     if (this.loginStatus) {
@@ -271,7 +299,6 @@ export class UserContentComponent implements OnInit {
   // // Recommended
   public getRecommendedPost(postId: number) {
     this.postApi.getRecommendedPost(9, postId).subscribe((respo) => {
-      console.log(respo);
       for (const post of respo) {
         this.getFilteredPostForRecommend(post);
       }
@@ -288,5 +315,11 @@ export class UserContentComponent implements OnInit {
           this.getFilteredPostForMoreArticle(post);
         }
       });
+  }
+
+  // login
+  public showDiv() {
+    this.getContent();
+    this.openLogin = false;
   }
 }

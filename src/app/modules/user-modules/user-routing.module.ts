@@ -6,6 +6,7 @@ import { UserHomeComponent } from './pages/user-home/user-home.component';
 import { UserContentComponent } from './pages/user-content/user-content.component';
 import { UserCategoryComponent } from './pages/user-category/user-category.component';
 import { UserSubcategoryComponent } from './pages/user-subcategory/user-subcategory.component';
+import { ContactComponent } from './pages/contact/contact.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,7 @@ const routes: Routes = [
         path: 'subcategory/:subcategoryId',
         component: UserSubcategoryComponent,
       },
+      { path: 'contact', component: ContactComponent },
     ],
   },
 ];

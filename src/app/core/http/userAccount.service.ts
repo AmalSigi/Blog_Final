@@ -20,13 +20,26 @@ export class userApi {
   public currentUserDetails(): Observable<any> {
     return this.http.get(`${this.url}/currentUserDetails`);
   }
-  public getAllUsers(offsetValue: number, pageLength: number): Observable<any> {
+  public getAllUsers(
+    status: any,
+    offsetValue: any,
+    pageLength: any
+  ): Observable<any> {
     return this.http.get(
-      `${this.url}/allusers?offset=${offsetValue}&length=${pageLength}`
+      `${this.url}/allusers?offset=${offsetValue}&length=${pageLength}&accountstatus=${status}`
     );
+  }
+  public getUsers(): Observable<any> {
+    return this.http.get(`${this.url}/allusers`);
   }
   public updateUserDetails(userId: number, body: any): Observable<any> {
     return this.http.patch(`${this.url}/${userId}/updatedetails`, body);
+  }
+  public updateOwnDetails(body: any): Observable<any> {
+    return this.http.patch(`${this.url}/updateOwnDetails`, body);
+  }
+  public updateOwnProfilePic(imgPath: FormData): Observable<any> {
+    return this.http.patch(`${this.url}/updateOwnProfilePic`, imgPath);
   }
   public updateUserProfilePic(
     userId: number,

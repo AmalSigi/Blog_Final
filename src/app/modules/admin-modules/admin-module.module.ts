@@ -20,7 +20,7 @@ import { AddTagsComponent } from './pages/admin-settings/pages/admin-tag/page/ad
 import { TagsComponent } from './pages/admin-settings/pages/admin-tag/page/tags/tags.component';
 import { AdminTagComponent } from './pages/admin-settings/pages/admin-tag/root/admin-tag.component';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { categoryApi } from 'src/app/core/http/category.service';
 import { commentsApi } from 'src/app/core/http/comments.service';
 import { postsAPi } from 'src/app/core/http/post.service';
@@ -58,6 +58,16 @@ import { UncategorizedComponent } from './pages/admin-posts/pages/uncategorized/
 import { AdminBlogSettingComponent } from './pages/admin-settings/pages/admin-site-setting/admin-blog-setting/admin-blog-setting.component';
 import { AdminSiteSettingComponent } from './pages/admin-settings/pages/admin-site-setting/root/admin-site-setting.component';
 import { SamplePageComponent } from './pages/admin-themes/component/sample.component';
+import { AdminSocialMediaSettingComponent } from './pages/admin-settings/pages/admin-site-setting/admin-social-media-setting/admin-social-media-setting.component';
+import { AdminMessagesComponent } from './pages/admin-messages/root/admin-messages.component';
+import { AllMessagesComponent } from './pages/admin-messages/page/all-messages/all-messages.component';
+import { UnreadMeassageComponent } from './pages/admin-messages/page/unread-meassage/unread-meassage.component';
+import { ReadMeassageComponent } from './pages/admin-messages/page/read-meassage/read-meassage.component';
+import { MessageViewComponent } from 'src/app/shared/components/message-view/messages.component';
+import { BlockedUsersComponent } from './pages/admin-home/component/blocked-users/blocked-users.component';
+import { DeletedUsersComponent } from './pages/admin-home/component/deleted-users/deleted-users.component';
+import { ActiveUsersComponent } from './pages/admin-home/component/active-users/active-users.component';
+import { UsersListComponent } from './pages/admin-home/component/users-list/users-list.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +109,16 @@ import { SamplePageComponent } from './pages/admin-themes/component/sample.compo
     AdminBlogSettingComponent,
     SamplePageComponent,
     UncategorizedComponent,
+    AdminSocialMediaSettingComponent,
+    AdminMessagesComponent,
+    AllMessagesComponent,
+
+    UnreadMeassageComponent,
+    ReadMeassageComponent,
+    BlockedUsersComponent,
+    DeletedUsersComponent,
+    ActiveUsersComponent,
+    UsersListComponent,
   ],
   imports: [
     CommonModule,
@@ -106,6 +126,7 @@ import { SamplePageComponent } from './pages/admin-themes/component/sample.compo
     ReactiveFormsModule,
     SharedModule,
     MarkdownModule.forRoot(),
+    FormsModule,
   ],
   providers: [
     postsAPi,
@@ -120,7 +141,7 @@ import { SamplePageComponent } from './pages/admin-themes/component/sample.compo
     trackDataService,
     loginQuards,
     siteSettingApi,
-    selectTheme
+    selectTheme,
   ],
 })
 export class AdminModule {}

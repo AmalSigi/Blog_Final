@@ -43,7 +43,7 @@ export class CommentsComponent implements OnInit {
 
     const length = this.offsetService.pageSize;
 
-    const status = 'Active';
+    const status = '';
 
     this.allPosts.postHasComment(status, length, offset).subscribe((repo) => {
       const posts = repo.posts;

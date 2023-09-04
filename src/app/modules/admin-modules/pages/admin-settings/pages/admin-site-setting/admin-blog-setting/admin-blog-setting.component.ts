@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { siteSettingApi } from 'src/app/core/http/site-setting.service';
 
 @Component({
@@ -8,8 +9,12 @@ import { siteSettingApi } from 'src/app/core/http/site-setting.service';
 })
 export class AdminBlogSettingComponent implements OnInit {
   public fileToUpload: any;
+  public editBlog: boolean = true;
 
-  constructor(private readonly siteSettingApi: siteSettingApi) {}
+  constructor(
+    private readonly siteSettingApi: siteSettingApi,
+    private readonly toster: ToastrService
+  ) {}
   // name
   public blogNameForm: FormGroup = new FormGroup({
     id: new FormControl(1, Validators.required),
@@ -55,11 +60,14 @@ export class AdminBlogSettingComponent implements OnInit {
     settiingArray.push(this.blogNameForm.value);
     this.siteSettingApi
       .patchSiteSetting(settiingArray)
-      .subscribe((respo: any) => {});
+      .subscribe((respo: any) => {
+        this.toster.success(
+          `Site Name Is Changed to ${this.blogNameForm.controls['settingValue'].value}`
+        );
+      });
   }
 
   public onCheckboxChange(event: any) {
-    console.log(event.target.checked);
     let settiingArray: any = [];
     this.commentActiveForm.patchValue({
       settingValue: event.target.checked,
@@ -69,9 +77,18 @@ export class AdminBlogSettingComponent implements OnInit {
       settiingArray[0].settingValue
     );
 
-    this.siteSettingApi
-      .patchSiteSetting(settiingArray)
-      .subscribe((respo: any) => {});
+    this.siteSettingApi.patchSiteSetting(settiingArray).subscribe({
+      next: () => {
+        console.log(settiingArray);
+
+        if (event.target.checked) {
+          this.toster.success(`whole comments of the site is On`);
+        } else {
+          this.toster.success(`whole comments of the site is Off`);
+        }
+      },
+      error: () => {},
+    });
   }
 
   public fileImport(event: any) {
@@ -90,7 +107,14 @@ export class AdminBlogSettingComponent implements OnInit {
     const formData = new FormData();
     if (this.fileToUpload) {
       formData.append('logo', this.fileToUpload, this.fileToUpload.name);
-      this.siteSettingApi.patchLogo(formData).subscribe((repo: any) => {});
+      this.siteSettingApi.patchLogo(formData).subscribe({
+        next: () => {
+          this.toster.success(`New log is added`);
+        },
+        error: () => {
+          this.toster.error(`Error im adding new log `);
+        },
+      });
     }
   }
 }

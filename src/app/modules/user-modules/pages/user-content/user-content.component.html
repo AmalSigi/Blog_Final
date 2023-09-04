@@ -1,8 +1,33 @@
-<main class="md:container mx-auto md:w-3/4 my-5 p-5">
-  <div class="md:flex gap-3">
-    <section class="container h-full mx-auto">
-      <!-- post -->
+<main class="md:container mx-auto md:w-full my-5 p-5">
+  <div class="md:flex gap-10">
+    <!-- right side -->
 
+    <div class="md:w-2/6 py-5 mt-10">
+      <!-- ad #1 -->
+      <div class="w-full hidden md:block h-64">
+        <img
+          src="https://i.pinimg.com/originals/6e/82/e2/6e82e20e9b013926af71dcfc12bfd88c.gif"
+          alt=""
+        />
+      </div>
+
+      <!-- ad #2 -->
+      <div class="w-full hidden md:block h-64 mt-10">
+        <img
+          src="https://i.pinimg.com/originals/6e/82/e2/6e82e20e9b013926af71dcfc12bfd88c.gif"
+          alt=""
+        />
+      </div>
+      <!-- ad #3 -->
+      <div class="w-full hidden md:block h-64 mt-10">
+        <img
+          src="https://i.pinimg.com/originals/6e/82/e2/6e82e20e9b013926af71dcfc12bfd88c.gif"
+          alt=""
+        />
+      </div>
+    </div>
+    <!-- post -->
+    <section class="container h-full mx-auto">
       <div class="h-full w-full overflow-y-auto md:border-r-2">
         <!-- content -->
 
@@ -83,15 +108,18 @@
             <ng-container *ngFor="let item of comments">
               <ng-container *ngFor="let item2 of item">
                 <div
-                  *ngIf="
-                    item2.parentId === null && item2.commentStatus == 'Active'
-                  "
+                  *ngIf="item2.parentId === null"
                   class="p-3 border-b-2 pb-2"
                 >
                   <div>
-                    <p class="text-lg font-medium">
-                      {{ item2.author.firstName }} {{ item2.author.lastName }}
-                    </p>
+                    <div class="flex justify-between items-center">
+                      <p class="text-lg font-medium">
+                        {{ item2.author.firstName }} {{ item2.author.lastName }}
+                      </p>
+                      <button (click)="report(item2)" class="text-red-500">
+                        report <i class="fa-solid fa-flag"></i>
+                      </button>
+                    </div>
 
                     <p class="text-xs text-gray-400">
                       {{ item2.createdAt | date }}
@@ -129,16 +157,24 @@
                       *ngFor="let replayComment of replayCommentData"
                       class="mb-5"
                     >
-                      <div class="flex gap-4 items-center">
-                        <p class="text-base font-medium">
-                          {{ replayComment.author.firstName }}
+                      <div class="flex justify-between items-center">
+                        <div class="flex gap-4 items-center">
+                          <p class="text-base font-medium">
+                            {{ replayComment.author.firstName }}
 
-                          {{ replayComment.author.lastName }}
-                        </p>
+                            {{ replayComment.author.lastName }}
+                          </p>
 
-                        <p class="text-xs text-gray-400">
-                          {{ replayComment.createdAt | date }}
-                        </p>
+                          <p class="text-xs text-gray-400">
+                            {{ replayComment.createdAt | date }}
+                          </p>
+                        </div>
+                        <button
+                          (click)="report(replayComment)"
+                          class="text-red-500"
+                        >
+                          report <i class="fa-solid fa-flag"></i>
+                        </button>
                       </div>
 
                       <p class="text-base">
@@ -265,7 +301,18 @@
           </div>
 
           <!-- login users comment form -->
-
+          <div
+            *ngIf="toggleReply"
+            class="flex justify-between items-center md:px-3 px-4"
+          >
+            <p>
+              Replying to
+              <span class="text-blue-600">{{ parentCommentAuthor }}</span>
+            </p>
+            <button (click)="closeReplyTag()">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
           <form
             *ngIf="loginStatus"
             [formGroup]="commentForm"
@@ -280,7 +327,6 @@
                 formControlName="content"
                 class="py-3 px-4 block border-gray-200 col-span-10 border-2 rounded p-2 outline-nonetext-sm focus:border-blue-500 focus:ring-blue-500"
                 rows="3"
-                [placeholder]="parentCommentAuthor"
               ></textarea>
             </div>
 
@@ -296,7 +342,7 @@
     </section>
 
     <!-- left side -->
-
+    <!-- ad #1 -->
     <div class="md:w-2/6 p-5 mt-10">
       <div class="w-full hidden md:block h-64">
         <img
@@ -326,7 +372,7 @@
           </div>
         </div>
       </div>
-
+      <!-- ad #2 -->
       <div class="w-full hidden md:block h-64 mt-10">
         <img
           src="https://i.pinimg.com/originals/6e/82/e2/6e82e20e9b013926af71dcfc12bfd88c.gif"
@@ -374,9 +420,11 @@
 </main>
 
 <app-userLogin
-  (close)="openLogin = false"
+  (close)="showDiv()"
   (onSignup)="userSignup = true"
   *ngIf="openLogin"
 ></app-userLogin>
 <app-userRegister (close)="userSignup = false" *ngIf="userSignup">
 </app-userRegister>
+<app-pop-up1></app-pop-up1>
+<app-pop-up2></app-pop-up2>

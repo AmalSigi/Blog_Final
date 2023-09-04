@@ -20,6 +20,7 @@ import { checkLoginService } from 'src/app/core/services/checkUserStatus.service
 import { UserSubcategoryComponent } from './pages/user-subcategory/user-subcategory.component';
 import { UserLoginComponent } from './pages/userAutentication/login/userLogin.component';
 import { UserRegisterComponent } from './pages/userAutentication/register/userRegister.component';
+import { ContactComponent } from './pages/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { UserRegisterComponent } from './pages/userAutentication/register/userRe
     UserSubcategoryComponent,
     UserLoginComponent,
     UserRegisterComponent,
+    ContactComponent,
   ],
   imports: [
     CommonModule,

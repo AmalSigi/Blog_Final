@@ -40,7 +40,7 @@ export class AuthorSharedModelComponent implements OnInit {
 
   public getComments() {
     this.commentsApi
-      .getAllCommentsByPostAdmin(this.post.id)
+      .getAllCommentsByPostAuthor(this.post.id)
       .subscribe((repo) => {
         this.comments = this.getParentsWithChildComments(repo);
       });

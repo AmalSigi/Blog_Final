@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { categoryApi } from 'src/app/core/http/category.service';
 
 @Component({
@@ -10,7 +11,10 @@ export class SubCategoryComponent implements OnInit {
 
   @Output() childEvent = new EventEmitter<boolean>();
   public category: any;
-  constructor(private readonly categoryApi: categoryApi) {}
+  constructor(
+    private readonly categoryApi: categoryApi,
+    private readonly toster: ToastrService
+  ) {}
   ngOnInit(): void {
     this.getCategory();
   }
@@ -28,26 +32,27 @@ export class SubCategoryComponent implements OnInit {
     this.childEvent.emit(value);
   }
 
-  public deleteSubcategory(subCateId: number) {
-    this.categoryApi.deleteSubCat(subCateId).subscribe({
+  public deleteSubcategory(subcategory: any) {
+    console.log(subcategory);
+    this.categoryApi.deleteSubCat(subcategory.id).subscribe({
       next: (respo: any) => {
+        this.toster.success(
+          `Category ${subcategory.subCategoryName} is deleted`
+        );
         this.getCategory();
       },
       error: () => {},
-      complete: () => {
-        alert('SubCategory Delete Successfully');
-      },
+      complete: () => {},
     });
   }
-  public deleteCategory(cateId: number) {
-    this.categoryApi.deleteCat(cateId).subscribe({
+  public deleteCategory(category: any) {
+    this.categoryApi.deleteCat(category.id).subscribe({
       next: (respo: any) => {
+        this.toster.success(`Sub-Category ${category.categoryName} is deleted`);
         this.modelUnShow();
       },
       error: () => {},
-      complete: () => {
-        alert('Category Delete Successfully');
-      },
+      complete: () => {},
     });
   }
 }

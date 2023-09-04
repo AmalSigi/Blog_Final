@@ -10,6 +10,14 @@
   </div>
   <p class="m-3 italic bold text-black text-xl font-bold">Please Wait...</p>
 </div>
+<div
+  *ngIf="post == ''"
+  class="flex mt-10 w-full container mx-auto justify-center"
+>
+  <div class="flex items-center pointer-events-none pl-10">
+    <p class="m-3 bold text-gray-300 text-xl font-normal">No comments</p>
+  </div>
+</div>
 
 <section *ngIf="post" class="py-14">
   <div class="flex flex-col border-2">

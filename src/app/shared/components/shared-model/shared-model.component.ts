@@ -82,8 +82,11 @@ export class SharedModelComponent implements OnInit {
     }
   }
   public closeReplyTag() {
+    this.commentForm.reset();
     this.toggleReply = false;
-    this.parentCommentAuthor = '';
+    this.parentId = null;
+    this.commentboxId = -1;
+    this.viewReplyComments = false;
   }
   public sendReply() {
     this.commentForm.controls['ParentId'].setValue(this.parentId);
@@ -111,6 +114,7 @@ export class SharedModelComponent implements OnInit {
     } else {
       this.viewReplyComments = true;
       this.commentboxId = id;
+      console.log(comment);
       this.replyComment(comment);
     }
   }
@@ -132,7 +136,7 @@ export class SharedModelComponent implements OnInit {
   }
 
   public deleteComment(commentId: number) {
-    this.commentsApi.removeComment(commentId).subscribe({
+    this.commentsApi.removeCommentdeletePermanently(commentId).subscribe({
       next: (respo) => {
         alert('Comment Deleted');
         this.getComments();

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { userApi } from 'src/app/core/http/userAccount.service';
 
 @Component({
@@ -11,7 +12,8 @@ import { userApi } from 'src/app/core/http/userAccount.service';
 export class AdminProfileComponent implements OnInit {
   constructor(
     private readonly userService: userApi,
-    private readonly router: ActivatedRoute
+    private readonly router: ActivatedRoute,
+    private readonly toster: ToastrService
   ) {}
 
   public fileToUpload!: File;
@@ -26,6 +28,7 @@ export class AdminProfileComponent implements OnInit {
     last_name: new FormControl('', Validators.required),
     middle_name: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
+    about: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
     new_password: new FormControl('', Validators.required),
     confirm_password: new FormControl('', Validators.required),
@@ -35,6 +38,7 @@ export class AdminProfileComponent implements OnInit {
     _FirstName: new FormControl('', Validators.required),
     _MiddleName: new FormControl('', Validators.required),
     _LastName: new FormControl('', Validators.required),
+    about: new FormControl('', Validators.required),
   });
   public passwordForm = new FormGroup({
     currentPassword: new FormControl('', Validators.required),
@@ -69,20 +73,20 @@ export class AdminProfileComponent implements OnInit {
       middle_name: data.middleName,
       last_name: data.lastName,
       email: data.email,
+      about: data.about,
     });
     this.profileDetailes = data;
 
-    this.profileDetailes.profilePicturePath =
-      'http://192.168.29.97:5296/assets/' + data?.profilePicturePath;
+    this.profileDetailes.profilePicturePath = data?.profilePicturePath;
   }
 
   public edit() {
     this.editOn = !this.editOn;
+    this.getProfile();
   }
 
   public update() {
     this.editOn = !this.editOn;
-    // console.log(this.editForm);
     this.updateUserDetails();
   }
 
@@ -91,15 +95,16 @@ export class AdminProfileComponent implements OnInit {
       _FirstName: this.editForm.controls['first_name'].value,
       _LastName: this.editForm.controls['last_name'].value,
       _MiddleName: this.editForm.controls['first_name'].value,
+      about: this.editForm.controls['about'].value,
     });
     this.userService
       .updateUserDetails(this.profileDetailes.id, this.editedForm.value)
       .subscribe({
         next: (result) => {
-          alert('updated successfully');
+          this.toster.success(`Update Profile successfully`);
         },
         error: (err) => {
-          alert('error');
+          this.toster.error(`Error in updating`);
         },
       });
   }
@@ -111,12 +116,12 @@ export class AdminProfileComponent implements OnInit {
 
     this.userService.updatePassword(this.passwordForm.value).subscribe({
       next: (res) => {
-        console.log('success', res);
-        alert('Paasword Updated Successfully');
+        this.toster.success(`Passsword is Update`);
+
         this.editPassword = !this.editPassword;
       },
       error: (err) => {
-        alert('Incorret Old Password');
+        this.toster.error(`Error is updating password`);
       },
     });
   }
@@ -151,10 +156,11 @@ export class AdminProfileComponent implements OnInit {
           next: (response) => {
             this.unshowUpolodtemp();
             this.getProfile();
-            alert('Profile updated');
+            this.toster.success(`Profile Picture Is added`);
+            window.location.reload();
           },
           error: (response) => {
-            alert('Error updating profile picture:');
+            this.toster.error('Error updating profile picture:');
           },
         });
     }

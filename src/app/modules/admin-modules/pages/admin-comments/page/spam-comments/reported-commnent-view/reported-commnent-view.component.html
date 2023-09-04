@@ -39,7 +39,8 @@
 
         <p class="text-gray-500 px-4 py-2">
           <b class="font-semibold text-gray-600">Reported By :</b>
-          {{ comment.modifiedBy }}
+          {{ comment?.modifiedBy?.firstName }}
+          {{ comment?.modifiedBy?.lastName }}
         </p>
       </div>
     </div>

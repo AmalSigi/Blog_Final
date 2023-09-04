@@ -150,15 +150,15 @@
                     <p class="text-xs text-gray-400">
                       {{ replayComment.createdAt | date }}
                       <i
-                        *ngIf="item2.commentStatus == 'Deleted'"
+                        *ngIf="replayComment.commentStatus == 'Deleted'"
                         class="fa-solid fa-trash-can text-red-500"
                       ></i>
                       <i
-                        *ngIf="item2.commentStatus == 'Reported'"
+                        *ngIf="replayComment.commentStatus == 'Reported'"
                         class="fa-solid fa-ban text-yellow-500"
                       ></i>
                       <i
-                        *ngIf="item2.commentStatus == 'Active'"
+                        *ngIf="replayComment.commentStatus == 'Active'"
                         class="fa-solid fa-circle fa-2xs text-green-500"
                       ></i>
                     </p>

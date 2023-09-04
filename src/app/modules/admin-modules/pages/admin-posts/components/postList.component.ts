@@ -237,4 +237,18 @@ export class PostListComponent {
       },
     });
   }
+
+  // delete post permanently
+  public deletePostPremanently(postId: number) {
+    console.log(postId);
+    this.postsService.deletePostpermanently(postId).subscribe({
+      next: () => {
+        alert('Post Deleted Permanently');
+        this.paginate.emit();
+
+        this.trackCount.sendClickEvent1();
+      },
+      error: () => {},
+    });
+  }
 }

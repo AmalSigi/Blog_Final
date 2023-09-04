@@ -5,7 +5,18 @@
       class="w-48 h-48 col-span-3 border-2 rounded-full mx-auto overflow-hidden"
     >
       <img
-        [src]="this.profileDetailes?.profilePicturePath"
+        *ngIf="!profileDetailes?.profilePicturePath"
+        class="h-full w-full overflow-hidden"
+        src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-photo-183042379.jpg"
+        alt=""
+      />
+
+      <img
+        *ngIf="profileDetailes?.profilePicturePath"
+        [src]="
+          'http://192.168.29.97:5296/assets/' +
+          profileDetailes?.profilePicturePath
+        "
         alt="profile picture"
         class="w-full h-full object-cover"
       />
@@ -81,6 +92,23 @@
             readonly
           />
         </div>
+        <div
+          *ngIf="
+            editForm.controls['about'].value != null &&
+            editForm.controls['about'].value != ''
+          "
+          class="grid grid-row-2 gap-2"
+        >
+          <label class="font-medium text-base text-stone-600">About :</label>
+          <input
+            formControlName="about"
+            type="text"
+            name=""
+            id=""
+            class="border-2 rounded p-2 outline-none"
+            readonly
+          />
+        </div>
       </div>
     </form>
     <!-- edit form -->
@@ -144,6 +172,19 @@
             readonly
           />
         </div>
+        <div class="grid grid-row-2 gap-2">
+          <label class="font-medium text-base text-stone-600">About :</label>
+
+          <input
+            formControlName="about"
+            type="text"
+            class="border-2 border-green-500 rounded p-2"
+            [ngClass]="{
+                  'border-red-400 ':editForm.controls['about'].errors?.['required']&&editForm.controls['about'].touched
+                }"
+          />
+        </div>
+
         <button
           (click)="update()"
           class="px-4 py-2 bg-green-500 hover:bg-green-400 mx-auto text-white rounded mt-5"

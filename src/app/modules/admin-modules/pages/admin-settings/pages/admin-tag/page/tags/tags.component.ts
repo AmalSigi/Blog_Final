@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { tagApi } from 'src/app/core/http/tag.service';
 import { OffsetService } from 'src/app/core/services/pagination.service';
 
@@ -13,7 +14,8 @@ export class TagsComponent implements OnInit {
   public totalData!: number;
   constructor(
     private readonly Offset: OffsetService,
-    private readonly tagApi: tagApi
+    private readonly tagApi: tagApi,
+    private readonly toster: ToastrService
   ) {}
   ngOnInit(): void {
     this.getTags();
@@ -23,10 +25,8 @@ export class TagsComponent implements OnInit {
     const offset = this.Offset.offset();
     const length = this.Offset.pageSize;
     const input = this.Offset.searchInput();
-    console.log(input);
-    this.tagApi.getTags(offset, length, input).subscribe((respo) => {
-      console.log(respo);
 
+    this.tagApi.getTags(offset, length, input).subscribe((respo) => {
       this.totalData = respo.totalLength;
       this.tags = respo.tags;
     });
@@ -36,11 +36,11 @@ export class TagsComponent implements OnInit {
     this.getTags();
   }
 
-  public deleteTag(tagId: number) {
-    console.log(tagId);
-    this.tagApi.deletTag(tagId).subscribe({
+  public deleteTag(tag: any) {
+    console.log(tag);
+    this.tagApi.deletTag(tag.id).subscribe({
       next: () => {
-        alert('Tag Delete Successfully');
+        this.toster.success(`Tag ${tag.tagName} is Deleteed`);
         this.getTags();
       },
     });

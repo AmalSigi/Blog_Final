@@ -1,0 +1,53 @@
+<section
+  class="w-full bg-gray-700 fixed top-0 bottom-0 left-0 right-0 h-screen md:p-5 z-50"
+>
+  <div class="w-[70%] mx-auto bg-white rounded px-4 py-4">
+    <div class="flex justify-between">
+      <h1 class="text-xl font-semibold">Messages</h1>
+
+      <button class="text-black" (click)="unshowBox()">
+        <i class="fa-solid fa-xmark fa-2x"></i>
+      </button>
+    </div>
+
+    <div
+      class="mt-10 border-2 px-4 py-4 border-black"
+      *ngFor="let item of message"
+    >
+      <div class="flex justify-between pb-4 border-b-2 px-4 py-4">
+        <div>
+          <h4 class="text-2xl font-semibold text-blue-600">
+            {{ item?.firstName }} {{ item?.lastName }}
+          </h4>
+
+          <p class="text-lg text-gray-500 mt-2">
+            {{ item?.country }}
+            <span class="ml-3">
+              {{ item?.createdAt | date : "MMM d, y, h:mm a" }}</span
+            >
+          </p>
+        </div>
+
+        <div>
+          <p class="text-gray-700 text-lg">
+            <span><i class="fa-regular fa-envelope"></i></span>
+
+            {{ item?.email }}
+          </p>
+        </div>
+      </div>
+
+      <div class="px-4 py-4">
+        <p class="text-start font-normal text-base">{{ item?.message }}</p>
+      </div>
+
+      <div class="px-4 py-4">
+        <a
+          [href]="generateMailtoLink(item?.email, item?.message)"
+          class="border-2 w-28 px-2 py-2 rounded-full hover:bg-green-500"
+          >Reply <span class="ml-2"></span><i class="fa-solid fa-reply"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

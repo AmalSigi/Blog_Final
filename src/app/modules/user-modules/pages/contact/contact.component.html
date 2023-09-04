@@ -1,0 +1,139 @@
+<section class="mb-48 w-screen container mx-auto pt-10">
+  <div class="h-96 flex items-center my-48">
+    <div
+      class="w-[40%] grid justify-start shadow-lg shadow-black h-96 bg-gray-900 p-5"
+    >
+      <div>
+        <p class="text-3xl font-thin text-gray-300 uppercase">Buld Together</p>
+        <p class="text-5xl font-semibold uppercase text-white">grow together</p>
+        <p class="py-10 text-white">Let's have some chat</p>
+      </div>
+    </div>
+
+    <!-- contact form -->
+    <div class="w-[60%] h-[36rem] rounded-lg bg-white shadow-2xl p-6">
+      <h1 class="text-4xl font-light">Talk with Us</h1>
+      <form [formGroup]="contactForm" class="w-full p-4">
+        <div class="md:grid md:grid-cols-2 gap-4">
+          <div class="grid grid-row-2 gap-2">
+            <label class="font-medium text-base text-stone-600"
+              >First Name*:</label
+            >
+
+            <input
+              formControlName="firstName"
+              type="text"
+              class="border-2 rounded p-2 outline-none"
+            />
+          </div>
+
+          <div class="grid grid-row-2 gap-2">
+            <label class="font-medium text-base text-stone-600"
+              >Last Name* :</label
+            >
+
+            <input
+              formControlName="lastName"
+              type="text"
+              class="border-2 rounded p-2 outline-none"
+            />
+          </div>
+
+          <div class="grid grid-row-2 gap-2">
+            <label class="font-medium text-base text-stone-600"
+              >Company / Personal Email* :</label
+            >
+
+            <input
+              formControlName="email"
+              type="text"
+              class="border-2 rounded p-2 outline-none"
+            />
+          </div>
+
+          <div class="grid grid-row-2 gap-2">
+            <label class="font-medium text-base text-stone-600"
+              >Phone Number:</label
+            >
+
+            <input
+              formControlName="phoneNo"
+              type="text"
+              name=""
+              id=""
+              class="border-2 rounded p-2 outline-none"
+            />
+          </div>
+
+          <select
+            formControlName="country"
+            class="form-control border-2 rounded p-2 outline-none"
+            name="country"
+            id="country"
+          >
+            <option value="" disabled selected>Select Country</option>
+            <option *ngFor="let country of countries" [value]="country.name">
+              {{ country.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="grid grid-rows-1 gap-2 mt-2">
+          <label class="font-medium text-base text-stone-600">
+            What would you like to discuss?*</label
+          >
+
+          <textarea
+            formControlName="message"
+            class="py-3 px-4 block border-gray-200 col-span-10 border-2 rounded p-2 outline-nonetext-sm focus:border-blue-500 focus:ring-blue-500"
+            rows="3"
+          ></textarea>
+        </div>
+
+        <button
+          (click)="send()"
+          class="my-5 flex justify-center top-10 text-white md:w-1/6 mx-auto bg-green-500 rounded p-2"
+        >
+          Send
+        </button>
+        <p class="text-sm text-yellow-400">* is the requried data</p>
+      </form>
+    </div>
+  </div>
+  <!-- social media -->
+  <div class="shadow-lg rounded-xl shadow-slate-200 p-5">
+    <p class="text-5xl font-bold mb-5 text-center">
+      Here are someother media to connect with us
+    </p>
+    <div class="flex justify-evenly items-center">
+      <div class="grid gap-1 text-center">
+        <a class="rounded" target="_blank" [href]="facebook?.settingValue"
+          ><i class="fa-brands fa-facebook fa-4x text-blue-500"></i
+        ></a>
+        <p class="text-gray-500">Facebook</p>
+      </div>
+      <div class="grid gap-1 text-center">
+        <a target="_blank" [href]="'mailto:' + mail?.settingValue"
+          ><i
+            class="fa-regular fa-paper-plane fa-4x font-thin text-gray-500"
+          ></i>
+        </a>
+        <p class="text-gray-500">Mail</p>
+      </div>
+
+      <div class="grid gap-1 text-center">
+        <a target="_blank" [href]="instagram?.settingValue"
+          ><i class="fa-brands fa-instagram fa-4x text-red-400"></i
+        ></a>
+        <p class="text-gray-500">Instagram</p>
+      </div>
+
+      <div class="grid gap-1 text-center">
+        <a target="_blank" [href]="youtube?.settingValue"
+          ><i class="fa-brands fa-youtube fa-4x text-red-500"></i
+        ></a>
+        <p class="text-gray-500">Youtube</p>
+      </div>
+    </div>
+  </div>
+</section>

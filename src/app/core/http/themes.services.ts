@@ -49,4 +49,16 @@ export class themeApi {
       },
     });
   }
+
+  // ad
+
+  // get
+  public getThemeAd(themeId: number) {
+    this.http.get(`${this.url}/${themeId}`);
+  }
+  public getDynamicAdvertisementList(themeId: number) {
+    this.http.get(`${this.url}/dynamicAdvertisementList`);
+  }
+
+  // post
 }

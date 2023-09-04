@@ -30,6 +30,14 @@ import { loginQuards } from 'src/app/core/quards/login.quard';
 import { AdminSiteSettingComponent } from './pages/admin-settings/pages/admin-site-setting/root/admin-site-setting.component';
 import { AdminBlogSettingComponent } from './pages/admin-settings/pages/admin-site-setting/admin-blog-setting/admin-blog-setting.component';
 import { UncategorizedComponent } from './pages/admin-posts/pages/uncategorized/uncategorized.component';
+import { AdminSocialMediaSettingComponent } from './pages/admin-settings/pages/admin-site-setting/admin-social-media-setting/admin-social-media-setting.component';
+import { AdminMessagesComponent } from './pages/admin-messages/root/admin-messages.component';
+import { AllMessagesComponent } from './pages/admin-messages/page/all-messages/all-messages.component';
+import { ReadMeassageComponent } from './pages/admin-messages/page/read-meassage/read-meassage.component';
+import { UnreadMeassageComponent } from './pages/admin-messages/page/unread-meassage/unread-meassage.component';
+import { ActiveUsersComponent } from './pages/admin-home/component/active-users/active-users.component';
+import { BlockedUsersComponent } from './pages/admin-home/component/blocked-users/blocked-users.component';
+import { DeletedUsersComponent } from './pages/admin-home/component/deleted-users/deleted-users.component';
 
 const routes: Routes = [
   {
@@ -41,7 +49,12 @@ const routes: Routes = [
       {
         path: 'users',
         component: UsersDetailsComponents,
-        children: [{ path: 'register', component: RegisterComponent }],
+        children: [
+          { path: 'register', component: RegisterComponent },
+          { path: 'active-users', component: ActiveUsersComponent },
+          { path: 'blocked-users', component: BlockedUsersComponent },
+          { path: 'deleted-users', component: DeletedUsersComponent },
+        ],
       },
       { path: 'userPosts', component: UserPostsComponent },
 
@@ -86,6 +99,20 @@ const routes: Routes = [
         component: AdminSiteSettingComponent,
         children: [
           { path: 'admin-blog-setting', component: AdminBlogSettingComponent },
+          {
+            path: 'admin-soical-media-setting',
+            component: AdminSocialMediaSettingComponent,
+          },
+        ],
+      },
+      {
+        path: 'admin-messages',
+        component: AdminMessagesComponent,
+        children: [
+          { path: 'admin-all-messages', component: AllMessagesComponent },
+
+          { path: 'admin-read-messages', component: ReadMeassageComponent },
+          { path: 'admin-unread-messages', component: UnreadMeassageComponent },
         ],
       },
       {

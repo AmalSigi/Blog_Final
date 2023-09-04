@@ -89,7 +89,6 @@ export class postsAPi {
     return this.http.get(`${this.url}/${authorId}/authoredPosts`);
   }
   public ownPosts(
- 
     status: string,
 
     offset: number
@@ -98,13 +97,8 @@ export class postsAPi {
       `${this.url}/ownPosts?status=${status}&offset=${offset}`
     );
   }
-  public allOwnPosts(
-  
-    
-  ): Observable<any> {
-    return this.http.get(
-      `${this.url}/ownPosts`
-    );
+  public allOwnPosts(): Observable<any> {
+    return this.http.get(`${this.url}/ownPosts`);
   }
   public totalViews(status: string): Observable<any> {
     return this.http.get(`${this.url}/totalviewcount?status=${status}`);
@@ -116,6 +110,12 @@ export class postsAPi {
   ): Observable<any> {
     return this.http.get(
       `${this.url}/hasComments?status=${status}&length=${length}&offset=${offset}`
+    );
+  }
+
+  public postHasNewReported(length: number, offset: number): Observable<any> {
+    return this.http.get(
+      `${this.url}/recentReportedPosts?length=${length}&offset=${offset}`
     );
   }
 
@@ -153,6 +153,10 @@ export class postsAPi {
       apiUrl += `&search=${searchInput}`;
     }
     return this.http.get(apiUrl);
+  }
+
+  public deletePostpermanently(postId: number): Observable<any> {
+    return this.http.delete(`${this.url}/${postId}/deletePermanently`);
   }
 
   // user side

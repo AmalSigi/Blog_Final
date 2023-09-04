@@ -34,20 +34,16 @@
           type="password"
         />
       </div>
-      <!-- <div class="flex justify-between mt-8 text-white font-semibold">
-        <div class="flex items-center">
-          <input
-            id="email"
-            class="form-checkbox h-5 w-5 rounded-lg scale-100 mr-3"
-            type="checkbox"
-          />
-          <label for="email">Remember me</label>
-        </div>
-        <div class="flex items-center">
-          <span><i class="fa-solid fa-envelope mr-3"></i></span>
-          <a>Forgot password?</a>
-        </div>
-      </div> -->
+
+      <form [formGroup]="aFormGroup">
+        <ngx-recaptcha2
+          siteKey="siteKey"
+          (resolved)="resolved($event)"
+          formControlName="recaptcha"
+        >
+        </ngx-recaptcha2>
+      </form>
+
       <button
         (click)="login()"
         type="button"

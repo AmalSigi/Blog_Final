@@ -14,14 +14,13 @@ export class AdminThemesComponent implements OnInit {
   public currentTheme: any;
   public openSample: boolean = false;
   public themeUrl!: any;
-  public selectedTheme:any;
+  public selectedTheme: any;
   constructor(
     private readonly http: HttpClient,
     private readonly themeData: postData,
     private readonly themeApi: themeApi,
     private readonly siteSettings: siteSettingApi,
-    private readonly sanitizer: DomSanitizer,
-
+    private readonly sanitizer: DomSanitizer
   ) {}
   ngOnInit(): void {
     this.getThemes();
@@ -39,11 +38,10 @@ export class AdminThemesComponent implements OnInit {
       },
     });
     this.themeApi.getThemes().subscribe({
-      next:(res) => {
-    this.themes = res;
-
-      }
-    })
+      next: (res) => {
+        this.themes = res;
+      },
+    });
   }
   getCurrentTheme(themeId: number) {
     this.themeApi.getThemeById(themeId).subscribe({
@@ -53,17 +51,18 @@ export class AdminThemesComponent implements OnInit {
       },
     });
   }
-  public openSampleView(data:any):void {
+  public openSampleView(data: any): void {
+    this.themeUrl = `http://localhost:4200/ ${this.sanitizer.bypassSecurityTrustUrl(
+      data.name
+    )}`;
+    this.openSample = true;
+    this.selectedTheme = data;
 
-this.themeUrl=`http://localhost:4200/ ${this.sanitizer.bypassSecurityTrustUrl(data.name)}`
-  this.openSample=true;
-this.selectedTheme=data;
-
-
-console.log(this.themeUrl);
+    console.log(this.themeUrl);
   }
-  public closeSampleView(){
-    this.openSample=false;
-    this.getThemes()
+  public closeSampleView() {
+    this.getThemes();
+
+    this.openSample = false;
   }
 }

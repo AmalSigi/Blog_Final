@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { categoryApi } from 'src/app/core/http/category.service';
 
 @Component({
@@ -10,7 +11,8 @@ import { categoryApi } from 'src/app/core/http/category.service';
 export class AddCategoryComponent implements OnInit {
   constructor(
     private readonly http: HttpClient,
-    private readonly categoryService: categoryApi
+    private readonly categoryService: categoryApi,
+    private readonly toster: ToastrService
   ) {}
   public fileToUpload: any;
   public category: any;
@@ -53,13 +55,14 @@ export class AddCategoryComponent implements OnInit {
   public postCategory() {
     this.categoryService.postCategory(this.categoryForm.value).subscribe({
       next: (respo: any) => {
+        this.toster.success(
+          `New category ${this.categoryForm.controls['categoryName'].value} is added`
+        );
         this.categoryForm.reset();
         this.getCategory();
       },
       error: () => {},
-      complete: () => {
-        alert('New Category Added');
-      },
+      complete: () => {},
     });
   }
   public getCategory() {
@@ -101,11 +104,10 @@ export class AddCategoryComponent implements OnInit {
       next: (repo: any) => {
         this.subCategoryForm.reset();
         this.newSubCategoryArray = [];
+        this.toster.success(`New Subcategory is added`);
       },
       error: () => {},
-      complete: () => {
-        alert('New Subcategory is Added ');
-      },
+      complete: () => {},
     });
   }
 
@@ -138,8 +140,9 @@ export class AddCategoryComponent implements OnInit {
         )
         .subscribe({
           next: (response) => {
-            alert('Category Cover Picture updated');
-            this.categoryCoverPictureForm.reset();
+            this.toster.success(
+              `New cover picture for category ${this.categoryCoverPictureForm.controls['category'].value} is added`
+            );
           },
           error: (response) => {
             alert('Error updating profile picture:');

@@ -36,7 +36,6 @@ export class UserHomeComponent implements OnInit {
   public getEditorsPick() {
     this.editorsPickApi.getBlogEditorsPick().subscribe({
       next: (response) => {
-        console.log(response);
         response.forEach((post: any) => {
           this.getPost(post.postId);
         });
@@ -47,7 +46,6 @@ export class UserHomeComponent implements OnInit {
     this.postApi.getBlogPostById(postId).subscribe((respo) => {
       this.temparray.push(respo);
       this.editorialPick = this.postToArray(this.temparray);
-      console.log(this.editorialPick);
     });
   }
 
@@ -79,7 +77,6 @@ export class UserHomeComponent implements OnInit {
   }
 
   public postToArray(post: any) {
-    // console.log(post);
     let temp: any = [];
     post.forEach((element: any) => {
       let heading = element.postSections.filter(

@@ -44,9 +44,7 @@ export class SpamCommentsComponent {
 
     const length = this.offsetService.pageSize;
 
-    const status = 'Active';
-
-    this.allPosts.postHasComment(status, length, offset).subscribe((repo) => {
+    this.allPosts.postHasNewReported(length, offset).subscribe((repo) => {
       const posts = repo.posts;
 
       const fetchCommentCounts = posts.map((post: any) => {
@@ -71,7 +69,7 @@ export class SpamCommentsComponent {
 
   public openModal(postId: number) {
     this.router.navigate(
-      ['admin-comments/spam-comments/reported-comment-view'],
+      ['admin/admin-comments/spam-comments/reported-comment-view'],
       { queryParams: { postId: postId } }
     );
   }
