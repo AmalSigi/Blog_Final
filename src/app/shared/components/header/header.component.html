@@ -1,5 +1,7 @@
 <header class="w-full bg-black">
-  <nav class="w-full h-24 flex justify-between container pt-8 mx-auto">
+  <nav
+    class="w-full h-24 flex justify-between px-5 md:-px-5 container pt-8 mx-auto"
+  >
     <a routerLink="" class="flex items-center gap-2">
       <div class="w-16 h-16 bg-gray-400 rounded-full overflow-hidden">
         <img
@@ -43,8 +45,8 @@
   <section
     class="bg-slate-300 w-full h-24 mt-8 flex justify-center items-center"
   >
-    <div class="text-gray-500 text-xl text-center container mx-auto \">
-      <div class="flex justify-between items-center">
+    <div class="text-gray-500 text-xl text-center container mx-auto md:-px-5">
+      <div class="flex justify-evenly items-center">
         <ng-container *ngFor="let cat of category; let i = index">
           <div *ngIf="i < 4" class="grid relative">
             <div class="flex items-center gap-1">
