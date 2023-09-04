@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { categoryApi } from 'src/app/core/http/category.service';
+import { postData } from 'src/app/core/services/posts.services';
 
 @Component({
   selector: 'appa-category',

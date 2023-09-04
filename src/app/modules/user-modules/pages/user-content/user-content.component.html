@@ -11,7 +11,9 @@
             {{ post?.category?.categoryName }}
           </p>
 
-          <div *ngFor="let postItem of post?.postSections" class="w-full">
+          <div 
+          [ngStyle]="{'font-family': post?.postFont}"
+          *ngFor="let postItem of post?.postSections,let i=index" class="w-full">
             <ng-container [ngSwitch]="postItem.sectionTypeId">
               <!-- main title -->
               <ng-container *ngSwitchCase="1"
@@ -28,21 +30,29 @@
               <!-- paragraph -->
 
               <ng-container *ngSwitchCase="3"
-                ><p
-                  class="my-5 md:text-base text-sm text-gray-600 text-justify"
-                >
-                  <markdown>
-                    {{ postItem.content | formatLinks }}
-                  </markdown>
-                </p></ng-container
+                > <div
+                class="para text-justify mb-5 mt-5"
+                [innerHTML]="postItem.content | formatLinks"
+              ></div></ng-container
               >
               <!-- image -->
               <ng-container *ngSwitchCase="4"
                 ><img
-                  class="mb-5 w-full"
+                
                   [src]="
                     'http://192.168.29.97:5296/assets/' + postItem.content
+            
                   "
+                  class="aspect-{{
+                    postItem?.sectionAttributes[findIndex(6, i)]?.value
+                  }} object-{{
+                    postItem?.sectionAttributes[findIndex(7, i)]?.value
+                  }} mt-5"
+                  [ngStyle]="
+                    getImageStyle(
+                      postItem.sectionAttributes[findIndex(1, i)]?.value,
+                      postItem.sectionAttributes[findIndex(2, i)]?.value
+                    )"
               /></ng-container>
               <!-- video -->
 
@@ -54,12 +64,35 @@
                 <div class="border-y-2 py-2">
                   <p class="text-center">AD</p>
 
-                  <img
+                  <a target="_blank" [href]=" postItem.sectionAttributes[findIndex(4, i)]?.value"><img
                     class="my-5 w-full h-[200px]"
                     [src]="
                       'http://192.168.29.97:5296/assets/' + postItem.content
                     "
-                  /></div
+                  /></a></div
+              ></ng-container>
+              <ng-container *ngSwitchCase="9">
+                <div class="border-y-2 py-2">
+                  <p class="text-center">AD</p>
+
+                  <a target="_blank" [href]=" postItem.sectionAttributes[findIndex(4, i)]?.value"><img
+                    class="my-5 w-full h-[200px]"
+                    [src]="
+                      'http://192.168.29.97:5296/assets/' + postItem.content
+                    "
+                  /></a></div
+              ></ng-container>
+              <ng-container *ngSwitchCase="10">
+                <div class="border-y-2 py-2">
+                  <p class="text-center">AD</p>
+
+                  <a target="_blank" [href]=" postItem.sectionAttributes[findIndex(4, i)]?.value"><video
+                    class="my-5"
+                    controls
+                    muted
+                    [src]="'http://192.168.29.97:5296/assets/' + postItem?.content"
+                  ></video
+                ></a></div
               ></ng-container>
             </ng-container>
           </div>

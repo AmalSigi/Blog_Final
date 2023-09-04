@@ -5,6 +5,6 @@ export interface DynamicDIvElement{
     type:number;
     content:FormControl;
     dataURL?: string;
-    sectionAttributes:any[];
+    sectionAttributes:any;
 }
 

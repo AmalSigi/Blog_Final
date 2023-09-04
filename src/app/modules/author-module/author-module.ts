@@ -38,7 +38,7 @@ import { AuthorSharedModelComponent } from './shared/shared.component';
 import { AuthorSharedModule } from './shared/sharedcomp.module';
 
 import { CommentPostComponent } from './author-comment/Root/commentPost.component';
-import { loginQuards } from 'src/app/core/quards/login.quard';
+import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 
 
 
@@ -84,6 +84,7 @@ import { loginQuards } from 'src/app/core/quards/login.quard';
         SharedModule,
         FormsModule,
     MarkdownModule.forRoot(),
+    EditorModule
     ],
     providers:[
         postsAPi,
@@ -91,7 +92,8 @@ import { loginQuards } from 'src/app/core/quards/login.quard';
         commentsApi,
         tagApi,
         categoryApi,
-        loginQuards
+    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
+
         
     ],
 

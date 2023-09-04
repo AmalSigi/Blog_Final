@@ -18,44 +18,56 @@
         <div class="grid mt-5">
           <label for="">Post Category</label>
           <div class="flex">
-            <input
+            <select
               formControlName="category"
+              (change)="changeCategory($event)"
+              class="w-full p-2 border-2"
               #Category
-              placeholder="Choose one category"
-              class="w-full border-2 p-2"
-              value=""
-              type="text"
-            />
-            <button (click)="openDropDown('category')" class="-ml-5">
-              <i class="fa-solid fa-caret-down"></i>
-            </button>
+              name=""
+              id=""
+            >
+              <option value="" disabled selected>Select a category</option>
+              <option *ngFor="let category of category" [value]="category?.id">
+                {{ category.categoryName }}
+              </option>
+            </select>
           </div>
-          <app-dropdown
-            *ngIf="selectDropDown === 'category' && showDropDown"
-            [category]="category"
-            (onChange)="changeCategory($event)"
-          ></app-dropdown>
         </div>
-        <div *ngIf="Category.value != null" class="grid mt-5">
+        <div  class="grid mt-5">
           <label for="">Sub Category (Optional)</label>
           <div class="flex">
-            <input
+            <select
               formControlName="subCategory"
-              #subCatgory
-              placeholder="Choose one Sub-category"
-              class="w-full border-2 p-2"
-              value=""
-              type="text"
-            />
-            <button (click)="openDropDown('subCategory')" class="-ml-5">
-              <i class="fa-solid fa-caret-down"></i>
-            </button>
+              (change)="changeSubCategory($event)"
+              class="w-full p-2 border-2"
+              name=""
+              id=""
+            >
+              <option value="" disabled selected>Select a sub category</option>
+              <option
+                *ngFor="let category of subCategory"
+                [value]="category?.id"
+              >
+                {{ category?.subCategoryName }}
+              </option>
+            </select>
           </div>
-          <app-dropdown
-            *ngIf="selectDropDown === 'subCategory' && showDropDown"
-            [category]="subCategory"
-            (onChange)="changeSubCategory($event)"
-          ></app-dropdown>
+        </div>
+        <div class="grid gap-2">
+          <label for="font">Fonts</label>
+          <select
+          formControlName="font"
+            (change)="selectFont()"
+            id="font"
+            class="p-2 border-2 border-black outline-blue-500"
+          >
+            <option
+              *ngFor="let fontFamily of fontFamilies"
+              [value]="fontFamily"
+            >
+              {{ fontFamily }}
+            </option>
+          </select>
         </div>
         <div class="grid mt-5">
           <label for="">tags (Optional)</label>

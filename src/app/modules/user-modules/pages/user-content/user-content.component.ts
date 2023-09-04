@@ -78,7 +78,14 @@ export class UserContentComponent implements OnInit {
   ngOnInit(): void {
     this.getContent();
   }
-
+  public findIndex(id: number, sectionId: number): number {
+    const index = this.post.postSections[
+      sectionId
+    ]?.sectionAttributes.findIndex(
+      (item: any) => item.sectionAttributeId == id
+    );
+    return index;
+  }
   public getContent(): void {
     this.route.params.subscribe((params) => {
       if (params['postId']) {
@@ -271,7 +278,7 @@ export class UserContentComponent implements OnInit {
   // // Recommended
   public getRecommendedPost(postId: number) {
     this.postApi.getRecommendedPost(9, postId).subscribe((respo) => {
-      console.log(respo);
+   
       for (const post of respo) {
         this.getFilteredPostForRecommend(post);
       }
@@ -288,5 +295,12 @@ export class UserContentComponent implements OnInit {
           this.getFilteredPostForMoreArticle(post);
         }
       });
+  }
+  public getImageStyle(height: string, width: string) {
+    if (height == 'null' || (0 && width == 'null') || 0) {
+      return {}; // Empty object to reset styles
+    } else {
+      return { height: `${height}px`, width: `${width}px` };
+    }
   }
 }

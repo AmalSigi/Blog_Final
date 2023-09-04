@@ -58,6 +58,7 @@ import { UncategorizedComponent } from './pages/admin-posts/pages/uncategorized/
 import { AdminBlogSettingComponent } from './pages/admin-settings/pages/admin-site-setting/admin-blog-setting/admin-blog-setting.component';
 import { AdminSiteSettingComponent } from './pages/admin-settings/pages/admin-site-setting/root/admin-site-setting.component';
 import { SamplePageComponent } from './pages/admin-themes/component/sample.component';
+import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 
 @NgModule({
   declarations: [
@@ -106,6 +107,8 @@ import { SamplePageComponent } from './pages/admin-themes/component/sample.compo
     ReactiveFormsModule,
     SharedModule,
     MarkdownModule.forRoot(),
+    EditorModule
+  
   ],
   providers: [
     postsAPi,
@@ -120,7 +123,8 @@ import { SamplePageComponent } from './pages/admin-themes/component/sample.compo
     trackDataService,
     loginQuards,
     siteSettingApi,
-    selectTheme
+    selectTheme,
+    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
   ],
 })
 export class AdminModule {}

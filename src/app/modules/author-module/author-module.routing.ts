@@ -23,7 +23,6 @@ import { CommentPostComponent } from './author-comment/Root/commentPost.componen
 
 const routes: Routes = [
     {path:'',component:AuthorComponent,
-    
     children:[
         {
             path:'',component:AuthorHomeComponent,

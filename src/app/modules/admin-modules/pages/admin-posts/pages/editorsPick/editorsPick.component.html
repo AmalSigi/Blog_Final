@@ -1,8 +1,105 @@
-<div *ngIf="posts?.length == 0" class="h-[50%] w-full text-center">
-    <p class="text center text-xl">No posts</p>
+<section>
+  <!-- <div *ngIf="posts.length==0">
+
+      <p class="text-center text-2xl font-semibold">No posts found.</p>
+
+    </div> -->
+
+  <div class="right-0 mb-5">
+    <button
+      (click)="enableSearch = !enableSearch"
+      class="bg-blue-600 text-white px-3 py-2 rounded-full mr-3"
+    >
+      <span *ngIf="!enableSearch"
+        ><i class="fa-solid fa-magnifying-glass"></i
+      ></span>
+
+      <span *ngIf="enableSearch"><i class="fa-solid fa-xmark"></i></span>
+    </button>
+
+    <input
+      *ngIf="enableSearch"
+      (input)="searchPostByName($event)"
+      type="search"
+      placeholder="Search By Post Name.."
+      class="outline-green-600 p-2 border-2 rounded-lg border-blue-500 w-[50%]"
+      type="text"
+    />
   </div>
-  <app-postList
-    [posts]="posts"
-    (paginate)="pagiantion()"
-    [totalData]="totalData"
-  ></app-postList>
+
+  <div *ngIf="!posts" class="flex w-full container mx-auto justify-center">
+    <div class="flex items-center pointer-events-none pl-10">
+      <div
+        class="animate-spin inline-block w-8 h-8 border-[3px] border-current border-t-transparent text-red-900 rounded-full"
+        role="status"
+        aria-label="loading"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+
+    <p class="m-3 italic bold text-black text-xl font-bold">Please Wait...</p>
+  </div>
+
+  <div class="relative">
+    <ul class="z-99">
+      <li
+        class="border-2 p-3 mb-2 flex justify-between"
+        *ngFor="let post of posts; let i = index"
+      >
+        <div>
+          <h2 class="text-lg font-medium">
+            {{ post.post.postSections[0]?.content }}
+          </h2>
+        </div>
+
+        <button class="w-20" (click)="toggleEditMenu(post, i)">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </button>
+
+        <div
+          *ngIf="showDiv && listIndex == i"
+          class="absolute w-48 bg-white border-2 rounded-lg border-black mt-10 right-0 overflow-hidden"
+        >
+          <ul>
+  
+
+  
+
+            <li
+              (click)="showBox(i)"
+              class="hover:bg-red-600 hover:text-white p-3 flex items-center gap-2"
+            >
+              <span><i class="fa-solid fa-eye"></i> view</span>
+            </li>
+
+        
+
+            <li
+      
+              (click)="RemovePick(post.id)"
+              class="hover:bg-red-600 hover:text-white p-3 flex items-center gap-2"
+            >
+              <span><i class="fa-solid fa-trash"></i> Remove</span>
+            </li>
+        
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+<!-- 
+  <app-pagination
+    *ngIf="posts"
+    [offsetValue]="offsetValue"
+    [totalLength]="totalData"
+    (emitPage)="emitPages()"
+    [totalData]="posts"
+  ></app-pagination> -->
+</section>
+
+<app-shared-model
+  *ngIf="commentDiv"
+  (onClick)="commentDiv = false"
+  [post]="viewPost"
+></app-shared-model>

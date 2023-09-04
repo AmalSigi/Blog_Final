@@ -12,6 +12,7 @@ import { MarkdownModule } from 'ngx-markdown';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/Interceptor/token.interceptor';
 import { selectTheme } from './core/services/selectTheme.service';
+import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,6 +22,7 @@ import { selectTheme } from './core/services/selectTheme.service';
     SharedModule,
     ReactiveFormsModule,
     MarkdownModule.forRoot(),
+    EditorModule
   ],
 
   providers: [
@@ -29,6 +31,7 @@ import { selectTheme } from './core/services/selectTheme.service';
     categoryApi,
     selectTheme,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
   ],
   bootstrap: [AppComponent],
 })

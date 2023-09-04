@@ -36,7 +36,7 @@ export class AuthorTrashedComponent{
         const offset = this.toggleOffset.offset();
         const length = this.toggleOffset.pageSize;
       
-        this.postsService.ownPosts('Deleted',offset).subscribe({
+        this.postsService.ownPosts('Deleted',length,offset).subscribe({
         next:(response)=>{
           this.totalData=response.totalLength;
             this.posts = response.posts;
@@ -47,8 +47,12 @@ export class AuthorTrashedComponent{
     }
     public toggleEditMenu(data:any,index:number){
        
-        this.listIndex=index;
-    this.showDiv=!this.showDiv;
+      if (this.listIndex == index && this.showDiv == true) {
+        this.showDiv = false;
+      } else {
+        this.listIndex = index;
+        this.showDiv = true;
+      }
     }
     
       public showBox(index:number) {
