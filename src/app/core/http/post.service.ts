@@ -90,11 +90,11 @@ export class postsAPi {
   }
   public ownPosts(
     status: string,
-
+length:number,
     offset: number
   ): Observable<any> {
     return this.http.get(
-      `${this.url}/ownPosts?status=${status}&offset=${offset}`
+      `${this.url}/ownPosts?status=${status}&length=${length}&offset=${offset}`
     );
   }
   public allOwnPosts(): Observable<any> {
@@ -166,4 +166,5 @@ export class postsAPi {
   public getLatestPosts(length: number): Observable<any> {
     return this.http.get(`${this.url}/testing/blog/all?length=${length}`);
   }
+  
 }

@@ -27,6 +27,11 @@
     @apply bg-blue-600 text-white rounded-full;
   }
 }
+@layer components{
+  .para a{
+    @apply text-blue-600 underline;
+  }
+}
 
 .linkcss {
   color: blue;
@@ -133,5 +138,12 @@ body {
 
   .swiper-button-prev {
     left: 10px;
+  }
+  @layer base {
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
   }
 }

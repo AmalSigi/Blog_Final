@@ -64,7 +64,7 @@
         </li>
       </ul>
     </div>
-    <app-pagination *ngIf="posts" 
+    <app-pagination [hidden]="posts?.length==0" 
 [totalLength]="totalData"
     (emitPage)="pagiantion()"
  

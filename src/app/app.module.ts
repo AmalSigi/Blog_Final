@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { RecaptchaModule } from 'ng-recaptcha';
+import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,6 +31,7 @@ import { RecaptchaModule } from 'ng-recaptcha';
     NgxCaptchaModule,
     RecaptchaModule,
     FormsModule,
+    EditorModule,
   ],
 
   providers: [
@@ -38,6 +40,7 @@ import { RecaptchaModule } from 'ng-recaptcha';
     categoryApi,
     selectTheme,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
   ],
   bootstrap: [AppComponent],
 })

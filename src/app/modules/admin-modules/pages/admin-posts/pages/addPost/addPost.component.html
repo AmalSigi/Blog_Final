@@ -1,7 +1,9 @@
 <!-- navbar -->
 <nav class="w-full h-15 bg-gray-100 border-b-2 p-3 flex justify-end fixed">
   <div class="">
-    <button (click)="postFeatures=!postFeatures" class="p-3"><i class="fa-solid fa-gear"></i></button>
+    <button (click)="postFeatures = !postFeatures" class="p-3">
+      <i class="fa-solid fa-gear"></i>
+    </button>
     <button (click)="publish()" class="bg-blue-600 text-white p-2 rounded-md">
       <span *ngIf="postId == null">Publish</span>
       <span *ngIf="postId != null">Update</span>
@@ -16,34 +18,34 @@
     <div class="flex md:grid gap-3 md:border-2 py-5">
       <button
         (click)="selectTool(2)"
-        class="hover:bg-red-600 w-28 hover:text-white grid p-2"
+        class="hover:bg-red-600 w-28 hover:text-white rounded-lg grid p-2"
       >
         <span><i class="fa-solid fa-heading"></i></span>
         Sub Heading
       </button>
       <button
         (click)="selectTool(3)"
-        class="hover:bg-red-600 w-28 hover:text-white p-2 grid"
+        class="hover:bg-red-600 w-28 hover:text-white rounded-lg p-2 grid"
       >
         <span><i class="fa-solid fa-paragraph"></i></span>
         Paragraph
       </button>
       <button
         (click)="selectTool(4)"
-        class="hover:bg-red-600 w-28 hover:text-white p-2 grid"
+        class="hover:bg-red-600 w-28 hover:text-white rounded-lg p-2 grid"
       >
         <span><i class="fa-solid fa-image"></i></span>
         Image
       </button>
       <button
         (click)="selectTool(5)"
-        class="hover:bg-red-600 w-28 hover:text-white p-2 grid"
+        class="hover:bg-red-600 w-28 hover:text-white rounded-lg p-2 grid"
       >
         <span><i class="fa-solid fa-file-video"></i></span>
         video</button
       ><button
-        (click)="selectTool(6)"
-        class="hover:bg-red-600 w-28 hover:text-white p-4 grid"
+        (click)="selectTool(11)"
+        class="hover:bg-red-600 w-28 hover:text-white rounded-lg p-4 grid"
       >
         <span><i class="fa-brands fa-buysellads"></i></span>
         Ads
@@ -55,7 +57,10 @@
     class="container mx-auto w-full h-screen overflow-y-auto pb-20 border-t-2 md:border-0"
   >
     <form [formGroup]="blogForm" *ngFor="let item of dynamicDiv; let i = index">
-      <div class="pb-20 w-[80%] container mx-auto">
+      <div
+        [ngStyle]="{ 'font-family': postFont }"
+        class="pb-20 w-[80%] container mx-auto"
+      >
         <ng-container [ngSwitch]="item.type">
           <ng-container *ngSwitchCase="1">
             <textarea
@@ -87,7 +92,14 @@
           </ng-container>
           <!-- For paragraph type -->
           <ng-container *ngSwitchCase="3">
-            <app-text-Toolbar
+            <editor
+              [init]="editorConfig"
+              [ngStyle]="{ 'font-family': postFont }"
+              (click)="sectionId = i"
+              placeholder="write your paragraph"
+              [formControl]="item.content"
+            ></editor>
+            <!-- <app-text-Toolbar
               *ngIf="sectionId == i && TextToolBar"
               (boldSelected)="onTextSelected($event)"
               (sendUrl)="getUrl($event)"
@@ -102,7 +114,7 @@
               class="outline-none full"
               [formControl]="item.content"
               placeholder="write your paragraph"
-            ></textarea>
+            ></textarea> -->
             <app-toolbar
               (delete)="deleteBlock()"
               (select)="addBlock($event)"
@@ -129,18 +141,22 @@
               placeholder="upload image"
             />
             <div>
-              <div class="w-[80%] h-[500px] mt-3 overflow-hidden">
+              <div class="mt-3 overflow-auto">
                 <img
                   (click)="Selected(i, 4)"
-                  [ngStyle]="{
-                    height: imgHeight + 'px',
-                    width: imgWidth + 'px',
-                    aspectRatio: aspectRatio,
-                    objectFit: objectFit
-                  }"
-                  class="h-full w-full aspect-square"
+                  class="aspect-{{
+                    item.sectionAttributes[findIndex(6, i)]?.value
+                  }} object-{{
+                    item.sectionAttributes[findIndex(7, i)]?.value
+                  }} "
                   [src]="mediaFilePath + item?.dataURL"
                   alt=""
+                  [ngStyle]="
+                    getImageStyle(
+                      item.sectionAttributes[findIndex(1, i)]?.value,
+                      item.sectionAttributes[findIndex(2, i)]?.value
+                    )
+                  "
                 />
               </div>
             </div>
@@ -200,6 +216,43 @@
               *ngIf="sectionId == i"
             ></app-toolbar>
           </ng-container>
+          <ng-container *ngSwitchCase="11">
+            <div (click)="Selected(i, 11)" class="border-2 p-3">
+              <p class="text-blue-600 text-center">Choose Your Ad Type</p>
+              <div class="flex justify-between mt-10 w-[80%] container mx-auto">
+                <button
+                  class="p-2 border-2 hover:text-white rounded-lg hover:bg-blue-600"
+                  (click)="chooseAdType(9)"
+                >
+                  Dynamic Ads
+                </button>
+                <button
+                  class="p-2 border-2 hover:text-white rounded-lg hover:bg-blue-600"
+                  (click)="chooseAdType(6)"
+                >
+                  Image
+                </button>
+                <button
+                  class="p-2 border-2 hover:text-white rounded-lg hover:bg-blue-600"
+                  (click)="chooseAdType(7)"
+                >
+                  Video
+                </button>
+                <button
+                  class="p-2 border-2 hover:text-white rounded-lg hover:bg-blue-600"
+                  (click)="chooseAdType(8)"
+                >
+                  External Link
+                </button>
+              </div>
+            </div>
+            <app-toolbar
+              (delete)="deleteBlock()"
+              (select)="addBlock($event)"
+              [index]="sectionId"
+              *ngIf="sectionId == i"
+            ></app-toolbar>
+          </ng-container>
           <ng-container *ngSwitchCase="6">
             <label
               (click)="Selected(i, 6)"
@@ -234,11 +287,84 @@
               *ngIf="sectionId == i"
             ></app-toolbar>
           </ng-container>
+          <ng-container *ngSwitchCase="7">
+            <label
+              (click)="Selected(i, 7)"
+              class="text-white bg-blue-600 p-2"
+              for="image"
+              >Upload Ad</label
+            >
+            <input
+              (change)="onFileSelected($event)"
+              #image
+              class="outline-none"
+              type="file"
+              id="image"
+              hidden="true"
+              [formControl]="item.content"
+              placeholder="upload image"
+            />
+            <div>
+              <div class="w-[80%] h-[250px] mt-3 overflow-hidden">
+                <video
+                  (click)="Selected(i, 7)"
+                  controls
+                  autoplay
+                  class="w-[80%] h-[400px] border mt-3"
+                  [src]="mediaFilePath + item?.dataURL"
+                  alt=""
+                ></video>
+              </div>
+            </div>
+            <app-toolbar
+              (delete)="deleteBlock()"
+              (select)="addBlock($event)"
+              [index]="sectionId"
+              *ngIf="sectionId == i"
+            ></app-toolbar>
+          </ng-container>
+          <ng-container *ngSwitchCase="8">
+            <input
+              [formControl]="item.content"
+              placeholder="paste your Ad Link"
+              class="p-2 border-2 outline-blue-600"
+              type="text"
+            />
+            <app-toolbar
+              (delete)="deleteBlock()"
+              (select)="addBlock($event)"
+              [index]="sectionId"
+              *ngIf="sectionId == i"
+            ></app-toolbar>
+          </ng-container>
+          <ng-container *ngSwitchCase="9">
+            <div
+            (click)="Selected(i, 9)"
+            class="w-full p-3 border-2">
+            <p>Dynamic ads</p>
+          </div>
+            <app-toolbar
+              (delete)="deleteBlock()"
+              (select)="addBlock($event)"
+              [index]="sectionId"
+              *ngIf="sectionId == i"
+            ></app-toolbar>
+          </ng-container>
         </ng-container>
       </div>
       <div class="h-full w-full">
         <app-addPostSettings
-          *ngIf="mediaToolBar"
+          *ngIf="
+            mediaToolBar &&
+            (currentTool == 4 ||
+              currentTool == 5 ||
+              currentTool == 6 ||
+              currentTool == 7 ||
+              currentTool == 8)
+          "
+          [currentBlock]="currentTool"
+          [currentSettings]="dynamicDiv[sectionId].sectionAttributes"
+          (changeSettings)="changeImgSetings($event)"
           (sendURL)="setImageUrl($event)"
           (onChange)="closeModal()"
           [mediaType]="currentTool"
@@ -247,8 +373,9 @@
     </form>
   </div>
   <app-postFeatures
+
     (createPost)="getPostFeatures($event)"
-    *ngIf="postFeatures"
+    [hidden]="!postFeatures"
   ></app-postFeatures>
 </section>
 <!-- <app-loading class="w-full" *ngIf="loading"></app-loading> -->

@@ -10,6 +10,7 @@
         class="w-full h-full object-cover"
       />
     </div>
+
     <div class="flex justify-between">
       <button
         (click)="editingPass()"
@@ -27,7 +28,9 @@
         <i class="fa-regular fa-pen-to-square"></i>
       </button>
     </div>
+
     <!-- normal form -->
+
     <form
       *ngIf="!editOn"
       [formGroup]="editForm"
@@ -38,6 +41,7 @@
           <label class="font-semibold text-base text-stone-600"
             >First Name :</label
           >
+
           <input
             formControlName="first_name"
             type="text"
@@ -45,6 +49,7 @@
             readonly
           />
         </div>
+
         <div
           *ngIf="
             editForm.controls['middle_name'].value != null &&
@@ -63,6 +68,7 @@
             readonly
           />
         </div>
+
         <div class="grid grid-row-2 gap-2">
           <label class="font-semibold text-base text-stone-600"
             >Last Name :</label
@@ -73,13 +79,17 @@
             type="text"
             class="border-2 rounded p-2 outline-none"
             [ngClass]="{
+
                       'border-red-400 ':editForm.controls['last_name'].errors?.['required']&&editForm.controls['last_name'].touched
+
                     }"
             readonly
           />
         </div>
+
         <div class="grid grid-row-2 gap-2">
           <label class="font-semibold text-base text-stone-600">Email :</label>
+
           <input
             formControlName="email"
             type="text"
@@ -89,6 +99,7 @@
             readonly
           />
         </div>
+
         <div
           *ngIf="
             editForm.controls['about'].value != null &&
@@ -107,7 +118,9 @@
         </div>
       </div>
     </form>
+
     <!-- edit form -->
+
     <form
       *ngIf="editOn"
       [formGroup]="editForm"
@@ -118,15 +131,19 @@
           <label class="font-semibold text-base text-stone-600"
             >First Name :</label
           >
+
           <input
             formControlName="first_name"
             type="text"
             class="border-2 border-green-500 rounded p-2"
             [ngClass]="{
+
                     'border-red-400 ':editForm.controls['first_name'].errors?.['required']&&editForm.controls['first_name'].touched
+
                   }"
           />
         </div>
+
         <div class="grid grid-row-2 gap-2">
           <label class="font-semibold text-base text-stone-600"
             >Middle Name :</label
@@ -143,6 +160,7 @@
             }"
           />
         </div>
+
         <div class="grid grid-row-2 gap-2">
           <label class="font-semibold text-base text-stone-600"
             >Last Name :</label
@@ -153,12 +171,16 @@
             type="text"
             class="border-2 border-green-500 rounded p-2"
             [ngClass]="{
+
                     'border-red-400 ':editForm.controls['last_name'].errors?.['required']&&editForm.controls['last_name'].touched
+
                   }"
           />
         </div>
+
         <div class="grid grid-row-2 gap-2">
           <label class="font-semibold text-base text-stone-600">Email :</label>
+
           <input
             formControlName="email"
             type="text"
@@ -168,6 +190,7 @@
             readonly
           />
         </div>
+
         <div class="grid grid-row-2 gap-2">
           <label class="font-semibold text-base text-stone-600">About :</label>
 
@@ -176,7 +199,9 @@
             type="text"
             class="border-2 border-green-500 rounded p-2"
             [ngClass]="{
+
                     'border-red-400 ':editForm.controls['about'].errors?.['required']&&editForm.controls['about'].touched
+
                   }"
           />
         </div>
@@ -190,7 +215,9 @@
       </div>
     </form>
   </div>
+
   <!-- profile image -->
+
   <section
     *ngIf="picShowDiv"
     class="bg-black/80 fixed top-0 bottom-0 left-0 right-0 h-screen p-5 z-50 overflow-scroll"
@@ -200,6 +227,7 @@
         <div>
           <h1 class="font-bold text-xl font">Upload Profle Picture</h1>
         </div>
+
         <button (click)="unshowUpolodtemp()">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -213,6 +241,7 @@
             stroke-linejoin="arcs"
           >
             <line x1="18" y1="6" x2="6" y2="18"></line>
+
             <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
         </button>
@@ -262,6 +291,7 @@
       </div>
     </div>
   </section>
+
   <div *ngIf="editing">
     <div
       id="hs-basic-modal"
@@ -275,6 +305,7 @@
             class="flex justify-between items-center py-3 px-4 border-b dark:border-gray-700"
           >
             <h3 class="font-bold text-gray-800">Change Password</h3>
+
             <button
               (click)="cancel()"
               type="button"
@@ -282,6 +313,7 @@
               data-hs-overlay="#hs-basic-modal"
             >
               <span class="sr-only">Close</span>
+
               <svg
                 class="w-3.5 h-3.5"
                 width="8"
@@ -297,12 +329,14 @@
               </svg>
             </button>
           </div>
+
           <form (submit)="updateUserPassword()" [formGroup]="editForm">
             <div class="p-4 overflow-y-auto flex flex-col">
               <div class="grid grid-row-2 gap-2">
                 <label class="font-semibold text-base text-stone-600"
                   >Current Password :</label
                 >
+
                 <input
                   formControlName="password"
                   type="text"
@@ -313,14 +347,17 @@
                     'border-red-400 ':
                       editForm.controls['password'].value == '' &&
                       editForm.controls['password'].touched,
+
                     'border-green-500 ': editForm.controls['password'].touched
                   }"
                 />
               </div>
+
               <div class="grid grid-row-2 gap-2">
                 <label class="font-semibold text-base text-stone-600"
                   >New Password :</label
                 >
+
                 <input
                   formControlName="new_password"
                   type="text"
@@ -328,15 +365,20 @@
                   id=""
                   class="border-2 rounded p-2"
                   [ngClass]="{
+
                         'border-red-400 ':editForm.controls['new_password'].errors?.['required']&&editForm.controls['new_password'].touched,
+
                         'border-green-500 ':editForm.controls['new_password'].touched
+
                       }"
                 />
               </div>
+
               <div class="grid grid-row-2 gap-2">
                 <label class="font-semibold text-base text-stone-600"
                   >Confirm Password :</label
                 >
+
                 <input
                   formControlName="confirm_password"
                   type="text"
@@ -344,12 +386,19 @@
                   id=""
                   class="border-2 rounded p-2 outline-none"
                   [ngClass]="{
+
                     'border-red-400':
+
                       editForm.controls['confirm_password'].value !=
+
                       editForm.controls['new_password'].value&&editForm.controls['new_password'].touched,
+
                     'border-green-500':
+
                       editForm.controls['confirm_password'].value ===
+
                       editForm.controls['new_password'].value&& editForm.controls['new_password'].touched,
+
                   }"
                 />
               </div>
@@ -364,6 +413,7 @@
               >
                 Close
               </button>
+
               <button
                 type="submit"
                 class="px-4 py-2 bg-green-500 hover:bg-green-400 mx-auto text-white rounded mt-5"

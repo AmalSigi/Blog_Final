@@ -11,7 +11,11 @@ export class AddPostSettingsComponent {
   @Input() width!: string;
   @Input() aspectRatio!: string;
   @Input() objectFit!: string;
+  @Input() currentSettings!: any[];
+  public currentTool: string = 'media';
+  @Input() currentBlock!:number;
   @Output() onChange = new EventEmitter();
+  @Output() changeSettings = new EventEmitter();
   public imgForm!: FormGroup;
   public images!: any;
   constructor(private readonly http: HttpClient) {}
@@ -19,18 +23,50 @@ export class AddPostSettingsComponent {
   @Output() sendURL = new EventEmitter();
 
   ngOnInit() {
-    if (this.mediaType == 4) {
-      this.getMedia('Image');
-    } else {
-      this.getMedia('Video');
-    }
+ 
+this.getFormat();
 
     this.imgForm = new FormGroup({
-      height: new FormControl(Number(this.height)),
-      objectFit: new FormControl(this.objectFit),
-      width: new FormControl(Number(this.width)),
-      aspectRatio: new FormControl(this.aspectRatio),
+      height: new FormControl(
+        this.currentSettings[this.findIndex(1)]?.value === ''
+          ? null
+          : Number(this.currentSettings[this.findIndex(1)]?.value)
+      ),
+      objectFit: new FormControl(this.currentSettings[this.findIndex(7)]?.value),
+      width: new FormControl(
+        this.currentSettings[this.findIndex(2)]?.value === ''
+          ? null
+          : Number(this.currentSettings[this.findIndex(2)]?.value)
+      ),
+      aspectRatio: new FormControl(this.currentSettings[this.findIndex(6)]?.value),
+      altText: new FormControl(this.currentSettings[this.findIndex(5)]?.value),
+      href:new FormControl(this.currentSettings[this.findIndex(4)]?.value),
+      font:new FormControl(this.currentSettings[this.findIndex(8)]?.value),
+
     });
+  }
+  public getFormat(){
+    switch(this.mediaType){
+      case 4:
+        this.getMedia('Image')
+        break;
+        case 5:
+          this.getMedia('Video')
+          break;
+          case 6:
+            this.getMedia('Advertisement_Image')
+            break;
+            case 7:
+              this.getMedia('Advertisement_Video')
+              break;
+              case 8:
+                this.getMedia('External')
+                break;
+    }
+  }
+  public findIndex(id:number){
+    const index=this.currentSettings.findIndex((item:any)=>item.sectionAttributeId==id)
+    return index;
   }
   public getMedia(type: string) {
     this.http
@@ -40,13 +76,14 @@ export class AddPostSettingsComponent {
       });
   }
 
-  changeHeight(event: any): void {
-    this.onChange.emit(this.imgForm.value);
-  }
   public sendImage(image: string): void {
     this.sendURL.emit(image);
+    this.currentTool = 'settings';
   }
   public closeModal(): void {
-    this.onChange.emit()
+    this.onChange.emit();
+  }
+  public updateSettings(): void {
+    this.changeSettings.emit(this.imgForm.value);
   }
 }

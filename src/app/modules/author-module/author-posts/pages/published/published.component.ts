@@ -37,7 +37,7 @@ export class AuthorPublishComponent{
     const offset = this.toggleOffset.offset();
     const length = this.toggleOffset.pageSize;
   
-    this.postsService.ownPosts('Active',offset).subscribe({
+    this.postsService.ownPosts('Active',length,offset).subscribe({
       next:(response)=>{
         this.totalData=response.totalLength;
           this.posts = response.posts;
@@ -48,9 +48,12 @@ export class AuthorPublishComponent{
    })
   }
   public toggleEditMenu(data:any,index:number){
-     
-      this.listIndex=index;
-  this.showDiv=!this.showDiv;
+    if (this.listIndex == index && this.showDiv == true) {
+      this.showDiv = false;
+    } else {
+      this.listIndex = index;
+      this.showDiv = true;
+    }
   }
   
     public showBox(index:number) {

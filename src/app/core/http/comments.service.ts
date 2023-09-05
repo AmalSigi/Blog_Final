@@ -14,6 +14,7 @@ export class commentsApi {
   public getAllCommentsByPostAdmin(postId: number): Observable<any> {
     return this.http.get(`${this.url}/${postId}/all`);
   }
+
   public getAllReportd(): Observable<any> {
     return this.http.get(`${this.url}/reported`);
   }

@@ -1,226 +1,437 @@
 <section
+
   class="bg-black/80 fixed top-0 bottom-0 left-0 right-0 h-screen md:p-5 z-50 overflow-y-hidden"
+
 >
+
   <div
+
     class="container grid md:flex bg-white rounded-lg h-full shadow-xl md:w-[90%] w-full mx-auto"
+
   >
+
     <!-- post -->
+
     <div class="h-full md:w-2/3 overflow-y-auto border-r-2">
+
       <div class="h-10 bg-slate-200 p-2 flex justify-between">
+
         <h3 class="text-lg font-semibold">Post</h3>
+
         <button class="md:hidden" (click)="unshowBox()">
+
           <i class="fa-solid fa-xmark"></i>
+
         </button>
+
       </div>
+
       <!-- content -->
 
+ 
+
       <div class="container mx-auto w-[80%] my-5">
+
         <p class="text-red-500 font-bold text-xl">
+
           {{ post.category?.categoryName }}
+
         </p>
+
         <div *ngFor="let postItem of post.postSections" class="w-full">
+
           <ng-container [ngSwitch]="postItem.sectionTypeId">
+
             <ng-container *ngSwitchCase="1"
+
               ><h1 class="text-4xl font-extrabold mb-4">
+
                 {{ postItem.content }}
+
               </h1></ng-container
+
             >
+
             <ng-container *ngSwitchCase="2"
+
               ><h2 class="text-xl font-semibold my-5">
+
                 {{ postItem.content }}
+
               </h2></ng-container
+
             >
+
+ 
 
             <ng-container *ngSwitchCase="3"
+
               ><p class="my-5 text-base text-[20px] text-gray-600 text-justify">
+
                 <markdown>
+
                   {{ postItem.content  }}
+
                 </markdown>
+
               </p></ng-container
+
             >
 
+ 
+
             <ng-container *ngSwitchCase="4"
+
               ><img
+
                 class="mb-10 object-fill w-full h-full"
+
                 [src]="'http://192.168.29.97:5296/assets/' + postItem.content"
+
             /></ng-container>
+
             <ng-container *ngSwitchCase="5"
+
               ><video
+
                 class="my-5"
+
                 controls
+
                 muted
+
                 [src]="'http://192.168.29.97:5296/assets/' + postItem?.content"
+
               ></video
+
             ></ng-container>
+
             <ng-container *ngSwitchCase="6">
+
               <div class="border-y-2 py-2">
+
                 <p class="text-center">AD</p>
+
                 <img
+
                   class="my-5 w-full h-[200px]"
+
                   [src]="'http://192.168.29.97:5296/assets/' + postItem.content"
+
                 /></div
+
             ></ng-container>
+
           </ng-container>
+
         </div>
+
       </div>
+
     </div>
+
     <!-- comments -->
 
+ 
+
     <div
+
       class="fixed bottom-0 bg-white md:static md:h-full w-full md:w-1/3 h-[40%]"
+
     >
+
       <div class="flex justify-between h-10 bg-slate-200 p-2">
+
         <h3 class="text-lg font-semibold">Comments</h3>
+
         <button class="hidden md:block" (click)="unshowBox()">
+
           <i class="fa-solid fa-xmark"></i>
+
         </button>
+
       </div>
+
       <div class="h-[65%] md:h-[85%] overflow-y-auto p-3">
+
         <!-- whole comment -->
+
         <div class="md:py-10" *ngIf="comments?.length == 0">
+
           <p class="text-center">No comments</p>
+
         </div>
+
         <ng-container *ngFor="let item of comments">
+
           <ng-container *ngFor="let item2 of item; let i = index">
+
             <div *ngIf="item2.parentId === null" class="p-3 border-b-2 pb-2">
+
               <div>
+
                 <p class="text-lg font-bold">
+
                   {{ item2.author.firstName }} {{ item2.author.lastName }}
+
                   <i
+
                     *ngIf="item2.commentStatus == 'Deleted'"
+
                     class="fa-solid fa-trash-can text-red-500"
+
                   ></i>
+
                   <i
+
                     *ngIf="item2.commentStatus == 'Reported'"
+
                     class="fa-solid fa-ban text-yellow-500"
+
                   ></i>
+
                   <i
+
                     *ngIf="item2.commentStatus == 'Active'"
+
                     class="fa-solid fa-circle fa-2xs text-green-500"
+
                   ></i>
+
                 </p>
+
                 <p class="text-xs text-gray-400">
+
                   {{ item2.createdAt | date }}
+
                 </p>
+
                 <p class="text-sm">
+
                   {{ item2.content }}
+
                 </p>
+
+ 
 
                 <div class="flex gap-5">
+
                   <button (click)="replyBox(item2)" class="text-blue-500">
+
                     Reply
+
                   </button>
+
                   <div>
+
                     <button
+
                       [id]="item2.id"
+
                       #commentOpen
+
                       (click)="viewReplyBox(commentOpen.id, item)"
+
                       class="text-blue-500"
+
                     >
+
                       <i class="fa-solid fa-chevron-down"></i> replies
+
                     </button>
+
                     <!-- <button
+
                       *ngIf="item2.commentStatus != 'Deleted'"
+
                       (click)="deleteComment(item2.id)"
+
                       class="text-red-500 ml-5"
+
                     >
+
                       <i class="fa-regular fa-trash-can"></i>
+
                     </button> -->
+
                   </div>
+
                 </div>
+
               </div>
 
+ 
+
               <!-- reply comments view -->
+
               <div
+
                 *ngIf="commentOpen.id == commentboxId && viewReplyComments"
+
                 class="w-full h-36 overflow-y-auto my-5 p-4 border-2"
+
               >
+
                 <div *ngIf="replayCommentData?.length == 0">
+
                   <p>No Comments</p>
+
                 </div>
+
                 <div
+
                   *ngFor="let replayComment of replayCommentData"
+
                   class="mb-5 pb-2 border-b-2"
+
                 >
+
                   <div class="flex gap-4 items-center">
+
                     <p class="text-base font-semibold">
+
                       {{ replayComment.author.firstName }}
+
                       {{ replayComment.author.lastName }}
+
                     </p>
+
                     <p class="text-xs text-gray-400">
+
                       {{ replayComment.createdAt | date }}
+
                       <i
+
                         *ngIf="item2.commentStatus == 'Deleted'"
+
                         class="fa-solid fa-trash-can text-red-500"
+
                       ></i>
+
                       <i
+
                         *ngIf="item2.commentStatus == 'Reported'"
+
                         class="fa-solid fa-ban text-yellow-500"
+
                       ></i>
+
                       <i
+
                         *ngIf="item2.commentStatus == 'Active'"
+
                         class="fa-solid fa-circle fa-2xs text-green-500"
+
                       ></i>
+
                     </p>
+
                   </div>
+
                   <p class="text-base">
+
                     <span class="lowercase text-blue-500 text-sm"
+
                       >@ {{ replayComment.parentAuthor }}</span
+
                     >
+
                     {{ replayComment.content }}
+
                   </p>
+
                   <button
+
                     (click)="replyBox(replayComment)"
+
                     class="text-blue-500 text-sm"
+
                   >
+
                     Reply
+
                   </button>
-                  <!-- <button
-                    *ngIf="item2.commentStatus != 'Deleted'"
-                    (click)="deleteComment(replayComment.id)"
-                    class="text-red-500 ml-5"
-                  >
-                    <i class="fa-regular fa-trash-can"></i>
-                  </button> -->
+
                 </div>
+
               </div>
+
               <!--  -->
+
             </div>
+
           </ng-container>
+
         </ng-container>
+
       </div>
+
       <!-- sending comments -->
-      <div class="-my-12">
+
+      <div class="-my-10">
+
       <div
+
         *ngIf="toggleReply"
+
         class="flex justify-between items-center  md:p-3 px-4 "
+
       >
+
         <p>
+
           Replying to
+
           <span class="text-blue-600">{{ parentCommentAuthor }}</span>
+
         </p>
+
         <button (click)="closeReplyTag()">
+
           <i class="fa-solid fa-xmark"></i>
+
         </button>
+
       </div>
+
       <form
+
         [formGroup]="commentForm"
+
         class="md:relative grid grid-cols-12 gap-5 w-full px-4 md:px-2"
+
       >
+
         <input
+
           formControlName="content"
+
           class="col-span-10 border-2 rounded p-2"
+
           type="text "
+
           placeholder="enter comments"
+
         />
+
         <button
+
           (click)="sendReply()"
+
           class="col-span-2 text-white w-full bg-green-500 rounded px-2"
+
         >
+
           Send
+
         </button>
+
       </form>
+
     </div>
+
     </div>
+
   </div>
+
 </section>

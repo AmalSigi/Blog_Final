@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { editorsPickApi } from 'src/app/core/http/editorsPick.services';
 import { postsAPi } from 'src/app/core/http/post.service';
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
-import { EditorsPickComponent } from '../pages/editorsPick/editorsPick.component';
-import { editorsPickApi } from 'src/app/core/http/editorsPick.services';
 
 @Component({
   selector: 'app-admin-posts',
@@ -51,4 +50,5 @@ export class AdminPostsComponent {
       this.uncategorizrdPost = respo.totalLength;
     });
   }
+  
 }

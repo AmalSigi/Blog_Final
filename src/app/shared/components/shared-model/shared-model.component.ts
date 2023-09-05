@@ -1,7 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { elementAt } from 'rxjs';
 import { commentsApi } from 'src/app/core/http/comments.service';
 
 @Component({
@@ -30,7 +28,14 @@ export class SharedModelComponent implements OnInit {
     this.getComments();
     this.getPost();
   }
-
+  public findIndex(id: number, sectionId: number): number {
+    const index = this.post.postSections[
+      sectionId
+    ]?.sectionAttributes.findIndex(
+      (item: any) => item.sectionAttributeId == id
+    );
+    return index;
+  }
   public getPost() {
     this.post.postSections = this.post.postSections.sort(
       (itemA: { sequenceNo: number }, itemB: { sequenceNo: number }) =>
@@ -90,7 +95,6 @@ export class SharedModelComponent implements OnInit {
   }
   public sendReply() {
     this.commentForm.controls['ParentId'].setValue(this.parentId);
-    console.log(this.commentForm.value);
 
     this.commentsApi
       .postComment(this.post.id, this.commentForm.value)
@@ -131,7 +135,6 @@ export class SharedModelComponent implements OnInit {
     this.commentsApi.getSingleComment(parentId).subscribe((repo: any) => {
       comment.parentAuthor = repo.author.firstName;
       this.replayCommentData.push(comment);
-      console.log(this.replayCommentData);
     });
   }
 
@@ -145,5 +148,12 @@ export class SharedModelComponent implements OnInit {
         alert('Error updating profile picture:');
       },
     });
+  }
+  public getImageStyle(height: string, width: string) {
+    if (height == 'null' || (0 && width == 'null') || 0) {
+      return {}; // Empty object to reset styles
+    } else {
+      return { height: `${height}px`, width: `${width}px` };
+    }
   }
 }
