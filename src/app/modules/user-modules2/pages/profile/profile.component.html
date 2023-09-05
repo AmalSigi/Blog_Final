@@ -1,0 +1,86 @@
+<section class="h-auto w-[70%] bg-gray-100 mx-auto container">
+  <div class="pb-6 pl-6 pt-4 pr-4">
+    <div class="flex items-center gap-5 pb-10 border-b-2 border-blue-300">
+      <div
+        class="w-44 h-44 overflow-hidden rounded-full border-2 border-orange-600"
+      >
+        <img
+          *ngIf="user?.profilePicturePath == null"
+          class="h-full w-full object-cover"
+          src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-photo-183042379.jpg"
+          alt=""
+        />
+        <img
+          *ngIf="user?.profilePicturePath"
+          class="h-full w-full overflow-hidden"
+          [src]="'http://192.168.29.97:5296/assets/' + user?.profilePicturePath"
+          alt=""
+        />
+      </div>
+      <div class="w-[60%]">
+        <h1 class="font-semibold text-3xl text-gray-900">
+          {{ user?.firstName }} {{ user?.lastName }}
+        </h1>
+        <p
+          class="text-lg font-medium text-gray-600 text-start pt-3 border-b-4 pb-5 border-orange-500"
+        >
+          {{ user?.aboutUser }}
+        </p>
+        <div class="flex justify-between pt-4">
+          <p class="text-gray-400">{{ totalLength }} Blogs</p>
+          <p class="text-xl text-gray-400">
+            <i class="fa-regular fa-envelope text-gray-600"></i>
+            {{ user?.email }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- blog -->
+
+    <div class="mt-10">
+      <h1 class="text-3xl text-center font-semibold">
+        More From {{ user?.firstName }} {{ user?.lastName }}
+      </h1>
+
+      <div class="pt-10 grid grid-cols-3 gap-3">
+        <div
+          class="flex flex-col h-[500px] shadow-md px-4 py-4 rounded-md"
+          *ngFor="let item of posts"
+          routerLink="content/{{ item.postId }}"
+        >
+          <div class="bg-red-900 px-3 py-2">
+            <h2 class="text-2xl font-semibold text-white">
+              {{ item?.categoryName }}
+            </h2>
+          </div>
+
+          <div class="w-full h-[60%] overflow-hidden">
+            <img
+              [src]="'http://192.168.29.97:5296/assets/' + item?.img?.content"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="pt-5">
+            <h1 class="text-xl font-medium text-center">
+              {{ item?.heading?.content }}
+            </h1>
+          </div>
+          <div class="pt-8 flex justify-between">
+            <p class="text-gray-500 font-normal text-lg">
+              {{ item?.viewCount }} views
+            </p>
+
+            <p class="text-gray-500 font-normal text-lg">
+              {{ item?.commentsCount }} Comments
+            </p>
+          </div>
+          <div class="mt-3">
+            <p class="text-gray-400 font-normal text-lg text-center">
+              Posted On : {{ item?.createdAt | date : "MMM d, y, h:mm a" }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

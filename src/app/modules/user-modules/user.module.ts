@@ -21,6 +21,7 @@ import { UserSubcategoryComponent } from './pages/user-subcategory/user-subcateg
 import { UserLoginComponent } from './pages/userAutentication/login/userLogin.component';
 import { UserRegisterComponent } from './pages/userAutentication/register/userRegister.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { AuthorProfileComponent } from './pages/author-profile/author-profile.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ContactComponent } from './pages/contact/contact.component';
     UserLoginComponent,
     UserRegisterComponent,
     ContactComponent,
+    AuthorProfileComponent,
   ],
   imports: [
     CommonModule,

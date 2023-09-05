@@ -14,8 +14,8 @@ const routes: Routes = [
   {
     path: 'Theme2',
     loadChildren: () =>
-      import('src/app/modules/user-theme-1/user.module').then(
-        (m) => m.theme1Module
+      import('src/app/modules/user-modules2/user.module').then(
+        (m) => m.UserModule
       ),
   },
 ];

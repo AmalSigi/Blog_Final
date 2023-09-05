@@ -1,26 +1,25 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import {
-  FormGroup,
-  FormControl,
-  Validators,
   FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { authenticationApi } from 'src/app/core/http/authentication.service';
 import { commentsApi } from 'src/app/core/http/comments.service';
 import { postsAPi } from 'src/app/core/http/post.service';
-import { checkLoginService } from 'src/app/core/services/checkUserStatus.service';
 import { siteSettingApi } from 'src/app/core/http/site-setting.service';
+import { checkLoginService } from 'src/app/core/services/checkUserStatus.service';
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
-import { authenticationApi } from 'src/app/core/http/authentication.service';
 
 @Component({
-  selector: 'app-user-content',
-  templateUrl: './user-content.component.html',
+  selector: 'app-content',
+  templateUrl: './content.component.html',
 })
-export class UserContentComponent implements OnInit {
-  @Output() onChange: EventEmitter<any> = new EventEmitter();
+export class UserContentComponent {
   constructor(
     private readonly postApi: postsAPi,
     private readonly commentsApi: commentsApi,
@@ -31,35 +30,39 @@ export class UserContentComponent implements OnInit {
     private readonly sitesetting: siteSettingApi,
     private readonly authApi: authenticationApi,
     private readonly subject: trackDataService,
+    private cdr: ChangeDetectorRef,
     private readonly router: Router
   ) {}
+
   public post: any;
-  public openLogin: boolean = false;
   public categoryId: any;
-  public comments: any;
-  public commentboxId: any;
-  public parentId: any = null;
   public suggestionPost: any = [];
   public moreArticlePost: any = [];
-  public replayCommentData: any = [];
-  public Testcomments: any[][] = [];
   public commentStatus: boolean = false;
   public commentDiv: boolean = false;
   public replayInputBox: boolean = false;
   public viewReplyComments: boolean = false;
   public toggleReply: boolean = false;
-  public loginStatus: boolean = false;
-  public userSignup: boolean = false;
-  public enableComments!: boolean;
   public parentCommentAuthor: string = 'comments';
+  public parentId: any = null;
+  public comments: any;
+  public Testcomments: any[][] = [];
+  public commentboxId: any;
+  public replayCommentData: any = [];
   public totalCount = 0;
+  public loginStatus: boolean = false;
+  public enableComments!: boolean;
   public postId!: number;
+  public openLogin: boolean = false;
+  public userSignup: boolean = false;
+  public userReg: boolean = false;
   public reload: Subscription = this.subject.getClickEvent1().subscribe(() => {
     this.getContent();
   });
-
-  // //  form.......
-  // // form user
+  public replies: boolean = false;
+  public reply() {
+    this.replies = !this.replies;
+  }
   public commentForm = new FormGroup({
     content: new FormControl('', Validators.required),
     parentId: new FormControl(''),
@@ -75,18 +78,78 @@ export class UserContentComponent implements OnInit {
       email: ['', Validators.required],
     }),
   });
-
+  public latest: any = [];
+  public latestPost: any = [];
   ngOnInit(): void {
     this.getContent();
   }
-  public findIndex(id: number, sectionId: number): number {
-    const index = this.post.postSections[
-      sectionId
-    ]?.sectionAttributes.findIndex(
-      (item: any) => item.sectionAttributeId == id
-    );
-    return index;
+  navigateToUserProfile(author: any) {
+    const queryParams = {
+      firstName: author.firstName,
+      lastName: author.lastName,
+      profilePicture: author.profilePicturePath,
+      email: author.email,
+    };
+
+    this.router.navigate(['/Theme2/userprofile'], {
+      queryParams: { authorId: author },
+    });
   }
+  public getLatestPost() {
+    const length = 4;
+    this.postApi.getLatestPosts(length).subscribe((respo) => {
+      console.log(respo);
+      const categoryName = respo.category?.categoryName;
+      this.latestPost = this.postToArray(respo);
+
+      console.log(this.latestPost);
+    });
+  }
+  public getLatestPostByViewCount() {
+    const length = 5;
+    this.postApi.getLatestPosts(length).subscribe((respo) => {
+      console.log(respo);
+      const categoryName = respo.category?.categoryName;
+      this.latest = this.postToArray(respo);
+
+      this.latest.sort((a: any, b: any) => b.viewCount - a.viewCount);
+
+      const top5posts = this.latest.slice(0, 5);
+      top5posts.forEach((post: any, index: number) => {
+        post.id = index + 1;
+      });
+      console.log(top5posts);
+    });
+  }
+  public postToArray(post: any) {
+    let temp: any = [];
+    post.forEach((element: any) => {
+      let heading = element.postSections.filter(
+        (item: any) => item.sectionTypeId == 1
+      );
+      let img = element.postSections.filter(
+        (item: any) => item.sectionTypeId == 4
+      );
+
+      let subHeading = element.postSections.filter(
+        (item: any) => item.sectionTypeId == 2
+      );
+      let obj = {
+        postId: element.id,
+        heading: heading[0],
+        subHeading: subHeading[0],
+        img: img[0],
+        categoryName: element.category?.categoryName || 'Uncategorized',
+        viewCount: element.viewCount,
+        createdAt: element.createdAt,
+        fullName: element.author.firstName + ' ' + element.author.lastName,
+      };
+
+      temp.push(obj);
+    });
+    return temp;
+  }
+
   public getContent(): void {
     this.route.params.subscribe((params) => {
       if (params['postId']) {
@@ -95,12 +158,14 @@ export class UserContentComponent implements OnInit {
         this.getMainPost(this.postId);
         this.getComments(this.postId);
         this.commentEnable();
-        this.checkigLogin();
+        // this.getRecommendedPost(this.postId);
+        this.getLatestPost();
+        this.getLatestPostByViewCount();
       }
     });
+    this.checkLogin();
   }
-
-  public checkigLogin() {
+  public checkLogin() {
     this.authApi.isAuthorized().subscribe({
       next: () => {
         this.loginStatus = true;
@@ -110,6 +175,7 @@ export class UserContentComponent implements OnInit {
       },
     });
   }
+  //Report comment
 
   public reloadData: Subscription = this.trackDataService
     .getClickEvent1()
@@ -156,6 +222,7 @@ export class UserContentComponent implements OnInit {
       };
 
       this.suggestionPost.push(obj);
+      console.log(this.suggestionPost);
     });
   }
   public getFilteredPostForMoreArticle(post: any) {
@@ -179,6 +246,23 @@ export class UserContentComponent implements OnInit {
 
       this.moreArticlePost.push(obj);
     });
+  }
+  public reportComment(commentId: number) {
+    if (this.loginStatus) {
+      this.commentsApi.reportComment(commentId).subscribe(
+        (data) => {
+          console.log('hi');
+          alert('Reported succeesfully');
+          this.getComments(this.postId);
+        },
+        (error) => {
+          // console.log('hello')
+          alert('Something went wrong');
+        }
+      );
+    } else {
+      this.openLogin = true;
+    }
   }
 
   // // comments
@@ -217,41 +301,16 @@ export class UserContentComponent implements OnInit {
     return listOfParentsWithChildren;
   }
 
-  public report(cmt: any) {
-    console.log(cmt.author.firstName);
-
-    if (this.loginStatus) {
-      this.commentsApi.reportComment(cmt.id).subscribe({
-        next: (respo) => {
-          alert(
-            `You have reported ${cmt.author.firstName} ${cmt.author.lastName} comment`
-          );
-        },
-      });
-    } else {
-      alert('login to report');
-      this.openLogin = true;
-    }
-  }
-
   // //reply comments
   public replyBox(comment: any) {
     this.replayInputBox = true;
-    this.toggleReply = true;
-
     this.parentCommentAuthor = `@${comment.author.firstName}`;
-
-    if (comment.id != this.parentId) {
-      this.parentId = comment.id;
-    }
+    this.parentId = comment.id;
   }
 
   public closeReplyTag() {
-    this.commentForm.reset();
     this.toggleReply = false;
-    this.parentId = null;
-    this.commentboxId = -1;
-    this.viewReplyComments = false;
+    this.parentCommentAuthor = '';
   }
   public sendReply() {
     if (this.loginStatus) {
@@ -301,12 +360,15 @@ export class UserContentComponent implements OnInit {
   public parentIdFinder(parentId: any, comment: any) {
     this.commentsApi.getSingleComment(parentId).subscribe((repo: any) => {
       comment.parentAuthor = repo.author.firstName;
+
       this.replayCommentData.push(comment);
+      console.log(this.replayCommentData);
     });
   }
   // // Recommended
   public getRecommendedPost(postId: number) {
     this.postApi.getRecommendedPost(9, postId).subscribe((respo) => {
+      console.log(respo);
       for (const post of respo) {
         this.getFilteredPostForRecommend(post);
       }
@@ -324,25 +386,29 @@ export class UserContentComponent implements OnInit {
         }
       });
   }
+  openLoginComponent() {
+    this.openLogin = true;
+  }
 
-  // login
-  public showDiv() {
-    this.getContent();
+  closeLoginComponent() {
     this.openLogin = false;
   }
-  public getImageStyle(height: string, width: string) {
-    if (height == 'null' || (0 && width == 'null') || 0) {
-      return {}; // Empty object to reset styles
-    } else {
-      return { height: `${height}px`, width: `${width}px` };
-    }
+
+  openSignupComponent() {
+    this.userSignup = true;
+    // this.cdr.detectChanges();
   }
 
-  // author profile
-
-  navigateToUserProfile(author: any) {
-    this.router.navigate(['/author-profile'], {
-      queryParams: { authorId: author },
-    });
+  closeSignupComponent() {
+    this.userSignup = false;
+    // this.cdr.detectChanges();
+  }
+  public findIndex(id: number, sectionId: number): number {
+    const index = this.post.postSections[
+      sectionId
+    ]?.sectionAttributes.findIndex(
+      (item: any) => item.sectionAttributeId == id
+    );
+    return index;
   }
 }

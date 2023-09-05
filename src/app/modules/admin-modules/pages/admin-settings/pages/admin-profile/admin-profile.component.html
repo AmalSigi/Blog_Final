@@ -94,14 +94,14 @@
         </div>
         <div
           *ngIf="
-            editForm.controls['about'].value != null &&
-            editForm.controls['about'].value != ''
+            editForm.controls['aboutUser'].value != null &&
+            editForm.controls['aboutUser'].value != ''
           "
           class="grid grid-row-2 gap-2"
         >
           <label class="font-medium text-base text-stone-600">About :</label>
           <input
-            formControlName="about"
+            formControlName="aboutUser"
             type="text"
             name=""
             id=""
@@ -176,11 +176,11 @@
           <label class="font-medium text-base text-stone-600">About :</label>
 
           <input
-            formControlName="about"
+            formControlName="aboutUser"
             type="text"
             class="border-2 border-green-500 rounded p-2"
             [ngClass]="{
-                  'border-red-400 ':editForm.controls['about'].errors?.['required']&&editForm.controls['about'].touched
+                  'border-red-400 ':editForm.controls['aboutUser'].errors?.['required']&&editForm.controls['aboutUser'].touched
                 }"
           />
         </div>

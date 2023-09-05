@@ -36,16 +36,42 @@
             {{ post?.category?.categoryName }}
           </p>
 
-          <div 
-          [ngStyle]="{'font-family': post?.postFont}"
-          *ngFor="let postItem of post?.postSections,let i=index" class="w-full">
+          <div
+            [ngStyle]="{ 'font-family': post?.postFont }"
+            *ngFor="let postItem of post?.postSections; let i = index"
+            class="w-full"
+          >
             <ng-container [ngSwitch]="postItem.sectionTypeId">
               <!-- main title -->
               <ng-container *ngSwitchCase="1"
                 ><h1 class="md:text-5xl text-2xl font-extrabold my-4">
                   {{ postItem.content }}
-                </h1></ng-container
-              >
+                </h1>
+                <div class="flex items-center gap-3 mb-2">
+                  <div
+                    (click)="navigateToUserProfile(post?.author?.id)"
+                    class="w-10 h-10 rounded-full overflow-hidden"
+                  >
+                    <img
+                      class="w-full h-full overflow-hidden"
+                      [src]="
+                        'http://192.168.29.97:5296/assets/' +
+                        post.author.profilePicturePath
+                      "
+                      alt=""
+                    />
+                  </div>
+
+                  <span
+                    (click)="navigateToUserProfile(post?.author?.id)"
+                    class="text-sm font-medium text-gray-500 hover:underline"
+                  >
+                    {{ post.author.firstName }}
+                    {{ post.author.lastName }} |
+                    {{ post.createdAt | date : "MMM d, y, h:mm a" }}
+                  </span>
+                </div>
+              </ng-container>
               <!-- sub heading -->
               <ng-container *ngSwitchCase="2"
                 ><h2 class="md:text-3xl text-base font-medium my-5">
@@ -54,20 +80,16 @@
               >
               <!-- paragraph -->
 
-              <ng-container *ngSwitchCase="3"
-                > <div
-                class="para text-justify mb-5 mt-5"
-                [innerHTML]="postItem.content | formatLinks"
-              ></div></ng-container
-              >
+              <ng-container *ngSwitchCase="3">
+                <div
+                  class="para text-justify mb-5 mt-5"
+                  [innerHTML]="postItem.content | formatLinks"
+                ></div
+              ></ng-container>
               <!-- image -->
               <ng-container *ngSwitchCase="4"
                 ><img
-                
-                  [src]="
-                    'http://192.168.29.97:5296/assets/' + postItem.content
-            
-                  "
+                  [src]="'http://192.168.29.97:5296/assets/' + postItem.content"
                   class="aspect-{{
                     postItem?.sectionAttributes[findIndex(6, i)]?.value
                   }} object-{{
@@ -77,7 +99,8 @@
                     getImageStyle(
                       postItem.sectionAttributes[findIndex(1, i)]?.value,
                       postItem.sectionAttributes[findIndex(2, i)]?.value
-                    )"
+                    )
+                  "
               /></ng-container>
               <!-- video -->
 
@@ -89,35 +112,46 @@
                 <div class="border-y-2 py-2">
                   <p class="text-center">AD</p>
 
-                  <a target="_blank" [href]=" postItem.sectionAttributes[findIndex(4, i)]?.value"><img
-                    class="my-5 w-full h-[200px]"
-                    [src]="
-                      'http://192.168.29.97:5296/assets/' + postItem.content
-                    "
+                  <a
+                    target="_blank"
+                    [href]="postItem.sectionAttributes[findIndex(4, i)]?.value"
+                    ><img
+                      class="my-5 w-full h-[200px]"
+                      [src]="
+                        'http://192.168.29.97:5296/assets/' + postItem.content
+                      "
                   /></a></div
               ></ng-container>
               <ng-container *ngSwitchCase="9">
                 <div class="border-y-2 py-2">
                   <p class="text-center">AD</p>
 
-                  <a target="_blank" [href]=" postItem.sectionAttributes[findIndex(4, i)]?.value"><img
-                    class="my-5 w-full h-[200px]"
-                    [src]="
-                      'http://192.168.29.97:5296/assets/' + postItem.content
-                    "
+                  <a
+                    target="_blank"
+                    [href]="postItem.sectionAttributes[findIndex(4, i)]?.value"
+                    ><img
+                      class="my-5 w-full h-[200px]"
+                      [src]="
+                        'http://192.168.29.97:5296/assets/' + postItem.content
+                      "
                   /></a></div
               ></ng-container>
               <ng-container *ngSwitchCase="10">
                 <div class="border-y-2 py-2">
                   <p class="text-center">AD</p>
 
-                  <a target="_blank" [href]=" postItem.sectionAttributes[findIndex(4, i)]?.value"><video
-                    class="my-5"
-                    controls
-                    muted
-                    [src]="'http://192.168.29.97:5296/assets/' + postItem?.content"
-                  ></video
-                ></a></div
+                  <a
+                    target="_blank"
+                    [href]="postItem.sectionAttributes[findIndex(4, i)]?.value"
+                    ><video
+                      class="my-5"
+                      controls
+                      muted
+                      [src]="
+                        'http://192.168.29.97:5296/assets/' + postItem?.content
+                      "
+                    ></video
+                  ></a></div
               ></ng-container>
             </ng-container>
           </div>

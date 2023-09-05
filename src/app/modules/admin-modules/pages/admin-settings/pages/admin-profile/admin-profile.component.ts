@@ -28,17 +28,17 @@ export class AdminProfileComponent implements OnInit {
     last_name: new FormControl('', Validators.required),
     middle_name: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
-    about: new FormControl('', Validators.required),
+    aboutUser: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
     new_password: new FormControl('', Validators.required),
     confirm_password: new FormControl('', Validators.required),
   });
 
   public editedForm = new FormGroup({
-    _FirstName: new FormControl('', Validators.required),
-    _MiddleName: new FormControl('', Validators.required),
-    _LastName: new FormControl('', Validators.required),
-    about: new FormControl('', Validators.required),
+    firstName: new FormControl('', Validators.required),
+    middleName: new FormControl('', Validators.required),
+    lastName: new FormControl('', Validators.required),
+    aboutUser: new FormControl('', Validators.required),
   });
   public passwordForm = new FormGroup({
     currentPassword: new FormControl('', Validators.required),
@@ -55,12 +55,15 @@ export class AdminProfileComponent implements OnInit {
         const id = params['id'];
         this.userService.getUserAccount(id).subscribe({
           next: (result) => {
+            console.log('hi');
             this.populateForm(result);
           },
         });
       } else {
         this.userService.currentUserDetails().subscribe({
           next: (result) => {
+            console.log('bye');
+
             this.populateForm(result);
           },
         });
@@ -73,9 +76,10 @@ export class AdminProfileComponent implements OnInit {
       middle_name: data.middleName,
       last_name: data.lastName,
       email: data.email,
-      about: data.about,
+      aboutUser: data.aboutUser,
     });
     this.profileDetailes = data;
+    console.log(this.profileDetailes);
 
     this.profileDetailes.profilePicturePath = data?.profilePicturePath;
   }
@@ -92,16 +96,17 @@ export class AdminProfileComponent implements OnInit {
 
   public updateUserDetails() {
     this.editedForm.patchValue({
-      _FirstName: this.editForm.controls['first_name'].value,
-      _LastName: this.editForm.controls['last_name'].value,
-      _MiddleName: this.editForm.controls['first_name'].value,
-      about: this.editForm.controls['about'].value,
+      firstName: this.editForm.controls['first_name'].value,
+      lastName: this.editForm.controls['last_name'].value,
+      middleName: this.editForm.controls['middle_name'].value,
+      aboutUser: this.editForm.controls['aboutUser'].value,
     });
     this.userService
       .updateUserDetails(this.profileDetailes.id, this.editedForm.value)
       .subscribe({
         next: (result) => {
           this.toster.success(`Update Profile successfully`);
+          this.getProfile();
         },
         error: (err) => {
           this.toster.error(`Error in updating`);
@@ -119,6 +124,7 @@ export class AdminProfileComponent implements OnInit {
         this.toster.success(`Passsword is Update`);
 
         this.editPassword = !this.editPassword;
+        this.getProfile();
       },
       error: (err) => {
         this.toster.error(`Error is updating password`);
