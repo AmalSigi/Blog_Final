@@ -47,17 +47,7 @@ export class userApi {
   ): Observable<any> {
     return this.http.patch(`${this.url}/${userId}/updateprofilepic`, imgPath);
   }
-  public updateOwnDetails(body: any): Observable<any> {
 
-    return this.http.patch(`${this.url}/updateOwnDetails`, body);
-
-  }
-
-  public updateOwnProfilePic(imgPath: FormData): Observable<any> {
-
-    return this.http.patch(`${this.url}/updateOwnProfilePic`, imgPath);
-
-  }
   public updatePassword(body: any): Observable<any> {
     return this.http.patch(`${this.url}/UpdateOwnPassword`, body);
   }

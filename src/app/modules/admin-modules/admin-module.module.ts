@@ -58,6 +58,16 @@ import { UncategorizedComponent } from './pages/admin-posts/pages/uncategorized/
 import { AdminBlogSettingComponent } from './pages/admin-settings/pages/admin-site-setting/admin-blog-setting/admin-blog-setting.component';
 import { AdminSiteSettingComponent } from './pages/admin-settings/pages/admin-site-setting/root/admin-site-setting.component';
 import { SamplePageComponent } from './pages/admin-themes/component/sample.component';
+import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
+import { ActiveUsersComponent } from './pages/admin-home/component/active-users/active-users.component';
+import { BlockedUsersComponent } from './pages/admin-home/component/blocked-users/blocked-users.component';
+import { DeletedUsersComponent } from './pages/admin-home/component/deleted-users/deleted-users.component';
+import { UsersListComponent } from './pages/admin-home/component/users-list/users-list.component';
+import { AllMessagesComponent } from './pages/admin-messages/page/all-messages/all-messages.component';
+import { ReadMeassageComponent } from './pages/admin-messages/page/read-meassage/read-meassage.component';
+import { UnreadMeassageComponent } from './pages/admin-messages/page/unread-meassage/unread-meassage.component';
+import { AdminMessagesComponent } from './pages/admin-messages/root/admin-messages.component';
+import { AdminSocialMediaSettingComponent } from './pages/admin-settings/pages/admin-site-setting/admin-social-media-setting/admin-social-media-setting.component';
 
 @NgModule({
   declarations: [
@@ -115,22 +125,40 @@ import { SamplePageComponent } from './pages/admin-themes/component/sample.compo
     AdminRoutingModule,
     ReactiveFormsModule,
     SharedModule,
+    EditorModule,
+
+    FormsModule,
     MarkdownModule.forRoot(),
   ],
+
   providers: [
     postsAPi,
+
     commentsApi,
+
     categoryApi,
+
     postData,
+
     tagApi,
+
     authenticationApi,
+
     userApi,
+
     postFilterService,
+
     editorsPickApi,
+
     trackDataService,
+
     loginQuards,
+
     siteSettingApi,
+
     selectTheme,
+
+    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
   ],
 })
 export class AdminModule {}
