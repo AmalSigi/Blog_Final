@@ -29,9 +29,9 @@
       <h2 class="text-3xl font-semibold">Themes</h2>
       <div class="grid grid-cols-3 gap-6">
         <!-- indv themes -->
-        <div *ngFor="let item of themes" class="flex gap-5">
+        <div *ngFor="let item of themes" class="grid">
           <div
-            class="w-[25rem] h-80 transition-all duration-300 p-5 group hover:border-2 hover:shadow-xl"
+            class="w-[25rem] h-80 transition-all duration-300 p-5 group hover:border-2 hover:shadow-xl relative"
           >
             <img
               [src]="'http://192.168.29.97:5296/assets/' + item?.coverPicture"
@@ -41,7 +41,7 @@
             />
             <button
               (click)="openSampleView(item)"
-              class="bg-green-600 rounded-lg transition-all duration-300 text-black p-2 absolute hidden group-hover:block shadow-xl ml-40 -mt-20"
+              class="bg-green-600 rounded-lg transition-all duration-300 text-black p-2 absolute hidden group-hover:block shadow-xl ml-36 -mt-20"
             >
               view
             </button>

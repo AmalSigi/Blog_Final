@@ -89,13 +89,26 @@
             rows="3"
           ></textarea>
         </div>
+        <div class="flex mt-5">
+          <form [formGroup]="aFormGroup">
+            <ngx-recaptcha2
+              #captchaElem
+              [siteKey]="siteKey"
+              (success)="resolved($event)"
+              (expire)="toAccessLogin = false"
+              formControlName="recaptcha"
+            >
+            </ngx-recaptcha2>
+          </form>
+          <button
+            [disabled]="!toAccessLogin"
+            (click)="send()"
+            class="my-5 flex justify-center top-10 text-white md:w-1/6 mx-auto bg-green-500 rounded p-2 disabled:cursor-not-allowed disabled:bg-green-300"
+          >
+            Send
+          </button>
+        </div>
 
-        <button
-          (click)="send()"
-          class="my-5 flex justify-center top-10 text-white md:w-1/6 mx-auto bg-green-500 rounded p-2"
-        >
-          Send
-        </button>
         <p class="text-sm text-yellow-400">* is the requried data</p>
       </form>
     </div>

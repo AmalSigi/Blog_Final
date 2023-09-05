@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ContactUsService } from 'src/app/core/http/contact-us.service';
 import { siteSettingApi } from 'src/app/core/http/site-setting.service';
 import { Country } from 'src/app/core/services/countery.service';
@@ -14,11 +14,17 @@ export class ContactComponent implements OnInit {
   public mail: any;
   public instagram: any;
   public youtube: any;
+  public aFormGroup!: FormGroup;
   constructor(
     private readonly country: Country,
     private readonly contact: ContactUsService,
-    private readonly siteSetting: siteSettingApi
+    private readonly siteSetting: siteSettingApi,
+    private formBuilder: FormBuilder
+
   ) {}
+public siteKey:string='6Lcaev4nAAAAALrz-eoKLCM3WXymccEsaXSdF_go'
+
+  public toAccessLogin:boolean=false;
   public contactForm = new FormGroup({
     message: new FormControl('', Validators.required),
     firstName: new FormControl('', Validators.required),
@@ -31,7 +37,17 @@ export class ContactComponent implements OnInit {
   ngOnInit(): void {
     this.countries = this.country.country;
     this.getSitsetting();
-  }
+   
+      this.aFormGroup = this.formBuilder.group({
+        recaptcha: ['', Validators.required],
+      });
+    
+    }
+    public resolved(event: any) {
+  
+      this.toAccessLogin=true;
+    }
+  
 
   public getSitsetting() {
     this.siteSetting.getSiteSetting().subscribe({
@@ -51,11 +67,13 @@ export class ContactComponent implements OnInit {
   public send() {
     if (this.contactForm.valid) {
       this.contact.postContactMessage(this.contactForm.value).subscribe({
-        next: () => {},
+        next: () => {
+         
+          this.contactForm.reset();
+        },
         error: () => {},
       });
-      console.log(this.contactForm.value);
-      this.contactForm.reset();
+      
     } else {
       alert('Fill necessary Details');
     }
