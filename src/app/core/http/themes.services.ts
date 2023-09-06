@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { siteSettingApi } from './site-setting.service';
+import { environment } from 'src/enviroment/enviroment';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class themeApi {
   ) {
     this.getSettings();
   }
-  public url: string = 'http://192.168.29.97:5296/Theme';
+  public url: string = `${environment.url}/Theme`;
   public getThemes(): Observable<any> {
     return this.http.get(this.url);
   }

@@ -4,7 +4,7 @@ import { categoryApi } from 'src/app/core/http/category.service';
 import { editorsPickApi } from 'src/app/core/http/editorsPick.services';
 import { postsAPi } from 'src/app/core/http/post.service';
 import { PublicService } from 'src/app/core/http/public.service';
-
+import { environment } from 'src/enviroment/enviroment';
 @Component({
   selector: 'app-user-home',
   templateUrl: './user-home.component.html',
@@ -14,13 +14,14 @@ export class UserHomeComponent implements OnInit {
   public editorialPick?: any = [];
   public catgoryDetailes: any = [];
   public temparray: any = [];
-  public randomad: any;
+  public randomAd: any;
 
   constructor(private readonly publicapi: PublicService) {}
   ngOnInit(): void {
     this.getLatestPost();
     this.getCategory();
     this.getEditorsPick();
+    this.getRandom();
   }
 
   public getLatestPost() {
@@ -34,7 +35,8 @@ export class UserHomeComponent implements OnInit {
   public getRandom() {
     this.publicapi.getThemeRandomAdvertisements().subscribe({
       next: (respo: any) => {
-        this.randomad = respo;
+        console.log(respo);
+        this.randomAd = respo;
       },
     });
   }

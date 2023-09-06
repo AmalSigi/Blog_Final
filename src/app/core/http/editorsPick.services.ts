@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/enviroment/enviroment';
 @Injectable({
   providedIn: 'root',
 })
 export class editorsPickApi {
   constructor(private readonly http: HttpClient) {}
-  public url: string = 'http://192.168.29.97:5296/EditorsPick';
+  public url: string = `${environment.url}/api/EditorsPick`;
   public EditorsPick(offfset: number, length: number): Observable<any> {
     return this.http.get(
       `${this.url}/picks?offfset=${offfset}&length=${length}`

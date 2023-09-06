@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/enviroment/enviroment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class userApi {
   constructor(private readonly http: HttpClient) {}
-  public url: string = 'http://192.168.29.97:5296/UserAccount';
+  public url: string = `${environment.url}/UserAccount`;
   public registerUser(body: any): Observable<any> {
     return this.http.post(`${this.url}/registeruser`, body);
   }
