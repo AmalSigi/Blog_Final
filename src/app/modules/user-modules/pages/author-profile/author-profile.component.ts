@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { commentsApi } from 'src/app/core/http/comments.service';
 import { postsAPi } from 'src/app/core/http/post.service';
+import { PublicService } from 'src/app/core/http/public.service';
 
 @Component({
   selector: 'app-author-profile',
@@ -11,9 +12,7 @@ import { postsAPi } from 'src/app/core/http/post.service';
 export class AuthorProfileComponent {
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly http: HttpClient,
-    private readonly commentApi: commentsApi,
-    private readonly post: postsAPi
+    private readonly publicapi: PublicService
   ) {}
   user: any;
   authorId!: number;
@@ -27,7 +26,7 @@ export class AuthorProfileComponent {
     });
   }
   fetchUserDataAndPosts(): void {
-    this.post.getAuthored(this.authorId).subscribe(
+    this.publicapi.getPostByAuthorId(this.authorId).subscribe(
       (data: any) => {
         this.user = data.posts[0].author;
         console.log(this.user);
@@ -56,7 +55,7 @@ export class AuthorProfileComponent {
       let subHeading = element.postSections.filter(
         (item: any) => item.sectionTypeId == 2
       );
-      this.commentApi
+      this.publicapi
         .getCommentsCount(element.id, 'Active')
         .subscribe((commentsCountResponse) => {
           const commentsCount = commentsCountResponse.count;

@@ -10,11 +10,7 @@ export class UserContactComponent {
   public siteKey: string = '6Lcaev4nAAAAALrz-eoKLCM3WXymccEsaXSdF_go';
   public aFormGroup!: FormGroup;
   public toAccessLogin:boolean=false;
-
-  constructor(
-    private readonly http: HttpClient,
-    private formBuilder: FormBuilder
-  ) {
+  constructor(private readonly http: HttpClient, private formBuilder: FormBuilder) {
     this.sendMessageForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -24,6 +20,8 @@ export class UserContactComponent {
       message: ['', Validators.required],
     });
   }
+
+
 
   ngOnInit() {
     this.fetchCountryData();
@@ -37,12 +35,15 @@ export class UserContactComponent {
       this.toAccessLogin=true;
     }
 
+
+
+
   countries: any[] = [];
   selectedCountry: any;
   phoneNumber: string = '';
   sendMessageForm!: FormGroup;
 
-  fetchCountryData() {
+  public fetchCountryData() {
     this.http.get('https://restcountries.com/v3.1/all').subscribe(
       (data: any) => {
         // console.log(data)
@@ -53,7 +54,7 @@ export class UserContactComponent {
       }
     );
   }
-  sendMessage() {
+  public sendMessage() {
     if (this.sendMessageForm.valid) {
       const apiUrl = 'http://192.168.29.97:5296/ContactUs/newMessage';
       const requestBody = this.sendMessageForm.value;
@@ -71,7 +72,7 @@ export class UserContactComponent {
     }
   }
 
-  onCountrySelect(event: any): void {
+  public onCountrySelect(event: any): void {
     const selectedIndex = event.target.selectedIndex;
     this.selectedCountry = this.countries[selectedIndex];
 

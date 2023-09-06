@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { siteSettingApi } from './site-setting.service';
+import { environment } from 'src/enviroment/enviroment';
 
 @Injectable({
   providedIn: 'root',
@@ -13,19 +14,22 @@ export class themeApi {
   ) {
     this.getSettings();
   }
-  public url: string = 'http://192.168.29.97:5296/api/Theme';
+  public url: string = `${environment.url}/Theme`;
   public getThemes(): Observable<any> {
     return this.http.get(this.url);
   }
   public getThemeById(Id: number): Observable<any> {
     return this.http.get(`${this.url}/${Id}`);
   }
+  public getThemeByIdForPublic(Id: number): Observable<any> {
+    return this.http.get(`${environment.url}/public/Theme/${Id}`);
+  }
   public updateTheme(Id: number, body: any): Observable<any> {
     return this.http.patch(`${this.url}/${Id}/update`, body);
   }
 
   public getSettings() {
-    this.siteSettings.getSiteSetting().subscribe({
+    this.siteSettings.getSiteSettingForPublic().subscribe({
       next: (res) => {
         const theme: any = res;
         const currentTheme = theme.find(

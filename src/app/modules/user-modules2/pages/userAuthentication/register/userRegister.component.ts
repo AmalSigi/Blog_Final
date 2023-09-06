@@ -8,6 +8,7 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { PublicService } from 'src/app/core/http/public.service';
 import { userApi } from 'src/app/core/http/userAccount.service';
 
 @Component({
@@ -18,7 +19,10 @@ export class UserRegisterComponent {
   @Output() close = new EventEmitter();
   @Output() onChange: EventEmitter<any> = new EventEmitter();
 
-  constructor(private readonly userService: userApi) {}
+  constructor(
+    private readonly userService: userApi,
+    private readonly publicapi: PublicService
+  ) {}
 
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
@@ -59,7 +63,7 @@ export class UserRegisterComponent {
       console.log('error');
       return;
     }
-    this.userService.userSignUpForBlog(this.registrationForm.value).subscribe({
+    this.publicapi.postUserSignUp(this.registrationForm.value).subscribe({
       next: () => {
         this.registrationForm.reset();
         this.close.emit();

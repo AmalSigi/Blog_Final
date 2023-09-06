@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { categoryApi } from 'src/app/core/http/category.service';
 import { commentsApi } from 'src/app/core/http/comments.service';
 import { postsAPi } from 'src/app/core/http/post.service';
+import { PublicService } from 'src/app/core/http/public.service';
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 
 @Component({
@@ -12,12 +13,10 @@ import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 })
 export class UserCategoryComponent {
   constructor(
-    private readonly postApi: postsAPi,
     private readonly route: ActivatedRoute,
     private readonly trackDataService: trackDataService,
-    private readonly categoryApi: categoryApi,
-    private commentApi: commentsApi,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly publicapi: PublicService
   ) {}
   public latestPost: any = [];
   public latest: any = [];
@@ -54,7 +53,7 @@ export class UserCategoryComponent {
   }
 
   public getCategoryDetailesById(categoryId: number) {
-    this.categoryApi.getCategoryById(categoryId).subscribe((respo: any) => {
+    this.publicapi.getCategoryById(categoryId).subscribe((respo: any) => {
       console.log(respo);
       this.categoryName = respo.categoryName;
       this.categoryCoverPic = respo.coverPicturePath;
@@ -62,7 +61,7 @@ export class UserCategoryComponent {
   }
 
   public getPostByCategory(categoryId: number) {
-    this.postApi.getPostByCategory(categoryId).subscribe((respo) => {
+    this.publicapi.getPostByCategoryId(categoryId).subscribe((respo) => {
       console.log(respo);
       for (const post of respo) {
         let heading = post.postSections.filter(
@@ -75,7 +74,7 @@ export class UserCategoryComponent {
         let subHeading = post.postSections.filter(
           (item: any) => item.sectionTypeId == 2
         );
-        this.commentApi
+        this.publicapi
           .getCommentsCount(post.id, 'Active')
           .subscribe((commentsCountResponse) => {
             const commentsCount = commentsCountResponse.count;
@@ -100,7 +99,7 @@ export class UserCategoryComponent {
   }
   public getLatestPost() {
     const length = 4;
-    this.postApi.getLatestPosts(length).subscribe((respo) => {
+    this.publicapi.getLatestPosts(length).subscribe((respo) => {
       console.log(respo);
       const categoryName = respo.category?.categoryName;
       this.latestPost = this.postToArray(respo);
@@ -110,7 +109,7 @@ export class UserCategoryComponent {
   }
   public getLatestPostByViewCount() {
     const length = 5;
-    this.postApi.getLatestPosts(length).subscribe((respo) => {
+    this.publicapi.getLatestPosts(length).subscribe((respo) => {
       console.log(respo);
       const categoryName = respo.category?.categoryName;
       this.latest = this.postToArray(respo);
@@ -153,7 +152,7 @@ export class UserCategoryComponent {
     return temp;
   }
   public postCall(postId: any) {
-    return this.postApi.getBlogPostById(postId);
+    return this.publicapi.getPostByPostId(postId);
   }
   getImageUrl(imgPath: string): string {
     return 'http://192.168.29.97:5296/assets/' + imgPath;

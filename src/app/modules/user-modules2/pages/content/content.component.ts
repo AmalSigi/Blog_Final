@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 import { authenticationApi } from 'src/app/core/http/authentication.service';
 import { commentsApi } from 'src/app/core/http/comments.service';
 import { postsAPi } from 'src/app/core/http/post.service';
+import { PublicService } from 'src/app/core/http/public.service';
 import { siteSettingApi } from 'src/app/core/http/site-setting.service';
 import { checkLoginService } from 'src/app/core/services/checkUserStatus.service';
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
@@ -21,17 +22,13 @@ import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 })
 export class UserContentComponent {
   constructor(
-    private readonly postApi: postsAPi,
-    private readonly commentsApi: commentsApi,
     private fb: FormBuilder,
     private readonly route: ActivatedRoute,
     private readonly loginStatusService: checkLoginService,
     private readonly trackDataService: trackDataService,
-    private readonly sitesetting: siteSettingApi,
     private readonly authApi: authenticationApi,
-    private readonly subject: trackDataService,
-    private cdr: ChangeDetectorRef,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly publicapi: PublicService
   ) {}
 
   public post: any;
@@ -56,9 +53,11 @@ export class UserContentComponent {
   public openLogin: boolean = false;
   public userSignup: boolean = false;
   public userReg: boolean = false;
-  public reload: Subscription = this.subject.getClickEvent1().subscribe(() => {
-    this.getContent();
-  });
+  public reload: Subscription = this.trackDataService
+    .getClickEvent1()
+    .subscribe(() => {
+      this.getContent();
+    });
   public replies: boolean = false;
   public reply() {
     this.replies = !this.replies;
@@ -97,7 +96,7 @@ export class UserContentComponent {
   }
   public getLatestPost() {
     const length = 4;
-    this.postApi.getLatestPosts(length).subscribe((respo) => {
+    this.publicapi.getLatestPosts(length).subscribe((respo) => {
       console.log(respo);
       const categoryName = respo.category?.categoryName;
       this.latestPost = this.postToArray(respo);
@@ -107,7 +106,7 @@ export class UserContentComponent {
   }
   public getLatestPostByViewCount() {
     const length = 5;
-    this.postApi.getLatestPosts(length).subscribe((respo) => {
+    this.publicapi.getLatestPosts(length).subscribe((respo) => {
       console.log(respo);
       const categoryName = respo.category?.categoryName;
       this.latest = this.postToArray(respo);
@@ -186,7 +185,7 @@ export class UserContentComponent {
   // // Post
 
   public postCall(postId: any) {
-    return this.postApi.getBlogPostById(postId);
+    return this.publicapi.getPostByPostId(postId);
   }
 
   public getMainPost(postId: number) {
@@ -249,7 +248,7 @@ export class UserContentComponent {
   }
   public reportComment(commentId: number) {
     if (this.loginStatus) {
-      this.commentsApi.reportComment(commentId).subscribe(
+      this.publicapi.reportComment(commentId).subscribe(
         (data) => {
           console.log('hi');
           alert('Reported succeesfully');
@@ -268,14 +267,14 @@ export class UserContentComponent {
   // // comments
 
   public commentEnable() {
-    this.sitesetting.getSiteSetting().subscribe((respo: any) => {
+    this.publicapi.getSiteSetting().subscribe((respo: any) => {
       let commentStatus = respo.find((item: any) => item.id == 4);
       this.commentStatus = JSON.parse(commentStatus.settingValue);
     });
   }
 
   public getComments(postId: number) {
-    this.commentsApi.getAllCommentsForBolg(postId).subscribe((respo: any) => {
+    this.publicapi.getAllCommentByPostId(postId).subscribe((respo: any) => {
       this.comments = this.getParentsWithChildComments(respo.comments);
       console.log(this.comments);
     });
@@ -316,7 +315,7 @@ export class UserContentComponent {
     if (this.loginStatus) {
       // // logged user send function
       this.commentForm.controls['parentId'].setValue(this.parentId);
-      this.commentsApi
+      this.publicapi
         .postComment(this.post.id, this.commentForm.value)
         .subscribe((_repo) => {
           this.commentForm.reset();
@@ -326,8 +325,8 @@ export class UserContentComponent {
       // // guest user send function
       this.guestCommentForm.controls['parentId'].setValue(this.parentId);
 
-      this.commentsApi
-        .postGuestUserComment(this.post.id, this.guestCommentForm.value)
+      this.publicapi
+        .postGuestComment(this.post.id, this.guestCommentForm.value)
         .subscribe((repo) => {
           this.guestCommentForm.reset();
           this.getComments(this.postId);
@@ -358,7 +357,7 @@ export class UserContentComponent {
     }
   }
   public parentIdFinder(parentId: any, comment: any) {
-    this.commentsApi.getSingleComment(parentId).subscribe((repo: any) => {
+    this.publicapi.getCommentByCommentId(parentId).subscribe((repo: any) => {
       comment.parentAuthor = repo.author.firstName;
 
       this.replayCommentData.push(comment);
@@ -367,16 +366,18 @@ export class UserContentComponent {
   }
   // // Recommended
   public getRecommendedPost(postId: number) {
-    this.postApi.getRecommendedPost(9, postId).subscribe((respo) => {
-      console.log(respo);
-      for (const post of respo) {
-        this.getFilteredPostForRecommend(post);
-      }
-    });
+    this.publicapi
+      .getPostSuggestionByPostIdCount(9, postId)
+      .subscribe((respo) => {
+        console.log(respo);
+        for (const post of respo) {
+          this.getFilteredPostForRecommend(post);
+        }
+      });
   }
 
   public getMoreArticles(subcategoryId: number) {
-    this.postApi
+    this.publicapi
       .getPostBySubategoryByLength(subcategoryId, 4)
       .subscribe((respo: any) => {
         respo = respo.filter((item: any) => item.id != this.post.id);

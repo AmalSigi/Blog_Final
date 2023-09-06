@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/enviroment/enviroment';
 @Injectable({
   providedIn: 'root',
 })
 export class postsAPi {
   constructor(private readonly http: HttpClient) {}
-  public url: string = 'http://192.168.29.97:5296/api/Post';
+  public url: string = `${environment.url}/Post`;
 
   // admin side
   public getPosts(): Observable<any> {

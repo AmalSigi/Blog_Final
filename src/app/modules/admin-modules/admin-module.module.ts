@@ -68,9 +68,21 @@ import { ReadMeassageComponent } from './pages/admin-messages/page/read-meassage
 import { UnreadMeassageComponent } from './pages/admin-messages/page/unread-meassage/unread-meassage.component';
 import { AdminMessagesComponent } from './pages/admin-messages/root/admin-messages.component';
 import { AdminSocialMediaSettingComponent } from './pages/admin-settings/pages/admin-site-setting/admin-social-media-setting/admin-social-media-setting.component';
+import { AdvertisementsComponent } from './pages/admin-advertisement/Advertisements/advertisements.component';
+import { DynamicAdComponent } from './pages/admin-advertisement/Advertisements/pages/dynamic-ads/dynamicAd.component';
+import { AdminAdvertisementComponent } from './pages/admin-advertisement/Advertisements/pages/admin-adverisement/admin-adverisement';
+import { ChildContentComponent } from './pages/admin-advertisement/Advertisements/pages/admin-adverisement/chidContent.component/childcontent.component';
+import { AdverisementHomeComponent } from './pages/admin-advertisement/Advertisements/pages/admin-adverisement/child-advertisement/childAdverisementHome.component';
+import { ChildCategoryAdComponent } from './pages/admin-advertisement/Advertisements/pages/admin-adverisement/childCategoryAd/childcategory.component';
+import { ChildSubCategoryAdComponent } from './pages/admin-advertisement/Advertisements/pages/admin-adverisement/childSubCategoryAd/childsubcategoryad.component';
 
 @NgModule({
   declarations: [
+    ChildSubCategoryAdComponent,
+    ChildCategoryAdComponent,
+    AdverisementHomeComponent,
+    ChildContentComponent,
+    AdminAdvertisementComponent,
     ClickOutsideDirective,
     NavbarComponent,
     AdminHomeComponent,
@@ -119,6 +131,8 @@ import { AdminSocialMediaSettingComponent } from './pages/admin-settings/pages/a
     DeletedUsersComponent,
     ActiveUsersComponent,
     UsersListComponent,
+    AdvertisementsComponent,
+    DynamicAdComponent
   ],
   imports: [
     CommonModule,

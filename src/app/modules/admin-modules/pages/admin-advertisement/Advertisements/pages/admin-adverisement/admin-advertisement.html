@@ -1,0 +1,84 @@
+<section class="px-4 py-4 container">
+  <div>
+    <h1 class="text-3xl font-semibold">Current Theme</h1>
+  </div>
+  <div class="w-full h-96 bg-gray-700 flex mt-4 pb-3 border-b-2">
+    <div class="w-[80%] h-full overflow-hidden">
+      <img
+        [src]="'http://192.168.29.97:5296/assets/' + theme?.coverPicture"
+        class="w-full h-full object-cover"
+      />
+    </div>
+    <div class="w-[20%]">
+      <h1 class="text-4xl font-semibold text-center text-white px-4 py-4">
+        {{theme?.name}}
+      </h1>
+      <p class="text-lg text-start text-white font-serif mt-3 px-2">
+        Here you can view the {{theme?.name}} and add adverisement for each
+        pages
+      </p>
+    </div>
+  </div>
+
+  <h1 class="text-3xl font-semibold mt-8">Pages</h1>
+  <div class="grid grid-cols-2 gap-3">
+    <div
+      class="w-[400px] h-[400px] mt-5 border-2 rounded-lg p-2"
+      routerLink="/admin/homeAdv"
+    >
+      <div class="bg-gray-200 overflow-hidden w-full h-[80%]">
+        <img
+          [src]="'http://192.168.29.97:5296/assets/' + theme?.themeLayouts[0]?.imagePath"
+          class="w-full h-full object-cover"
+        />
+      </div>
+      <p class="text-center text-xl pt-3">
+        {{theme?.themeLayouts[0]?.pageName}} Page
+      </p>
+    </div>
+    <div
+      class="w-[400px] h-[400px] mt-5 border-2 rounded-lg p-2"
+      routerLink="/admin/contentAd"
+    >
+      <div class="bg-gray-200 overflow-hidden w-full h-[80%]">
+        <img
+          [src]="'http://192.168.29.97:5296/assets/' + theme?.themeLayouts[1]?.imagePath"
+          class="w-full h-full object-cover"
+        />
+      </div>
+      <p class="text-center text-xl pt-3">
+        {{theme?.themeLayouts[1]?.pageName}} Page
+      </p>
+    </div>
+  </div>
+  <div class="grid grid-cols-2 gap-3">
+    <div
+      class="w-[400px] h-[400px] mt-5 border-2 rounded-lg p-2"
+      routerLink="/admin/categoryAd"
+    >
+      <div class="bg-gray-200 overflow-hidden w-full h-[80%]">
+        <img
+          [src]="'http://192.168.29.97:5296/assets/' + theme?.themeLayouts[2]?.imagePath"
+          class="w-full h-full object-cover"
+        />
+      </div>
+      <p class="text-center text-xl pt-3">
+        {{theme?.themeLayouts[2]?.pageName}} Page
+      </p>
+    </div>
+    <div
+      class="w-[400px] h-[400px] mt-5 border-2 rounded-lg p-2"
+      routerLink="/admin/subcatAd"
+    >
+      <div class="bg-gray-200 overflow-hidden w-full h-[80%]">
+        <img
+          [src]="'http://192.168.29.97:5296/assets/' + theme?.themeLayouts[3]?.imagePath"
+          class="w-full h-full object-cover"
+        />
+      </div>
+      <p class="text-center text-xl pt-3">
+        {{theme?.themeLayouts[3]?.pageName}} Page
+      </p>
+    </div>
+  </div>
+</section>

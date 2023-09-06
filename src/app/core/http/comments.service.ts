@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/enviroment/enviroment';
 @Injectable({
   providedIn: 'root',
 })
 export class commentsApi {
   constructor(private readonly http: HttpClient) {}
-  public url: string = 'http://192.168.29.97:5296/api/Comment';
+  public url: string = `${environment.url}/Comment`;
 
   public getSingleComment(commentId: number): Observable<any> {
     return this.http.get(`${this.url}/${commentId}`);

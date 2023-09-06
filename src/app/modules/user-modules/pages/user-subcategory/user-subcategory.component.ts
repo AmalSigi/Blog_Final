@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { categoryApi } from 'src/app/core/http/category.service';
 import { postsAPi } from 'src/app/core/http/post.service';
+import { PublicService } from 'src/app/core/http/public.service';
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 
 @Component({
@@ -11,10 +12,9 @@ import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 })
 export class UserSubcategoryComponent implements OnInit {
   constructor(
-    private readonly postApi: postsAPi,
     private readonly route: ActivatedRoute,
     private readonly trackDataService: trackDataService,
-    private readonly categoryApi: categoryApi
+    private readonly publicapi: PublicService
   ) {}
 
   public subcategoryPost: any = [];
@@ -42,8 +42,8 @@ export class UserSubcategoryComponent implements OnInit {
   }
 
   public getSubCategoryById(subcategoryId: any) {
-    this.categoryApi
-      .getSubcategoryById(subcategoryId)
+    this.publicapi
+      .getSubCategoryBySubCategoryId(subcategoryId)
       .subscribe((respo: any) => {
         console.log(respo);
         this.categoryName = respo.category.categoryName;
@@ -53,7 +53,7 @@ export class UserSubcategoryComponent implements OnInit {
   }
 
   public getSubCategory(subcategoryId: number) {
-    this.postApi.getPostBySubCategory(subcategoryId).subscribe((respo) => {
+    this.publicapi.getPostBySubCategoryId(subcategoryId).subscribe((respo) => {
       for (const post of respo) {
         let heading = post.postSections.filter(
           (item: any) => item.sectionTypeId == 1
@@ -77,6 +77,6 @@ export class UserSubcategoryComponent implements OnInit {
     });
   }
   public postCall(postId: any) {
-    return this.postApi.getBlogPostById(postId);
+    return this.publicapi.getPostByPostId(postId);
   }
 }

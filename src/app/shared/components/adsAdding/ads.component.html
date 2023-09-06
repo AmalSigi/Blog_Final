@@ -1,0 +1,325 @@
+<section class="w-full container bg-gray-200/90 mx-auto fixed top-0 bottom-0 left-0 right-0 h-screen md:p-5 z-50 flex gap-2 overflow-y-scroll">
+    <div class="w-[70%] h-screen mx-auto bg-white px-4 py-4">
+<div class="flex justify-between">
+    <h1 class="text-3xl font-semibold">Post Your Advertisement</h1>
+    <button class="text-black "  (click)="unshowBox()">
+        <i class="fa-solid fa-xmark fa-2x"></i>
+      </button>
+</div>
+
+<div class="mt-4">
+    <h3 class="text-xl font-semibold text-blue-600">Manage the advertisements for zone #{{ selectedZone }}</h3>
+</div>
+
+
+  <div class="   rounded-md">
+
+
+<div class="flex p-4 gap-2 items-center h-[700px]   mt-6" *ngIf="divImg">
+  <div class="bg-white rounded-lg shadow-xl w-[70em] mx-auto h-[700px]  my-auto mt-[2%]">
+    <div class=" px-5 py-3 border-b-[1px]">
+      <div class="flex justify-between">
+        <h1 class="font-bold text-xl font">Upload Image Add</h1>
+        <button class="text-black float-right"  (click)="divIm()">
+          <i class="fa-solid fa-xmark fa-2x"></i>
+        </button>
+      </div>
+    
+    </div>
+    <div class="pt-4 pl-4 flex justify-between">
+    <button  (click)="selectFromComputer()" class="border-2 w-80 h-10 px-2 py-2 text-white bg-blue-400">
+    Select From Computer
+    </button>
+    <button    (click)="mediaImg()" class="border-2 w-80 h-10 px-2 py-2 text-white bg-blue-400">
+      Select From Media
+      </button>
+  </div>
+    <div class="grid grid-rows-2 gap-2 p-20 px-[15em] w-full" *ngIf="picUpload">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="120"
+        height="120"
+        viewBox="0 0 24 24"
+        class="ml-7"
+      >
+        <path
+          d="M18 10v13h-18v-13h18zm-13 2h-3v2h3v-2zm11 5c0-2.209-1.791-4-4-4s-4 1.791-4 4 1.791 4 4 4 4-1.791 4-4zm-4-2c-1.104 0-2 .897-2 2s.896 2 2 2 2-.897 2-2-.896-2-2-2zm-5.314-7l1.615-4.437 13.154 4.789-1.455 4v5.848l4-11.042-16.895-6.158-2.548 7h2.129z"
+        />
+      </svg>
+
+      <div class="">
+        <label
+          class="bg-blue-500 p-2 w-full text-center rounded font-semibold text-white text-sm"
+        >
+          <span> select from computer</span>
+
+          <input
+            type="file"
+            id="file"
+            hidden="true"
+            (change)="fileImport($event)"
+          />
+        </label>
+      </div>
+    </div>
+
+    <div
+      *ngIf="!picUpload "
+      class="grid grid-row-2 gap-4 pb-7 mt-10 mx-auto w-72"
+    >
+    <div class="w-[500px] h-[300px] overflow-hidden">
+    
+      <img  [src]="selectedPic"   class="w-full h-full object-cover" alt=""/>
+    </div>
+      <div class="flex justify-center ">
+        <button
+        *ngIf="selectedPic"
+          (click)="uploadImg()"
+          class="bg-blue-500 px-3 py-2 mx-5 rounded text-center w-80 h-10  hover:bg-blue-600 text-white"
+        >
+          Upload
+        </button>
+      </div>
+    </div>
+
+    <div
+    *ngIf="extPic  "
+    
+    class="grid grid-row-2 gap-4 pb-7  mx-auto -my-80  w-72"
+  >
+  <div class="w-[500px] h-[300px] overflow-hidden">
+    <img [src]="'http://192.168.29.97:5296/assets/' + selectedImage.mediaPath"   class="w-full h-full object-cover" alt=""/>
+
+  </div>
+
+    <button
+      (click)=" uploadExistingImg()"
+      class="bg-blue-500 px-3 py-2 mx-5 rounded hover:bg-blue-600 text-white"
+    >
+      Upload
+    </button>
+  </div>
+  </div>
+</div>
+<!-- video -->
+<div class="flex p-4 gap-2 items-center h-[700px]   mt-6" *ngIf="divVid">
+  <div class="bg-white rounded-lg shadow-xl w-[70em] mx-auto h-[700px]  my-auto mt-[2%]">
+    <div class=" px-5 py-3 border-b-[1px]">
+      <div class="flex  justify-between">
+        <h1 class="font-bold text-xl font">Upload Video Add</h1>
+        <button class="text-black float-right"  (click)="divVi()">
+          <i class="fa-solid fa-xmark fa-2x"></i>
+        </button>
+      </div>
+    
+    </div>
+    <div class="pt-4 pl-4 flex justify-between">
+    <button  (click)="selectVideoFromComputer()" class="border-2 w-80 h-10 px-2 py-2 text-white bg-blue-400">
+    Select From Computer
+    </button>
+    <button    (click)="mediaVid()" class="border-2 w-80 h-10 px-2 py-2 text-white bg-blue-400">
+      Select From Media
+      </button>
+  </div>
+    <div class="grid grid-rows-2 gap-2 p-20 px-[15em] w-full" *ngIf="vidUpload && !selectedVid">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="120"
+        height="120"
+        viewBox="0 0 24 24"
+        class="ml-7"
+      >
+        <path
+          d="M18 10v13h-18v-13h18zm-13 2h-3v2h3v-2zm11 5c0-2.209-1.791-4-4-4s-4 1.791-4 4 1.791 4 4 4 4-1.791 4-4zm-4-2c-1.104 0-2 .897-2 2s.896 2 2 2 2-.897 2-2-.896-2-2-2zm-5.314-7l1.615-4.437 13.154 4.789-1.455 4v5.848l4-11.042-16.895-6.158-2.548 7h2.129z"
+        />
+      </svg>
+
+      <div class="">
+        <label
+          class="bg-blue-500 p-2 w-full text-center rounded font-semibold text-white text-sm"
+        >
+          <span> select from computer</span>
+
+          <input
+            type="file"
+            id="file"
+            hidden="true"
+            (change)="fileVideoImport($event)"
+          />
+        </label>
+      </div>
+    </div>
+
+    <div
+      *ngIf="vidUpload "
+      class="grid grid-row-2 gap-4 pb-7 mt-10 mx-auto w-72"
+    >
+    <div class="w-[500px] h-[300px] overflow-hidden mt-3">
+    
+      <video  [src]="selectedVid"   class="w-full h-full object-cover" alt="" controls ></video>
+    </div>
+      <div class="flex justify-center ">
+        <button
+        *ngIf="selectedVid"
+          (click)="uploadVid()"
+          class="bg-blue-500 px-3 py-2 mx-5 rounded text-center w-80 h-10  hover:bg-blue-600 text-white"
+        >
+          Upload
+        </button>
+      </div>
+    </div>
+
+    <div
+    *ngIf="extVid  "
+    
+    class="grid grid-row-2 gap-4 pb-7  mx-auto   w-72 mt-5"
+  >
+  <div class="w-[500px] h-[300px] overflow-hidden">
+    <video [src]="'http://192.168.29.97:5296/assets/' + selectedExtVid.mediaPath"   class="w-full h-full object-cover" alt="" controls></video>
+
+  </div>
+
+    <button
+      (click)=" uploadExistingVid()"
+      class="bg-blue-500 px-3 py-2 mx-5 rounded hover:bg-blue-600 text-white"
+    >
+      Upload
+    </button>
+  </div>
+  </div>
+</div>
+
+<!-- ExternalLinks -->
+
+<div class="flex p-4 gap-2 items-center h-[700px]   mt-6" *ngIf="divExt">
+  <div class="bg-white rounded-lg shadow-xl w-[70em] mx-auto h-[700px]  my-auto mt-[2%]">
+    <div class=" px-5 py-3 border-b-[1px]">
+      <div class="flex  justify-between">
+        <h1 class="font-bold text-xl font">Upload External Link</h1>
+        <button class="text-black float-right"  (click)="divEx()">
+          <i class="fa-solid fa-xmark fa-2x"></i>
+        </button>
+      </div>
+    
+    </div>
+    <div class="pt-4 pl-4 flex justify-between">
+    <button  (click)="typeExternalLink()" class="border-2 w-80 h-10 px-2 py-2 text-white bg-blue-400">
+    Type New Link
+    </button>
+    <button    (click)="mediaEx()" class="border-2 w-80 h-10 px-2 py-2 text-white bg-blue-400">
+      Select From Media
+      </button>
+  </div>
+    <div class="grid grid-rows-2 gap-2 p-20 px-[15em] w-full" *ngIf="linkUpload ">
+     
+<textarea [(ngModel)]="path" class="w-[500px] h-[100px] rounded-lg border-2 px-2 py-2 border-black text-black text-lg font-semibold" placeholder="http:///www.google.com/wewf">
+
+</textarea>
+<div class="flex justify-center ">
+  <button
+(click)="uploadLink()"
+    class="bg-blue-500 px-3 py-2 mx-5 rounded text-center w-80 h-10  hover:bg-blue-600 text-white"
+  >
+    Upload
+  </button>
+</div>
+    </div>
+
+ 
+
+    <div class="grid grid-rows-2 gap-2 p-20 px-[15em] w-full" *ngIf="extLink">
+     
+      <textarea class="w-[500px] h-[100px] rounded-lg border-2 px-2 py-2 border-black text-black text-lg font-semibold" placeholder="http:///www.google.com/wewf">
+      {{selectedExtLink?.mediaPath}}
+      </textarea>
+      <div class="flex justify-center ">
+        <button
+      (click)="uploadExistingLink()"
+          class="bg-blue-500 px-3 py-2 mx-5 rounded text-center w-80 h-10  hover:bg-blue-600 text-white"
+        >
+          Upload
+        </button>
+      </div>
+          </div>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="p-2 border-b-2 mt-11">
+  <div class="p-3 grid grid-cols-2 gap-2">
+    <div class="flex items-center p-2 w-[300px] rounded-lg border-2 border-black" (click)="divIm()">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="h-6 w-6 mr-2 bg-gray-400"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M448 80c8.8 0 16 7.2 16 16V415.8l-5-6.5-136-176c-4.5-5.9-11.6-9.3-19-9.3s-14.4 3.4-19 9.3L202 340.7l-30.5-42.7C167 291.7 159.8 288 152 288s-15 3.7-19.5 10.1l-80 112L48 416.3l0-.3V96c0-8.8 7.2-16 16-16H448zM64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm80 192a48 48 0 1 0 0-96 48 48 0 1 0 0 96z"/></svg>
+      <p class="text-md font-bold">Photo</p>
+    </div>
+    <div class="flex items-center p-2 w-[300px] rounded-lg border-2 border-black" (click)="divVi()">
+      <span><i class="fa-solid fa-video fa-1.5"></i></span>
+      <p class="text-md font-bold ml-3" >Video</p>
+    </div>
+
+  </div>
+  <div class="p-3 grid grid-cols-2 gap-2">
+    <div class="flex items-center p-2 w-[300px] rounded-lg border-2 border-black" (click)="uploadDynamic()">
+        <i class="fa-brands fa-artstation"></i>
+      <p class="text-md font-bold ml-3">Dynamic Ads</p>
+    </div>
+    <div class="flex items-center p-2 w-[300px] rounded-lg border-2 border-black" (click)="divEx()">
+       <span><i class="fa-solid fa-arrow-up-right-from-square "></i></span> 
+      <p class="text-md font-bold ml-3">External Links</p>
+    </div>
+
+  </div>
+  <div class="p-3 grid grid-cols-2 gap-2">
+    <div class="flex items-center p-2 w-[300px] rounded-lg border-2 border-black" (click)="disableAd()">
+      <i class="fa-regular fa-bell-slash"></i>
+      <p class="text-md font-bold ml-3">Disable Ads</p>
+    </div>
+   
+
+  </div>
+
+</div>
+
+    </div>
+
+
+
+
+    </div>
+    <div class="w-[30%] h-screen   overflow-y-scroll" *ngIf="mediaImges && !mediaVideo && !mediaExternal" >
+      <div class="bg-white px-2 py-2 flex justify-between">
+        <h1 class="font-semibold  text-xl">From Our Media Images</h1>
+        <button class="text-black "  (click)="mediaImg()">
+          <i class="fa-solid fa-xmark fa-2x"></i>
+        </button>
+      </div>
+ <div class="w-full h-56 overflow-hidden mt-2" *ngFor="let item of Image">
+  <img [src]="'http://192.168.29.97:5296/assets/' + item?.mediaPath" class="w-full h-full object-cover" (click)="selectImageForUpload(item)">
+ </div>
+    </div>
+    <div class="w-[30%] h-screen   overflow-y-scroll" *ngIf="mediaVideo && !mediaImges && !mediaExternal" >
+      <div class="bg-white px-2 py-2 flex justify-between">
+        <h1 class="font-semibold  text-xl">From Our Media Videos</h1>
+        <button class="text-black "  (click)="mediaVid()">
+          <i class="fa-solid fa-xmark fa-2x"></i>
+        </button>
+      </div>
+ <div class="w-full h-56 overflow-hidden mt-2" *ngFor="let item of Video">
+  <video [src]="'http://192.168.29.97:5296/assets/' + item?.mediaPath" class="w-full h-full object-cover"  (click)=" selectVideoForUpload(item)" ></video>
+ </div>
+    </div>
+    <div class="w-[30%] h-screen   overflow-y-scroll" *ngIf="mediaExternal && !mediaVideo && !mediaImges" >
+      <div class="bg-white px-2 py-2 flex justify-between">
+        <h1 class="font-semibold  text-xl">From Our Media ExternalLink</h1>
+        <button class="text-black "  (click)="mediaEx()">
+          <i class="fa-solid fa-xmark fa-2x"></i>
+        </button>
+      </div>
+ <div class="w-full border-b-2 pb-3 px-2 py-2 border-black  overflow-hidden mt-2" *ngFor="let item of External">
+  <li class="text-blue-500 text-lg font-semibold" (click)="selectExternalForUpload(item)">{{item?.mediaPath}}</li>
+ </div>
+    </div>
+</section>

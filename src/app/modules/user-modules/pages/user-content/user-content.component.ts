@@ -14,6 +14,7 @@ import { checkLoginService } from 'src/app/core/services/checkUserStatus.service
 import { siteSettingApi } from 'src/app/core/http/site-setting.service';
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 import { authenticationApi } from 'src/app/core/http/authentication.service';
+import { PublicService } from 'src/app/core/http/public.service';
 
 @Component({
   selector: 'app-user-content',
@@ -22,16 +23,13 @@ import { authenticationApi } from 'src/app/core/http/authentication.service';
 export class UserContentComponent implements OnInit {
   @Output() onChange: EventEmitter<any> = new EventEmitter();
   constructor(
-    private readonly postApi: postsAPi,
-    private readonly commentsApi: commentsApi,
     private fb: FormBuilder,
     private readonly route: ActivatedRoute,
     private readonly loginStatusService: checkLoginService,
     private readonly trackDataService: trackDataService,
-    private readonly sitesetting: siteSettingApi,
     private readonly authApi: authenticationApi,
-    private readonly subject: trackDataService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly publicapi: PublicService
   ) {}
   public post: any;
   public openLogin: boolean = false;
@@ -54,9 +52,11 @@ export class UserContentComponent implements OnInit {
   public parentCommentAuthor: string = 'comments';
   public totalCount = 0;
   public postId!: number;
-  public reload: Subscription = this.subject.getClickEvent1().subscribe(() => {
-    this.getContent();
-  });
+  public reload: Subscription = this.trackDataService
+    .getClickEvent1()
+    .subscribe(() => {
+      this.getContent();
+    });
 
   // //  form.......
   // // form user
@@ -120,12 +120,11 @@ export class UserContentComponent implements OnInit {
   // // Post
 
   public postCall(postId: any) {
-    return this.postApi.getBlogPostById(postId);
+    return this.publicapi.getPostByPostId(postId);
   }
 
   public getMainPost(postId: number) {
     this.postCall(postId).subscribe((repo) => {
-      console.log(repo);
       this.post = repo;
       this.getRecommendedPost(repo.id);
       this.enableComments = repo.enableComments;
@@ -137,7 +136,6 @@ export class UserContentComponent implements OnInit {
   public getFilteredPostForRecommend(post: any) {
     this.suggestionPost = [];
     this.postCall(post.postId).subscribe((repo) => {
-      console.log(repo);
       let heading = repo.postSections.filter(
         (item: any) => item.sectionTypeId == 1
       );
@@ -184,16 +182,15 @@ export class UserContentComponent implements OnInit {
   // // comments
 
   public commentEnable() {
-    this.sitesetting.getSiteSetting().subscribe((respo: any) => {
+    this.publicapi.getSiteSetting().subscribe((respo: any) => {
       let commentStatus = respo.find((item: any) => item.id == 4);
       this.commentStatus = JSON.parse(commentStatus.settingValue);
     });
   }
 
   public getComments(postId: number) {
-    this.commentsApi.getAllCommentsForBolg(postId).subscribe((respo: any) => {
+    this.publicapi.getAllCommentByPostId(postId).subscribe((respo: any) => {
       this.comments = this.getParentsWithChildComments(respo.comments);
-      console.log(this.comments);
     });
   }
 
@@ -218,10 +215,8 @@ export class UserContentComponent implements OnInit {
   }
 
   public report(cmt: any) {
-    console.log(cmt.author.firstName);
-
     if (this.loginStatus) {
-      this.commentsApi.reportComment(cmt.id).subscribe({
+      this.publicapi.reportComment(cmt.id).subscribe({
         next: (respo) => {
           alert(
             `You have reported ${cmt.author.firstName} ${cmt.author.lastName} comment`
@@ -257,7 +252,7 @@ export class UserContentComponent implements OnInit {
     if (this.loginStatus) {
       // // logged user send function
       this.commentForm.controls['parentId'].setValue(this.parentId);
-      this.commentsApi
+      this.publicapi
         .postComment(this.post.id, this.commentForm.value)
         .subscribe((_repo) => {
           this.commentForm.reset();
@@ -267,8 +262,8 @@ export class UserContentComponent implements OnInit {
       // // guest user send function
       this.guestCommentForm.controls['parentId'].setValue(this.parentId);
 
-      this.commentsApi
-        .postGuestUserComment(this.post.id, this.guestCommentForm.value)
+      this.publicapi
+        .postGuestComment(this.post.id, this.guestCommentForm.value)
         .subscribe((repo) => {
           this.guestCommentForm.reset();
           this.getComments(this.postId);
@@ -299,22 +294,24 @@ export class UserContentComponent implements OnInit {
     }
   }
   public parentIdFinder(parentId: any, comment: any) {
-    this.commentsApi.getSingleComment(parentId).subscribe((repo: any) => {
+    this.publicapi.getCommentByCommentId(parentId).subscribe((repo: any) => {
       comment.parentAuthor = repo.author.firstName;
       this.replayCommentData.push(comment);
     });
   }
   // // Recommended
   public getRecommendedPost(postId: number) {
-    this.postApi.getRecommendedPost(9, postId).subscribe((respo) => {
-      for (const post of respo) {
-        this.getFilteredPostForRecommend(post);
-      }
-    });
+    this.publicapi
+      .getPostSuggestionByPostIdCount(9, postId)
+      .subscribe((respo) => {
+        for (const post of respo) {
+          this.getFilteredPostForRecommend(post);
+        }
+      });
   }
 
   public getMoreArticles(subcategoryId: number) {
-    this.postApi
+    this.publicapi
       .getPostBySubategoryByLength(subcategoryId, 4)
       .subscribe((respo: any) => {
         respo = respo.filter((item: any) => item.id != this.post.id);

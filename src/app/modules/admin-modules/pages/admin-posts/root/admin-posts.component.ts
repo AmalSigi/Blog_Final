@@ -42,7 +42,7 @@ export class AdminPostsComponent {
       },
     });
 
-    this.editPick.getBlogEditorsPick().subscribe((respo: any) => {
+    this.editPick.EditorsPick().subscribe((respo: any) => {
       this.editorsPick = respo.length;
     });
 

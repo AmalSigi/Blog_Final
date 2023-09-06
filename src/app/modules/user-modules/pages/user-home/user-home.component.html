@@ -1,4 +1,15 @@
-<section class="container mx-auto mb-10 md:w-[70%]">
+<section class="grid grid-cols-12">
+<div class="col-span-2 grid gap-5 pl-10 pt-10">
+<div class="w-60 h-96 bg-black">
+  <app-advertisementView class="h-full w-full" [adPosition]="1"></app-advertisementView>
+
+</div>
+<div  class="w-60 h-96 bg-black">
+  <app-advertisementView class="h-full w-full" [adPosition]="2"></app-advertisementView>
+
+</div>
+</div>
+<div class="container mx-auto mb-10 md:col-span-8">
   <!-- trending -->
   <div
     class="container md:h-96 md:flex bg-black mx-auto mt-10 rounded-md overflow-hidden grid"
@@ -15,7 +26,7 @@
       </a>
     </div>
     <div class="w-full md:w-[40%] h-full text-gray-500">
-      <h2 class="text-gray-500 text-2xl font-bold mx-5 mt-10 md:mt-24">
+      <h2 class="text-gray-500 text-2xl font-bold mx-5 mt-10 md:mt-48">
         {{ latestPost[0]?.heading?.content }}
       </h2>
       <p class="p-4">
@@ -74,15 +85,39 @@
     </div>
   </section>
   <!-- ads section -->
-  <section class="container border-2 border-x-0 mx-auto mt-24 p-5">
-    <div class="mx-auto w-[70%] h-full">
-      <a>
-        <img
-          class="w-full h-full object-cover"
-          src="https://tpc.googlesyndication.com/simgad/1515406221368002761"
-          alt=""
-        />
-      </a>
+  <section class="container border-2 border-x-0 mx-auto mt-48 p-5">
+    <div
+      [ngSwitch]="randomAd?.mediaFormat"
+      class="flex justify-center w-auto h-80"
+    >
+      <!-- image ad -->
+      <ng-container *ngSwitchCase="'Advertisement_Image'">
+        <a>
+          <img
+            class="w-auto h-full overflow-hidden"
+            [src]="'http://192.168.29.97:5296/assets/' + randomAd?.mediaPath"
+            alt=""
+          />
+        </a>
+      </ng-container>
+      <!-- video ad -->
+      <ng-container *ngSwitchCase="'Advertisement_Video'">
+        <a>
+          <video
+            class="w-full h-full"
+            controls
+            autoplay
+            mut
+            [src]="'http://192.168.29.97:5296/assets/' + randomAd?.mediaPath"
+          ></video>
+        </a>
+      </ng-container>
+      <!-- external ad -->
+      <ng-container *ngSwitchCase="'External'">
+        <a>
+          <p>{{ randomAd?.mediaPath }}</p>
+        </a>
+      </ng-container>
     </div>
   </section>
 
@@ -90,7 +125,9 @@
 
   <section *ngFor="let item of catgoryDetailes" class="md:my-10">
     <div class="container mx-auto md:grid md:gap-5 w-full h-full md:py-16 py-8">
-      <h1 class="text-4xl font-medium">{{ item.categoryName }}</h1>
+      <a routerLink="category/{{ item.categoryId }}"
+        ><h1 class="text-4xl font-medium">{{ item.categoryName }}</h1></a
+      >
       <div class="grid gap-5 md:grid-cols-3 md:gap-3">
         <div
           routerLink="/content/{{ item.categoryPost[0].postId }}"
@@ -125,6 +162,27 @@
         </div>
       </div>
     </div>
+    <section class="container border-2 border-x-0 mx-auto mt-48 p-5">
+      <div class="mx-auto w-full h-52 object-contain">
+        <a>
+          <img
+            class="w-full h-full overflow-hidden"
+            [src]="'http://192.168.29.97:5296/assets/' + randomAd?.mediaPath"
+            alt=""
+          />
+        </a>
+      </div>
+    </section>
   </section>
+</div>
+<div class="col-span-2 grid gap-5 pl-10 pt-10">
+  <div class="w-60 h-96 bg-black">
+    <app-advertisementView class="h-full w-full" [adPosition]="3"></app-advertisementView>
+  </div>
+  <div  class="w-60 h-96 bg-black">
+    <app-advertisementView class="h-full w-full" [adPosition]="4"></app-advertisementView>
+  </div>
+  </div>
 </section>
+
 <app-pop-up3></app-pop-up3>

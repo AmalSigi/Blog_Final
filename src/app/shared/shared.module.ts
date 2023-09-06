@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MarkdownModule } from 'ngx-markdown';
 import { UserRoutingModule } from '../modules/user-modules/user-routing.module';
 import { FooterComponent } from './components/footer/footer.component';
@@ -14,6 +14,9 @@ import { PopUp2Component } from './components/pop-up/content/pop-up2/pop-up2.com
 import { PopUp3Component } from './components/pop-up/home/pop-up3/pop-up3.component';
 import { SharedModelComponent } from './components/shared-model/shared-model.component';
 import { FormatLinksPipe } from './pipes/LinkFormating.pipe';
+import { AdsShareComponent } from './components/adsAdding/adsAdding.component';
+import { SharedDynamicComponent } from './components/shared-dynamic/sharedDynamic.component';
+import { AppAdvertisementViewComponent } from './components/advertisment-view/adview.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -26,13 +29,17 @@ import { FormatLinksPipe } from './pipes/LinkFormating.pipe';
     PopUp1Component,
     PopUp2Component,
     PopUp3Component,
+    AdsShareComponent,
+    SharedDynamicComponent,
+    AppAdvertisementViewComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     MarkdownModule,
     UserRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   exports: [
     HeaderComponent,
@@ -45,6 +52,9 @@ import { FormatLinksPipe } from './pipes/LinkFormating.pipe';
     PopUp1Component,
     PopUp2Component,
     PopUp3Component,
+    AdsShareComponent,
+    SharedDynamicComponent,
+    AppAdvertisementViewComponent
     
   ],
 })

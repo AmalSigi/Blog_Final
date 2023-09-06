@@ -109,7 +109,7 @@ export class AuthorAddPostComponent implements OnInit {
     }
 
     this.currentTool = type;
-    this.sectionId++;
+    this.sectionId=this.dynamicDiv.length;
     this.dynamicFormControls.push(this.formbuilder.control(''));
     this.createFormData(type);
   }
@@ -394,14 +394,18 @@ export class AuthorAddPostComponent implements OnInit {
   }
   editorConfig = {
     base_url: '/tinymce',
+    promotion:false,
     suffix: '.min',
+    removed_menuitems: 'undo redo',
+    menubar: 'insert',
+    menu: {
+      insert: { title: 'Insert', items: 'link'  }
+    },
     plugins: 'lists link wordcount fonts',
     toolbar:
-      'undo redo | casechange blocks | bold italic backcolor | \
- alignleft aligncenter alignright alignjustify | \
-  bullist numlist checklist outdent indent | removeformat',
+      'undo redo | bold italic backcolor | \
+  bullist numlist checklist outdent indent | removeformat fontfamily' ,
   };
-
   public changeFont(font: string) {
     this.blogForm.controls['postFont']?.setValue(font);
     console.log(this.blogForm.controls['postFont']);

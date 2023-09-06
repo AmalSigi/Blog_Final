@@ -110,7 +110,7 @@ export class AddPostComponent implements OnInit {
     }
 
     this.currentTool = type;
-    this.sectionId++;
+    this.sectionId=this.dynamicDiv.length;
     this.dynamicFormControls.push(this.formbuilder.control(''));
     this.createFormData(type);
   }

@@ -19,7 +19,7 @@ export class BlogComponent {
     this.getThemes();
   }
   public getThemes() {
-    this.siteSettings.getSiteSetting().subscribe({
+    this.siteSettings.getSiteSettingForPublic().subscribe({
       next: (res) => {
         const theme: any = res;
         const currentTheme = theme.find(
@@ -31,7 +31,7 @@ export class BlogComponent {
     });
   }
   getCurrentTheme(themeId: number) {
-    this.themeApi.getThemeById(themeId).subscribe({
+    this.themeApi.getThemeByIdForPublic(themeId).subscribe({
       next: (res) => {
         this.route.navigate([`${res.name}/`]);
       },

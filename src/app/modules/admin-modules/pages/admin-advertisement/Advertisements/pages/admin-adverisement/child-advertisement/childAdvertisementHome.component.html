@@ -1,0 +1,52 @@
+<section class="container w-full pb-4 pl-4 pr-4 pt-4">
+
+    <div class="mt-5">
+        <h1 class="text-2xl font-semibold text-start text-blue-600 ">Manage the advertisements appearing on the user blogs (Home Page)</h1>
+        <p class="text-lg text-gray-700 text-start mt-4 ">The advertisements can be put in the 4 zones (top,right,bottom,left) where we can add total of 8 ads which is shown on the following schema</p>
+    </div>
+
+
+    <div class="w-[60%] mx-auto h-[500px] bg-white mt-32 ">
+        <div class="w-[80%] h-full bg-white mx-auto ">
+            <div class=" w-96 h-10 bg-gray-200 mx-auto py-2  " (click)="openAd(1)" >
+                <p class="text-blue-600 text-2xl font-semibold text-center">1</p>
+            </div>
+            <div class=" w-[300px] h-[300px] bg-gray-200 mx-auto -  mt-3 px-32 py-32 uppercase">
+                <p class="text-blue-600 text-2xl font-semibold text-center">Blog</p>
+            </div>
+            <div class=" -mt-[313px] -mb-[313px]">
+                <div class=" w-10 h-24 bg-gray-200 ml-[515px] mt-3 py-8" (click)="openAd(2)">
+                    <p class="text-blue-600 text-2xl font-semibold text-center">2</p>
+                </div> 
+               <div class=" w-10 h-24 bg-gray-200 ml-[515px] mt-3 py-8" (click)="openAd(3)">
+                    <p class="text-blue-600 text-2xl font-semibold text-center">3</p>
+                </div>
+                <div class=" w-10 h-24 bg-gray-200 ml-[515px] mt-3 py-8" (click)="openAd(4)">
+                    <p class="text-blue-600 text-2xl font-semibold text-center">4</p>
+                </div>
+            </div>
+            <div class=" -mt-[322px] -mb-[322px] ">
+                <div class=" w-10 h-24 bg-gray-200  ml-[165px] mt-3 py-8" (click)="openAd(8)">
+                    <p class="text-blue-600 text-2xl font-semibold text-center">8</p>
+                </div>
+               <div class=" w-10 h-24 bg-gray-200  ml-[165px]  mt-3 py-8" (click)="openAd(7)">
+                    <p class="text-blue-600 text-2xl font-semibold text-center">7</p>
+                </div>
+                <div class=" w-10 h-24 bg-gray-200  ml-[165px] mt-3 py-8" (click)="openAd(6)">
+                    <p class="text-blue-600 text-2xl font-semibold text-center">6</p>
+                </div>
+            </div>
+            <div class=" w-96 h-10 bg-gray-200 mt-[330px] ml-44  py-2 " (click)="openAd(5)">
+                <p class="text-blue-600 text-2xl font-semibold text-center">5</p>
+            </div>
+            
+        </div>
+
+    </div>
+
+    <div>
+        <h3 class="font-semibold text-xl text-start">Please click on a zone (1,2,3,4,5,6,7,8) to manage the adverisements on it.</h3>
+        <p class="mt-2 text-lg ">To put any kind of adds just you should select the paricular image,video.gif and add to it .</p>
+    </div>
+</section>
+<app-ads *ngIf="openModal" (onClick)="openModal =false"></app-ads>

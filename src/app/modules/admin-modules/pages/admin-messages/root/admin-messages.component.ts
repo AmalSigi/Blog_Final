@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ContactUsService } from 'src/app/core/http/contact-us.service';
+import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 
 @Component({
   selector: 'app-admin-messages',
@@ -7,10 +9,13 @@ import { ContactUsService } from 'src/app/core/http/contact-us.service';
 })
 export class AdminMessagesComponent implements OnInit {
   public totalLength: any;
-  constructor(private readonly contact: ContactUsService) {}
+  constructor(private readonly contact: ContactUsService,private readonly refresh:trackDataService) {}
   ngOnInit(): void {
     this.fetchMessages();
   }
+  public refreshData:Subscription=this.refresh.getClickEvent1().subscribe(()=>{
+    this.fetchMessages();
+  })
   public fetchMessages() {
     console.log('hi');
 
