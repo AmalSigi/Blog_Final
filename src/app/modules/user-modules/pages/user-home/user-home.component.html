@@ -79,7 +79,7 @@
     >
       <!-- image ad -->
       <ng-container *ngSwitchCase="'Advertisement_Image'">
-        <a>
+        <a target="_blank" [href]="randomAd?.redirectTo">
           <img
             class="w-auto h-full overflow-hidden"
             [src]="mediaFilePath + randomAd?.mediaPath"
@@ -148,14 +148,14 @@
     </div>
 
     <!-- ad -->
-    <section class="container border-2 border-x-0 mx-auto md:mt-24 p-5">
+    <section class="container border-2 border-x-0 mx-auto mt-24 p-5">
       <div
         [ngSwitch]="randomAd?.mediaFormat"
         class="flex justify-center w-auto h-80"
       >
         <!-- image ad -->
         <ng-container *ngSwitchCase="'Advertisement_Image'">
-          <a>
+          <a target="_blank" [href]="randomAd?.redirectTo">
             <img
               class="w-auto h-full overflow-hidden"
               [src]="mediaFilePath + randomAd?.mediaPath"
@@ -165,9 +165,10 @@
         </ng-container>
         <!-- video ad -->
         <ng-container *ngSwitchCase="'Advertisement_Video'">
-          <a>
+          <a target="_blank" [href]="randomAd?.redirectTo">
             <video
               class="w-full h-full"
+              controls
               autoplay
               muted
               [src]="mediaFilePath + randomAd?.mediaPath"
@@ -176,7 +177,7 @@
         </ng-container>
         <!-- external ad -->
         <ng-container *ngSwitchCase="'External'">
-          <a>
+          <a target="_blank" [href]="randomAd?.redirectTo">
             <p>{{ randomAd?.mediaPath }}</p>
           </a>
         </ng-container>
