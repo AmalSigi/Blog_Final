@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { categoryApi } from 'src/app/core/http/category.service';
+import { PublicService } from 'src/app/core/http/public.service';
 import { siteSettingApi } from 'src/app/core/http/site-setting.service';
 import { userApi } from 'src/app/core/http/userAccount.service';
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
@@ -27,9 +28,9 @@ export class HeaderComponent implements OnInit {
   public siteLogo: any;
   public mediaFilePath: string = `${environment.url}/assets/`;
   constructor(
-    private readonly categoryApi: categoryApi,
     private readonly reloadData: trackDataService,
     private readonly userApiService: userApi,
+    private readonly publicapi: PublicService,
 
     private readonly siteSettingApi: siteSettingApi
   ) {}
@@ -57,7 +58,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public getCategory() {
-    this.categoryApi.getCategory().subscribe((response: any) => {
+    this.publicapi.getCategory().subscribe((response: any) => {
       this.category = response;
     });
   }
@@ -75,7 +76,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public getSetting() {
-    this.siteSettingApi.getSiteSetting().subscribe((respo: any) => {
+    this.publicapi.getSiteSetting().subscribe((respo: any) => {
       let blogName = respo.find((item: any) => item.id == 1);
       let blogLogo = respo.find((item: any) => item.id == 2);
       if (blogName) {
