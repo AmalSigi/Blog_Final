@@ -1,13 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PublicService } from 'src/app/core/http/public.service';
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
 })
 export class UserContactComponent {
-  constructor(private readonly http: HttpClient, private fb: FormBuilder) {
+  constructor(
+    private readonly http: HttpClient,
+    private fb: FormBuilder,
+    private readonly publicapi: PublicService
+  ) {
     this.sendMessageForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -40,11 +45,9 @@ export class UserContactComponent {
   }
   public sendMessage() {
     if (this.sendMessageForm.valid) {
-      const apiUrl = 'http://192.168.29.97:5296/ContactUs/newMessage';
       const requestBody = this.sendMessageForm.value;
-      console.log(requestBody);
 
-      this.http.post(apiUrl, requestBody).subscribe(
+      this.publicapi.postContactUs(requestBody).subscribe(
         (response) => {
           console.log(response);
           alert('Message sent successfully:');

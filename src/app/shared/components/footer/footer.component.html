@@ -1,7 +1,7 @@
 <footer class="w-full h-36 bg-black">
   <section class="container mx-auto w-full h-24 pt-5">
     <div
-      class="mt-8 flex items-center justify-between text-gray-500 text-xl container"
+      class="md:mt-8 flex px-2 items-center justify-between text-gray-500 text-xl container"
     >
       <!-- site name and logo -->
       <div class="flex items-center gap-2">
@@ -11,7 +11,7 @@
         >
           <img
             class="h-full w-full overflow-hidden"
-            [src]="'http://192.168.29.97:5296/assets/' + siteLogo"
+            [src]="mediaFilePath + siteLogo"
             alt=""
           />
         </div>

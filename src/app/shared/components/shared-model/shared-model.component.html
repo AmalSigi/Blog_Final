@@ -44,7 +44,7 @@
             <ng-container *ngSwitchCase="4"
               ><img
                 [alt]="postItem?.sectionAttributes[findIndex(5, i)]?.value"
-                [src]="'http://192.168.29.97:5296/assets/' + postItem.content"
+                [src]="mediaFilePath + postItem.content"
                 class="aspect-{{
                   postItem?.sectionAttributes[findIndex(6, i)]?.value
                 }} object-{{
@@ -62,24 +62,27 @@
                 class="my-5"
                 controls
                 muted
-                [src]="'http://192.168.29.97:5296/assets/' + postItem?.content"
+                [src]="mediaFilePath + postItem?.content"
               ></video
             ></ng-container>
-            
+
             <ng-container *ngSwitchCase="6">
-              <a target="_blank" [href]=" postItem?.sectionAttributes[findIndex(4, i)]?.value"><div class="border-y-2 py-2">
-                <p class="text-center">AD</p>
-                <img
-                  class="my-5 w-full h-[200px]"
-                  [src]="'http://192.168.29.97:5296/assets/' + postItem.content"
-                /></div
-            ></a></ng-container>
+              <a
+                target="_blank"
+                [href]="postItem?.sectionAttributes[findIndex(4, i)]?.value"
+                ><div class="border-y-2 py-2">
+                  <p class="text-center">AD</p>
+                  <img
+                    class="my-5 w-full h-[200px]"
+                    [src]="mediaFilePath + postItem.content"
+                  /></div></a
+            ></ng-container>
             <!-- <ng-container *ngSwitchCase="7">
               <div class="border-y-2 py-2">
                 <p class="text-center">AD</p>
                 <img
                   class="my-5 w-full h-[200px]"
-                  [src]="'http://192.168.29.97:5296/assets/' + postItem.content"
+                  [src]="mediaFilePath + postItem.content"
                 /></div
             ></ng-container> -->
           </ng-container>

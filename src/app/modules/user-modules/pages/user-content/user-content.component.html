@@ -54,10 +54,7 @@
                   >
                     <img
                       class="w-full h-full overflow-hidden"
-                      [src]="
-                        'http://192.168.29.97:5296/assets/' +
-                        post.author.profilePicturePath
-                      "
+                      [src]="mediaFilePath + post.author.profilePicturePath"
                       alt=""
                     />
                   </div>
@@ -89,7 +86,7 @@
               <!-- image -->
               <ng-container *ngSwitchCase="4"
                 ><img
-                  [src]="'http://192.168.29.97:5296/assets/' + postItem.content"
+                  [src]="mediaFilePath + postItem.content"
                   class="aspect-{{
                     postItem?.sectionAttributes[findIndex(6, i)]?.value
                   }} object-{{
@@ -117,9 +114,7 @@
                     [href]="postItem.sectionAttributes[findIndex(4, i)]?.value"
                     ><img
                       class="my-5 w-full h-[200px]"
-                      [src]="
-                        'http://192.168.29.97:5296/assets/' + postItem.content
-                      "
+                      [src]="mediaFilePath + postItem.content"
                   /></a></div
               ></ng-container>
               <ng-container *ngSwitchCase="9">
@@ -131,9 +126,7 @@
                     [href]="postItem.sectionAttributes[findIndex(4, i)]?.value"
                     ><img
                       class="my-5 w-full h-[200px]"
-                      [src]="
-                        'http://192.168.29.97:5296/assets/' + postItem.content
-                      "
+                      [src]="mediaFilePath + postItem.content"
                   /></a></div
               ></ng-container>
               <ng-container *ngSwitchCase="10">
@@ -147,9 +140,7 @@
                       class="my-5"
                       controls
                       muted
-                      [src]="
-                        'http://192.168.29.97:5296/assets/' + postItem?.content
-                      "
+                      [src]="mediaFilePath + postItem?.content"
                     ></video
                   ></a></div
               ></ng-container>
@@ -426,7 +417,7 @@
             <a routerLink="/content/{{ post.postId }}">
               <img
                 class="h-full object-cover hover:rounded-md"
-                [src]="'http://192.168.29.97:5296/assets/' + post?.img?.content"
+                [src]="mediaFilePath + post?.img?.content"
                 alt=""
               />
             </a>
@@ -462,9 +453,7 @@
               <a routerLink="/content/{{ post.postId }}">
                 <img
                   class="w-full h-full object-cover"
-                  [src]="
-                    'http://192.168.29.97:5296/assets/' + post?.img?.content
-                  "
+                  [src]="mediaFilePath + post?.img?.content"
                   alt=""
                 />
               </a>

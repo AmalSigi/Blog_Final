@@ -50,7 +50,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ReportedCommnentViewComponent } from './pages/admin-comments/page/spam-comments/reported-commnent-view/reported-commnent-view.component';
 import { UserPostsComponent } from './pages/admin-home/component/userDetails/pages/userPostList/userPostList.component';
 import { RegisterComponent } from './pages/admin-home/component/userDetails/pages/userRegister/userRegister.component';
-import { UsersDetailsComponents } from './pages/admin-home/component/userDetails/userDetails.component';
+import { UsersDetailsComponents } from './pages/admin-home/component/userDetails/root/userDetails.component';
 import { PostListComponent } from './pages/admin-posts/components/postList.component';
 import { TextToolbarComponent } from './pages/admin-posts/pages/addPost/components/textToolBar/textToolBar.component';
 import { EditorsPickComponent } from './pages/admin-posts/pages/editorsPick/editorsPick.component';

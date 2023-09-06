@@ -1,7 +1,7 @@
 <div
   *ngIf="shoePopPu"
   [@slideFromBottom]
-  class="h-36 bg-black/90 shadow-lg w-screen -bottom-48 mb-48 fixed p-4"
+  class="md:h-36 h-48 bg-black/90 shadow-lg w-screen -bottom-48 mb-48 fixed p-4"
 >
   <div class="flex justify-end px-2">
     <button (click)="shoePopPu = false">
@@ -9,19 +9,28 @@
     </button>
   </div>
 
-  <div class="flex gap-10 justify-center items-center">
-    <p class="text-4xl text-violet-400">Want to Grow</p>
+  <div class="md:flex md:gap-10 justify-center items-center">
+    <div class="flex gap-10">
+      <p class="md:text-4xl text-2xl text-violet-400">Want to Grow</p>
+      <button
+        routerLink="contact"
+        (click)="shoePopPu = false"
+        class="md:hidden px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg"
+      >
+        Contact Us
+      </button>
+    </div>
 
-    <p class="text-5xl text-white">Let's Grow Together</p>
+    <p class="md:text-5xl text-3xl text-white">Let's Grow Together</p>
 
-    <p class="text-white">
+    <p class="text-white text-sm">
       To be a part of us contact us . We are open for your ideas
     </p>
 
     <button
       routerLink="contact"
       (click)="shoePopPu = false"
-      class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg"
+      class="hidden md:block px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg"
     >
       Contact Us
     </button>

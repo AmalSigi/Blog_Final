@@ -12,7 +12,7 @@
         <img
           *ngIf="data?.profilePicturePath"
           class="h-full w-full overflow-hidden"
-          [src]="'http://192.168.29.97:5296/assets/' + data?.profilePicturePath"
+          [src]="mediaFilePath + data?.profilePicturePath"
           alt=""
         />
       </div>

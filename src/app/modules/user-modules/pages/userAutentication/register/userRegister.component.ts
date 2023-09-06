@@ -1,15 +1,6 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder,
-  FormControl,
-  Validators,
-  AbstractControl,
-} from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PublicService } from 'src/app/core/http/public.service';
-import { userApi } from 'src/app/core/http/userAccount.service';
 
 @Component({
   selector: 'app-userRegister',

@@ -4,7 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { userApi } from 'src/app/core/http/userAccount.service';
-
+import { environment } from 'src/enviroment/enviroment';
 @Component({
   selector: 'app-admin-profile',
   templateUrl: './admin-profile.component.html',
@@ -23,6 +23,7 @@ export class AdminProfileComponent implements OnInit {
   public picShowDiv: boolean = false;
   public picUpload: boolean = false;
   public editPassword: boolean = false;
+  public mediaFilePath: string = `${environment.url}/assets/`;
   public editForm = new FormGroup({
     first_name: new FormControl('', Validators.required),
     last_name: new FormControl('', Validators.required),

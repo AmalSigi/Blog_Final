@@ -8,7 +8,7 @@
 
     <div class="h-[550px] w-full">
       <img
-        [src]="'http://192.168.29.97:5296/assets/' + categoryCoverPic"
+        [src]="mediaFilePath + categoryCoverPic"
         class="w-full h-full object-cover"
         alt=""
       />
@@ -34,7 +34,7 @@
             <div class="w-[30rem] h-[16rem] overflow-hidden">
               <img
                 class="w-full h-full object-cover"
-                [src]="'http://192.168.29.97:5296/assets/' + post?.img?.content"
+                [src]="mediaFilePath + post?.img?.content"
                 alt=""
               />
             </div>

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { commentsApi } from 'src/app/core/http/comments.service';
 import { PublicService } from 'src/app/core/http/public.service';
-
+import { environment } from 'src/enviroment/enviroment';
 @Component({
   selector: 'app-shared-model',
   templateUrl: './shared-model.component.html',
@@ -19,6 +19,7 @@ export class SharedModelComponent implements OnInit {
   public commentboxId: any;
   public replayCommentData: any = [];
   public toggleReply: boolean = false;
+  public mediaFilePath: string = `${environment.url}/assets/`;
   constructor(
     private readonly commentsApi: commentsApi,
     private readonly publicapi: PublicService

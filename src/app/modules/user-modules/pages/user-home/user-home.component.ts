@@ -1,8 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, empty } from 'rxjs';
-import { categoryApi } from 'src/app/core/http/category.service';
-import { editorsPickApi } from 'src/app/core/http/editorsPick.services';
-import { postsAPi } from 'src/app/core/http/post.service';
 import { PublicService } from 'src/app/core/http/public.service';
 import { environment } from 'src/enviroment/enviroment';
 @Component({
@@ -15,7 +11,7 @@ export class UserHomeComponent implements OnInit {
   public catgoryDetailes: any = [];
   public temparray: any = [];
   public randomAd: any;
-
+  public mediaFilePath: string = `${environment.url}/assets/`;
   constructor(private readonly publicapi: PublicService) {}
   ngOnInit(): void {
     this.getLatestPost();
