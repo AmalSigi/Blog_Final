@@ -1,29 +1,29 @@
 <main class="md:container mx-auto md:w-full my-5 p-5">
   <div class="md:flex gap-10">
-    <!-- right side -->
+    <!-- left side -->
 
-    <div class="md:w-2/6 py-5 mt-10">
+    <div class="md:w-2/6 hidden md:grid h-auto py-5 mt-10  ">
       <!-- ad #1 -->
-      <div class="w-full hidden md:block h-64">
-        <img
-          src="https://i.pinimg.com/originals/6e/82/e2/6e82e20e9b013926af71dcfc12bfd88c.gif"
-          alt=""
-        />
+      <div class="w-full  overflow-hidden">
+        <app-advertisementView
+        class="h-full w-full"
+        [adPosition]="9"
+      ></app-advertisementView>
       </div>
 
       <!-- ad #2 -->
-      <div class="w-full hidden md:block h-64 mt-10">
-        <img
-          src="https://i.pinimg.com/originals/6e/82/e2/6e82e20e9b013926af71dcfc12bfd88c.gif"
-          alt=""
-        />
+      <div class="w-full hidden md:block h-64 overflow-hidden ">
+        <app-advertisementView
+        class="h-full w-full"
+        [adPosition]="10"
+      ></app-advertisementView>
       </div>
       <!-- ad #3 -->
-      <div class="w-full hidden md:block h-64 mt-10">
-        <img
-          src="https://i.pinimg.com/originals/6e/82/e2/6e82e20e9b013926af71dcfc12bfd88c.gif"
-          alt=""
-        />
+      <div class="w-full hidden md:block h-64 overflow-hidden ">
+        <app-advertisementView
+        class="h-full w-full"
+        [adPosition]="11"
+      ></app-advertisementView>
       </div>
     </div>
     <!-- post -->
@@ -399,14 +399,14 @@
       </div>
     </section>
 
-    <!-- left side -->
+    <!-- right side -->
     <!-- ad #1 -->
-    <div class="md:w-2/6 p-5 mt-10">
-      <div class="w-full hidden md:block h-64">
-        <img
-          src="https://i.pinimg.com/originals/6e/82/e2/6e82e20e9b013926af71dcfc12bfd88c.gif"
-          alt=""
-        />
+    <div class="md:w-2/6 p-5 mt-10 mb-10">
+      <div class="w-full hidden md:block h-64 overflow-hidden mb-10 ">
+        <app-advertisementView
+        class="h-full w-full"
+        [adPosition]="12"
+      ></app-advertisementView>
       </div>
 
       <div *ngIf="moreArticlePost.length != 0" class="mt-16">
@@ -431,11 +431,11 @@
         </div>
       </div>
       <!-- ad #2 -->
-      <div class="w-full hidden md:block h-64 mt-10">
-        <img
-          src="https://i.pinimg.com/originals/6e/82/e2/6e82e20e9b013926af71dcfc12bfd88c.gif"
-          alt=""
-        />
+      <div class="w-full hidden md:block h-64 overflow-hidden mt-10">
+        <app-advertisementView
+        class="h-full w-full"
+        [adPosition]="13"
+      ></app-advertisementView>
       </div>
     </div>
   </div>

@@ -7,7 +7,7 @@ class="h-96 w-full"
     >
         <img
         [src]="
-          'http://192.168.29.97:5264/assets/' + advertisement?.media?.mediaPath
+          'http://192.168.29.97:5296/api/assets/' + advertisement?.media?.mediaPath
         "
         class="w-full h-full object-cover"
       />
@@ -20,7 +20,7 @@ class="h-96 w-full"
 >
     <video
       [src]="
-        'http://192.168.29.97:5264/assets/' + advertisement?.media?.mediaPath
+        'http://192.168.29.97:5296/api/assets/' + advertisement?.media?.mediaPath
       "
       class="w-full h-full"
       controls
