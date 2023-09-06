@@ -77,10 +77,7 @@ export class userApi {
     );
   }
   public refrehToken() {
-    return this.http.post(
-      `http://192.168.29.97:5296/Authentication/refreshToken`,
-      {}
-    );
+    return this.http.post(`${environment.url}/Authentication/refreshToken`, {});
   }
 
   // blog users

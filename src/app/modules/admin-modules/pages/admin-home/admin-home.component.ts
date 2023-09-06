@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { editorsPickApi } from 'src/app/core/http/editorsPick.services';
 import { postsAPi } from 'src/app/core/http/post.service';
 import { userApi } from 'src/app/core/http/userAccount.service';
-import { postData } from 'src/app/core/services/posts.services';
+import { environment } from 'src/enviroment/enviroment';
 
 @Component({
   selector: 'app-admin-home',
@@ -22,7 +22,7 @@ export class AdminHomeComponent {
   public activeUsers: number = 0;
   public totalViews: number = 0;
   public editorsPickPost: any = [];
-
+  public mediaFilePath: string = `${environment.url}/assets/`;
   ngOnInit(): void {
     this.getPosts();
     this.getUsers();

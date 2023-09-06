@@ -1,12 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { categoryApi } from 'src/app/core/http/category.service';
-import { postsAPi } from 'src/app/core/http/post.service';
 import { PublicService } from 'src/app/core/http/public.service';
-import { OffsetService } from 'src/app/core/services/pagination.service';
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
-
+import { environment } from 'src/enviroment/enviroment';
 @Component({
   selector: 'app-user-category',
   templateUrl: './user-category.component.html',
@@ -22,6 +19,7 @@ export class UserCategoryComponent implements OnInit {
   public categoryName: any;
   public categoryCoverPic!: any;
   public loading: boolean = true;
+  public mediaFilePath: string = `${environment.url}/assets/`;
   ngOnInit(): void {
     this.mainCall();
   }

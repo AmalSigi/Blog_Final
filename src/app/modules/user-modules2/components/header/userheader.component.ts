@@ -5,7 +5,7 @@ import { categoryApi } from 'src/app/core/http/category.service';
 import { siteSettingApi } from 'src/app/core/http/site-setting.service';
 import { userApi } from 'src/app/core/http/userAccount.service';
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
-
+import { environment } from 'src/enviroment/enviroment';
 @Component({
   selector: 'user-header',
   templateUrl: './userheader.component.html',
@@ -26,6 +26,7 @@ export class UserHeader {
 
   public siteName: any;
   public siteLogo: any;
+  public mediaFilePath: string = `${environment.url}/assets/`;
   constructor(
     private readonly categoryApi: categoryApi,
     private readonly reloadData: trackDataService,

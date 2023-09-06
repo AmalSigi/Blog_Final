@@ -4,7 +4,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { postsAPi } from 'src/app/core/http/post.service';
 import { DynamicDIvElement } from 'src/app/shared/interfaces/dynamicPost.interface';
-
+import { environment } from 'src/enviroment/enviroment';
 @Component({
   selector: 'app-addPost',
   templateUrl: './addPost.component.html',
@@ -22,7 +22,7 @@ export class AuthorAddPostComponent implements OnInit {
   public objectFit: string = 'fill';
   public sectionId: number = 0;
   public postFont: string = '';
-  public mediaFilePath: string = 'http://192.168.29.97:5296/assets/';
+  public mediaFilePath: string = `${environment}/assets/`;
   public mediaToolBar: boolean = false;
   public TextToolBar: boolean = true;
   constructor(
@@ -206,7 +206,7 @@ export class AuthorAddPostComponent implements OnInit {
     }
     this.http
       .post<ServerResponse>(
-        `http://192.168.29.97:5296/Media/${this.mediaFormat}`,
+        `${environment.url}/Media/${this.mediaFormat}`,
         formData
       )
       .subscribe({

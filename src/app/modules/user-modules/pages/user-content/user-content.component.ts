@@ -1,21 +1,17 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
-  FormGroup,
-  FormControl,
-  Validators,
   FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { commentsApi } from 'src/app/core/http/comments.service';
-import { postsAPi } from 'src/app/core/http/post.service';
-import { checkLoginService } from 'src/app/core/services/checkUserStatus.service';
-import { siteSettingApi } from 'src/app/core/http/site-setting.service';
-import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 import { authenticationApi } from 'src/app/core/http/authentication.service';
 import { PublicService } from 'src/app/core/http/public.service';
-
+import { checkLoginService } from 'src/app/core/services/checkUserStatus.service';
+import { trackDataService } from 'src/app/core/subjects/trackData.subject';
+import { environment } from 'src/enviroment/enviroment';
 @Component({
   selector: 'app-user-content',
   templateUrl: './user-content.component.html',
@@ -52,6 +48,7 @@ export class UserContentComponent implements OnInit {
   public parentCommentAuthor: string = 'comments';
   public totalCount = 0;
   public postId!: number;
+  public mediaFilePath: string = `${environment.url}/assets/`;
   public reload: Subscription = this.trackDataService
     .getClickEvent1()
     .subscribe(() => {

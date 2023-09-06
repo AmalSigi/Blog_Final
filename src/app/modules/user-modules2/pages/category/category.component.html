@@ -19,7 +19,7 @@
       <div class="w-full grid h-auto bg-gray-700/50 md:flex">
         <div class="md:w-[70%] h-full overflow-hidden">
           <img
-            [src]="'http://192.168.29.97:5296/assets/' + categoryCoverPic"
+            [src]="mediaFilePath + categoryCoverPic"
             class="w-full h-full object-cover"
           />
         </div>
@@ -51,7 +51,7 @@
             routerLink="/Theme2/content/{{ post.postId }}"
           >
             <img
-              [src]="'http://192.168.29.97:5296/assets/' + post?.img?.content"
+              [src]="mediaFilePath + post?.img?.content"
               class="w-full h-full object-cover"
             />
           </div>
@@ -67,9 +67,7 @@
                 <img
                   *ngIf="post?.profilePicture"
                   class="h-full w-full overflow-hidden"
-                  [src]="
-                    'http://192.168.29.97:5296/assets/' + post?.profilePicture
-                  "
+                  [src]="mediaFilePath + post?.profilePicture"
                   alt=""
                 />
               </div>
@@ -121,7 +119,7 @@
         >
           <div class="md:w-[400px] overflow-hidden">
             <img
-              [src]="'http://192.168.29.97:5296/assets/' + item?.img?.content"
+              [src]="mediaFilePath + item?.img?.content"
               class="w-full h-full object-cover"
             />
           </div>

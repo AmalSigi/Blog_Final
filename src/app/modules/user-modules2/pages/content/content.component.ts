@@ -1,5 +1,4 @@
-import { DatePipe } from '@angular/common';
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -9,13 +8,10 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { authenticationApi } from 'src/app/core/http/authentication.service';
-import { commentsApi } from 'src/app/core/http/comments.service';
-import { postsAPi } from 'src/app/core/http/post.service';
 import { PublicService } from 'src/app/core/http/public.service';
-import { siteSettingApi } from 'src/app/core/http/site-setting.service';
 import { checkLoginService } from 'src/app/core/services/checkUserStatus.service';
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
-
+import { environment } from 'src/enviroment/enviroment';
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html',
@@ -53,6 +49,7 @@ export class UserContentComponent {
   public openLogin: boolean = false;
   public userSignup: boolean = false;
   public userReg: boolean = false;
+  public mediaFilePath: string = `${environment.url}/assets/`;
   public reload: Subscription = this.trackDataService
     .getClickEvent1()
     .subscribe(() => {

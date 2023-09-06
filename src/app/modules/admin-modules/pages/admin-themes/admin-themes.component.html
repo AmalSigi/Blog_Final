@@ -9,9 +9,7 @@
         class="w-[25rem] h-80 transition-all duration-300 p-5 group hover:border-2 hover:shadow-xl"
       >
         <img
-          [src]="
-            'http://192.168.29.97:5296/assets/' + currentTheme?.coverPicture
-          "
+          [src]="mediaFilePath + currentTheme?.coverPicture"
           alt=""
           width="full"
           height="full"
@@ -34,7 +32,7 @@
             class="w-[25rem] h-80 transition-all duration-300 p-5 group hover:border-2 hover:shadow-xl relative"
           >
             <img
-              [src]="'http://192.168.29.97:5296/assets/' + item?.coverPicture"
+              [src]="mediaFilePath + item?.coverPicture"
               alt=""
               width="full"
               height="full"

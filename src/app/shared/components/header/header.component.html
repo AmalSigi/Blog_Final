@@ -3,16 +3,20 @@
     class="w-full h-24 flex justify-between px-5 md:-px-5 container pt-8 mx-auto"
   >
     <a routerLink="" class="flex items-center gap-2">
-      <div class="w-16 h-16 bg-gray-400 rounded-full overflow-hidden">
+      <div
+        class="md:w-16 md:h-16 w-10 h-10 bg-gray-400 rounded-full overflow-hidden"
+      >
         <img
           class="h-full w-full overflow-hidden"
-          [src]="'http://192.168.29.97:5296/assets/' + siteLogo"
+          [src]="mediaFilePath + siteLogo"
           alt=""
         />
       </div>
-      <h1 class="text-white font-bold text-3xl uppercase">{{ siteName }}</h1>
+      <h1 class="text-white font-bold md:text-3xl text-xl uppercase">
+        {{ siteName }}
+      </h1>
     </a>
-    <div class="flex justify-center items-center relative">
+    <div class="flex justify-center gap-3 items-center relative">
       <div
         *ngIf="showUserDetails"
         (click)="showLogOut = !showLogOut"
@@ -23,7 +27,7 @@
           alt=""
         />
       </div>
-      <p *ngIf="showUserDetails" class="text-gray-300 ml-3">
+      <p *ngIf="showUserDetails" class="text-gray-300 hidden md:block">
         {{ userDetails?.email }}
       </p>
 
@@ -36,10 +40,10 @@
       </button>
       <a>
         <button
-          class="text-gray-500 border-2 border-transparent hover:border-b-white p-3 cursor-pointer"
+          class="hidden md:block text-white bg-green-500 rounded-md px-4 py-2 border-2 border-transparent p-3 cursor-pointer"
           routerLink="/Theme1/contact"
         >
-          contact
+          contact us
         </button></a
       >
 
@@ -50,15 +54,17 @@
       </div>
     </div>
   </nav>
+
+  <!-- category -->
   <section
     class="bg-slate-300 w-full h-24 mt-8 flex justify-center items-center"
   >
     <div
-      class="flex justify-evenly items-center text-gray-500 text-xl text-center container mx-auto md:-px-5"
+      class="flex md:justify-between px-2 justify-between items-center text-gray-500 text-xl text-center container mx-auto md:-px-5"
     >
-      <div class="flex items-center">
+      <div class="md:flex gap-3">
         <ng-container *ngFor="let cat of category; let i = index">
-          <div *ngIf="i < 4" class="grid relative">
+          <div *ngIf="i < 4" class="hidden md:grid relative">
             <div class="flex items-center gap-1">
               <a
                 (click)="reload()"
@@ -99,11 +105,17 @@
         </ng-container>
 
         <div class="grid">
-          <button
-            (click)="moreCategory()"
-            class="border-2 border-transparent hover:border-b-white"
-          >
-            More
+          <button (click)="moreCategory()" class="">
+            <p
+              class="border-2 border-transparent hidden md:block hover:border-b-white"
+            >
+              More
+            </p>
+            <p
+              class="border-2 border-transparent md:hidden hover:border-b-white"
+            >
+              Category
+            </p>
           </button>
 
           <div
@@ -127,7 +139,13 @@
           </div>
         </div>
       </div>
-      <div><a routerLink="/Theme1/contact">contact us</a></div>
+      <div>
+        <a routerLink="/Theme1/contact"
+          ><button class="bg-green-500 text-white px-4 py-2 rounded-lg">
+            contact us
+          </button></a
+        >
+      </div>
     </div>
   </section>
 </header>

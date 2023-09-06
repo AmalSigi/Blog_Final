@@ -13,7 +13,7 @@
         <img
           *ngIf="user?.profilePicturePath"
           class="h-full w-full overflow-hidden"
-          [src]="'http://192.168.29.97:5296/assets/' + user?.profilePicturePath"
+          [src]="mediaFilePath + user?.profilePicturePath"
           alt=""
         />
       </div>
@@ -56,7 +56,7 @@
 
           <div class="w-full h-[60%] overflow-hidden">
             <img
-              [src]="'http://192.168.29.97:5296/assets/' + item?.img?.content"
+              [src]="mediaFilePath + item?.img?.content"
               class="w-full h-full object-cover"
             />
           </div>

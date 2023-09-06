@@ -18,9 +18,7 @@
       <a routerLink="/content/{{ latestPost[0]?.postId }}">
         <img
           class="w-full h-full object-cover"
-          [src]="
-            'http://192.168.29.97:5296/assets/' + latestPost[0]?.img?.content
-          "
+          [src]="mediaFilePath + latestPost[0]?.img?.content"
           alt="post image"
         />
       </a>
@@ -45,7 +43,7 @@
             <a routerLink="/content/{{ item.postId }}">
               <img
                 class="w-full h-full object-cover hover:shadow-lg hover:shadow-gray-500"
-                [src]="'http://192.168.29.97:5296/assets/' + item?.img?.content"
+                [src]="mediaFilePath + item?.img?.content"
                 alt=""
               />
             </a>
@@ -70,7 +68,7 @@
             <a routerLink="/content/{{ item.postId }}">
               <img
                 class="w-full h-full object-cover hover:shadow-lg hover:shadow-gray-500"
-                [src]="'http://192.168.29.97:5296/assets/' + item?.img?.content"
+                [src]="mediaFilePath + item?.img?.content"
                 alt=""
               />
             </a>
@@ -95,7 +93,7 @@
         <a>
           <img
             class="w-auto h-full overflow-hidden"
-            [src]="'http://192.168.29.97:5296/assets/' + randomAd?.mediaPath"
+            [src]="mediaFilePath + randomAd?.mediaPath"
             alt=""
           />
         </a>
@@ -107,8 +105,8 @@
             class="w-full h-full"
             controls
             autoplay
-            mut
-            [src]="'http://192.168.29.97:5296/assets/' + randomAd?.mediaPath"
+            muted
+            [src]="mediaFilePath + randomAd?.mediaPath"
           ></video>
         </a>
       </ng-container>
@@ -135,18 +133,15 @@
         >
           <img
             class="h-full w-full"
-            [src]="
-              'http://192.168.29.97:5296/assets/' +
-              item?.categoryPost[0]?.img?.content
-            "
+            [src]="mediaFilePath + item?.categoryPost[0]?.img?.content"
             alt=""
           />
-          <h2 class="md:text-3xl mt-2">
+          <h2 class="md:text-3xl text-2xl font-semibold mt-2">
             {{ item?.categoryPost[0]?.heading?.content }}
           </h2>
         </div>
 
-        <div class="grid md:grid-cols-1 gap-5 text-justify mt-10 md:-mt-5">
+        <div class="grid md:grid-cols-1 gap-5 text-justify mt-16 md:-mt-10">
           <div
             routerLink="/content/{{ post.postId }}"
             *ngFor="let post of item.categoryPost.slice(1)"
@@ -154,7 +149,7 @@
           >
             <img
               class="h-[10rem] w-[10rem]"
-              [src]="'http://192.168.29.97:5296/assets/' + post?.img?.content"
+              [src]="mediaFilePath + post?.img?.content"
               alt=""
             />
             <h2 class="md:text-2xl text-start">{{ post?.heading?.content }}</h2>
@@ -162,15 +157,41 @@
         </div>
       </div>
     </div>
-    <section class="container border-2 border-x-0 mx-auto mt-48 p-5">
-      <div class="mx-auto w-full h-52 object-contain">
-        <a>
-          <img
-            class="w-full h-full overflow-hidden"
-            [src]="'http://192.168.29.97:5296/assets/' + randomAd?.mediaPath"
-            alt=""
-          />
-        </a>
+   
+
+    <!-- ad -->
+    <section class="container border-2 border-x-0 mx-auto md:mt-24 p-5">
+      <div
+        [ngSwitch]="randomAd?.mediaFormat"
+        class="flex justify-center w-auto h-80"
+      >
+        <!-- image ad -->
+        <ng-container *ngSwitchCase="'Advertisement_Image'">
+          <a>
+            <img
+              class="w-auto h-full overflow-hidden"
+              [src]="mediaFilePath + randomAd?.mediaPath"
+              alt=""
+            />
+          </a>
+        </ng-container>
+        <!-- video ad -->
+        <ng-container *ngSwitchCase="'Advertisement_Video'">
+          <a>
+            <video
+              class="w-full h-full"
+              autoplay
+              muted
+              [src]="mediaFilePath + randomAd?.mediaPath"
+            ></video>
+          </a>
+        </ng-container>
+        <!-- external ad -->
+        <ng-container *ngSwitchCase="'External'">
+          <a>
+            <p>{{ randomAd?.mediaPath }}</p>
+          </a>
+        </ng-container>
       </div>
     </section>
   </section>

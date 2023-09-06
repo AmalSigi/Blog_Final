@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PublicService } from 'src/app/core/http/public.service';
 
 @Component({
   selector: 'app-contact',
@@ -10,8 +11,13 @@ export class UserContactComponent {
   public siteKey: string = '6Lcaev4nAAAAALrz-eoKLCM3WXymccEsaXSdF_go';
   public aFormGroup!: FormGroup;
   public toAccessLogin:boolean=false;
-  constructor(private readonly http: HttpClient, private formBuilder: FormBuilder) {
-    this.sendMessageForm = this.formBuilder.group({
+
+  constructor(
+    private readonly http: HttpClient,
+    private fb: FormBuilder,
+    private readonly publicapi: PublicService
+  ) {
+    this.sendMessageForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -25,7 +31,7 @@ export class UserContactComponent {
 
   ngOnInit() {
     this.fetchCountryData();
-    this.aFormGroup = this.formBuilder.group({
+    this.aFormGroup = this.fb.group({
         recaptcha: ['', Validators.required],
       });
     
@@ -56,11 +62,9 @@ export class UserContactComponent {
   }
   public sendMessage() {
     if (this.sendMessageForm.valid) {
-      const apiUrl = 'http://192.168.29.97:5296/ContactUs/newMessage';
       const requestBody = this.sendMessageForm.value;
-      console.log(requestBody);
 
-      this.http.post(apiUrl, requestBody).subscribe(
+      this.publicapi.postContactUs(requestBody).subscribe(
         (response) => {
           console.log(response);
           alert('Message sent successfully:');

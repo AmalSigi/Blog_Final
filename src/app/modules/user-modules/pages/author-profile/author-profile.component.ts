@@ -1,10 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { commentsApi } from 'src/app/core/http/comments.service';
-import { postsAPi } from 'src/app/core/http/post.service';
-import { PublicService } from 'src/app/core/http/public.service';
 
+import { PublicService } from 'src/app/core/http/public.service';
+import { environment } from 'src/enviroment/enviroment';
 @Component({
   selector: 'app-author-profile',
   templateUrl: './author-profile.component.html',
@@ -18,6 +16,7 @@ export class AuthorProfileComponent {
   authorId!: number;
   posts: any[] = [];
   totalLength: any;
+  public mediaFilePath: string = `${environment.url}/assets/`;
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
       this.authorId = +params['authorId'];

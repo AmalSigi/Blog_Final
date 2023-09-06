@@ -4,7 +4,7 @@ import { postData } from 'src/app/core/services/posts.services';
 import { themeApi } from 'src/app/core/http/themes.services';
 import { siteSettingApi } from 'src/app/core/http/site-setting.service';
 import { DomSanitizer } from '@angular/platform-browser';
-
+import { environment } from 'src/enviroment/enviroment';
 @Component({
   selector: 'app-admin-themes',
   templateUrl: './admin-themes.component.html',
@@ -14,6 +14,7 @@ export class AdminThemesComponent implements OnInit {
   public currentTheme: any;
   public openSample: boolean = false;
   public themeUrl!: any;
+  public mediaFilePath: string = `${environment.url}/assets/`;
   public selectedTheme: any;
   constructor(
     private readonly http: HttpClient,

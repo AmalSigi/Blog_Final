@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { siteSettingApi } from 'src/app/core/http/site-setting.service';
-
+import { environment } from 'src/enviroment/enviroment';
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
@@ -8,6 +8,7 @@ import { siteSettingApi } from 'src/app/core/http/site-setting.service';
 export class FooterComponent implements OnInit {
   public siteName: any;
   public siteLogo: any;
+  public mediaFilePath: string = `${environment.url}/assets/`;
   constructor(private readonly siteSettingApi: siteSettingApi) {}
   ngOnInit(): void {
     this.getSetting();

@@ -7,7 +7,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import { userApi } from 'src/app/core/http/userAccount.service';
-
+import { environment } from 'src/enviroment/enviroment';
 @Component({
   selector: 'app-profile',
 
@@ -102,7 +102,7 @@ export class AuthorProfile {
     this.profileDetailes = data;
 
     this.profileDetailes.profilePicturePath =
-      'http://192.168.29.97:5296/assets/' + data?.profilePicturePath;
+      `${environment.url}/assets/` + data?.profilePicturePath;
   }
 
   public edit() {

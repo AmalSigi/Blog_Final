@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { commentsApi } from 'src/app/core/http/comments.service';
-
+import { environment } from 'src/enviroment/enviroment';
 @Component({
   selector: 'author-shared-model',
 
@@ -31,6 +31,7 @@ export class AuthorSharedModelComponent implements OnInit {
   public replayCommentData: any = [];
 
   public toggleReply: boolean = false;
+  public mediaFilePath: string = `${environment.url}/assets/`;
 
   constructor(private readonly commentsApi: commentsApi) {}
 

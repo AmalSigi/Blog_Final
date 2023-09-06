@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { userApi } from 'src/app/core/http/userAccount.service';
+import { environment } from 'src/enviroment/enviroment';
 interface RegisterUserDto {
   firstName: string;
   lastName: string;
@@ -78,17 +79,12 @@ export class RegisterComponent {
     return null;
   }
   fetchRoles() {
-    this.http
-      .get<AddUserRoleDto[]>('http://192.168.29.97:5296/UserAccount/roles')
-      this.userService.userRoles()
-      .subscribe({
-        next:(roles)=>{
-          this.roles = roles;
-
-        }
-      }
-        
-      );
+    this.http.get<AddUserRoleDto[]>(`${environment.url}/UserAccount/roles`);
+    this.userService.userRoles().subscribe({
+      next: (roles) => {
+        this.roles = roles;
+      },
+    });
   }
 
   onSubmit(): void {
@@ -99,16 +95,14 @@ export class RegisterComponent {
       this.registrationForm.value
     );
 
-    const url = 'http://192.168.29.97:5296/UserAccount/registeruser';
-this.userService.registerUser(formData).subscribe({
-  next:()=>{
-    this.router.navigate(['admin/users']);
-  },
-  error:(error)=>{
-    alert(error.message);
-  }
-
-})
+    this.userService.registerUser(formData).subscribe({
+      next: () => {
+        this.router.navigate(['admin/users']);
+      },
+      error: (error) => {
+        alert(error.message);
+      },
+    });
   }
   transformFormData(data: any): RegisterUserDto {
     const userRoles: TransformedUserRoleDto[] = [];

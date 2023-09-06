@@ -6,12 +6,9 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { categoryApi } from 'src/app/core/http/category.service';
-import { editorsPickApi } from 'src/app/core/http/editorsPick.services';
-import { postsAPi } from 'src/app/core/http/post.service';
 import { PublicService } from 'src/app/core/http/public.service';
 import Swiper from 'swiper';
-
+import { environment } from 'src/enviroment/enviroment';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -34,6 +31,7 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
   public catgoryDetailes: any = [];
   public temparray: any = [];
   public editorialPick?: any = [];
+  public mediaFilePath: string = `${environment.url}/assets/`;
   constructor(private readonly publicapi: PublicService) {}
   ngOnInit(): void {
     this.getLatestPost();
@@ -153,6 +151,6 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
       (this.currentSlideIndex - 1 + this.slides.length) % this.slides.length;
   }
   getImageUrl(imgPath: string): string {
-    return 'http://192.168.29.97:5296/assets/' + imgPath;
+    return this.mediaFilePath + imgPath;
   }
 }

@@ -13,10 +13,7 @@
 
       <img
         *ngIf="profileDetailes?.profilePicturePath"
-        [src]="
-          'http://192.168.29.97:5296/assets/' +
-          profileDetailes?.profilePicturePath
-        "
+        [src]="mediaFilePath + profileDetailes?.profilePicturePath"
         alt="profile picture"
         class="w-full h-full object-cover"
       />

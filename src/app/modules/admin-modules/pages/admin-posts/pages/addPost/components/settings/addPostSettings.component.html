@@ -33,36 +33,26 @@
         <ng-container *ngSwitchCase="4">
           <img
             class="w-[80%] h-52"
-            [src]="'http://192.168.29.97:5296/assets/' + image.mediaPath"
+            [src]="mediaFilePath + image.mediaPath"
             alt="load"
           />
         </ng-container>
         <ng-container *ngSwitchCase="6">
           <img
             class="w-[80%] h-52"
-            [src]="'http://192.168.29.97:5296/assets/' + image.mediaPath"
+            [src]="mediaFilePath + image.mediaPath"
             alt="load"
           />
         </ng-container>
 
         <ng-container *ngSwitchCase="5">
-          <video
-            controls
-            muted
-            [src]="'http://192.168.29.97:5296/assets/' + image.mediaPath"
-          ></video>
+          <video controls muted [src]="mediaFilePath + image.mediaPath"></video>
         </ng-container>
         <ng-container *ngSwitchCase="7">
-          <video
-            controls
-            muted
-            [src]="'http://192.168.29.97:5296/assets/' + image.mediaPath"
-          ></video>
+          <video controls muted [src]="mediaFilePath + image.mediaPath"></video>
         </ng-container>
         <ng-container *ngSwitchCase="7">
-          
-            <p>{{image.mediaPath}}</p>
-        
+          <p>{{ image.mediaPath }}</p>
         </ng-container>
       </li>
     </ul>
@@ -71,112 +61,111 @@
     *ngIf="currentTool == 'settings'"
     class="w-full h-[90%] overflow-auto container mx-auto px-2 mt-5"
   >
-    <form  action="" [formGroup]="imgForm">
+    <form action="" [formGroup]="imgForm">
       <!-- For image -->
-      <section [hidden]="currentBlock!=4">
-
-      <div class="grid gap-2 mb-5">
-        <label for="alt_text">ALTERNATIVE TEXT</label>
-        <textarea
-          (input)="updateSettings()"
-          formControlName="altText"
-          class="outline-blue-600 border-2 border-black"
-          name=""
-          id="alt_text"
-          cols="30"
-          rows="5"
-        ></textarea>
-      </div>
-      <div class="grid gap-2">
-        <label for="">ASPECT RATIO</label>
-        <select
-          formControlName="aspectRatio"
-          (change)="updateSettings()"
-          class="p-2 border-2 outline-blue-600"
-          name=""
-          id=""
-        >
-          <option value="auto">auto</option>
-          <option value="square">square</option>
-          <option value="video">video</option>
-        </select>
-      </div>
-      <div class="grid gap-3 mt-5">
-        <label for="">Object Fit</label>
-        <div class="flex justify-between">
-          <div
-            class="flex gap-3 rounded-lg p-2 border-2 border-black outline-blue-600"
-          >
-            <label for="cover">Cover</label>
-            <input
-              [value]="'cover'"
-              (change)="updateSettings()"
-              name="objectFit"
-              formControlName="objectFit"
-              id="cover"
-              type="radio"
-            />
-          </div>
-          <div
-            class="flex gap-3 rounded-lg p-2 border-2 border-black outline-blue-600"
-          >
-            <label for="contain">Contain</label>
-            <input
-              name="objectFit"
-              [value]="'contain'"
-              (change)="updateSettings()"
-              formControlName="objectFit"
-              id="contain"
-              type="radio"
-            />
-          </div>
-          <div
-            class="flex gap-3 rounded-lg p-2 border-2 border-black outline-blue-600"
-          >
-            <label for="fill">Fill</label>
-            <input
-              [value]="'fill'"
-              name="objectFit"
-              (change)="updateSettings()"
-              formControlName="objectFit"
-              id="fill"
-              type="radio"
-            />
-          </div>
+      <section [hidden]="currentBlock != 4">
+        <div class="grid gap-2 mb-5">
+          <label for="alt_text">ALTERNATIVE TEXT</label>
+          <textarea
+            (input)="updateSettings()"
+            formControlName="altText"
+            class="outline-blue-600 border-2 border-black"
+            name=""
+            id="alt_text"
+            cols="30"
+            rows="5"
+          ></textarea>
         </div>
-        <div class="flex gap-10">
-          <div class="grid gap-2">
-            <label for="height">Height</label>
-            <div class="flex justify-evenly">
+        <div class="grid gap-2">
+          <label for="">ASPECT RATIO</label>
+          <select
+            formControlName="aspectRatio"
+            (change)="updateSettings()"
+            class="p-2 border-2 outline-blue-600"
+            name=""
+            id=""
+          >
+            <option value="auto">auto</option>
+            <option value="square">square</option>
+            <option value="video">video</option>
+          </select>
+        </div>
+        <div class="grid gap-3 mt-5">
+          <label for="">Object Fit</label>
+          <div class="flex justify-between">
+            <div
+              class="flex gap-3 rounded-lg p-2 border-2 border-black outline-blue-600"
+            >
+              <label for="cover">Cover</label>
               <input
-                placeholder="Auto"
-                (input)="updateSettings()"
-                formControlName="height"
-                id="height"
-                class="border-2 border-black outline-blue-600 p-2 w-28 appearance-none"
-                type="number"
+                [value]="'cover'"
+                (change)="updateSettings()"
+                name="objectFit"
+                formControlName="objectFit"
+                id="cover"
+                type="radio"
               />
-              <p class="-ml-8 mt-3" s>PX</p>
+            </div>
+            <div
+              class="flex gap-3 rounded-lg p-2 border-2 border-black outline-blue-600"
+            >
+              <label for="contain">Contain</label>
+              <input
+                name="objectFit"
+                [value]="'contain'"
+                (change)="updateSettings()"
+                formControlName="objectFit"
+                id="contain"
+                type="radio"
+              />
+            </div>
+            <div
+              class="flex gap-3 rounded-lg p-2 border-2 border-black outline-blue-600"
+            >
+              <label for="fill">Fill</label>
+              <input
+                [value]="'fill'"
+                name="objectFit"
+                (change)="updateSettings()"
+                formControlName="objectFit"
+                id="fill"
+                type="radio"
+              />
             </div>
           </div>
-          <div class="grid gap-2">
-            <label for="width">Width</label>
-            <div class="flex justify-center">
-              <input
-                placeholder="Auto"
-                (input)="updateSettings()"
-                formControlName="width"
-                class="border-2 border-black outline-blue-600 p-2 w-28 appearance-none"
-                type="number"
-              />
-              <p class="-ml-8 mt-3">PX</p>
+          <div class="flex gap-10">
+            <div class="grid gap-2">
+              <label for="height">Height</label>
+              <div class="flex justify-evenly">
+                <input
+                  placeholder="Auto"
+                  (input)="updateSettings()"
+                  formControlName="height"
+                  id="height"
+                  class="border-2 border-black outline-blue-600 p-2 w-28 appearance-none"
+                  type="number"
+                />
+                <p class="-ml-8 mt-3" s>PX</p>
+              </div>
+            </div>
+            <div class="grid gap-2">
+              <label for="width">Width</label>
+              <div class="flex justify-center">
+                <input
+                  placeholder="Auto"
+                  (input)="updateSettings()"
+                  formControlName="width"
+                  class="border-2 border-black outline-blue-600 p-2 w-28 appearance-none"
+                  type="number"
+                />
+                <p class="-ml-8 mt-3">PX</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-<!-- For Ads -->
-      <section [hidden]="currentBlock==4">
+      </section>
+      <!-- For Ads -->
+      <section [hidden]="currentBlock == 4">
         <!-- <div class="grid">
           <label for="">Choose Ads Type</label>
           <select
@@ -194,7 +183,7 @@
         <div class="mt-10">
           <label for="">Link</label>
           <input
-          (input)="updateSettings()"
+            (input)="updateSettings()"
             formControlName="href"
             placeholder="Paste your ad Link here"
             class="w-full p-2 border-2 outline-blue-600"

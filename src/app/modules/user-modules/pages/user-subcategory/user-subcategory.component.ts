@@ -5,7 +5,7 @@ import { categoryApi } from 'src/app/core/http/category.service';
 import { postsAPi } from 'src/app/core/http/post.service';
 import { PublicService } from 'src/app/core/http/public.service';
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
-
+import { environment } from 'src/enviroment/enviroment';
 @Component({
   selector: 'app-user-subcategory',
   templateUrl: './user-subcategory.component.html',
@@ -21,6 +21,7 @@ export class UserSubcategoryComponent implements OnInit {
   public categoryName: any;
   public subCategoryName: any;
   public categoryCoverPic!: any;
+  public mediaFilePath: string = `${environment.url}/assets/`;
   ngOnInit(): void {
     this.mainCall();
   }

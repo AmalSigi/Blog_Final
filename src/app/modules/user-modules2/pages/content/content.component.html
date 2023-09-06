@@ -22,10 +22,7 @@
           <img
             *ngIf="post?.author?.profilePicturePath"
             class="h-full w-full overflow-hidden"
-            [src]="
-              'http://192.168.29.97:5296/assets/' +
-              post?.author?.profilePicturePath
-            "
+            [src]="mediaFilePath + post?.author?.profilePicturePath"
             alt=""
           />
         </div>
@@ -71,9 +68,7 @@
           >
           <!-- image -->
           <ng-container *ngSwitchCase="4"
-            ><img
-              class="mb-5 w-full"
-              [src]="'http://192.168.29.97:5296/assets/' + postItem.content"
+            ><img class="mb-5 w-full" [src]="mediaFilePath + postItem.content"
           /></ng-container>
           <!-- video -->
 
@@ -90,9 +85,7 @@
                 [href]="postItem.sectionAttributes[findIndex(4, i)]?.value"
                 ><img
                   class="my-5 w-full h-[200px]"
-                  [src]="
-                    'http://192.168.29.97:5296/assets/' + postItem.content
-                  "
+                  [src]="mediaFilePath + postItem.content"
               /></a></div
           ></ng-container>
           <ng-container *ngSwitchCase="9">
@@ -104,9 +97,7 @@
                 [href]="postItem.sectionAttributes[findIndex(4, i)]?.value"
                 ><img
                   class="my-5 w-full h-[200px]"
-                  [src]="
-                    'http://192.168.29.97:5296/assets/' + postItem.content
-                  "
+                  [src]="mediaFilePath + postItem.content"
               /></a></div
           ></ng-container>
           <ng-container *ngSwitchCase="10">
@@ -120,9 +111,7 @@
                   class="my-5"
                   controls
                   muted
-                  [src]="
-                    'http://192.168.29.97:5296/assets/' + postItem?.content
-                  "
+                  [src]="mediaFilePath + postItem?.content"
                 ></video
               ></a></div
           ></ng-container>
@@ -447,7 +436,7 @@
       >
         <div class="w-[80%] h-[80%]">
           <img
-            [src]="'http://192.168.29.97:5296/assets/' + post?.img?.content"
+            [src]="mediaFilePath + post?.img?.content"
             class="w-full h-full object-cover"
           />
         </div>
@@ -475,7 +464,7 @@
     >
       <div class="md:w-[25%] md:h-[30%] h-full w-full overflow-hidden">
         <img
-          [src]="'http://192.168.29.97:5296/assets/' + item?.img?.content"
+          [src]="mediaFilePath + item?.img?.content"
           class="w-full h-full object-cover"
         />
       </div>

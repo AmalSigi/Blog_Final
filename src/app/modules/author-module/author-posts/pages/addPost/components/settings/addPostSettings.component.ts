@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { environment } from 'src/enviroment/enviroment';
 
 @Component({
   selector: 'author-addPostSettings',
@@ -13,7 +14,7 @@ export class AuthorAddPostSettingsComponent {
   @Input() objectFit!: string;
   @Input() currentSettings!: any[];
   public currentTool: string = 'media';
-  @Input() currentBlock!:number;
+  @Input() currentBlock!: number;
   @Output() onChange = new EventEmitter();
   @Output() changeSettings = new EventEmitter();
   public imgForm!: FormGroup;
@@ -21,10 +22,9 @@ export class AuthorAddPostSettingsComponent {
   constructor(private readonly http: HttpClient) {}
   @Input() mediaType!: number;
   @Output() sendURL = new EventEmitter();
-
+  public mediaFilePath: string = `${environment.url}/assets/`;
   ngOnInit() {
- 
-this.getFormat();
+    this.getFormat();
 
     this.imgForm = new FormGroup({
       height: new FormControl(
@@ -32,48 +32,52 @@ this.getFormat();
           ? null
           : Number(this.currentSettings[this.findIndex(1)]?.value)
       ),
-      objectFit: new FormControl(this.currentSettings[this.findIndex(7)]?.value),
+      objectFit: new FormControl(
+        this.currentSettings[this.findIndex(7)]?.value
+      ),
       width: new FormControl(
         this.currentSettings[this.findIndex(2)]?.value === ''
           ? null
           : Number(this.currentSettings[this.findIndex(2)]?.value)
       ),
-      aspectRatio: new FormControl(this.currentSettings[this.findIndex(6)]?.value),
+      aspectRatio: new FormControl(
+        this.currentSettings[this.findIndex(6)]?.value
+      ),
       altText: new FormControl(this.currentSettings[this.findIndex(5)]?.value),
-      href:new FormControl(this.currentSettings[this.findIndex(4)]?.value),
-      font:new FormControl(this.currentSettings[this.findIndex(8)]?.value),
-
+      href: new FormControl(this.currentSettings[this.findIndex(4)]?.value),
+      font: new FormControl(this.currentSettings[this.findIndex(8)]?.value),
     });
   }
-  public getFormat(){
-    switch(this.mediaType){
+  public getFormat() {
+    switch (this.mediaType) {
       case 4:
-        this.getMedia('Image')
+        this.getMedia('Image');
         break;
-        case 5:
-          this.getMedia('Video')
-          break;
-          case 6:
-            this.getMedia('Advertisement_Image')
-            break;
-            case 7:
-              this.getMedia('Advertisement_Video')
-              break;
-              case 8:
-                this.getMedia('External')
-                break;
+      case 5:
+        this.getMedia('Video');
+        break;
+      case 6:
+        this.getMedia('Advertisement_Image');
+        break;
+      case 7:
+        this.getMedia('Advertisement_Video');
+        break;
+      case 8:
+        this.getMedia('External');
+        break;
     }
   }
-  public findIndex(id:number){
-    const index=this.currentSettings.findIndex((item:any)=>item.sectionAttributeId==id)
+  public findIndex(id: number) {
+    const index = this.currentSettings.findIndex(
+      (item: any) => item.sectionAttributeId == id
+    );
     return index;
   }
   public getMedia(type: string) {
-    this.http
-      .get(`http://192.168.29.97:5296/api/Media/${type}`)
-      .subscribe((data) => {
-        this.images = data;
-      });
+
+    this.http.get(`${environment.url}/Media/${type}`).subscribe((data) => {
+      this.images = data;
+    });
   }
 
   public sendImage(image: string): void {
