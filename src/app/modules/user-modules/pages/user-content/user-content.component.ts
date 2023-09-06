@@ -6,7 +6,7 @@ import {
   Validators,
   FormBuilder,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { commentsApi } from 'src/app/core/http/comments.service';
 import { postsAPi } from 'src/app/core/http/post.service';
@@ -30,7 +30,8 @@ export class UserContentComponent implements OnInit {
     private readonly trackDataService: trackDataService,
     private readonly sitesetting: siteSettingApi,
     private readonly authApi: authenticationApi,
-    private readonly subject: trackDataService
+    private readonly subject: trackDataService,
+    private readonly router: Router
   ) {}
   public post: any;
   public openLogin: boolean = false;
@@ -335,5 +336,13 @@ export class UserContentComponent implements OnInit {
     } else {
       return { height: `${height}px`, width: `${width}px` };
     }
+  }
+
+  // author profile
+
+  navigateToUserProfile(author: any) {
+    this.router.navigate(['/author-profile'], {
+      queryParams: { authorId: author },
+    });
   }
 }

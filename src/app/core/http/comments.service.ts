@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 })
 export class commentsApi {
   constructor(private readonly http: HttpClient) {}
-  public url: string = 'http://192.168.29.97:5296/Comment';
+  public url: string = 'http://192.168.29.97:5296/api/Comment';
 
   public getSingleComment(commentId: number): Observable<any> {
     return this.http.get(`${this.url}/${commentId}`);

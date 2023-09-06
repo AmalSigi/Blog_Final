@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 })
 export class categoryApi {
   constructor(private readonly http: HttpClient) {}
-  public url: string = 'http://192.168.29.97:5296/Category';
+  public url: string = 'http://192.168.29.97:5296/api/Category';
   // category
   public getCategory(): Observable<any> {
     return this.http.get(this.url);

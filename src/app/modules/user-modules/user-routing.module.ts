@@ -7,6 +7,7 @@ import { UserContentComponent } from './pages/user-content/user-content.componen
 import { UserCategoryComponent } from './pages/user-category/user-category.component';
 import { UserSubcategoryComponent } from './pages/user-subcategory/user-subcategory.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { AuthorProfileComponent } from './pages/author-profile/author-profile.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
         component: UserSubcategoryComponent,
       },
       { path: 'contact', component: ContactComponent },
+      { path: 'author-profile', component: AuthorProfileComponent },
     ],
   },
 ];

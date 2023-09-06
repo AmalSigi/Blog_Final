@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class tagApi {
   constructor(private readonly http: HttpClient) {}
-  public url: string = 'http://192.168.29.97:5296/Tags';
+  public url: string = 'http://192.168.29.97:5296/api/Tags';
   public getTags(
     offset: number,
     length: number,

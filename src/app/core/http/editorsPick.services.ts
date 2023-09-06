@@ -6,10 +6,10 @@ import { Observable } from 'rxjs';
 })
 export class editorsPickApi {
   constructor(private readonly http: HttpClient) {}
-  public url: string = 'http://192.168.29.97:5296/EditorsPick';
-  public EditorsPick(offfset: number, length: number): Observable<any> {
+  public url: string = 'http://192.168.29.97:5296/api/EditorsPick';
+  public EditorsPick(): Observable<any> {
     return this.http.get(
-      `${this.url}/picks?offfset=${offfset}&length=${length}`
+      `${this.url}/picks`
     );
   }
   public postEditorsPick(postId: any): Observable<any> {

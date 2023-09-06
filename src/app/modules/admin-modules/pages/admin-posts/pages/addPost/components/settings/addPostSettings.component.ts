@@ -70,7 +70,7 @@ this.getFormat();
   }
   public getMedia(type: string) {
     this.http
-      .get(`http://192.168.29.97:5296/Media/${type}`)
+      .get(`http://192.168.29.97:5296/api/Media/${type}`)
       .subscribe((data) => {
         this.images = data;
       });

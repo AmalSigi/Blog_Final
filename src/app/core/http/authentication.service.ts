@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class authenticationApi {
   constructor(private readonly http: HttpClient) {}
-  public url: string = 'http://192.168.29.97:5296/Authentication';
+  public url: string = 'http://192.168.29.97:5296/api/Authentication';
   public login(body: any): Observable<any> {
     return this.http.post(`${this.url}/login`, body);
   }

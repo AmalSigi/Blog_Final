@@ -23,6 +23,7 @@ import { UserRegisterComponent } from './pages/userAutentication/register/userRe
 import { ContactComponent } from './pages/contact/contact.component';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { NgxCaptchaModule } from 'ngx-captcha';
+import { AuthorProfileComponent } from './pages/author-profile/author-profile.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { NgxCaptchaModule } from 'ngx-captcha';
     UserLoginComponent,
     UserRegisterComponent,
     ContactComponent,
+    AuthorProfileComponent,
   ],
   imports: [
     NgxCaptchaModule,

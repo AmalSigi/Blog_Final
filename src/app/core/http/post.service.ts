@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 })
 export class postsAPi {
   constructor(private readonly http: HttpClient) {}
-  public url: string = 'http://192.168.29.97:5296/Post';
+  public url: string = 'http://192.168.29.97:5296/api/Post';
 
   // admin side
   public getPosts(): Observable<any> {
@@ -90,7 +90,7 @@ export class postsAPi {
   }
   public ownPosts(
     status: string,
-length:number,
+    length: number,
     offset: number
   ): Observable<any> {
     return this.http.get(
@@ -166,5 +166,8 @@ length:number,
   public getLatestPosts(length: number): Observable<any> {
     return this.http.get(`${this.url}/testing/blog/all?length=${length}`);
   }
-  
+
+  public getAuthored(authorId: any): Observable<any> {
+    return this.http.get(`${this.url}/blog/${authorId}/authoredPosts`);
+  }
 }

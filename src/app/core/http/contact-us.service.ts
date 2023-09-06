@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class ContactUsService {
   constructor(private readonly http: HttpClient) {}
-  public url: string = 'http://192.168.29.97:5296/ContactUs';
+  public url: string = 'http://192.168.29.97:5296/api/ContactUs';
 
   public getAllContact(
     read: any,

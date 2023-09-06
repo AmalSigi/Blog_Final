@@ -1,0 +1,22 @@
+.slideshow-container {
+    display: flex;
+    overflow: hidden;
+    max-width: 100%;
+    height: 300px;
+  }
+  
+  .slide {
+    flex: 0 0 100%;
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+  
+  .slide.active {
+    opacity: 1;
+  }
+  
+  .controls {
+    text-align: center;
+    margin-top: 10px;
+  }
+  

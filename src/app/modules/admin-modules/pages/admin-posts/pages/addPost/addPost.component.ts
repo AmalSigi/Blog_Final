@@ -16,6 +16,7 @@ export class AddPostComponent implements OnInit {
   dynamicDiv: DynamicDIvElement[] = [];
   dynamicFormControls: FormControl[] = [];
   currentTool!: number;
+  public load:boolean = false;
   public imgHeight: string = '600';
   public imgWidth: string = '600';
   public aspectRatio: string = '';
@@ -219,6 +220,7 @@ export class AddPostComponent implements OnInit {
   }
 
   public publish() {
+    this.load=true;
     this.dynamicDiv.forEach((element) => {
       element.sectionAttributes = element.sectionAttributes.filter(
         (item: any) => {
@@ -238,6 +240,7 @@ export class AddPostComponent implements OnInit {
       this.postService.addPost(this.blogForm.value).subscribe({
         next: (res) => {
           alert('New post created..');
+          this.load=false;
 
           this.router.navigate(['/admin/posts/published']);
         },
@@ -245,6 +248,7 @@ export class AddPostComponent implements OnInit {
           alert('Error please try again..');
           const draftPost = JSON.stringify(this.blogForm.value);
           localStorage.setItem('draftPost', draftPost);
+          this.load=false;
         },
       });
     }
@@ -342,64 +346,19 @@ export class AddPostComponent implements OnInit {
     }
   }
 
-  private selectionStart!: number;
-  private selectionEnd!: number;
-  public selectedTextarea!: string;
-  getSelectedWord(event: any) {
-    const textarea: any = event.target;
-    this.TextToolBar = true;
-    if (
-      textarea.selectionStart !== undefined &&
-      textarea.selectionEnd !== undefined
-    ) {
-      this.selectionStart = event.target.selectionStart;
-      this.selectionEnd = event.target.selectionEnd;
-
-      const selectedText = textarea.value.substring(
-        this.selectionStart,
-        this.selectionEnd
-      );
-      this.selectedTextarea = selectedText;
-    }
-  }
-  public urlData!: string;
-  public getUrl(Url: string): void {
-    this.urlData = Url;
-    this.onTextSelected('link');
-  }
-  public onTextSelected(event: any): void {
-    let formattedText: string = '';
-    if (this.selectedTextarea) {
-      switch (event) {
-        case 'bold':
-          formattedText = `**${this.selectedTextarea}**`;
-          break;
-        case 'italic':
-          formattedText = `*${this.selectedTextarea}*`;
-          break;
-        case 'link':
-          formattedText = `[${this.selectedTextarea}](${this.urlData})`;
-          break;
-        default:
-          break;
-      }
-      const textarea = this.dynamicFormControls[this.sectionId].value;
-      const newText =
-        textarea.slice(0, this.selectionStart) +
-        formattedText +
-        textarea.slice(this.selectionEnd);
-      this.dynamicFormControls[this.sectionId].setValue(newText);
-    }
-    this.selectedTextarea = '';
-  }
   editorConfig = {
     base_url: '/tinymce',
+    promotion:false,
     suffix: '.min',
+    removed_menuitems: 'undo redo',
+    menubar: 'insert',
+    menu: {
+      insert: { title: 'Insert', items: 'link'  }
+    },
     plugins: 'lists link wordcount fonts',
     toolbar:
-      'undo redo | casechange blocks | bold italic backcolor | \
- alignleft aligncenter alignright alignjustify | \
-  bullist numlist checklist outdent indent | removeformat',
+      'undo redo | bold italic backcolor | \
+  bullist numlist checklist outdent indent | removeformat fontfamily' ,
   };
 
   public changeFont(font: string) {
@@ -416,7 +375,6 @@ export class AddPostComponent implements OnInit {
   }
   //image Settings
   public changeImgSetings(value: any) {
-    console.log(value);
     this.dynamicDiv[this.sectionId].sectionAttributes[
       this.findIndex(1, this.sectionId)
     ].value = `${JSON.stringify(value.height)}`;

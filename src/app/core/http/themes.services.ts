@@ -13,7 +13,7 @@ export class themeApi {
   ) {
     this.getSettings();
   }
-  public url: string = 'http://192.168.29.97:5296/Theme';
+  public url: string = 'http://192.168.29.97:5296/api/Theme';
   public getThemes(): Observable<any> {
     return this.http.get(this.url);
   }

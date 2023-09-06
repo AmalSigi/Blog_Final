@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class siteSettingApi {
   constructor(private readonly http: HttpClient) {}
-  public url: string = 'http://192.168.29.97:5296/SiteSetting';
+  public url: string = 'http://192.168.29.97:5296/api/SiteSetting';
 
   public getSiteSetting(): Observable<any> {
     return this.http.get(`${this.url}`);

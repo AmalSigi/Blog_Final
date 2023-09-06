@@ -65,9 +65,8 @@ export class EditorsPickComponent implements OnInit {
   public loadPost() {
     const offset = this.setOffsetService.offset();
     const length = this.setOffsetService.pageSize;
-    this.editorService.getBlogEditorsPick().subscribe({
+    this.editorService.EditorsPick().subscribe({
       next: (resp) => {
-        console.log(resp);
         this.totalData = resp.length;
 
         resp.forEach((post: any) => {
@@ -124,6 +123,7 @@ export class EditorsPickComponent implements OnInit {
       this.editorService.deletepick(postId).subscribe({
         next: () => {
           alert('Post removed successfully');
+          this.posts = [];
 
           this.loadPost();
         },

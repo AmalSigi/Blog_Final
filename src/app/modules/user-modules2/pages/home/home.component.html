@@ -1,0 +1,215 @@
+<section class="container mx-auto mb-10 bg-gray-100">
+  <!-- trending -->
+  <div class="swiper-container container " #swiperContainer>
+    <div class="swiper-wrapper">
+      <div
+        class="swiper-slide h-96 bg-black mx-auto mt-10 rounded-md overflow-hidden"
+        *ngIf="currentSlideIndex === 0"
+        [@fadeIn]
+      >
+        <div class="w-full h-full bg-gray-500">
+          <a>
+            <img
+              class="w-full h-full object-cover"
+              src="https://northccs.com/800/600/http/images.ctfassets.net/3s5io6mnxfqz/6EVy8lkEiY9kKsNeSE0rUk/38425dcc8a68068c0126f01b0f5e6098/AdobeStock_114919963.jpeg"
+              alt=""
+            />
+          </a>
+        </div>
+        <div class="-my-64 text-center">
+          <h1 class="text-4xl text-white pb-3">Welcome to the blog portal</h1>
+          <p class="text-white">
+            Here You Can View the Blogs of Different Categories and comment on
+            it
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="swiper-slide ml-4 h-96 bg-black mx-auto mt-10 rounded-md overflow-hidden"
+        *ngFor="let slide of apiSlides; let i = index"
+        [@fadeIn]
+      >
+        <div class="w-full h-96 bg-gray-500 overflow-hidden object-cover">
+          <a routerLink="content/{{ slide.postId }}">
+            <img
+              class="w-full h-full object-cover"
+              [src]="'http://192.168.29.97:5296/assets/' + slide?.img?.content"
+              alt=""
+            />
+          </a>
+        </div>
+        <div class="-my-64 text-center">
+          <h1 class="text-4xl text-white pb-3">{{ slide.heading?.content }}</h1>
+          <p class="text-white">
+            {{ slide.subHeading?.content }}
+          </p>
+          <button
+            class="text-white text-lg px-4 py-4 bg-gray-400 mt-4 ml-10"
+            routerLink="content/{{ slide.postId }}"
+          >
+            Read more
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+  <!-- EditorsPick -->
+
+  <div class="container mx-auto mt-20">
+    <h1 class="text-center font-serif text-3xl">Editors Pick</h1>
+    <div class="grid md:grid-cols-2 col-span-3 gap-4 mt-4">
+      <div
+        class="md:flex grid shadow-md px-4 py-4 rounded-lg bg-white w-full"
+        *ngFor="let item of editorialPick!; let i = index"
+        routerLink="content/{{ item.postId }}"
+      >
+        <div class="w-[50%] h-48 overflow-hidden rounded-lg">
+          <img
+            [src]="'http://192.168.29.97:5296/assets/' + item?.img?.content"
+            class="w-full h-full object-cover"
+          />
+        </div>
+        <div class="px-2 py-2 mr-2 pl-4">
+          <h1 class="font-semibold text-xl mt-">
+            {{ item?.heading?.content }}
+          </h1>
+          <p class="mt-2">{{ item?.subHeading?.content }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- latest -->
+  <section class="container mx-auto h-full w-full ">
+    <h2 class="text-3xl text-center font-serif mt-20">Latest Blog Posts</h2>
+    <div class="grid md:grid-cols-12 mx-auto mt-5 gap-4">
+      <div
+        class=" col-span-4 shadow-md"
+        *ngFor="let item of latestPost!; let i = index"
+        routerLink="content/{{ item.postId }}"
+      >
+        <div class="bg-red-950 p-3 flex items-center">
+          <button class="text-white">
+            <i class="fa-solid fa-database fa-2x"></i>
+          </button>
+          <h1 class="font-medium text-xl text-white ml-3">
+            {{ item.categoryName }}
+          </h1>
+        </div>
+        <div class="h-[400px] w-full bg-red-200">
+          <img
+            class="w-full h-full object-cover hover:shadow-lg hover:shadow-gray-500"
+            [src]="'http://192.168.29.97:5296/assets/' + item?.img?.content"
+            alt=""
+          />
+        </div>
+        <div class=" ">
+          <h2 class="text-2xl font-semibold mt-4 text-center">
+            {{ item?.heading?.content }}
+          </h2>
+          <p class="mt-3 text-start p-2">
+            {{ item?.subHeading?.content }}
+          </p>
+        </div>
+
+        <div class="flex p-2">
+          <p class="border-2 p-4 rounded-lg">
+            Posted on: {{ item.createdAt | date : "MMM d, y, h:mm a" }}
+          </p>
+          <p class="border-2 p-4 rounded-lg ml-3">
+            {{ item.viewCount }} Visits
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- add section -->
+  <section class="container border-2 border-x-0 h-36 mx-auto mt-24 p-5">
+    <div class="mx-auto w-[70%] h-full bg-black">
+      <a href="blog_content.html">
+        <img
+          class="w-full h-full object-cover"
+          src="https://tpc.googlesyndication.com/simgad/1515406221368002761"
+          alt=""
+        />
+      </a>
+    </div>
+  </section>
+
+  <!-- category -->
+  <section
+    class="container border-2 flex flex-col h-auto"
+    *ngFor="let item of catgoryDetailes"
+  >
+    <div>
+      <h2 class="text-3xl font-serif mt-20 text-center">
+        {{ item.categoryName }}
+      </h2>
+    </div>
+    <div class="mx-auto mt-5 flex align-middle gap-3 border-2">
+      <div
+        class="w-3/5 p-4"
+        routerLink="content/{{ item.categoryPost[0].postId }}"
+      >
+        <div class="bg-blue-200 w-full h-80 overflow-hidden object-cover">
+          <img
+            class="w-full h-full hover:shadow-lg hover:shadow-gray-500"
+            [src]="
+              'http://192.168.29.97:5296/assets/' +
+              item?.categoryPost[0]?.img?.content
+            "
+            alt=""
+          />
+        </div>
+        <div class="mt-2">
+          <h1 class="text-start mt-3 font-medium text-2xl">
+            {{ item?.categoryPost[0]?.heading?.content }}
+          </h1>
+          <p class="text-start mt-2">
+            {{ item?.categoryPost[0]?.subHeading?.content }} ...
+          </p>
+          <div class="mt-4">
+            <a
+              routerLink="content/{{ item.categoryPost[0].postId }}"
+              class="text-gray-400 font-semibold text-xl pt-4"
+              >READ MORE</a
+            >
+          </div>
+        </div>
+      </div>
+      <div
+        class="w-2/5 bg-gray-200 grid"
+        routerLink="content/{{ post.postId }}"
+        *ngFor="let post of item.categoryPost.slice(1)"
+      >
+        <div class="pt-3 pl-3 pr-3 pb-2">
+          <div class="w-full h-48 overflow-hidden rounded-md">
+            <img
+              [src]="'http://192.168.29.97:5296/assets/' + post?.img?.content"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="pt-2">
+            <p class="text-gray-500">People like you- 11 min read</p>
+            <h1 class="text-start mt-3 font-medium text-2xl">
+              {{ post?.heading?.content }}
+            </h1>
+            <p class="text-start mt-2">{{ post?.subHeading?.content }}</p>
+            <div class="mt-4">
+              <a
+                routerLink="content/{{ post.postId }}"
+                class="text-gray-400 font-semibold text-xl pt-4"
+                >READ MORE</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
+<app-pop-up3></app-pop-up3>

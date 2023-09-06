@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class userApi {
   constructor(private readonly http: HttpClient) {}
-  public url: string = 'http://192.168.29.97:5296/UserAccount';
+  public url: string = 'http://192.168.29.97:5296/api/UserAccount';
   public registerUser(body: any): Observable<any> {
     return this.http.post(`${this.url}/registeruser`, body);
   }

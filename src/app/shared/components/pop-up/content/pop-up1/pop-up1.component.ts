@@ -7,6 +7,7 @@ import {
   keyframes,
 } from '@angular/animations';
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-pop-up1',
@@ -33,4 +34,5 @@ import { Component } from '@angular/core';
 })
 export class PopUp1Component {
   public shoePopPu: boolean = true;
+  constructor(private readonly route: ActivatedRoute) {}
 }

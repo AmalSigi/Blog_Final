@@ -1,17 +1,15 @@
-import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { CanActivate, CanActivateFn, Router } from "@angular/router";
-import { of } from "rxjs";
+import { Router } from "@angular/router";
+import { authenticationApi } from "../http/authentication.service";
 
 @Injectable({
     providedIn: 'root',
 })
 export class loginQuards{
-    constructor(private readonly http:HttpClient,
+    constructor(private readonly authService:authenticationApi,
         private readonly route:Router){}
-    public url: string="http://192.168.29.97:5296/Authentication/isAuthorized"
 canActivate():any{
-   this.http.post(this.url,{}).subscribe({
+   this.authService.isAuthorized().subscribe({
     next:(resp)=>{
 return true;
     },
