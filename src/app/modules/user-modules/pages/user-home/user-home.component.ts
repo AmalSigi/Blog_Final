@@ -3,6 +3,7 @@ import { Observable, empty } from 'rxjs';
 import { categoryApi } from 'src/app/core/http/category.service';
 import { editorsPickApi } from 'src/app/core/http/editorsPick.services';
 import { postsAPi } from 'src/app/core/http/post.service';
+import { PublicService } from 'src/app/core/http/public.service';
 
 @Component({
   selector: 'app-user-home',
@@ -13,12 +14,9 @@ export class UserHomeComponent implements OnInit {
   public editorialPick?: any = [];
   public catgoryDetailes: any = [];
   public temparray: any = [];
+  public randomad: any;
 
-  constructor(
-    private readonly postApi: postsAPi,
-    private readonly categoryApi: categoryApi,
-    private readonly editorsPickApi: editorsPickApi
-  ) {}
+  constructor(private readonly publicapi: PublicService) {}
   ngOnInit(): void {
     this.getLatestPost();
     this.getCategory();
@@ -28,13 +26,21 @@ export class UserHomeComponent implements OnInit {
   public getLatestPost() {
     const length = 4;
 
-    this.postApi.getLatestPosts(length).subscribe((respo) => {
+    this.publicapi.getLatestPosts(length).subscribe((respo) => {
       this.latestPost = this.postToArray(respo);
     });
   }
 
+  public getRandom() {
+    this.publicapi.getThemeRandomAdvertisements().subscribe({
+      next: (respo: any) => {
+        this.randomad = respo;
+      },
+    });
+  }
+
   public getEditorsPick() {
-    this.editorsPickApi.getBlogEditorsPick().subscribe({
+    this.publicapi.getEditorsPick().subscribe({
       next: (response) => {
         response.forEach((post: any) => {
           this.getPost(post.postId);
@@ -43,7 +49,7 @@ export class UserHomeComponent implements OnInit {
     });
   }
   public getPost(postId: number) {
-    this.postApi.getBlogPostById(postId).subscribe((respo) => {
+    this.publicapi.getPostByPostId(postId).subscribe((respo) => {
       this.temparray.push(respo);
       this.editorialPick = this.postToArray(this.temparray);
     });
@@ -54,7 +60,7 @@ export class UserHomeComponent implements OnInit {
     let categoryId: any;
     let categoryName: any;
 
-    this.categoryApi.getCategory().subscribe((respo: any) => {
+    this.publicapi.getCategory().subscribe((respo: any) => {
       respo.forEach((element: any) => {
         this.getCategoryPost(element);
       });
@@ -62,7 +68,7 @@ export class UserHomeComponent implements OnInit {
   }
 
   public getCategoryPost(category: any) {
-    this.postApi
+    this.publicapi
       .getPostByCategoryByLength(category.id, 4)
       .subscribe((respo: any) => {
         if (respo.length > 0) {

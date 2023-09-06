@@ -1,9 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { ContactUsService } from 'src/app/core/http/contact-us.service';
-import { siteSettingApi } from 'src/app/core/http/site-setting.service';
-import { Country } from 'src/app/core/services/countery.service';
+import { PublicService } from 'src/app/core/http/public.service';
 
 @Component({
   selector: 'app-contact',
@@ -16,9 +16,9 @@ export class ContactComponent implements OnInit {
   public instagram: any;
   public youtube: any;
   constructor(
-    private readonly country: Country,
     private readonly contact: ContactUsService,
-    private readonly siteSetting: siteSettingApi
+    private readonly publicapi: PublicService,
+    private readonly http: HttpClient
   ) {}
   public contactForm = new FormGroup({
     message: new FormControl('', Validators.required),
@@ -30,12 +30,23 @@ export class ContactComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.countries = this.country.country;
+    this.fetchCountryData();
     this.getSitsetting();
   }
 
+  public fetchCountryData() {
+    this.http.get('https://restcountries.com/v3.1/all').subscribe(
+      (data: any) => {
+        this.countries = data;
+      },
+      (error) => {
+        //console.error("Error fetching country data:", error);
+      }
+    );
+  }
+
   public getSitsetting() {
-    this.siteSetting.getSiteSetting().subscribe({
+    this.publicapi.getSiteSetting().subscribe({
       next: (respo) => {
         console.log(respo);
         this.facebook = respo.find((item: any) => item.id == 5);
@@ -51,7 +62,7 @@ export class ContactComponent implements OnInit {
 
   public send() {
     if (this.contactForm.valid) {
-      this.contact.postContactMessage(this.contactForm.value).subscribe({
+      this.publicapi.postContactUs(this.contactForm.value).subscribe({
         next: () => {},
         error: () => {},
       });

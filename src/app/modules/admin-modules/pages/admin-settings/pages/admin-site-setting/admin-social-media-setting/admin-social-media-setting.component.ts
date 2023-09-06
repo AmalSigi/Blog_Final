@@ -92,8 +92,8 @@ export class AdminSocialMediaSettingComponent {
           this.editmail = !this.editmail;
         }
       },
-      error: () => {
-        this.toster.error('Error in updating Mail address ');
+      error: (respo) => {
+        this.toster.error(respo.error);
       },
     });
 

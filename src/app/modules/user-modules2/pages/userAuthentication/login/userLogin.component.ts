@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { authenticationApi } from 'src/app/core/http/authentication.service';
+import { PublicService } from 'src/app/core/http/public.service';
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 
 @Component({
@@ -11,8 +12,9 @@ export class UserLoginComponent {
   @Output() close = new EventEmitter();
   @Output() onSignup = new EventEmitter();
   constructor(
-    private authentication: authenticationApi,
-    private readonly subject: trackDataService
+    private readonly subject: trackDataService,
+    private readonly publicapi: PublicService,
+    private readonly authenticationApi: authenticationApi
   ) {}
   public loginForm = new FormGroup({
     email: new FormControl('', Validators.required),
@@ -22,7 +24,7 @@ export class UserLoginComponent {
     if (this.loginForm.valid) {
       const body = this.loginForm.value;
 
-      this.authentication.login(body).subscribe({
+      this.authenticationApi.login(body).subscribe({
         next: (response) => {
           localStorage.setItem('jwtToken', JSON.stringify(response.jwtToken));
           this.subject.sendClickEvent1();

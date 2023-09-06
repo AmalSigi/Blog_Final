@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { commentsApi } from 'src/app/core/http/comments.service';
+import { PublicService } from 'src/app/core/http/public.service';
 
 @Component({
   selector: 'app-shared-model',
@@ -18,7 +19,10 @@ export class SharedModelComponent implements OnInit {
   public commentboxId: any;
   public replayCommentData: any = [];
   public toggleReply: boolean = false;
-  constructor(private readonly commentsApi: commentsApi) {}
+  constructor(
+    private readonly commentsApi: commentsApi,
+    private readonly publicapi: PublicService
+  ) {}
   public commentForm = new FormGroup({
     content: new FormControl('', Validators.required),
     ParentId: new FormControl('', Validators.required),
@@ -96,7 +100,7 @@ export class SharedModelComponent implements OnInit {
   public sendReply() {
     this.commentForm.controls['ParentId'].setValue(this.parentId);
 
-    this.commentsApi
+    this.publicapi
       .postComment(this.post.id, this.commentForm.value)
       .subscribe((_repo) => {
         this.getComments();

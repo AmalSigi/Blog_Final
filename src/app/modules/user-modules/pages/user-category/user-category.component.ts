@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { categoryApi } from 'src/app/core/http/category.service';
 import { postsAPi } from 'src/app/core/http/post.service';
+import { PublicService } from 'src/app/core/http/public.service';
 import { OffsetService } from 'src/app/core/services/pagination.service';
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 
@@ -12,10 +13,9 @@ import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 })
 export class UserCategoryComponent implements OnInit {
   constructor(
-    private readonly postApi: postsAPi,
     private readonly route: ActivatedRoute,
     private readonly trackDataService: trackDataService,
-    private readonly categoryApi: categoryApi
+    private readonly publicapi: PublicService
   ) {}
 
   public categoryPost: any = [];
@@ -23,15 +23,11 @@ export class UserCategoryComponent implements OnInit {
   public categoryCoverPic!: any;
   public loading: boolean = true;
   ngOnInit(): void {
-    //this.categoryPost = [];
-
     this.mainCall();
   }
   public reloadData: Subscription = this.trackDataService
     .getClickEvent1()
-    .subscribe(() => {
-      //  this.categoryPost = [];
-    });
+    .subscribe(() => {});
 
   public mainCall() {
     this.route.params.subscribe((params) => {
@@ -45,7 +41,7 @@ export class UserCategoryComponent implements OnInit {
   }
 
   public getCategoryDetailesById(categoryId: number) {
-    this.categoryApi.getCategoryById(categoryId).subscribe({
+    this.publicapi.getCategoryById(categoryId).subscribe({
       next: (respo: any) => {
         console.log(respo);
         this.categoryName = respo.categoryName;
@@ -59,7 +55,7 @@ export class UserCategoryComponent implements OnInit {
   }
 
   public getPostByCategory(categoryId: number) {
-    this.postApi.getPostByCategory(categoryId).subscribe((respo) => {
+    this.publicapi.getPostByCategoryId(categoryId).subscribe((respo) => {
       console.log(respo);
       for (const post of respo) {
         let heading = post.postSections.filter(
@@ -84,6 +80,6 @@ export class UserCategoryComponent implements OnInit {
     });
   }
   public postCall(postId: any) {
-    return this.postApi.getBlogPostById(postId);
+    return this.publicapi.getPostByPostId(postId);
   }
 }

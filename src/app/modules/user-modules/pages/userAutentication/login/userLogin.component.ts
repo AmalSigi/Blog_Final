@@ -6,6 +6,7 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { authenticationApi } from 'src/app/core/http/authentication.service';
+import { PublicService } from 'src/app/core/http/public.service';
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 
 @Component({
@@ -20,9 +21,10 @@ export class UserLoginComponent implements OnInit {
   public aFormGroup!: FormGroup;
 
   constructor(
-    private authentication: authenticationApi,
     private readonly subject: trackDataService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private readonly publicapi: PublicService,
+    private readonly authenticationApi: authenticationApi
   ) {}
   ngOnInit(): void {
     this.aFormGroup = this.formBuilder.group({
@@ -44,7 +46,7 @@ export class UserLoginComponent implements OnInit {
     if (this.loginForm.valid) {
       const body = this.loginForm.value;
 
-      this.authentication.login(body).subscribe({
+      this.authenticationApi.login(body).subscribe({
         next: (response) => {
           localStorage.setItem('jwtToken', JSON.stringify(response.jwtToken));
           this.subject.sendClickEvent1();

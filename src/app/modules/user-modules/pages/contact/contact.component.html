@@ -72,8 +72,11 @@
             id="country"
           >
             <option value="" disabled selected>Select Country</option>
-            <option *ngFor="let country of countries" [value]="country.name">
-              {{ country.name }}
+            <option
+              *ngFor="let country of countries"
+              [value]="country.name.common"
+            >
+              {{ country.name.common }}
             </option>
           </select>
         </div>
