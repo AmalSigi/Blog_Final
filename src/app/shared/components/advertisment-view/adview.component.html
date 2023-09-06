@@ -1,31 +1,19 @@
 <section>
   <ng-container [ngSwitch]="getMediaType(advertisement?.media?.mediaFormat)">
-    <div
-class="h-96 w-full"
-
-    *ngSwitchCase="'image'"
-    >
-        <img
-        [src]="
-          'http://192.168.29.97:5264/assets/' + advertisement?.media?.mediaPath
-        "
+    <div class="h-96 w-full" *ngSwitchCase="'image'">
+      <img
+        [src]="mediaFilePath + advertisement?.media?.mediaPath"
         class="w-full h-full object-cover"
       />
     </div>
- 
-<div
-class="h-96 w-full"
-*ngSwitchCase="'video'"
 
->
-    <video
-      [src]="
-        'http://192.168.29.97:5264/assets/' + advertisement?.media?.mediaPath
-      "
-      class="w-full h-full"
-      controls
-    ></video>
-</div>
+    <div class="h-96 w-full" *ngSwitchCase="'video'">
+      <video
+        [src]="mediaFilePath + advertisement?.media?.mediaPath"
+        class="w-full h-full"
+        controls
+      ></video>
+    </div>
 
     <p *ngSwitchDefault class="text-lg font-semibold px-2 py-2 text-justify">
       {{ advertisement?.media?.mediaPath }}

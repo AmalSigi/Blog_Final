@@ -5,7 +5,7 @@
   <div class="w-full h-96 bg-gray-700 flex mt-4 pb-3 border-b-2">
     <div class="w-[80%] h-full overflow-hidden">
       <img
-        [src]="'http://192.168.29.97:5296/assets/' + theme?.coverPicture"
+        [src]="mediaFilePath + theme?.coverPicture"
         class="w-full h-full object-cover"
       />
     </div>
@@ -28,7 +28,7 @@
     >
       <div class="bg-gray-200 overflow-hidden w-full h-[80%]">
         <img
-          [src]="'http://192.168.29.97:5296/assets/' + theme?.themeLayouts[0]?.imagePath"
+          [src]="mediaFilePath + theme?.themeLayouts[0]?.imagePath"
           class="w-full h-full object-cover"
         />
       </div>
@@ -42,7 +42,7 @@
     >
       <div class="bg-gray-200 overflow-hidden w-full h-[80%]">
         <img
-          [src]="'http://192.168.29.97:5296/assets/' + theme?.themeLayouts[1]?.imagePath"
+          [src]="mediaFilePath+ theme?.themeLayouts[1]?.imagePath"
           class="w-full h-full object-cover"
         />
       </div>
@@ -58,7 +58,7 @@
     >
       <div class="bg-gray-200 overflow-hidden w-full h-[80%]">
         <img
-          [src]="'http://192.168.29.97:5296/assets/' + theme?.themeLayouts[2]?.imagePath"
+          [src]="mediaFilePath + theme?.themeLayouts[2]?.imagePath"
           class="w-full h-full object-cover"
         />
       </div>
@@ -72,7 +72,7 @@
     >
       <div class="bg-gray-200 overflow-hidden w-full h-[80%]">
         <img
-          [src]="'http://192.168.29.97:5296/assets/' + theme?.themeLayouts[3]?.imagePath"
+          [src]="mediaFilePath+ theme?.themeLayouts[3]?.imagePath"
           class="w-full h-full object-cover"
         />
       </div>
