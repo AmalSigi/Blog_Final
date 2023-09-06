@@ -60,9 +60,9 @@
     class="bg-slate-300 w-full h-24 mt-8 flex justify-center items-center"
   >
     <div
-      class="flex md:justify-evenly px-2 justify-between items-center text-gray-500 text-xl text-center container mx-auto md:-px-5"
+      class="flex md:justify-between px-2 justify-between items-center text-gray-500 text-xl text-center container mx-auto md:-px-5"
     >
-      <div class="md:flex items-center">
+      <div class="md:flex gap-3">
         <ng-container *ngFor="let cat of category; let i = index">
           <div *ngIf="i < 4" class="hidden md:grid relative">
             <div class="flex items-center gap-1">

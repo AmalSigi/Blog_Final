@@ -19,9 +19,12 @@ export class UserLoginComponent implements OnInit {
   public captcha!: string;
   public email!: string;
   public aFormGroup!: FormGroup;
+  public toAccessLogin: boolean = false;
+  public siteKey: string = '6Lcaev4nAAAAALrz-eoKLCM3WXymccEsaXSdF_go';
 
   constructor(
     private readonly subject: trackDataService,
+
     private formBuilder: FormBuilder,
     private readonly publicapi: PublicService,
     private readonly authenticationApi: authenticationApi
@@ -33,6 +36,8 @@ export class UserLoginComponent implements OnInit {
   }
 
   public resolved(event: any) {
+    this.toAccessLogin = true;
+
     // Handle the reCAPTCHA challenge resolution here
     // You can access event information if needed
     console.log('reCAPTCHA resolved:', event);

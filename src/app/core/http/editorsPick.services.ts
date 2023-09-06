@@ -7,10 +7,11 @@ import { environment } from 'src/enviroment/enviroment';
 })
 export class editorsPickApi {
   constructor(private readonly http: HttpClient) {}
-  public url: string = `${environment.url}/api/EditorsPick`;
-  public EditorsPick(offfset: number, length: number): Observable<any> {
+  public url: string = `${environment.url}/EditorsPick`;
+  public EditorsPick(): Observable<any> {
+
     return this.http.get(
-      `${this.url}/picks?offfset=${offfset}&length=${length}`
+      `${this.url}/picks`
     );
   }
   public postEditorsPick(postId: any): Observable<any> {

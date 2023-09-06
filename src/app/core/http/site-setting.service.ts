@@ -13,6 +13,9 @@ export class siteSettingApi {
   public getSiteSetting(): Observable<any> {
     return this.http.get(`${this.url}`);
   }
+  public getSiteSettingForPublic(): Observable<any> {
+    return this.http.get(`${environment.url}/public/SiteSettings`);
+  }
   public patchSiteSetting(setting: any): Observable<any> {
     return this.http.patch(`${this.url}`, setting);
   }

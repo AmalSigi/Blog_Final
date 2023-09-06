@@ -21,12 +21,15 @@ export class themeApi {
   public getThemeById(Id: number): Observable<any> {
     return this.http.get(`${this.url}/${Id}`);
   }
+  public getThemeByIdForPublic(Id: number): Observable<any> {
+    return this.http.get(`${environment.url}/public/Theme/${Id}`);
+  }
   public updateTheme(Id: number, body: any): Observable<any> {
     return this.http.patch(`${this.url}/${Id}/update`, body);
   }
 
   public getSettings() {
-    this.siteSettings.getSiteSetting().subscribe({
+    this.siteSettings.getSiteSettingForPublic().subscribe({
       next: (res) => {
         const theme: any = res;
         const currentTheme = theme.find(

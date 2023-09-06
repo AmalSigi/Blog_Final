@@ -1,5 +1,10 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder,
+} from '@angular/forms';
 import { authenticationApi } from 'src/app/core/http/authentication.service';
 import { PublicService } from 'src/app/core/http/public.service';
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
@@ -8,14 +13,39 @@ import { trackDataService } from 'src/app/core/subjects/trackData.subject';
   selector: 'app-userLogin',
   templateUrl: './userLogin.component.html',
 })
-export class UserLoginComponent {
+export class UserLoginComponent implements OnInit {
   @Output() close = new EventEmitter();
   @Output() onSignup = new EventEmitter();
+  public captcha!: string;
+  public email!: string;
+  public aFormGroup!: FormGroup;
+  public toAccessLogin:boolean=false;
+
   constructor(
+    private authenticationApi: authenticationApi,
     private readonly subject: trackDataService,
-    private readonly publicapi: PublicService,
-    private readonly authenticationApi: authenticationApi
-  ) {}
+    private formBuilder: FormBuilder
+  
+  ) {
+
+  }
+public siteKey:string='6Lcaev4nAAAAALrz-eoKLCM3WXymccEsaXSdF_go'
+
+  ngOnInit(): void {
+    this.aFormGroup = this.formBuilder.group({
+      recaptcha: ['', Validators.required],
+    });
+  }
+
+  public resolved(event: any) {
+
+    this.toAccessLogin=true;
+
+    // Handle the reCAPTCHA challenge resolution here
+    // You can access event information if needed
+    console.log('reCAPTCHA resolved:', event);
+  }
+
   public loginForm = new FormGroup({
     email: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
@@ -44,4 +74,9 @@ export class UserLoginComponent {
   public signUp() {
     this.onSignup.emit();
   }
+
+  public handleReset() {}
+  public handleExpire() {}
+  public handleLoad() {}
+  public handleSuccess($event: any) {}
 }

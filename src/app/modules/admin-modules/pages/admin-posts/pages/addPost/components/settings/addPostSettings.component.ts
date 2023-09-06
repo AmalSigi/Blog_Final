@@ -74,6 +74,7 @@ export class AddPostSettingsComponent {
     return index;
   }
   public getMedia(type: string) {
+
     this.http.get(`${environment.url}/Media/${type}`).subscribe((data) => {
       this.images = data;
     });

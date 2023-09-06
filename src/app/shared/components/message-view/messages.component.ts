@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 import { ContactUsService } from 'src/app/core/http/contact-us.service';
+import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 
 @Component({
   selector: 'app-message',
@@ -10,7 +11,8 @@ import { ContactUsService } from 'src/app/core/http/contact-us.service';
 export class MessageViewComponent {
   constructor(
     private contactService: ContactUsService,
-    private readonly route: ActivatedRoute
+    private readonly route: ActivatedRoute,
+    private refreshCount:trackDataService
   ) {}
 
   @Output() onClick = new EventEmitter();
@@ -25,6 +27,7 @@ export class MessageViewComponent {
 
   public unshowBox() {
     this.onClick.emit();
+    this.refreshCount.sendClickEvent1();
   }
 
   fetchMessage(): void {

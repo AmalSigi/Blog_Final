@@ -38,6 +38,13 @@ import { UnreadMeassageComponent } from './pages/admin-messages/page/unread-meas
 import { ActiveUsersComponent } from './pages/admin-home/component/active-users/active-users.component';
 import { BlockedUsersComponent } from './pages/admin-home/component/blocked-users/blocked-users.component';
 import { DeletedUsersComponent } from './pages/admin-home/component/deleted-users/deleted-users.component';
+import { AdvertisementsComponent } from './pages/admin-advertisement/Advertisements/advertisements.component';
+import { AdminAdvertisementComponent } from './pages/admin-advertisement/Advertisements/pages/admin-adverisement/admin-adverisement';
+import { DynamicAdComponent } from './pages/admin-advertisement/Advertisements/pages/dynamic-ads/dynamicAd.component';
+import { AdverisementHomeComponent } from './pages/admin-advertisement/Advertisements/pages/admin-adverisement/child-advertisement/childAdverisementHome.component';
+import { ChildContentComponent } from './pages/admin-advertisement/Advertisements/pages/admin-adverisement/chidContent.component/childcontent.component';
+import { ChildCategoryAdComponent } from './pages/admin-advertisement/Advertisements/pages/admin-adverisement/childCategoryAd/childcategory.component';
+import { ChildSubCategoryAdComponent } from './pages/admin-advertisement/Advertisements/pages/admin-adverisement/childSubCategoryAd/childsubcategoryad.component';
 
 const routes: Routes = [
   {
@@ -133,9 +140,23 @@ const routes: Routes = [
           },
         ],
       },
+      {path:'ads-Settings', component: AdvertisementsComponent,
+    children:[
+      {path:'',component:AdminAdvertisementComponent,pathMatch:'full'},
+      {path:'adsection', component:AdminAdvertisementComponent},
+      {path:'dynamic',component:DynamicAdComponent},
+      
+    ]},
+    {path:'homeAdv',component:AdverisementHomeComponent},
+    {path:'contentAd',component:ChildContentComponent},
+    {path:'categoryAd',component:ChildCategoryAdComponent},
+    {path:'subcatAd',component:ChildSubCategoryAdComponent},
+
+
     ],
   },
   { path: 'newPost', component: AddPostComponent },
+ 
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes), HttpClientModule],

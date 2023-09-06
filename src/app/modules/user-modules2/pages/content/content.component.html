@@ -1,6 +1,6 @@
-<section class="container padding-0 h-auto margin-0 w-3/4 mx-auto">
-  <div class="flex gap-4">
-    <div class="pt-4 pl-6 pr-4 pb-4 w-[70%]">
+<section class="container padding-0 h-auto margin-0 md:w-3/4 w-full mx-auto overflow-hidden">
+  <div class="grid md:flex gap-4">
+    <div class="pt-4 pl-6 pr-4 pb-4 w-full md:w-[70%]">
       <h3 class="uppercase text-xl font-semibold text-red-800">
         {{ post?.category?.categoryName }}
       </h3>
@@ -123,7 +123,7 @@
       <div *ngIf="!commentStatus"></div>
 
       <div *ngIf="commentStatus">
-        <div class="h-auto border-2 border-gray-200 m-5 p-4">
+        <div class="h-96 overflow-y-auto border-2 border-gray-200 m-5 p-4">
           <h3 class="text-2xl font-semibold">Comments</h3>
           <div *ngIf="comments == ''" class="flex justify-center">
             <p>No comments Yet.</p>
@@ -395,7 +395,7 @@
     </div>
     <!-- right -side -->
 
-    <div class="w-[30%] pt-4 pl-6 pr-4 pb-4">
+    <div class="md:w-[30%] w-full pt-4 pl-6 pr-4 pb-4">
       <div class="mt-60 border-y-2 border-yellow-400 pb-4 pt-4">
         <img
           src="https://www.businessinsider.in/photo/75180309/dunzo-pays-an-ode-to-some-classic-ads-to-connect-with-the-90s-kids.jpg?imgsize=295291"
@@ -413,7 +413,7 @@
           <p class="text-lg font-bold ml-4">{{ item?.heading?.content }}</p>
         </div>
         <div
-          class="w-[80%] h-[80%] mt-32 border-y-2 border-yellow-400 pb-4 pt-4"
+          class="hidden md:block w-[80%] h-[80%] mt-32 border-y-2 border-yellow-400 pb-4 pt-4"
           *ngFor="let item of [1, 2, 3, 4, 5]"
         >
           <img
@@ -451,7 +451,7 @@
       </div>
     </div>
   </div>
-  <div class="w-[70%] pt-4 pl-6 pr-4 pb-4">
+  <div class="md:w-[70%] w-full pt-4 pl-6 pr-4 pb-4">
     <h1
       class="uppercase text-2xl font-serif mt-8 pb-2 border-b-2 border-yellow-400"
     >
@@ -462,7 +462,7 @@
       *ngFor="let item of latestPost"
       routerLink="/Theme2/content/{{ item.postId }}"
     >
-      <div class="w-[25%] h-[30%] overflow-hidden">
+      <div class="md:w-[25%] md:h-[30%] h-full w-full overflow-hidden">
         <img
           [src]="mediaFilePath + item?.img?.content"
           class="w-full h-full object-cover"

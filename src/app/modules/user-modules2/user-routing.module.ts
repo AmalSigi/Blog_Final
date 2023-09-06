@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UserComponent } from './root/user.component';
-import { UserHomeComponent } from './pages/home/home.component';
 import { UserCategoryComponent } from './pages/category/category.component';
-import { UserContentComponent } from './pages/content/content.component';
-import { SubCategoryComponent } from '../admin-modules/pages/admin-settings/pages/admin-category/category/sub-category/sub-category.component';
-import { UserSubCategoryComponent } from './pages/subcategory/subcategory.component';
-import { UserRegisterComponent } from './pages/userAuthentication/register/userRegister.component';
-import { UserProfileComponent } from './pages/profile/profile.component';
 import { UserContactComponent } from './pages/contact/contact.component';
+import { UserContentComponent } from './pages/content/content.component';
+import { UserHomeComponent } from './pages/home/home.component';
+import { UserProfileComponent } from './pages/profile/profile.component';
+import { UserSubCategoryComponent } from './pages/subcategory/subcategory.component';
+import { UserComponent } from './root/user.component';
 
 const routes: Routes = [
   {

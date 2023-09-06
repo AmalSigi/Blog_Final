@@ -13,27 +13,17 @@
   </div>
   <p class="m-3 italic bold text-black text-xl font-bold">Please Wait...</p>
 </div>
-<section class="container margin-0 padding-0 h-auto w-3.5/4 mx-auto">
-  <!-- <div class="pt-4 pl-4 pr-4 pb-4 w-[80%] h-auto">
-        <div class="w-full h-96 overflow-hidden">
-            <img src="https://www.holidify.com/images/cmsuploads/compressed/shutterstock_649541308_20191010160155.png"
-            class="w-full h-full  object-cover">
-        </div>
-        <div class="">
-            <h1 class="uppercase text-5xl font-bold ">Food</h1>
-        </div>
-
-    </div> -->
-  <div class="flex">
-    <div class="pt-4 pl-6 pr-4 pb-4 w-[90%]">
-      <div class="w-full h-auto bg-gray-700/50 flex">
-        <div class="w-[70%] h-full overflow-hidden">
+<section class="container h-auto w-full md:w-3.5/4 mx-auto">
+  <div class="md:flex grid">
+    <div class="pt-4 pl-6 pr-4 pb-4 md:w-[90%] w-full">
+      <div class="w-full grid h-auto bg-gray-700/50 md:flex">
+        <div class="md:w-[70%] h-full overflow-hidden">
           <img
             [src]="mediaFilePath + categoryCoverPic"
             class="w-full h-full object-cover"
           />
         </div>
-        <div class="px-4 py-8 w-[30%]">
+        <div class="px-4 py-8 md:w-[30%]">
           <h1 class="uppercase text-5xl text-white ml-5 font-thin">
             {{ categoryName }}
           </h1>
@@ -53,11 +43,11 @@
           No Blog avaliable in this Category
         </div>
         <div
-          class="mt-4 flex w-full h-[450px] border-2"
+          class="mt-4 grid md:flex w-full border-2"
           *ngFor="let post of categoryPost"
         >
           <div
-            class="w-[45%] h-full overflow-hidden"
+            class="md:w-[45%] h-full overflow-hidden"
             routerLink="/Theme2/content/{{ post.postId }}"
           >
             <img
@@ -65,7 +55,7 @@
               class="w-full h-full object-cover"
             />
           </div>
-          <div class="w-[55%] pt-7 pl-7 pr-4 pb-4">
+          <div class="md:w-[55%] pt-7 pl-7 pr-4 pb-4">
             <div class="flex" (click)="navigateToUserProfile(post?.authorId)">
               <div class="w-12 h-12 rounded-full overflow-hidden">
                 <img
@@ -116,18 +106,18 @@
           </div>
         </div>
       </div>
-      <div class="w-[70%] pt-4 pb-4">
+      <div class="md:w-[70%] w-full pt-4 pb-4">
         <h1
           class="uppercase text-2xl font-serif mt-8 pb-2 border-b-2 border-yellow-400"
         >
           The latest
         </h1>
         <div
-          class="border-y-2 mt-5 flex p-4"
+          class="border-y-2 mt-5 w-full flex p-4"
           *ngFor="let item of latestPost"
           routerLink="/Theme2/content/{{ item.postId }}"
         >
-          <div class="w-[25%] h-[30%] overflow-hidden">
+          <div class="md:w-[400px] overflow-hidden">
             <img
               [src]="mediaFilePath + item?.img?.content"
               class="w-full h-full object-cover"
@@ -142,7 +132,8 @@
         </div>
       </div>
     </div>
-    <div class="w-[30%] pt-4 pl-4 pr-4 pb-4">
+    <!-- right side -->
+    <div class="md:w-[30%] w-full pt-4 pl-4 pr-4 pb-4">
       <div class="mt-60 border-y-2 border-yellow-400 pb-4 pt-4">
         <img
           src="https://www.businessinsider.in/photo/75180309/dunzo-pays-an-ode-to-some-classic-ads-to-connect-with-the-90s-kids.jpg?imgsize=295291"

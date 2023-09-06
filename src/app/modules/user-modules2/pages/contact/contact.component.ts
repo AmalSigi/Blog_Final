@@ -8,6 +8,10 @@ import { PublicService } from 'src/app/core/http/public.service';
   templateUrl: './contact.component.html',
 })
 export class UserContactComponent {
+  public siteKey: string = '6Lcaev4nAAAAALrz-eoKLCM3WXymccEsaXSdF_go';
+  public aFormGroup!: FormGroup;
+  public toAccessLogin:boolean=false;
+
   constructor(
     private readonly http: HttpClient,
     private fb: FormBuilder,
@@ -23,9 +27,22 @@ export class UserContactComponent {
     });
   }
 
+
+
   ngOnInit() {
     this.fetchCountryData();
-  }
+    this.aFormGroup = this.fb.group({
+        recaptcha: ['', Validators.required],
+      });
+    
+    }
+    public resolved(event: any) {
+  
+      this.toAccessLogin=true;
+    }
+
+
+
 
   countries: any[] = [];
   selectedCountry: any;
