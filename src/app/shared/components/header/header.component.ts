@@ -2,7 +2,6 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { Subscription } from 'rxjs/internal/Subscription';
 
-
 import { PublicService } from 'src/app/core/http/public.service';
 
 import { siteSettingApi } from 'src/app/core/http/site-setting.service';
@@ -49,7 +48,6 @@ export class HeaderComponent implements OnInit {
     private readonly reloadData: trackDataService,
 
     private readonly userApiService: userApi,
-
     private readonly publicapi: PublicService,
 
     private readonly siteSettingApi: siteSettingApi
