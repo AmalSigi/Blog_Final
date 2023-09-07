@@ -1,60 +1,41 @@
 <div
   *ngIf="shoePopPu"
   [@slideFromBottom]
-  class="md:h-44 h-48 bg-transparent shadow-lg w-screen -bottom-48 mb-48 fixed p-4"
+  class="md:h-36 h-48 bg-black/90 shadow-lg w-screen -bottom-48 mb-48 fixed p-4"
 >
-  <div class="flex justify-end px-2">
+  <div class="flex justify-end p-2">
     <button (click)="shoePopPu = false">
-      <i class="fa-regular fa-circle-xmark text-black"></i>
+      <i class="fa-regular fa-circle-xmark text-white"></i>
     </button>
   </div>
-  <!-- <div class="md:flex md:gap-10 justify-center items-center">
-    <div class="flex gap-10">
-      <p class="md:text-4xl text-2xl text-violet-400">Want to Grow</p>
-      <button
-        routerLink="contact"
-        (click)="shoePopPu = false"
-        class="md:hidden px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg"
+
+
+    <section>
+      <ng-container
+        [ngSwitch]="getMediaType(advertisement?.media?.mediaFormat)"
       >
-        Contact Us
-      </button>
-    </div>
+        <div class="h-48 w-full" *ngSwitchCase="'image'">
+          <img
+            [src]="mediaFilePath + advertisement?.media?.mediaPath"
+            class="w-full h-full object-cover"
+          />
+        </div>
 
-    <p class="md:text-5xl text-3xl text-white">Let's Grow Together</p>
+        <div class="h-48 w-full" *ngSwitchCase="'video'">
+          <video
+            [src]="mediaFilePath + advertisement?.media?.mediaPath"
+            class="w-full h-full object-cover"
+            controls
+          ></video>
+        </div>
 
-    <p class="text-white text-sm">
-      To be a part of us contact us . We are open for your ideas
-    </p>
+        <p
+          *ngSwitchDefault
+          class="text-lg font-semibold px-2 py-2 text-justify"
+        >
+          {{ advertisement?.media?.mediaPath }}
+        </p>
+      </ng-container>
+    </section>
 
-    <button
-      routerLink="contact"
-      (click)="shoePopPu = false"
-      class="hidden md:block px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg"
-    >
-      Contact Us
-    </button>
-  </div>  -->
-
-  <section>
-    <ng-container [ngSwitch]="getMediaType(advertisement?.media?.mediaFormat)">
-      <div class="h-96 w-full" *ngSwitchCase="'image'">
-        <img
-          [src]="mediaFilePath + advertisement?.media?.mediaPath"
-          class="w-full h-full object-cover"
-        />
-      </div>
-
-      <div class="h-96 w-full" *ngSwitchCase="'video'">
-        <video
-          [src]="mediaFilePath + advertisement?.media?.mediaPath"
-          class="w-full h-full"
-          controls
-        ></video>
-      </div>
-
-      <p *ngSwitchDefault class="text-lg font-semibold px-2 py-2 text-justify">
-        {{ advertisement?.media?.mediaPath }}
-      </p>
-    </ng-container>
-  </section>
 </div>

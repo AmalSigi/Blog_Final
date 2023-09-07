@@ -1,4 +1,4 @@
-<section class="container w-full pb-4 pl-4 pr-4 pt-4">
+<section class=" pb-4 pl-4 pr-4 pt-4 container mx-auto w-[80%]">
 
     <div class="mt-5">
         <h1 class="text-2xl font-semibold text-start text-blue-600 ">Manage the advertisements appearing on the user blogs (Content Page)</h1>
@@ -6,35 +6,39 @@
     </div>
 
 
-    <div class="w-[60%] mx-auto h-[500px] bg-white mt-32 ">
-        <div class="w-[80%] h-full bg-white mx-auto ">
-          
-            <div class=" w-[300px] h-[300px] bg-gray-200 mx-auto -  mt-3 px-32 py-32 uppercase">
-                <p class="text-blue-600 text-2xl font-semibold text-center">Blog</p>
-            </div>
-            <div class=" -mt-[313px] -mb-[313px]">
-                <div class=" w-10 h-24 bg-gray-200 ml-[515px] mt-3 py-8" (click)="openAd(9)">
-                    <p class="text-blue-600 text-2xl font-semibold text-center">9</p>
-                </div> 
-               <div class=" w-10 h-24 bg-gray-200 ml-[515px] mt-3 py-8" (click)="openAd(10)">
-                    <p class="text-blue-600 text-2xl font-semibold text-center">10</p>
-                </div>
-                <div class=" w-10 h-24 bg-gray-200 ml-[515px] mt-3 py-8" (click)="openAd(11)">
-                    <p class="text-blue-600 text-2xl font-semibold text-center">11</p>
-                </div>
-            </div>
-            <div class=" -mt-[322px] -mb-[322px] ">
-                <div class=" w-10 h-24 bg-gray-200  ml-[165px] mt-3 py-8" (click)="openAd(15)">
+    <div class="w-[60%] mx-auto h-[500px] bg-white mt-32">
+        <div class="w-[60%] h-full bg-white mx-auto grid">
+          <div class="flex">
+            <div class=" ">
+                <div class=" w-16 h-24 bg-gray-200   mt-3 py-8" (click)="openAd(15)">
                     <p class="text-blue-600 text-2xl font-semibold text-center">15</p>
                 </div>
-               <div class=" w-10 h-24 bg-gray-200  ml-[165px]  mt-3 py-8" (click)="openAd(14)">
+               <div class=" w-16 h-24 bg-gray-200    mt-3 py-8" (click)="openAd(14)">
                     <p class="text-blue-600 text-2xl font-semibold text-center">14</p>
                 </div>
-                <div class=" w-10 h-24 bg-gray-200  ml-[165px] mt-3 py-8" (click)="openAd(13)">
+                <div class=" w-16 h-24 bg-gray-200   mt-3 py-8" (click)="openAd(13)">
                     <p class="text-blue-600 text-2xl font-semibold text-center">13</p>
                 </div>
             </div>
-            <div class=" w-96 h-10 bg-gray-200 mt-[330px] ml-44  py-2 " (click)="openAd(12)">
+            <div class=" w-[50%] h-[300px] bg-gray-200 mx-auto -  mt-3 px-32 py-32 uppercase">
+                <p class="text-blue-600 text-2xl font-semibold text-center">Blog</p>
+            </div>
+            <div class=" ">
+                <div class=" w-16 h-24 bg-gray-200  mt-3 py-8" (click)="openAd(9)">
+                    <p class="text-blue-600 text-2xl font-semibold text-center">9</p>
+                </div> 
+               <div class=" w-16 h-24 bg-gray-200  mt-3 py-8" (click)="openAd(10)">
+                    <p class="text-blue-600 text-2xl font-semibold text-center">10</p>
+                </div>
+                <div class=" w-16 h-24 bg-gray-200  mt-3 py-8" (click)="openAd(11)">
+                    <p class="text-blue-600 text-2xl font-semibold text-center">11</p>
+                </div>
+            </div>
+          </div>
+          
+         
+          
+            <div class=" w-full h-20 bg-gray-200  py-2 " (click)="openAd(12)">
                 <p class="text-blue-600 text-2xl font-semibold text-center">12</p>
             </div>
             

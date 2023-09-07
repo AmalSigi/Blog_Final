@@ -1,40 +1,34 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { AdvertisementService } from 'src/app/core/http/advertismentApi.service';
 import { MediaApi } from 'src/app/core/http/media.Apiservice';
-import { environment } from 'src/enviroment/enviroment';
+
 @Component({
-  selector: 'app-dynamic',
-  templateUrl: './dynamicAd.component.html',
+  selector: 'app-list',
+  templateUrl: './adsList.component.html',
 })
-export class DynamicAdComponent {
+export class AdsListComponent {
   constructor(
-    private http: HttpClient,
-    private readonly advertisementService: AdvertisementService,
-    private readonly mediaApi: MediaApi
+    private readonly mediaApi: MediaApi,
+    private readonly advertisementService: AdvertisementService
   ) {}
-  public openModal: boolean = false;
-  public mediaFilePath: string = `${environment.url}/assets/`;
   mediaItems: any[] = [];
-
   isAdmediaPath: boolean = false;
-
   mediaPath: string = '';
-
   newPath: string = '';
 
   selectedId!: number;
-
-  public openAd() {
-    this.openModal = true;
-  }
   ngOnInit() {
-    this.getMedia();
+    this.showMedia();
   }
+  public showMedia() {
+    this.advertisementService.showAdd().subscribe((res) => {
+      const filtered = res.filter(
+        (res: any) => res.advertisementLife !== 'Disabled'
+      );
+      //const index=res.findIndex((data:any)=>data.advertisementNo == this.selectedZone);
+      this.mediaItems = filtered;
 
-  public getMedia() {
-    this.advertisementService.getDynamicList().subscribe((data: any) => {
-      this.mediaItems = data.advertisements;
+      console.log(this.mediaItems);
     });
   }
 
@@ -47,27 +41,12 @@ export class DynamicAdComponent {
       return 'text';
     }
   }
-
-  public deleteMedia(listId: number) {
-    this.advertisementService.deleteDynamic(listId).subscribe({
-      next: (response) => {
-        this.getMedia();
-        alert(`Successfully removed dynamicAd with id ${listId}`);
-      },
-      error: (response) => {
-        alert('Error deleting dynamicAd');
-      },
-    });
-  }
   public openResetPath(item: any) {
     this.selectedId = item.media.id;
 
     //   console.log(this.selectedId)
-
     this.isAdmediaPath = true;
-
     this.mediaPath = item?.media?.redirectTo;
-
     //  console.log(this.mediaPath)
   }
 
@@ -75,18 +54,13 @@ export class DynamicAdComponent {
     const formData = {
       Path: this.newPath,
     };
-
     this.mediaApi.patchMediaId(this.selectedId, formData).subscribe({
       next: (res) => {
         // console.log(res);
-
         this.isAdmediaPath = false;
-
-        this.getMedia();
-
+        this.showMedia();
         this.newPath = '';
       },
-
       error: (err) => console.log('ERROR', err),
     });
   }

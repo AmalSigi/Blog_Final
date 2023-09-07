@@ -3,7 +3,7 @@
 class="top-0 right-0 bottom-0 left-0 fixed bg-white/80 px-10 items-center h-screen"
 >
 <div
-  class="h-[80%] overflow-hidden w-[80%] container mx-auto bg-white item-center mt-20 border-2 border-black p-3 rounded-lg"
+  class="h-[80%] w-[80%] overflow-y-auto container mx-auto bg-white item-center mt-20 border-2 border-black p-3 rounded-lg"
 >
   <div class="flex justify-between border-b-2 border-black">
     <button
@@ -20,11 +20,9 @@ class="top-0 right-0 bottom-0 left-0 fixed bg-white/80 px-10 items-center h-scre
     </button>
   </div>
 
-  <iframe
-    class="w-full h-[90%] container mx-auto"
- 
-    frameborder="0"
-    >clcik here</iframe
-  >
+<div class="grid gap-10" *ngFor="let page of data.themeLayouts">
+<h1 class="text-2xl text-center font-semibold mt-10">{{page.pageName}}</h1>
+<img [src]="mediaFilePath+page.imagePath" alt="">
+</div>
 </div>
 </section>

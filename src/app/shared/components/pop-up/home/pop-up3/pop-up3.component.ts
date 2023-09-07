@@ -23,10 +23,11 @@ import { environment } from 'src/enviroment/enviroment';
   ],
 })
 export class PopUp3Component {
-  public shoePopPu: boolean = true;
   public advertisement: any;
   public mediaFilePath: string = `${environment.url}/assets/`;
   @Input() adPosition!: number;
+  public shoePopPu: boolean = true;
+
   constructor(private advertisementService: AdvertisementService) {}
   ngOnInit(): void {
     this.advertisementService.getAdvertisement().subscribe({

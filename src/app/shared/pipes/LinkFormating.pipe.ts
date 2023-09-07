@@ -6,28 +6,30 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 })
 export class FormatLinksPipe implements PipeTransform {
   constructor(private readonly sanitizer: DomSanitizer) {}
+  public font!: string;
   transform(contentWithStyles: string): string {
-    const modifiedContent = contentWithStyles.replace(
-      /<([\w-]+)([^>]*)style="([^"]*)"([^>]*)>/g,
-      (match, tag, beforeStyle, styles, afterStyle) => {
-        const stylePairs = styles.split(';').filter(Boolean);
+    console.log(contentWithStyles);
+    const modifiedContent = contentWithStyles.replace(/<([\w-]+)([^>]*)style="([^"]*)"([^>]*)>/g, (match, tag, beforeStyle, styles, afterStyle) => {
+      const stylePairs = styles.split(';').filter(Boolean);
+      
+      console.log(stylePairs)
+      const stylesObj: { [key: string]: string } = {};
+      stylePairs.forEach((pair:any) => {
+        const [property, value] = pair.split(':').map((part:any) => part.trim("'"));
+        stylesObj[property] = value;
+        console.log(value)
+        const font=value.split(',')
+        this.font=font[0];
+        console.log(font[0])
+      });
+      
+      const styleString = Object.keys(stylesObj).map(property => `${property}: ${stylesObj[property]};`).join(' ');
+    console.log(styleString);
 
-        const stylesObj: { [key: string]: string } = {};
-        stylePairs.forEach((pair: any) => {
-          const [property, value] = pair
-            .split(':')
-            .map((part: any) => part.trim("'"));
-          stylesObj[property] = value;
-          const font = value.split(',');
-        });
+      return `<${tag}${beforeStyle} style="font-family:${this.font}"${afterStyle}>`;
 
-        const styleString = Object.keys(stylesObj)
-          .map((property) => `${property}: ${stylesObj[property]};`)
-          .join(' ');
-
-        return `<${tag}${beforeStyle} style="${styleString}"${afterStyle}>`;
-      }
-    );
+    });
+    console.log(modifiedContent);
 
     return modifiedContent;
   }
