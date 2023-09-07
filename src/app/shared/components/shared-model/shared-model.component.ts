@@ -123,7 +123,6 @@ export class SharedModelComponent implements OnInit {
     } else {
       this.viewReplyComments = true;
       this.commentboxId = id;
-      console.log(comment);
       this.replyComment(comment);
     }
   }

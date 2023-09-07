@@ -8,6 +8,9 @@ import { environment } from 'src/enviroment/enviroment';
 export class FooterComponent implements OnInit {
   public siteName: any;
   public siteLogo: any;
+  public facebook: any;
+  public instagram: any;
+  public youtube: any;
   public mediaFilePath: string = `${environment.url}/assets/`;
   constructor(private readonly siteSettingApi: siteSettingApi) {}
   ngOnInit(): void {
@@ -17,6 +20,10 @@ export class FooterComponent implements OnInit {
     this.siteSettingApi.getSiteSetting().subscribe((respo: any) => {
       let blogName = respo.find((item: any) => item.id == 1);
       let blogLogo = respo.find((item: any) => item.id == 2);
+      this.facebook = respo.find((item: any) => item.id == 5);
+
+      this.instagram = respo.find((item: any) => item.id == 6);
+      this.youtube = respo.find((item: any) => item.id == 7);
       if (blogName) {
         this.siteName = blogName.settingValue;
       }

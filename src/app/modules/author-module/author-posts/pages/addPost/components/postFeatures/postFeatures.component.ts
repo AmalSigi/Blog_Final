@@ -39,22 +39,19 @@ export class AuthorPostFeaturesComponent implements OnInit {
   @ViewChild('subCatgory') subCatagoryInput!: ElementRef;
   @ViewChild('tags') tagsInput!: ElementRef;
   @Output() createPost = new EventEmitter();
-  @Output() change=new EventEmitter();
-  @Input() currentTool!:number;
+  @Output() change = new EventEmitter();
+  @Input() currentTool!: number;
 
   public featureForm: FormGroup = new FormGroup({
     author: new FormControl({ value: '', disabled: true }, Validators.required),
     authorId: new FormControl('', Validators.required),
-    category: new FormControl(
-     '',
-      Validators.required
-    ),
+    category: new FormControl('', Validators.required),
     categoryId: new FormControl(null, Validators.required),
     subCategoryId: new FormControl(null, Validators.required),
     subCategory: new FormControl(''),
     tags: new FormArray([]),
     newTag: new FormControl(''),
-    font: new FormControl('')
+    font: new FormControl(''),
   });
   get tagList(): FormArray {
     return this.featureForm.get('tags') as FormArray;
@@ -66,14 +63,15 @@ export class AuthorPostFeaturesComponent implements OnInit {
         const postId = params['postId'];
         this.postService.getPostById(postId).subscribe({
           next: (data) => {
-            console.log(data);
             const postData = data;
-            this.categoryService.getSubcategory(postData.category.id).subscribe({
-              next: (data) => {
-                this.subCategory = data;
-              },
-            });
-       
+            this.categoryService
+              .getSubcategory(postData.category.id)
+              .subscribe({
+                next: (data) => {
+                  this.subCategory = data;
+                },
+              });
+
             this.featureForm.controls['author'].setValue(
               `${postData.author.firstName} ${postData.author.lastName}`
             );
@@ -89,9 +87,7 @@ export class AuthorPostFeaturesComponent implements OnInit {
             this.featureForm.controls['subCategoryId'].setValue(
               postData.subCategory.Id
             );
-            this.featureForm.controls['font'].setValue(
-              postData.postFont
-            );
+            this.featureForm.controls['font'].setValue(postData.postFont);
             data.postTags.forEach((tag: any) => {
               this.selectedTags.push(tag.tag);
             });
@@ -104,7 +100,6 @@ export class AuthorPostFeaturesComponent implements OnInit {
   public getData() {
     this.categoryService.getCategory().subscribe({
       next: (res) => {
-      
         this.category = res;
       },
     });
@@ -124,26 +119,23 @@ export class AuthorPostFeaturesComponent implements OnInit {
       },
     });
   }
-  public changeCategory(event:Event): void {
-    const selectedIndex:any=(event.target as HTMLSelectElement).value;
-   
+  public changeCategory(event: Event): void {
+    const selectedIndex: any = (event.target as HTMLSelectElement).value;
+
     // this.featureForm.controls['category'].patchValue(
     //   this.category[selectedIndex - 1].categoryName
     // );
     this.featureForm.controls['categoryId'].patchValue(selectedIndex);
     this.categoryService.getSubcategory(selectedIndex).subscribe({
       next: (data) => {
-        console.log(data);
-
         this.subCategory = data;
       },
     });
     this.ToOpenCreatePage();
   }
   public changeSubCategory(event: Event): void {
-    const selectedIndex:any=(event.target as HTMLSelectElement).value;
-console.log(selectedIndex)
-  
+    const selectedIndex: any = (event.target as HTMLSelectElement).value;
+
     this.featureForm.controls['subCategoryId'].patchValue(selectedIndex);
 
     this.ToOpenCreatePage();
@@ -165,8 +157,6 @@ console.log(selectedIndex)
     this.selectedTags.splice(id, 1);
     this.tagList.removeAt(id);
     this.ToOpenCreatePage();
-   
-    
   }
   public addnewTag() {
     const newTagArray: any = [];
@@ -181,7 +171,13 @@ console.log(selectedIndex)
       },
     });
   }
-  fontFamilies: string[] = ['serif', 'sans-serif', 'monospace', 'cursive', 'fantasy'];
+  fontFamilies: string[] = [
+    'serif',
+    'sans-serif',
+    'monospace',
+    'cursive',
+    'fantasy',
+  ];
 
   public ToOpenCreatePage() {
     this.selectedTags.forEach((tag: any) => {
@@ -191,7 +187,6 @@ console.log(selectedIndex)
       });
       this.tagList.push(tagFormGroup);
     });
-    console.log(this.featureForm.value)
     this.createPost.emit(this.featureForm.value);
   }
   public openDropDown(type: string) {
@@ -199,7 +194,6 @@ console.log(selectedIndex)
     this.selectDropDown = type;
   }
   public selectFont() {
-this.createPost.emit(this.featureForm.value);
-
+    this.createPost.emit(this.featureForm.value);
   }
 }

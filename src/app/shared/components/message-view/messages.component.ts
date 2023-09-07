@@ -12,7 +12,7 @@ export class MessageViewComponent {
   constructor(
     private contactService: ContactUsService,
     private readonly route: ActivatedRoute,
-    private refreshCount:trackDataService
+    private refreshCount: trackDataService
   ) {}
 
   @Output() onClick = new EventEmitter();
@@ -34,7 +34,6 @@ export class MessageViewComponent {
     this.contactService
       .getMessagesById(this.messageId)
       .subscribe((data: any) => {
-        console.log(data);
         this.message.push(data);
       });
   }

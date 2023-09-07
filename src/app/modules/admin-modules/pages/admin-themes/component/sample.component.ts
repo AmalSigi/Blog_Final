@@ -23,7 +23,6 @@ export class SamplePageComponent implements OnInit {
     this.onChange.emit();
   }
   public applyTheme() {
-    console.log(this.data);
     const body = { themeId: this.data.id };
     this.siteSettingsApi.updateCurrentTheme(body).subscribe({
       next: () => {

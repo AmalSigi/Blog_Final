@@ -114,8 +114,6 @@ export class AuthorProfile {
   public update() {
     this.editOn = !this.editOn;
 
-    console.log(this.editForm);
-
     this.updateUserDetails();
 
     //  this.updateUserPassword();
@@ -134,8 +132,6 @@ export class AuthorProfile {
 
     this.userService.updateOwnDetails(this.editedForm.value).subscribe({
       next: (result) => {
-        console.log(result);
-
         this.getProfile();
 
         alert('updated successfully');
@@ -155,9 +151,7 @@ export class AuthorProfile {
     });
 
     this.userService.updatePassword(this.passwordForm.value).subscribe({
-      next: (res) => {
-        console.log('success', res);
-      },
+      next: (res) => {},
 
       error: (err) => {
         alert('Error');
@@ -175,9 +169,7 @@ export class AuthorProfile {
     this.picShowDiv = false;
   }
 
-  public confirmingPassword(event: any) {
-    console.log(event);
-  }
+  public confirmingPassword(event: any) {}
 
   public fileImport(event: any) {
     this.fileToUpload = event.target.files[0];

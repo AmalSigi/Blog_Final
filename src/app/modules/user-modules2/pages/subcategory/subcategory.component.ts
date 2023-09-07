@@ -46,11 +46,10 @@ export class UserSubCategoryComponent {
 
   public getSubCategoryById(subcategoryId: any) {
     this.publicapi
-      .getPostBySubCategoryId(subcategoryId)
+      .getSubCategoryBySubCategoryId(subcategoryId)
       .subscribe((respo: any) => {
-        console.log(respo);
-        this.categoryName = respo.category.categoryName;
-        this.categoryCoverPic = respo.category.coverPicturePath;
+        this.categoryName = respo.category?.categoryName;
+        this.categoryCoverPic = respo.category?.coverPicturePath;
         this.subCategoryName = respo.subCategoryName;
       });
   }
@@ -97,17 +96,13 @@ export class UserSubCategoryComponent {
   public getLatestPost() {
     const length = 4;
     this.publicapi.getLatestPosts(length).subscribe((respo) => {
-      console.log(respo);
       const categoryName = respo.category?.categoryName;
       this.latestPost = this.postToArray(respo);
-
-      console.log(this.latestPost);
     });
   }
   public getLatestPostByViewCount() {
     const length = 5;
     this.publicapi.getLatestPosts(length).subscribe((respo) => {
-      console.log(respo);
       const categoryName = respo.category?.categoryName;
       this.latest = this.postToArray(respo);
 
@@ -117,7 +112,6 @@ export class UserSubCategoryComponent {
       top5posts.forEach((post: any, index: number) => {
         post.id = index + 1;
       });
-      console.log(top5posts);
     });
   }
   public postToArray(post: any) {

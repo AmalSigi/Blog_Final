@@ -31,18 +31,19 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
   public catgoryDetailes: any = [];
   public temparray: any = [];
   public editorialPick?: any = [];
+  public randomAd: any;
   public mediaFilePath: string = `${environment.url}/assets/`;
   constructor(private readonly publicapi: PublicService) {}
   ngOnInit(): void {
     this.getLatestPost();
     this.getCategory();
+    this.getRandom();
     // this.initSwiper();
     this.getEditorsPick();
   }
   public getEditorsPick() {
     this.publicapi.getEditorsPick().subscribe({
       next: (response) => {
-        console.log(response);
         response.forEach((post: any) => {
           this.getPost(post.postId);
         });
@@ -53,18 +54,15 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
     this.publicapi.getPostByPostId(postId).subscribe((respo) => {
       this.temparray.push(respo);
       this.editorialPick = this.postToArray(this.temparray);
-      console.log(this.editorialPick);
     });
   }
 
   public getLatestPost() {
     const length = 6;
     this.publicapi.getLatestPosts(length).subscribe((respo) => {
-      console.log(respo);
       const categoryName = respo.category?.categoryName;
       this.latestPost = this.postToArray(respo);
 
-      console.log(this.latestPost);
       this.apiSlides = [...this.latestPost];
     });
   }
@@ -93,7 +91,6 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
             categoryPost: this.postToArray(respo),
           };
           this.catgoryDetailes.push(obj);
-          // console.log(this.catgoryDetailes);
         }
       });
   }
@@ -152,5 +149,14 @@ export class UserHomeComponent implements OnInit, AfterViewInit {
   }
   getImageUrl(imgPath: string): string {
     return this.mediaFilePath + imgPath;
+  }
+
+  // random ads
+  public getRandom() {
+    this.publicapi.getThemeRandomAdvertisements().subscribe({
+      next: (respo: any) => {
+        this.randomAd = respo;
+      },
+    });
   }
 }

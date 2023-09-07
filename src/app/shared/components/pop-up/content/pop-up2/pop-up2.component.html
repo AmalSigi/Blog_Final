@@ -1,9 +1,9 @@
 <div
   *ngIf="shoePopPu"
   [@fadeInOutSlideFromLeftWithDelay]
-  class="hidden md:block w-1/4 h-80 bg-white/90 shadow-lg top-[26rem] right-0 mb-48 fixed p-4 rounded-l-2xl"
+  class="hidden md:block w-1/4 bg-white/90 shadow-lg top-[26rem] right-0 mb-48 fixed p-4 rounded-l-2xl z-50"
 >
-  <div class="flex justify-end">
+  <div class="flex justify-start">
     <button (click)="shoePopPu = false">
       <i class="fa-regular fa-circle-xmark text-black"></i>
     </button>

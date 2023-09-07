@@ -1,407 +1,501 @@
-<section class="container padding-0 h-auto margin-0 md:w-3/4 w-full mx-auto overflow-hidden">
-  <div class="grid md:flex gap-4">
-    <div class="pt-4 pl-6 pr-4 pb-4 w-full md:w-[70%]">
-      <h3 class="uppercase text-xl font-semibold text-red-800">
-        {{ post?.category?.categoryName }}
-      </h3>
+<section class="grid grid-cols-12">
+  <!-- left ad -->
+  <div class="col-span-2 hidden md:grid h-auto py-5 mt-10">
+    <!-- ad #1 -->
+    <div class="w-full overflow-hidden">
+      <app-advertisementView
+        class="h-full w-full"
+        [adPosition]="15"
+      ></app-advertisementView>
+    </div>
 
-      <h1 class="text-start font-semibold text-3xl mt-4 uppercase">
-        {{ post?.postSections[0]?.content }}
-      </h1>
-      <!-- <h3 class="text-gray-500 mt-3 text-2xl font-thin">
-        {{ post?.postSections[1]?.content }}
-      </h3> -->
-      <div class="flex mt-2" (click)="navigateToUserProfile(post?.author?.id)">
-        <div class="w-10 h-10 rounded-full overflow-hidden">
-          <img
-            *ngIf="post?.author?.profilePicturePath == null"
-            class="h-full w-full overflow-hidden"
-            src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-photo-183042379.jpg"
-            alt=""
-          />
-          <img
-            *ngIf="post?.author?.profilePicturePath"
-            class="h-full w-full overflow-hidden"
-            [src]="mediaFilePath + post?.author?.profilePicturePath"
-            alt=""
-          />
-        </div>
-        <p class="text-start text-gray-400 mt-3 ml-3">
-          {{ post?.author?.firstName + " " + post?.author?.lastName }} |
-          {{ post?.createdAt | date : "MMM d, y, h:mm a" }} EDT
-        </p>
-      </div>
-      <div class="mt-3 p-x-2 flex items-center">
-        <button><i class="fa-brands fa-facebook-f w-15 h-15"></i></button>
-        <button class="ml-3 px-2">
-          <i class="fa-brands fa-twitter w-15 h-15 text-blue-700"></i>
-        </button>
-        <button class="ml-3 px-2">
-          <i class="fa-solid fa-share-from-square text-gray-400 px-2"></i>Share
-        </button>
-      </div>
-      <div
-        *ngFor="let postItem of post?.postSections.slice(1); let i = index"
-        class="w-full mt-5"
-      >
-        <ng-container [ngSwitch]="postItem.sectionTypeId">
-          <!-- main title -->
-          <ng-container *ngSwitchCase="1"
-            ><h1 class="text-5xl font-extrabold my-4">
-              {{ postItem.content }}
-            </h1></ng-container
-          >
-          <!-- sub heading -->
-          <ng-container *ngSwitchCase="2"
-            ><h2 class="text-2xl font-semibold my-5">
-              {{ postItem.content }}
-            </h2></ng-container
-          >
-          <!-- paragraph -->
+    <!-- ad #2 -->
+    <div class="w-full hidden md:block h-64 overflow-hidden">
+      <app-advertisementView
+        class="h-full w-full"
+        [adPosition]="14"
+      ></app-advertisementView>
+    </div>
+    <!-- ad #3 -->
+    <div class="w-full hidden md:block h-64 overflow-hidden">
+      <app-advertisementView
+        class="h-full w-full"
+        [adPosition]="13"
+      ></app-advertisementView>
+    </div>
+  </div>
+  <!-- post content -->
+  <div
+    class="container col-span-7 padding-0 h-auto margin-0 w-full mx-auto overflow-hidden"
+  >
+    <div class="grid md:flex gap-4">
+      <div class="pt-4 pl-6 pr-4 pb-4 w-full">
+        <h3 class="uppercase text-xl font-semibold text-red-800">
+          {{ post?.category?.categoryName }}
+        </h3>
 
-          <ng-container *ngSwitchCase="3"
-            ><p class="my-5 text-lg text-gray-600 text-justify">
-              <markdown>
-                {{ postItem.content }}
-              </markdown>
-            </p></ng-container
-          >
-          <!-- image -->
-          <ng-container *ngSwitchCase="4"
-            ><img class="mb-5 w-full" [src]="mediaFilePath + postItem.content"
-          /></ng-container>
-          <!-- video -->
+        <h1 class="text-start font-semibold text-3xl mt-4 uppercase">
+          {{ post?.postSections[0]?.content }}
+        </h1>
 
-          <ng-container *ngSwitchCase="5"
-            ><video [src]="postItem.content"></video
-          ></ng-container>
-          <!-- ad -->
-          <ng-container *ngSwitchCase="6">
-            <div class="border-y-2 py-2">
-              <p class="text-center">AD</p>
-
-              <a
-                target="_blank"
-                [href]="postItem.sectionAttributes[findIndex(4, i)]?.value"
-                ><img
-                  class="my-5 w-full h-[200px]"
-                  [src]="mediaFilePath + postItem.content"
-              /></a></div
-          ></ng-container>
-          <ng-container *ngSwitchCase="9">
-            <div class="border-y-2 py-2">
-              <p class="text-center">AD</p>
-
-              <a
-                target="_blank"
-                [href]="postItem.sectionAttributes[findIndex(4, i)]?.value"
-                ><img
-                  class="my-5 w-full h-[200px]"
-                  [src]="mediaFilePath + postItem.content"
-              /></a></div
-          ></ng-container>
-          <ng-container *ngSwitchCase="10">
-            <div class="border-y-2 py-2">
-              <p class="text-center">AD</p>
-
-              <a
-                target="_blank"
-                [href]="postItem.sectionAttributes[findIndex(4, i)]?.value"
-                ><video
-                  class="my-5"
-                  controls
-                  muted
-                  [src]="mediaFilePath + postItem?.content"
-                ></video
-              ></a></div
-          ></ng-container>
-        </ng-container>
-      </div>
-
-      <!-- view-comments -->
-
-      <div *ngIf="!commentStatus"></div>
-
-      <div *ngIf="commentStatus">
-        <div class="h-96 overflow-y-auto border-2 border-gray-200 m-5 p-4">
-          <h3 class="text-2xl font-semibold">Comments</h3>
-          <div *ngIf="comments == ''" class="flex justify-center">
-            <p>No comments Yet.</p>
+        <div
+          class="flex mt-2"
+          (click)="navigateToUserProfile(post?.author?.id)"
+        >
+          <div class="w-10 h-10 rounded-full overflow-hidden">
+            <img
+              *ngIf="post?.author?.profilePicturePath == null"
+              class="h-full w-full overflow-hidden"
+              src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-photo-183042379.jpg"
+              alt=""
+            />
+            <img
+              *ngIf="post?.author?.profilePicturePath"
+              class="h-full w-full overflow-hidden"
+              [src]="mediaFilePath + post?.author?.profilePicturePath"
+              alt=""
+            />
           </div>
-          <div class="h-[85%] overflow-y-auto p-3">
-            <!-- whole comment -->
+          <p class="text-start text-gray-400 mt-3 ml-3">
+            {{ post?.author?.firstName + " " + post?.author?.lastName }} |
+            {{ post?.createdAt | date : "MMM d, y, h:mm a" }} EDT
+          </p>
+        </div>
+        <div class="mt-3 p-x-2 flex items-center">
+          <button><i class="fa-brands fa-facebook-f w-15 h-15"></i></button>
+          <button class="ml-3 px-2">
+            <i class="fa-brands fa-twitter w-15 h-15 text-blue-700"></i>
+          </button>
+          <button class="ml-3 px-2">
+            <i class="fa-solid fa-share-from-square text-gray-400 px-2"></i
+            >Share
+          </button>
+        </div>
+        <div
+          *ngFor="let postItem of post?.postSections.slice(1); let i = index"
+          class="w-full mt-5"
+        >
+          <ng-container [ngSwitch]="postItem.sectionTypeId">
+            <!-- main title -->
+            <ng-container *ngSwitchCase="1"
+              ><h1 class="text-5xl font-extrabold my-4">
+                {{ postItem.content }}
+              </h1></ng-container
+            >
+            <!-- sub heading -->
+            <ng-container *ngSwitchCase="2"
+              ><h2 class="text-2xl font-semibold my-5">
+                {{ postItem.content }}
+              </h2></ng-container
+            >
+            <!-- paragraph -->
 
-            <ng-container *ngFor="let item of comments">
-              <ng-container *ngFor="let item2 of item">
-                <div class="p-3 border-b-2 pb-2">
-                  <div>
-                    <div class="flex justify-between items-center">
-                      <div>
-                        <p class="text-lg font-medium">
-                          {{ item2.author.firstName }}
-                          {{ item2.author.lastName }}
-                        </p>
-                      </div>
+            <ng-container *ngSwitchCase="3"
+              ><p class="my-5 text-lg text-gray-600 text-justify">
+                <markdown>
+                  {{ postItem.content }}
+                </markdown>
+              </p></ng-container
+            >
+            <!-- image -->
+            <ng-container *ngSwitchCase="4"
+              ><img
+                class="mb-5 w-full"
+                [src]="mediaFilePath + postItem.content"
+            /></ng-container>
+            <!-- video -->
 
-                      <div class="flex items-center text-green-400">
-                        <button
-                          class="w-10 px-2 py-2"
-                          (click)="reportComment(item2.id)"
-                        >
-                          Report
-                        </button>
-                        <span class="ml-5" (click)="reportComment(item2.id)"
-                          ><i class="fa-regular fa-flag fa-1.5x"></i
-                        ></span>
-                      </div>
-                    </div>
-                    <p class="text-xs text-gray-400">
-                      {{ item2.createdAt | date }}
-                    </p>
+            <ng-container *ngSwitchCase="5"
+              ><video [src]="postItem.content"></video
+            ></ng-container>
+            <!-- ad -->
+            <ng-container *ngSwitchCase="6">
+              <div class="border-y-2 py-2">
+                <p class="text-center">AD</p>
 
-                    <p class="text-sm">
-                      {{ item2.content }}
-                    </p>
+                <a
+                  target="_blank"
+                  [href]="postItem.sectionAttributes[findIndex(4, i)]?.value"
+                  ><img
+                    class="my-5 w-full h-[200px]"
+                    [src]="mediaFilePath + postItem.content"
+                /></a></div
+            ></ng-container>
+            <ng-container *ngSwitchCase="9">
+              <div class="border-y-2 py-2">
+                <p class="text-center">AD</p>
 
-                    <div class="flex gap-5">
-                      <button (click)="replyBox(item2)" class="text-blue-500">
-                        Reply
-                      </button>
+                <a
+                  target="_blank"
+                  [href]="postItem.sectionAttributes[findIndex(4, i)]?.value"
+                  ><img
+                    class="my-5 w-full h-[200px]"
+                    [src]="mediaFilePath + postItem.content"
+                /></a></div
+            ></ng-container>
+            <ng-container *ngSwitchCase="10">
+              <div class="border-y-2 py-2">
+                <p class="text-center">AD</p>
 
-                      <div>
-                        <button
-                          [id]="item2.id"
-                          #commentOpen
-                          (click)="viewReplyBox(commentOpen.id, item)"
-                          class="text-blue-500"
-                        >
-                          <i class="fa-solid fa-chevron-down"></i> replies
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                <a
+                  target="_blank"
+                  [href]="postItem.sectionAttributes[findIndex(4, i)]?.value"
+                  ><video
+                    class="my-5"
+                    controls
+                    muted
+                    [src]="mediaFilePath + postItem?.content"
+                  ></video
+                ></a></div
+            ></ng-container>
+          </ng-container>
+        </div>
 
-                  <!-- replay comments view -->
+        <!-- view-comments -->
 
-                  <div
-                    *ngIf="commentOpen.id == commentboxId && viewReplyComments"
-                    class="w-full h-36 overflow-y-auto my-5 p-4"
-                  >
-                    <div
-                      *ngFor="let replayComment of replayCommentData"
-                      class="mb-5"
-                    >
-                      <div class="flex gap-4 items-center">
-                        <div class="flex justify-between items-center">
-                          <div>
-                            <p class="text-lg font-medium">
-                              {{ replayComment.author.firstName }}
-                              {{ replayComment.author.lastName }}
-                            </p>
-                          </div>
+        <div *ngIf="!commentStatus"></div>
 
-                          <div class="flex items-center text-green-400">
-                            <button
-                              class="w-10 px-2 py-2"
-                              (click)="reportComment(replayComment.id)"
-                            >
-                              Report
-                            </button>
-                            <span
-                              class="ml-5"
-                              (click)="reportComment(replayComment.id)"
-                              ><i class="fa-regular fa-flag fa-1.5x"></i
-                            ></span>
-                          </div>
+        <div *ngIf="commentStatus">
+          <div class="h-96 overflow-y-auto border-2 border-gray-200 m-5 p-4">
+            <h3 class="text-2xl font-semibold">Comments</h3>
+            <div *ngIf="comments == ''" class="flex justify-center">
+              <p>No comments Yet.</p>
+            </div>
+            <div class="h-[85%] overflow-y-auto p-3">
+              <!-- whole comment -->
+
+              <ng-container *ngFor="let item of comments">
+                <ng-container *ngFor="let item2 of item">
+                  <div class="p-3 border-b-2 pb-2">
+                    <div>
+                      <div class="flex justify-between items-center">
+                        <div>
+                          <p class="text-lg font-medium">
+                            {{ item2.author.firstName }}
+                            {{ item2.author.lastName }}
+                          </p>
                         </div>
-                        <p class="text-xs text-gray-400">
-                          {{ replayComment.createdAt | date }}
-                        </p>
+
+                        <div class="flex items-center text-green-400">
+                          <button
+                            class="w-10 px-2 py-2"
+                            (click)="reportComment(item2.id)"
+                          >
+                            Report
+                          </button>
+                          <span class="ml-5" (click)="reportComment(item2.id)"
+                            ><i class="fa-regular fa-flag fa-1.5x"></i
+                          ></span>
+                        </div>
                       </div>
-
-                      <p class="text-base">
-                        <span class="lowercase text-blue-500 text-sm"
-                          >@ {{ replayComment.parentAuthor }}</span
-                        >
-
-                        {{ replayComment.content }}
+                      <p class="text-xs text-gray-400">
+                        {{ item2.createdAt | date }}
                       </p>
 
-                      <button
-                        (click)="replyBox(replayComment)"
-                        class="text-blue-500 text-sm"
-                      >
-                        Reply
-                      </button>
+                      <p class="text-sm">
+                        {{ item2.content }}
+                      </p>
+
+                      <div class="flex gap-5">
+                        <button (click)="replyBox(item2)" class="text-blue-500">
+                          Reply
+                        </button>
+
+                        <div>
+                          <button
+                            [id]="item2.id"
+                            #commentOpen
+                            (click)="viewReplyBox(commentOpen.id, item)"
+                            class="text-blue-500"
+                          >
+                            <i class="fa-solid fa-chevron-down"></i> replies
+                          </button>
+                        </div>
+                      </div>
                     </div>
+
+                    <!-- replay comments view -->
+
+                    <div
+                      *ngIf="
+                        commentOpen.id == commentboxId && viewReplyComments
+                      "
+                      class="w-full h-36 overflow-y-auto my-5 p-4"
+                    >
+                      <div
+                        *ngFor="let replayComment of replayCommentData"
+                        class="mb-5"
+                      >
+                        <div class="flex gap-4 items-center">
+                          <div class="flex justify-between items-center">
+                            <div>
+                              <p class="text-lg font-medium">
+                                {{ replayComment.author.firstName }}
+                                {{ replayComment.author.lastName }}
+                              </p>
+                            </div>
+
+                            <div class="flex items-center text-green-400">
+                              <button
+                                class="w-10 px-2 py-2"
+                                (click)="reportComment(replayComment.id)"
+                              >
+                                Report
+                              </button>
+                              <span
+                                class="ml-5"
+                                (click)="reportComment(replayComment.id)"
+                                ><i class="fa-regular fa-flag fa-1.5x"></i
+                              ></span>
+                            </div>
+                          </div>
+                          <p class="text-xs text-gray-400">
+                            {{ replayComment.createdAt | date }}
+                          </p>
+                        </div>
+
+                        <p class="text-base">
+                          <span class="lowercase text-blue-500 text-sm"
+                            >@ {{ replayComment.parentAuthor }}</span
+                          >
+
+                          {{ replayComment.content }}
+                        </p>
+
+                        <button
+                          (click)="replyBox(replayComment)"
+                          class="text-blue-500 text-sm"
+                        >
+                          Reply
+                        </button>
+                      </div>
+                    </div>
+
+                    <!--  -->
                   </div>
-
-                  <!--  -->
-                </div>
+                </ng-container>
               </ng-container>
-            </ng-container>
+            </div>
+          </div>
+          <div *ngIf="!enableComments" class="flex justify-center">
+            <p>Comments disabled</p>
+          </div>
+          <div *ngIf="enableComments" class="border-2 border-gray-200 m-5 p-4">
+            <!-- sending comments -->
+
+            <!-- guest users comment form -->
+
+            <form
+              *ngIf="!loginStatus"
+              [formGroup]="guestCommentForm"
+              class="w-full p-4"
+            >
+              <div formGroupName="tempUser" class="grid grid-cols-2 gap-4">
+                <div class="grid grid-row-2 gap-2">
+                  <label class="font-medium text-base text-stone-600"
+                    >First Name*:</label
+                  >
+
+                  <input
+                    formControlName="firstName"
+                    type="text"
+                    class="border-2 rounded p-2 outline-none"
+                  />
+                </div>
+
+                <div class="grid grid-row-2 gap-2">
+                  <label class="font-medium text-base text-stone-600"
+                    >Middle Name :</label
+                  >
+
+                  <input
+                    formControlName="middleName"
+                    type="text"
+                    class="border-2 rounded p-2 outline-none"
+                  />
+                </div>
+
+                <div class="grid grid-row-2 gap-2">
+                  <label class="font-medium text-base text-stone-600"
+                    >Last Name* :</label
+                  >
+
+                  <input
+                    formControlName="lastName"
+                    type="text"
+                    class="border-2 rounded p-2 outline-none"
+                  />
+                </div>
+
+                <div class="grid grid-row-2 gap-2">
+                  <label class="font-medium text-base text-stone-600"
+                    >Email*:</label
+                  >
+
+                  <input
+                    formControlName="email"
+                    type="text"
+                    name=""
+                    id=""
+                    class="border-2 rounded p-2 outline-none"
+                  />
+                </div>
+              </div>
+
+              <div class="grid grid-rows-1 gap-2">
+                <label class="font-medium text-base text-stone-600"
+                  >Comment :</label
+                >
+
+                <textarea
+                  formControlName="content"
+                  class="py-3 px-4 block border-gray-200 col-span-10 border-2 rounded p-2 outline-nonetext-sm focus:border-blue-500 focus:ring-blue-500"
+                  rows="3"
+                  [placeholder]="parentCommentAuthor"
+                ></textarea>
+              </div>
+
+              <button
+                (click)="sendReply()"
+                class="my-5 flex justify-center top-10 text-white w-1/6 mx-auto bg-green-500 rounded p-2"
+              >
+                Send
+              </button>
+            </form>
+
+            <div *ngIf="!loginStatus" class="text-center p-5">
+              <p>
+                <a
+                  class="text-blue-500 hover:underline"
+                  (click)="openLogin = true"
+                >
+                  login</a
+                >
+                to avoid re-entering detailes next time
+              </p>
+
+              <p class="text-xs">* required</p>
+            </div>
+
+            <!-- login users comment form -->
+
+            <form
+              *ngIf="loginStatus"
+              [formGroup]="commentForm"
+              class="grid grid-cols-1 gap-3 p-4"
+            >
+              <div class="grid grid-rows-1 gap-2">
+                <label class="font-medium text-base text-stone-600"
+                  >Comment :</label
+                >
+
+                <textarea
+                  formControlName="content"
+                  class="py-3 px-4 block border-gray-200 col-span-10 border-2 rounded p-2 outline-nonetext-sm focus:border-blue-500 focus:ring-blue-500"
+                  rows="3"
+                  [placeholder]="parentCommentAuthor"
+                ></textarea>
+              </div>
+
+              <button
+                (click)="sendReply()"
+                class="col-span-2 top-10 text-white w-1/6 mx-auto bg-green-500 rounded p-2"
+              >
+                Send
+              </button>
+            </form>
           </div>
         </div>
-        <div *ngIf="!enableComments" class="flex justify-center">
-          <p>Comments disabled</p>
-        </div>
-        <div *ngIf="enableComments" class="border-2 border-gray-200 m-5 p-4">
-          <!-- sending comments -->
-
-          <!-- guest users comment form -->
-
-          <form
-            *ngIf="!loginStatus"
-            [formGroup]="guestCommentForm"
-            class="w-full p-4"
-          >
-            <div formGroupName="tempUser" class="grid grid-cols-2 gap-4">
-              <div class="grid grid-row-2 gap-2">
-                <label class="font-medium text-base text-stone-600"
-                  >First Name*:</label
-                >
-
-                <input
-                  formControlName="firstName"
-                  type="text"
-                  class="border-2 rounded p-2 outline-none"
-                />
-              </div>
-
-              <div class="grid grid-row-2 gap-2">
-                <label class="font-medium text-base text-stone-600"
-                  >Middle Name :</label
-                >
-
-                <input
-                  formControlName="middleName"
-                  type="text"
-                  class="border-2 rounded p-2 outline-none"
-                />
-              </div>
-
-              <div class="grid grid-row-2 gap-2">
-                <label class="font-medium text-base text-stone-600"
-                  >Last Name* :</label
-                >
-
-                <input
-                  formControlName="lastName"
-                  type="text"
-                  class="border-2 rounded p-2 outline-none"
-                />
-              </div>
-
-              <div class="grid grid-row-2 gap-2">
-                <label class="font-medium text-base text-stone-600"
-                  >Email*:</label
-                >
-
-                <input
-                  formControlName="email"
-                  type="text"
-                  name=""
-                  id=""
-                  class="border-2 rounded p-2 outline-none"
-                />
-              </div>
-            </div>
-
-            <div class="grid grid-rows-1 gap-2">
-              <label class="font-medium text-base text-stone-600"
-                >Comment :</label
-              >
-
-              <textarea
-                formControlName="content"
-                class="py-3 px-4 block border-gray-200 col-span-10 border-2 rounded p-2 outline-nonetext-sm focus:border-blue-500 focus:ring-blue-500"
-                rows="3"
-                [placeholder]="parentCommentAuthor"
-              ></textarea>
-            </div>
-
-            <button
-              (click)="sendReply()"
-              class="my-5 flex justify-center top-10 text-white w-1/6 mx-auto bg-green-500 rounded p-2"
-            >
-              Send
-            </button>
-          </form>
-
-          <div *ngIf="!loginStatus" class="text-center p-5">
-            <p>
-              <a
-                class="text-blue-500 hover:underline"
-                (click)="openLogin = true"
-              >
-                login</a
-              >
-              to avoid re-entering detailes next time
-            </p>
-
-            <p class="text-xs">* required</p>
-          </div>
-
-          <!-- login users comment form -->
-
-          <form
-            *ngIf="loginStatus"
-            [formGroup]="commentForm"
-            class="grid grid-cols-1 gap-3 p-4"
-          >
-            <div class="grid grid-rows-1 gap-2">
-              <label class="font-medium text-base text-stone-600"
-                >Comment :</label
-              >
-
-              <textarea
-                formControlName="content"
-                class="py-3 px-4 block border-gray-200 col-span-10 border-2 rounded p-2 outline-nonetext-sm focus:border-blue-500 focus:ring-blue-500"
-                rows="3"
-                [placeholder]="parentCommentAuthor"
-              ></textarea>
-            </div>
-
-            <button
-              (click)="sendReply()"
-              class="col-span-2 top-10 text-white w-1/6 mx-auto bg-green-500 rounded p-2"
-            >
-              Send
-            </button>
-          </form>
-        </div>
-      </div>
-      <h1
-        class="uppercase font-bold text-2xl mt-6 pb-3 border-b-2 border-yellow-400"
-      >
-        Next up in technology
-      </h1>
-      <div class="mt-4 text-start">
-        <a class="text-blue-300 text-lg"
-          >What normal Americans — not AI companies — want for AI</a
-        ><br />
-        <a class="text-blue-300 text-lg mt-3">Is the AI boom already over ?</a
-        ><br />
-        <a class="text-blue-300 text-lg mt-3"
-          >How does Elon Musk get away with it all?</a
-        ><br />
-        <a class="text-blue-300 text-lg mt-3"
-          >The LED light revolution has only just begun</a
-        ><br />
-        <a class="text-blue-300 text-lg mt-3"
-          >Is Zoom using your meetings to train its AI?</a
+        <h1
+          class="uppercase font-bold text-2xl mt-6 pb-3 border-b-2 border-yellow-400"
         >
+          Next up in {{ post?.category?.categoryName }}
+        </h1>
+        <div class="mt-4 text-start">
+          <a class="text-blue-300 text-lg"
+            >What normal Americans — not AI companies — want for AI</a
+          ><br />
+          <a class="text-blue-300 text-lg mt-3">Is the AI boom already over ?</a
+          ><br />
+          <a class="text-blue-300 text-lg mt-3"
+            >How does Elon Musk get away with it all?</a
+          ><br />
+          <a class="text-blue-300 text-lg mt-3"
+            >The LED light revolution has only just begun</a
+          ><br />
+          <a class="text-blue-300 text-lg mt-3"
+            >Is Zoom using your meetings to train its AI?</a
+          >
+        </div>
       </div>
     </div>
-    <!-- right -side -->
-
-    <div class="md:w-[30%] w-full pt-4 pl-6 pr-4 pb-4">
-      <div class="mt-60 border-y-2 border-yellow-400 pb-4 pt-4">
-        <img
-          src="https://www.businessinsider.in/photo/75180309/dunzo-pays-an-ode-to-some-classic-ads-to-connect-with-the-90s-kids.jpg?imgsize=295291"
-          class="w-full h-full object-cover"
-        />
+    <div class="pt-4 pl-6 pr-4 pb-4" *ngIf="suggestionPost.length != 0">
+      <h1 class="text-2xl font-serif border-b-2 pb-2 border-yellow-400">
+        Recommended
+      </h1>
+      <div class="grid grid-cols-2 gap-2 pb-5 border-b-2">
+        <div
+          class="flex mt-4 p-4 shadow-md bg-gray-50 hover:bg-gray-300"
+          *ngFor="let post of suggestionPost"
+          routerLink="/Theme2/content/{{ post.postId }}"
+        >
+          <div class="w-[80%] h-[80%]">
+            <img
+              [src]="mediaFilePath + post?.img?.content"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <div class="mt-3 pb-2 pl-4">
+            <h1 class="text-start text-blue-500 text-xl">
+              {{ post?.heading.content }}.
+            </h1>
+            <p class="text-start text-gray-700 font-medium text-lg">
+              {{ post?.subHeading.content }}
+            </p>
+          </div>
+        </div>
       </div>
+    </div>
+    <div class="md:w-[70%] w-full pt-4 pl-6 pr-4 pb-4">
+      <h1
+        class="uppercase text-2xl font-serif mt-8 pb-2 border-b-2 border-yellow-400"
+      >
+        The latest
+      </h1>
+      <div
+        class="border-y-2 mt-5 flex p-4 hover:bg-gray-300"
+        *ngFor="let item of latestPost"
+        routerLink="/Theme2/content/{{ item.postId }}"
+      >
+        <div class="md:w-36 md:h-36 h-full w-full overflow-hidden">
+          <img
+            [src]="mediaFilePath + item?.img?.content"
+            class="w-full h-full object-cover"
+          />
+        </div>
+        <div class="ml-3">
+          <h1 class="font-bold text-xl text-start">
+            {{ item?.heading?.content }}
+          </h1>
+          <p class="mt-2 text-gray-500">By {{ item.fullName }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- right -side -->
+
+  <div class="hidden md:grid gap-10 col-span-2 w-full pt-4 pb-4">
+    <div>
+      <!-- ad -->
+      <div class="mt-60 border-y-2 border-yellow-400 pb-4 pt-4">
+        <div class="w-full overflow-hidden">
+          <app-advertisementView
+            class="h-full w-full"
+            [adPosition]="9"
+          ></app-advertisementView>
+        </div>
+      </div>
+      <!-- most read -->
       <div class="mt-10">
         <h1 class="text-xl font-serif border-b-2 pb-2">Most Read</h1>
         <div
@@ -412,68 +506,21 @@
           <h1 class="text-2xl font-bold text-gray-600">{{ item.id }}</h1>
           <p class="text-lg font-bold ml-4">{{ item?.heading?.content }}</p>
         </div>
-        <div
-          class="hidden md:block w-[80%] h-[80%] mt-32 border-y-2 border-yellow-400 pb-4 pt-4"
-          *ngFor="let item of [1, 2, 3, 4, 5]"
-        >
-          <img
-            src="https://izispicy.com/old-img/img10/20170926/640/some_ads_will_stay_in_our_memories_forever_640_05.jpg"
-            class="w-full h-full object-cover"
-          />
-        </div>
       </div>
     </div>
-  </div>
-  <div class="pt-4 pl-6 pr-4 pb-4" *ngIf="suggestionPost.length != 0">
-    <h1 class="text-2xl font-serif border-b-2 pb-2 border-yellow-400">
-      Recommended
-    </h1>
-    <div class="grid grid-cols-2 gap-2 pb-5 border-b-2">
-      <div
-        class="flex mt-4 p-4 shadow-md bg-gray-50 hover:bg-gray-300"
-        *ngFor="let post of suggestionPost"
-        routerLink="/Theme2/content/{{ post.postId }}"
-      >
-        <div class="w-[80%] h-[80%]">
-          <img
-            [src]="mediaFilePath + post?.img?.content"
-            class="w-full h-full object-cover"
-          />
-        </div>
-        <div class="mt-3 pb-2 pl-4">
-          <h1 class="text-start text-blue-500 text-xl">
-            {{ post?.heading.content }}.
-          </h1>
-          <p class="text-start text-gray-700 font-medium text-lg">
-            {{ post?.subHeading.content }}
-          </p>
-        </div>
-      </div>
+
+    <div class="w-full overflow-hidden">
+      <app-advertisementView
+        class="h-full w-full"
+        [adPosition]="9"
+      ></app-advertisementView>
     </div>
-  </div>
-  <div class="md:w-[70%] w-full pt-4 pl-6 pr-4 pb-4">
-    <h1
-      class="uppercase text-2xl font-serif mt-8 pb-2 border-b-2 border-yellow-400"
-    >
-      The latest
-    </h1>
-    <div
-      class="border-y-2 mt-5 flex p-4 hover:bg-gray-300"
-      *ngFor="let item of latestPost"
-      routerLink="/Theme2/content/{{ item.postId }}"
-    >
-      <div class="md:w-[25%] md:h-[30%] h-full w-full overflow-hidden">
-        <img
-          [src]="mediaFilePath + item?.img?.content"
-          class="w-full h-full object-cover"
-        />
-      </div>
-      <div class="ml-3">
-        <h1 class="font-bold text-xl text-start">
-          {{ item?.heading?.content }}
-        </h1>
-        <p class="mt-2 text-gray-500">By {{ item.fullName }}</p>
-      </div>
+
+    <div class="w-full overflow-hidden">
+      <app-advertisementView
+        class="h-full w-full"
+        [adPosition]="9"
+      ></app-advertisementView>
     </div>
   </div>
 </section>
@@ -486,3 +533,4 @@
 <app-Register (close)="userSignup = false" *ngIf="userSignup"> </app-Register>
 <app-pop-up1></app-pop-up1>
 <app-pop-up2></app-pop-up2>
+<app-pop-up3 [adPosition]="12"></app-pop-up3>

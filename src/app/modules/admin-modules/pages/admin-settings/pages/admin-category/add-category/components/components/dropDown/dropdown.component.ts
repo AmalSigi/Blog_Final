@@ -7,12 +7,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class DropdownComponent implements OnInit {
   constructor() {}
   @Input() category!: any[];
-  ngOnInit(): void {
-    console.log(this.category);
-  }
+  ngOnInit(): void {}
   @Output() onChange = new EventEmitter();
   public changeCategory(index: number): void {
     this.onChange.emit(index);
-    console.log(this.category);
   }
 }

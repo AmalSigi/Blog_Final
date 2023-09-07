@@ -36,7 +36,9 @@ export class PublicService {
     return this.http.get(`${this.url}/Comment/${postId}/count`);
   }
   public getCommentsCount(postId: number, status: string): Observable<any> {
-    return this.http.get(`${this.url}/${postId}/count?status=${status}`);
+    return this.http.get(
+      `${this.url}/Comment/${postId}/count?status=${status}`
+    );
   }
 
   public getAllCommentByPostId(postId: any): Observable<any> {
@@ -134,7 +136,6 @@ export class PublicService {
   }
 
   public getThemeRandomAdvertisements(): Observable<any> {
-    console.log(this.url);
     return this.http.get(`${this.url}/Theme/randonAdvertisement`);
   }
 

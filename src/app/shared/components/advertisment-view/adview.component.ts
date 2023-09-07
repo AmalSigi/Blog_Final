@@ -11,16 +11,13 @@ export class AppAdvertisementViewComponent implements OnInit {
   @Input() adPosition!: number;
   constructor(private advertisementService: AdvertisementService) {}
   ngOnInit(): void {
-    console.log(this.adPosition);
     this.advertisementService.getAdvertisement().subscribe({
       next: (res: any) => {
-        console.log(res);
         // const data=res.filter((res:any)=>res.advertisementLife!='Disabled');
         const index = res.findIndex(
           (data: any) => data.advertisementNo == this.adPosition
         );
         this.advertisement = res[index];
-        console.log(this.advertisement);
       },
     });
   }

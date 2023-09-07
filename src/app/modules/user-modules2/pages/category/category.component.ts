@@ -52,7 +52,6 @@ export class UserCategoryComponent {
 
   public getCategoryDetailesById(categoryId: number) {
     this.publicapi.getCategoryById(categoryId).subscribe((respo: any) => {
-      console.log(respo);
       this.categoryName = respo.categoryName;
       this.categoryCoverPic = respo.coverPicturePath;
     });
@@ -60,7 +59,6 @@ export class UserCategoryComponent {
 
   public getPostByCategory(categoryId: number) {
     this.publicapi.getPostByCategoryId(categoryId).subscribe((respo) => {
-      console.log(respo);
       for (const post of respo) {
         let heading = post.postSections.filter(
           (item: any) => item.sectionTypeId == 1
@@ -90,7 +88,6 @@ export class UserCategoryComponent {
             };
 
             this.categoryPost.push(obj);
-            console.log(this.categoryPost);
           });
       }
     });
@@ -98,17 +95,13 @@ export class UserCategoryComponent {
   public getLatestPost() {
     const length = 4;
     this.publicapi.getLatestPosts(length).subscribe((respo) => {
-      console.log(respo);
       const categoryName = respo.category?.categoryName;
       this.latestPost = this.postToArray(respo);
-
-      console.log(this.latestPost);
     });
   }
   public getLatestPostByViewCount() {
     const length = 5;
     this.publicapi.getLatestPosts(length).subscribe((respo) => {
-      console.log(respo);
       const categoryName = respo.category?.categoryName;
       this.latest = this.postToArray(respo);
 
@@ -118,7 +111,6 @@ export class UserCategoryComponent {
       top5posts.forEach((post: any, index: number) => {
         post.id = index + 1;
       });
-      console.log(top5posts);
     });
   }
   public postToArray(post: any) {

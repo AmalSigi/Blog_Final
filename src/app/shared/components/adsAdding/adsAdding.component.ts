@@ -123,10 +123,7 @@ export class AdsShareComponent {
 
       if (currentThemeSettings) {
         this.themeId = +currentThemeSettings.settingValue;
-
-        console.log('Theme ID:', this.themeId);
       } else {
-        console.log('Setting "currentTheme" not found.');
       }
     });
   }
@@ -164,8 +161,6 @@ export class AdsShareComponent {
   public photoAdv() {
     this.mediaApi.fetchImage().subscribe((data) => {
       this.Image = data;
-
-      console.log(this.Image);
     });
   }
 
@@ -173,7 +168,6 @@ export class AdsShareComponent {
     this.mediaApi.fetchVideo().subscribe((data: any) => {
       this.Video = data;
 
-      console.log(this.Video);
     });
   }
 
@@ -211,8 +205,6 @@ export class AdsShareComponent {
     this.selectedExtLink = item;
 
     this.selectedLinkId = item.id;
-
-    console.log(this.selectedExtLink);
   }
 
   public divIm() {
@@ -303,8 +295,6 @@ export class AdsShareComponent {
     if (fileList.length > 0) {
       this.fileToUpload = fileList[0];
 
-      console.log(this.fileToUpload);
-
       this.picUpload = false;
 
       const pic = new FileReader();
@@ -322,9 +312,6 @@ export class AdsShareComponent {
 
     if (fileList.length > 0) {
       this.videoToUpload = fileList[0];
-
-      console.log(this.videoToUpload);
-
       this.picUpload = false;
 
       const vid = new FileReader();
@@ -387,8 +374,6 @@ export class AdsShareComponent {
 
         .subscribe({
           next: (response) => {
-            //console.log(response)
-
             alert(`PhotoAd added for zone ${this.selectedZone}  in theme  `);
 
             this.divImg = false;
@@ -420,29 +405,6 @@ export class AdsShareComponent {
 
         .subscribe({
           next: (response) => {
-            console.log(response);
-
-            // console.log(response.id)
-
-            // const formData={
-
-            //   path:this.vidPath
-
-            //   }
-
-            //           this.mediaApi.patchMediaId(response.id,formData).subscribe({
-
-            //             next:(data)=>{
-
-            //               console.log(data)
-
-            //             },
-
-            //             error: (data) => {
-
-            //              },
-
-            //           })
 
             alert(`VideoAd added for zone ${this.selectedZone}  in theme  `);
 
@@ -465,8 +427,6 @@ export class AdsShareComponent {
 
         .subscribe({
           next: (response) => {
-            // console.log(response)
-
             alert(`Video Add added for zone ${this.selectedZone}  in theme  `);
 
             this.divVid = false;
@@ -486,8 +446,6 @@ export class AdsShareComponent {
 
         .subscribe({
           next: (response) => {
-            console.log(response);
-
             alert(
               `External Link Add added for zone ${this.selectedZone}  in theme  `
             );
@@ -507,11 +465,6 @@ export class AdsShareComponent {
       const formData = {
         path: this.path,
       };
-
-      console.log(formData);
-
-      console.log(this.selectedZone);
-
       this.advertisementService
         .postStaticExternalComputer(this.selectedZone, formData)
 

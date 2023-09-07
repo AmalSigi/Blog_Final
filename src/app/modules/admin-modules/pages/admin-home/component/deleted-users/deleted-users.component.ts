@@ -38,7 +38,6 @@ export class DeletedUsersComponent {
     this.userService
       .getAllUsers(status, offset, this.offsetValue.pageSize)
       .subscribe((res: any) => {
-        console.log(res);
         this.totalData = res.totalLength;
         this.users = res.users;
         this.users.forEach((user) => {
@@ -70,7 +69,6 @@ export class DeletedUsersComponent {
   }
 
   public deleteUser(user: any) {
-    console.log(user);
     if (confirm('Are you sure you want to delete this user?')) {
       this.userService.deleteUser(user.id).subscribe(
         (res) => {

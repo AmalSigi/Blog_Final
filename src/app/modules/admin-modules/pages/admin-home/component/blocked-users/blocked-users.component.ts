@@ -38,7 +38,6 @@ export class BlockedUsersComponent {
     this.userService
       .getAllUsers(status, offset, this.offsetValue.pageSize)
       .subscribe((res: any) => {
-        console.log(res);
         this.totalData = res.totalLength;
 
         this.users = res.users;
@@ -83,7 +82,6 @@ export class BlockedUsersComponent {
   }
 
   public deleteUser(user: any) {
-    console.log(user);
     if (confirm('Are you sure you want to delete this user?')) {
       this.userService.deleteUser(user.id).subscribe(
         (res) => {

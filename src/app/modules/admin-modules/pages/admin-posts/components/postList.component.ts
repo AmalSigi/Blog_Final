@@ -240,7 +240,6 @@ export class PostListComponent {
 
   // delete post permanently
   public deletePostPremanently(postId: number) {
-    console.log(postId);
     this.postsService.deletePostpermanently(postId).subscribe({
       next: () => {
         alert('Post Deleted Permanently');

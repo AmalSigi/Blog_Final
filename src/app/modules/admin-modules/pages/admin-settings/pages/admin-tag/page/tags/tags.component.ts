@@ -37,7 +37,6 @@ export class TagsComponent implements OnInit {
   }
 
   public deleteTag(tag: any) {
-    console.log(tag);
     this.tagApi.deletTag(tag.id).subscribe({
       next: () => {
         this.toster.success(`Tag ${tag.tagName} is Deleteed`);
@@ -46,7 +45,6 @@ export class TagsComponent implements OnInit {
     });
   }
   public searchPostByName(event: any) {
-    console.log(event.target.value);
     this.Offset.toggleInputData(event.target.value);
     this.getTags();
   }

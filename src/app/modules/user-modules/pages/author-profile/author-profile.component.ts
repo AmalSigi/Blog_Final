@@ -24,11 +24,10 @@ export class AuthorProfileComponent {
       this.fetchUserDataAndPosts();
     });
   }
-  fetchUserDataAndPosts(): void {
+  public fetchUserDataAndPosts(): void {
     this.publicapi.getPostByAuthorId(this.authorId).subscribe(
       (data: any) => {
         this.user = data.posts[0].author;
-        console.log(this.user);
         this.posts = this.postToArray(data.posts);
         this.posts.sort(
           (a: any, b: any) =>

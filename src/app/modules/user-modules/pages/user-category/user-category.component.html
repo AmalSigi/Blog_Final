@@ -69,13 +69,20 @@
     <!-- side ad -->
     <div class="hidden w-2/6 my-5 md:flex flex-col gap-10">
       <div class="w-full h-64 bg-white overflow-hidden">
-        <app-advertisementView class="h-full w-full" [adPosition]="16"></app-advertisementView>
+        <app-advertisementView
+          class="h-full w-full"
+          [adPosition]="16"
+        ></app-advertisementView>
       </div>
       <div class="w-full h-64 bg-white overflow-hidden">
-        <app-advertisementView class="h-full w-full" [adPosition]="17"></app-advertisementView>
-
+        <app-advertisementView
+          class="h-full w-full"
+          [adPosition]="17"
+        ></app-advertisementView>
       </div>
     </div>
   </div>
 </main>
-<app-pop-up3></app-pop-up3>
+<app-pop-up1></app-pop-up1>
+<app-pop-up2></app-pop-up2>
+<app-pop-up3 [adPosition]="18"></app-pop-up3>

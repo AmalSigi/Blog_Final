@@ -82,7 +82,6 @@ export class AdminSocialMediaSettingComponent {
   // mail
 
   public addMail() {
-    console.log('hi');
     let settiingArray: any = [];
     settiingArray.push(this.mailForm.value);
     this.siteSettingApi.patchSiteSetting(settiingArray).subscribe({

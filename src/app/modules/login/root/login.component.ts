@@ -36,23 +36,17 @@ export class LoginComponent implements OnInit {
             JSON.stringify(response.jwtToken)
           );
           // alert('Login successfully..');
-this.userApi.currentUserDetails().subscribe({
-  next: (response) => {
-    console.log(response)
-    const userRole=response.userRoles
-    console.log(userRole[0].role.roleName)
+          this.userApi.currentUserDetails().subscribe({
+            next: (response) => {
+              const userRole = response.userRoles;
 
-    if(userRole[0].role.roleName=='Author'){
-this.route.navigate(['/author']);
-    }
-    else{
-this.route.navigate(['/admin']);
-
-    }
-
-}});
-
-        
+              if (userRole[0].role.roleName == 'Author') {
+                this.route.navigate(['/author']);
+              } else {
+                this.route.navigate(['/admin']);
+              }
+            },
+          });
         },
         error: (error) => {
           alert('Error: ' + JSON.stringify(error.error));

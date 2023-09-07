@@ -56,15 +56,12 @@ export class AdminProfileComponent implements OnInit {
         const id = params['id'];
         this.userService.getUserAccount(id).subscribe({
           next: (result) => {
-            console.log('hi');
             this.populateForm(result);
           },
         });
       } else {
         this.userService.currentUserDetails().subscribe({
           next: (result) => {
-            console.log('bye');
-
             this.populateForm(result);
           },
         });
@@ -80,7 +77,6 @@ export class AdminProfileComponent implements OnInit {
       aboutUser: data.aboutUser,
     });
     this.profileDetailes = data;
-    console.log(this.profileDetailes);
 
     this.profileDetailes.profilePicturePath = data?.profilePicturePath;
   }

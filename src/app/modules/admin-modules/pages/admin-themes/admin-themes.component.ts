@@ -48,7 +48,6 @@ export class AdminThemesComponent implements OnInit {
     this.themeApi.getThemeById(themeId).subscribe({
       next: (res) => {
         this.currentTheme = res;
-        console.log(this.currentTheme);
       },
     });
   }
@@ -58,8 +57,6 @@ export class AdminThemesComponent implements OnInit {
     )}`;
     this.openSample = true;
     this.selectedTheme = data;
-
-    console.log(this.themeUrl);
   }
   public closeSampleView() {
     this.getThemes();

@@ -1,40 +1,35 @@
 <footer class="w-full h-36 bg-gray-200">
   <div class="container mx-auto w-[80%] pt-5">
     <div class="flex justify-between">
-    <div class="flex items-center px-2 py-2">
+      <div class="flex items-center px-2 py-2">
         <h1 class="text-gray-600 text-xl font-semibold">Follow Us</h1>
-        <button class="ml-3"><i class="fa-brands fa-facebook fa-2x"></i></button>
-        <button class="ml-3"><i class="fa-brands fa-twitter fa-2x"></i></button>
-        <button class="ml-3"><i class="fa-brands fa-instagram fa-2x"></i></button>
-        <button class="ml-3"><i class="fa-brands fa-youtube fa-2x"></i></button>
-    </div>
+        <a [href]="facebook?.settingValue">
+          <button class="ml-3">
+            <i class="fa-brands fa-facebook fa-2x"></i>
+          </button>
+        </a>
+        <a [href]="instagram?.settingValue">
+          <button class="ml-3">
+            <i class="fa-brands fa-instagram fa-2x"></i>
+          </button>
+        </a>
+        <a [href]="youtube?.settingValue">
+          <button class="ml-3">
+            <i class="fa-brands fa-youtube fa-2x"></i>
+          </button>
+        </a>
+      </div>
 
-    <div clas="px-2">
-        <a routerLink="" class="text-gray-600 text-lg font-semibold ">Home</a>
-        <a routerLink="" class="text-gray-600 text-lg font-semibold ml-4">About</a>
-        <a routerLink="" class="text-gray-600 text-lg font-semibold ml-4">Privacy</a>
-        <a routerLink="" class="text-gray-600 text-lg font-semibold ml-4">News</a>
+      <div clas="px-2">
+        <a routerLink="" class="text-gray-600 text-lg font-semibold">Home</a>
+      </div>
     </div>
-</div>
-<div class="flex justify-between mt-5">
-
-<div>
-    <p class="text-xl font-semibold text-gray-800 ">&copy; 2023 Blog Portal All Rights Reserved.</p>
-</div>
-</div>
+    <div class="flex justify-between mt-5">
+      <div>
+        <p class="text-xl font-semibold text-gray-800">
+          &copy; 2023 Blog Portal All Rights Reserved.
+        </p>
+      </div>
+    </div>
   </div>
-
-
 </footer>
-
-
-
-
-
-
-
-
-
-
-
-

@@ -110,7 +110,7 @@ export class AuthorAddPostComponent implements OnInit {
     }
 
     this.currentTool = type;
-    this.sectionId=this.dynamicDiv.length;
+    this.sectionId = this.dynamicDiv.length;
     this.dynamicFormControls.push(this.formbuilder.control(''));
     this.createFormData(type);
   }
@@ -133,7 +133,6 @@ export class AuthorAddPostComponent implements OnInit {
     };
 
     this.dynamicDiv.push(dynamicElement);
-    console.log(this.dynamicDiv);
   }
   public editTool(data: any): void {
     this.sectionId++;
@@ -235,7 +234,6 @@ export class AuthorAddPostComponent implements OnInit {
       });
       this.dynamicFormArray.push(formGroup);
     });
-    console.log(this.blogForm.value);
     if (this.postId == null) {
       this.postService.addPost(this.blogForm.value).subscribe({
         next: (res) => {
@@ -282,7 +280,6 @@ export class AuthorAddPostComponent implements OnInit {
     }
   }
   getPostFeatures(value: any): void {
-    console.log(value);
     this.blogForm.controls['categoryId']?.setValue(value.categoryId);
     this.blogForm.controls['subCategoryId']?.setValue(value.subCategoryId);
     this.blogForm.controls['authorId']?.setValue(value.authorId);
@@ -301,7 +298,6 @@ export class AuthorAddPostComponent implements OnInit {
 
   Selected(id: number, type: number) {
     this.currentTool = type;
-    console.log(this.currentTool);
     this.sectionId = id;
     if (type == 4 || type == 5 || type == 6 || type == 7 || type == 8) {
       this.mediaToolBar = true;
@@ -413,21 +409,20 @@ export class AuthorAddPostComponent implements OnInit {
   }
   editorConfig = {
     base_url: '/tinymce',
-    promotion:false,
+    promotion: false,
     suffix: '.min',
     removed_menuitems: 'undo redo',
     menubar: 'insert',
     menu: {
-      insert: { title: 'Insert', items: 'link'  }
+      insert: { title: 'Insert', items: 'link' },
     },
     plugins: 'lists link wordcount fonts',
     toolbar:
       'undo redo | bold italic backcolor | \
-  bullist numlist checklist outdent indent | removeformat fontfamily' ,
+  bullist numlist checklist outdent indent | removeformat fontfamily',
   };
   public changeFont(font: string) {
     this.blogForm.controls['postFont']?.setValue(font);
-    console.log(this.blogForm.controls['postFont']);
     this.postFont = font;
   }
   //find index position of section Attribute
@@ -439,7 +434,6 @@ export class AuthorAddPostComponent implements OnInit {
   }
   //image Settings
   public changeImgSetings(value: any) {
-    console.log(value);
     this.dynamicDiv[this.sectionId].sectionAttributes[
       this.findIndex(1, this.sectionId)
     ].value = `${JSON.stringify(value.height)}`;
@@ -480,7 +474,6 @@ export class AuthorAddPostComponent implements OnInit {
         this.findIndex(9, this.sectionId)
       ].value = 'Static';
     }
-    console.log(this.dynamicDiv);
   }
   public getImageStyle(height: string, width: string) {
     if (height == 'null' || (0 && width == 'null') || 0) {

@@ -27,18 +27,16 @@ export class PopUp3Component {
   public mediaFilePath: string = `${environment.url}/assets/`;
   @Input() adPosition!: number;
   public shoePopPu: boolean = true;
+
   constructor(private advertisementService: AdvertisementService) {}
   ngOnInit(): void {
-    console.log(this.adPosition);
     this.advertisementService.getAdvertisement().subscribe({
       next: (res: any) => {
-        console.log(res);
         // const data=res.filter((res:any)=>res.advertisementLife!='Disabled');
         const index = res.findIndex(
           (data: any) => data.advertisementNo == this.adPosition
         );
         this.advertisement = res[index];
-        console.log(this.advertisement);
       },
     });
   }

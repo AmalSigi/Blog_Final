@@ -9,20 +9,22 @@ import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 })
 export class AdminMessagesComponent implements OnInit {
   public totalLength: any;
-  constructor(private readonly contact: ContactUsService,private readonly refresh:trackDataService) {}
+  constructor(
+    private readonly contact: ContactUsService,
+    private readonly refresh: trackDataService
+  ) {}
   ngOnInit(): void {
     this.fetchMessages();
   }
-  public refreshData:Subscription=this.refresh.getClickEvent1().subscribe(()=>{
-    this.fetchMessages();
-  })
+  public refreshData: Subscription = this.refresh
+    .getClickEvent1()
+    .subscribe(() => {
+      this.fetchMessages();
+    });
   public fetchMessages() {
-    console.log('hi');
-
     const read = 'false';
     this.contact.getAllContactNo(read).subscribe({
       next: (respo: any) => {
-        console.log(respo.totalLength);
         this.totalLength = respo.totalLength;
       },
       error: () => {},
