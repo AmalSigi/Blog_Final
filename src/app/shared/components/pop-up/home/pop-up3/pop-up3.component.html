@@ -1,15 +1,14 @@
 <div
   *ngIf="shoePopPu"
   [@slideFromBottom]
-  class="md:h-36 h-48 bg-black/90 shadow-lg w-screen -bottom-48 mb-48 fixed p-4"
+  class="md:h-44 h-48 bg-transparent shadow-lg w-screen -bottom-48 mb-48 fixed p-4"
 >
   <div class="flex justify-end px-2">
     <button (click)="shoePopPu = false">
-      <i class="fa-regular fa-circle-xmark text-white"></i>
+      <i class="fa-regular fa-circle-xmark text-black"></i>
     </button>
   </div>
-
-  <div class="md:flex md:gap-10 justify-center items-center">
+  <!-- <div class="md:flex md:gap-10 justify-center items-center">
     <div class="flex gap-10">
       <p class="md:text-4xl text-2xl text-violet-400">Want to Grow</p>
       <button
@@ -34,5 +33,28 @@
     >
       Contact Us
     </button>
-  </div>
+  </div>  -->
+
+  <section>
+    <ng-container [ngSwitch]="getMediaType(advertisement?.media?.mediaFormat)">
+      <div class="h-96 w-full" *ngSwitchCase="'image'">
+        <img
+          [src]="mediaFilePath + advertisement?.media?.mediaPath"
+          class="w-full h-full object-cover"
+        />
+      </div>
+
+      <div class="h-96 w-full" *ngSwitchCase="'video'">
+        <video
+          [src]="mediaFilePath + advertisement?.media?.mediaPath"
+          class="w-full h-full"
+          controls
+        ></video>
+      </div>
+
+      <p *ngSwitchDefault class="text-lg font-semibold px-2 py-2 text-justify">
+        {{ advertisement?.media?.mediaPath }}
+      </p>
+    </ng-container>
+  </section>
 </div>

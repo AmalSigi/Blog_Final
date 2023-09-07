@@ -2,28 +2,28 @@
   <div class="md:flex gap-10">
     <!-- left side -->
 
-    <div class="md:w-2/6 hidden md:grid h-auto py-5 mt-10  ">
+    <div class="md:w-2/6 hidden md:grid h-auto py-5 mt-10">
       <!-- ad #1 -->
-      <div class="w-full  overflow-hidden">
+      <div class="w-full overflow-hidden">
         <app-advertisementView
-        class="h-full w-full"
-        [adPosition]="9"
-      ></app-advertisementView>
+          class="h-full w-full"
+          [adPosition]="9"
+        ></app-advertisementView>
       </div>
 
       <!-- ad #2 -->
-      <div class="w-full hidden md:block h-64 overflow-hidden ">
+      <div class="w-full hidden md:block h-64 overflow-hidden">
         <app-advertisementView
-        class="h-full w-full"
-        [adPosition]="10"
-      ></app-advertisementView>
+          class="h-full w-full"
+          [adPosition]="10"
+        ></app-advertisementView>
       </div>
       <!-- ad #3 -->
-      <div class="w-full hidden md:block h-64 overflow-hidden ">
+      <div class="w-full hidden md:block h-64 overflow-hidden">
         <app-advertisementView
-        class="h-full w-full"
-        [adPosition]="11"
-      ></app-advertisementView>
+          class="h-full w-full"
+          [adPosition]="11"
+        ></app-advertisementView>
       </div>
     </div>
     <!-- post -->
@@ -402,11 +402,11 @@
     <!-- right side -->
     <!-- ad #1 -->
     <div class="md:w-2/6 p-5 mt-10 mb-10">
-      <div class="w-full hidden md:block h-64 overflow-hidden mb-10 ">
+      <div class="w-full hidden md:block h-64 overflow-hidden mb-10">
         <app-advertisementView
-        class="h-full w-full"
-        [adPosition]="12"
-      ></app-advertisementView>
+          class="h-full w-full"
+          [adPosition]="12"
+        ></app-advertisementView>
       </div>
 
       <div *ngIf="moreArticlePost.length != 0" class="mt-16">
@@ -433,9 +433,9 @@
       <!-- ad #2 -->
       <div class="w-full hidden md:block h-64 overflow-hidden mt-10">
         <app-advertisementView
-        class="h-full w-full"
-        [adPosition]="13"
-      ></app-advertisementView>
+          class="h-full w-full"
+          [adPosition]="13"
+        ></app-advertisementView>
       </div>
     </div>
   </div>
@@ -484,3 +484,4 @@
 </app-userRegister>
 <app-pop-up1></app-pop-up1>
 <app-pop-up2></app-pop-up2>
+<app-pop-up3 [adPosition]="12"></app-pop-up3>

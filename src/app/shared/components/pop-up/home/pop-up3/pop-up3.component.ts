@@ -6,7 +6,9 @@ import {
   animate,
   keyframes,
 } from '@angular/animations';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { AdvertisementService } from 'src/app/core/http/advertismentApi.service';
+import { environment } from 'src/enviroment/enviroment';
 
 @Component({
   selector: 'app-pop-up3',
@@ -22,4 +24,31 @@ import { Component } from '@angular/core';
 })
 export class PopUp3Component {
   public shoePopPu: boolean = true;
+  public advertisement: any;
+  public mediaFilePath: string = `${environment.url}/assets/`;
+  @Input() adPosition!: number;
+  constructor(private advertisementService: AdvertisementService) {}
+  ngOnInit(): void {
+    console.log(this.adPosition);
+    this.advertisementService.getAdvertisement().subscribe({
+      next: (res: any) => {
+        console.log(res);
+        // const data=res.filter((res:any)=>res.advertisementLife!='Disabled');
+        const index = res.findIndex(
+          (data: any) => data.advertisementNo == this.adPosition
+        );
+        this.advertisement = res[index];
+        console.log(this.advertisement);
+      },
+    });
+  }
+  public getMediaType(mediaFormat: string): string {
+    if (mediaFormat === 'Advertisement_Video') {
+      return 'video';
+    } else if (mediaFormat === 'Advertisement_Image') {
+      return 'image';
+    } else {
+      return 'text';
+    }
+  }
 }

@@ -16,7 +16,7 @@ import { Component } from '@angular/core';
       state('void', style({ opacity: 0, transform: 'translateX(100%)' })), // Initial state (hidden, off to the left)
       state('*', style({ opacity: 1, transform: 'translateX(0)' })), // Final state (visible, in its normal position)
       transition('void => *', [
-        animate('5000ms', style({ transform: 'translateX(100%)' })), // Delayed start (off to the right)
+        animate('10000ms', style({ transform: 'translateX(100%)' })), // Delayed start (off to the right)
         animate('1500ms', style({ transform: 'translateX(0)', opacity: 1 })), // Sliding and fading animation
       ]),
       transition('* => void', [
