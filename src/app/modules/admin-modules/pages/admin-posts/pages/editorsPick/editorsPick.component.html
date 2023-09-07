@@ -1,31 +1,11 @@
 <section>
-  <!-- <div *ngIf="posts.length==0">
+  <div *ngIf="posts.length==0">
 
       <p class="text-center text-2xl font-semibold">No posts found.</p>
 
-    </div> -->
+    </div>
 
-  <div class="right-0 mb-5">
-    <button
-      (click)="enableSearch = !enableSearch"
-      class="bg-blue-600 text-white px-3 py-2 rounded-full mr-3"
-    >
-      <span *ngIf="!enableSearch"
-        ><i class="fa-solid fa-magnifying-glass"></i
-      ></span>
 
-      <span *ngIf="enableSearch"><i class="fa-solid fa-xmark"></i></span>
-    </button>
-
-    <input
-      *ngIf="enableSearch"
-      (input)="searchPostByName($event)"
-      type="search"
-      placeholder="Search By Post Name.."
-      class="outline-green-600 p-2 border-2 rounded-lg border-blue-500 w-[50%]"
-      type="text"
-    />
-  </div>
 
   <div *ngIf="!posts" class="flex w-full container mx-auto justify-center">
     <div class="flex items-center pointer-events-none pl-10">

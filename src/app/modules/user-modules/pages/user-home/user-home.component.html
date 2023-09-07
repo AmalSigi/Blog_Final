@@ -1,5 +1,5 @@
-<section class="grid grid-cols-12">
-  <div class="col-span-2 grid gap-5 pl-10 pt-10">
+<section class="flex gap-5">
+  <div class=" grid gap-5 pl-10 pt-10">
     <div class="w-60 h-96 bg-black">
       <app-advertisementView
         class="h-full w-full"
@@ -13,7 +13,7 @@
       ></app-advertisementView>
     </div>
   </div>
-  <div class="container mx-auto mb-10 md:col-span-8">
+  <div class="container mx-auto mb-10 ">
     <!-- trending -->
     <div
       class="container md:h-96 md:flex bg-black mx-auto mt-10 rounded-md overflow-hidden grid"
@@ -204,7 +204,7 @@
       </section>
     </section>
   </div>
-  <div class="col-span-2 grid gap-5 pl-10 pt-10">
+  <div class=" grid gap-5 pl-10 pt-10 pr-10">
     <div class="w-60 h-96 bg-black">
       <app-advertisementView
         class="h-full w-full"
@@ -220,4 +220,4 @@
   </div>
 </section>
 
-<app-pop-up3></app-pop-up3>
+<app-pop-up3 [adPosition]="5"></app-pop-up3>

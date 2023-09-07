@@ -25,4 +25,10 @@ export class MediaApi {
   public fetchExternal(): Observable<any> {
     return this.http.get(`${this.url}/External`);
   }
+  public patchMediaId(mediaId: number, formData: any): Observable<any> {
+    return this.http.patch(
+      `${this.url}/${mediaId}/redirectTo/update`,
+      formData
+    );
+  }
 }

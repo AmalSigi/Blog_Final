@@ -6,6 +6,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 })
 export class FormatLinksPipe implements PipeTransform {
   constructor(private readonly sanitizer: DomSanitizer) {}
+  public font!: string;
   transform(contentWithStyles: string): string {
     console.log(contentWithStyles);
     const modifiedContent = contentWithStyles.replace(/<([\w-]+)([^>]*)style="([^"]*)"([^>]*)>/g, (match, tag, beforeStyle, styles, afterStyle) => {
@@ -18,13 +19,14 @@ export class FormatLinksPipe implements PipeTransform {
         stylesObj[property] = value;
         console.log(value)
         const font=value.split(',')
+        this.font=font[0];
         console.log(font[0])
       });
       
       const styleString = Object.keys(stylesObj).map(property => `${property}: ${stylesObj[property]};`).join(' ');
     console.log(styleString);
 
-      return `<${tag}${beforeStyle} style="${styleString}"${afterStyle}>`;
+      return `<${tag}${beforeStyle} style="font-family:${this.font}"${afterStyle}>`;
 
     });
     console.log(modifiedContent);

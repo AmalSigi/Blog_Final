@@ -1,4 +1,4 @@
-<section class="container w-full pb-4 pl-4 pr-4 pt-4">
+<section class="container mx-auto w-[80%] pb-4 pl-4 pr-4 pt-4">
 
     <div class="mt-5">
         <h1 class="text-2xl font-semibold text-start text-blue-600 ">Manage the advertisements appearing on the user blogs (SubCategory Page)</h1>
@@ -6,28 +6,29 @@
     </div>
 
 
-    <div class="w-[60%] mx-auto h-[500px] bg-white mt-32 ">
-        <div class="w-[80%] h-full bg-white mx-auto ">
-          
-            <div class=" w-[300px] h-[300px] bg-gray-200 mx-auto -  mt-3 px-32 py-32 uppercase">
+    <div class="w-[60%] mx-auto container bg-white mt-32 ">
+        <div class="h-[90%] w-[60%] container bg-white mx-auto grid gap-2">
+          <div class="flex">
+            <div class="w-20 h-80 bg-gray-200 mt-3 py-28" (click)="openAd(23)">
+                <p class="text-blue-600 text-2xl font-semibold text-center">23</p>
+            </div>
+            <div class="w-[50%] h-[300px] bg-gray-200 mx-auto px-32 py-32 uppercase">
                 <p class="text-blue-600 text-2xl font-semibold text-center">Blog</p>
             </div>
-            <div class=" -mt-[313px] -mb-[313px]">
-                <div class=" w-10 h-36 bg-gray-200 ml-[515px] mt-3 py-8" (click)="openAd(20)">
+            <div class="">
+                <div class="w-20 h-36 bg-gray-200  mt-3 py-8" (click)="openAd(20)">
                     <p class="text-blue-600 text-2xl font-semibold text-center">20</p>
                 </div> 
-               <div class=" w-10 h-36 bg-gray-200 ml-[515px] mt-3 py-8" (click)="openAd(21)">
+               <div class="w-20  h-36 bg-gray-200  mt-3 py-8" (click)="openAd(21)">
                     <p class="text-blue-600 text-2xl font-semibold text-center">21</p>
                 </div>
                 
             </div>
-            <div class=" -mt-[322px] -mb-[322px] ">
-                <div class=" w-10 h-80 bg-gray-200  ml-[165px] mt-3 py-28" (click)="openAd(23)">
-                    <p class="text-blue-600 text-2xl font-semibold text-center">23</p>
-                </div>
-              
-            </div>
-            <div class=" w-96 h-10 bg-gray-200 mt-[330px] ml-44  py-2 " (click)="openAd(22)">
+               
+            
+          </div>
+       
+            <div class=" w-full h-29=0 bg-gray-200 py-2 " (click)="openAd(22)">
                 <p class="text-blue-600 text-2xl font-semibold text-center">22</p>
             </div>
             
@@ -35,7 +36,7 @@
 
     </div>
 
-    <div>
+    <div class="mt-10"> 
         <h3 class="font-semibold text-xl text-start">Please click on a zone (20,21,22,23) to manage the adverisements on it.</h3>
         <p class="mt-2 text-lg ">To put any kind of adds just you should select the paricular image,video.gif and add to it .</p>
     </div>

@@ -1,13 +1,14 @@
 <section class="flex gap-3 mt-3">
   <div class="flex gap-3">
     <button
+    [hidden]="index==0"
     (click)="deleteBlock()"
     class="p-2 bg-red-500 text-white rounded-full">
       <i class="fa-solid fa-trash"></i>
     </button>
     <button
       (click)="showToolBar = !showToolBar"
-      class="px-3 bg-red-500 text-white rounded-full"
+      class="px-3 py-2 bg-red-500 text-white rounded-full"
     >
       <span *ngIf="!showToolBar"><i class="fa-solid fa-plus"></i></span>
       <span *ngIf="showToolBar"><i class="fa-solid fa-xmark"></i></span>

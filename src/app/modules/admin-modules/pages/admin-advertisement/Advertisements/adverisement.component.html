@@ -1,28 +1,34 @@
-
-
-
-<section class="p-5">
-    <div class="container pb-10">
-      <!-- nav -->
-      <nav class="flex space-x-2 h-20 bg-gray-300" aria-label="Tabs">
-        <a
-          class="flex gap-1 items-center py-3 px-4 text-sm font-medium text-center text-slate-900 rounded-se-md focus:z-10 hover:text-black"
-          routerLink="adsection"
-          routerLinkActive="bg-white"
-        >
+<section class="p-5 container mx-auto w-[80%]">
+  <div class="container pb-10">
+    <!-- nav -->
+    <nav class="flex space-x-2 h-20 bg-gray-300" aria-label="Tabs">
+      <a
+        class="flex gap-1 items-center py-3 px-4 text-sm font-medium text-center text-slate-900 rounded-se-md focus:z-10 hover:text-black"
+        routerLink="adsection"
+        routerLinkActive="bg-white"
+      >
         <i class="fa-brands fa-adversal fa-2xl"></i>
-         Ads For Theme
-        </a>
-  
-        <a
-          class="flex items-center gap-1 py-3 px-4 text-sm font-medium text-center text-slate-900 rounded-t-lg focus:z-10 hover:text-black"
-          routerLink="dynamic"
-          routerLinkActive="bg-white"
-        >
+        Ads For Theme
+      </a>
+
+      <a
+        class="flex items-center gap-1 py-3 px-4 text-sm font-medium text-center text-slate-900 rounded-t-lg focus:z-10 hover:text-black"
+        routerLink="dynamic"
+        routerLinkActive="bg-white"
+      >
         <i class="fa-brands fa-artstation fa-2xl"></i>
-          Dynamic Ads
-        </a>
-      </nav>
-      <router-outlet></router-outlet>
-    </div>
-  </section>
+        Dynamic Ads
+      </a>
+      <a
+        class="flex items-center gap-1 py-3 px-4 text-sm font-medium text-center text-slate-900 rounded-t-lg focus:z-10 hover:text-black"
+        routerLink="adlist"
+        routerLinkActive="bg-white"
+      >
+        <i class="fa-solid fa-list fa-2xl"></i>
+
+        Ads List
+      </a>
+    </nav>
+    <router-outlet></router-outlet>
+  </div>
+</section>

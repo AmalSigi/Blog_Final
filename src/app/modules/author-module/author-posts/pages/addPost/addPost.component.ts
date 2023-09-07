@@ -22,6 +22,7 @@ export class AuthorAddPostComponent implements OnInit {
   public objectFit: string = 'fill';
   public sectionId: number = 0;
   public postFont: string = '';
+  public load: boolean = false;
   public mediaFilePath: string = `${environment}/assets/`;
   public mediaToolBar: boolean = false;
   public TextToolBar: boolean = true;
@@ -219,6 +220,7 @@ export class AuthorAddPostComponent implements OnInit {
   }
 
   public publish() {
+    this.load=true;
     this.dynamicDiv.forEach((element) => {
       element.sectionAttributes = element.sectionAttributes.filter(
         (item: any) => {
@@ -237,14 +239,28 @@ export class AuthorAddPostComponent implements OnInit {
     if (this.postId == null) {
       this.postService.addPost(this.blogForm.value).subscribe({
         next: (res) => {
+          this.load=false;
           alert('New post created..');
 
           this.router.navigate(['/admin/posts/published']);
         },
         error: (err) => {
-          alert('Error please try again..');
+          this.load=false;
+
+          const item=this.dynamicFormArray.at(0).value;
+          if(item.content==''){
+            alert('Blog title field is required..')
+          }
+          else{
+            alert('Error please try again..');
+
+          }
+          while (this.dynamicFormArray.length !== 0) {
+            this.dynamicFormArray.removeAt(0);
+          }
           const draftPost = JSON.stringify(this.blogForm.value);
           localStorage.setItem('draftPost', draftPost);
+          this.load=false;
         },
       });
     }
@@ -252,11 +268,14 @@ export class AuthorAddPostComponent implements OnInit {
     if (this.postId != null) {
       this.postService.editPost(this.postId, this.blogForm.value).subscribe({
         next: (response) => {
+          this.load=false;
+
           alert('Post updated successfully');
 
           this.router.navigate(['/admin/posts/published']);
         },
         error: (response) => {
+          this.load=false;
           alert(response.error + ', Please try again...');
         },
       });

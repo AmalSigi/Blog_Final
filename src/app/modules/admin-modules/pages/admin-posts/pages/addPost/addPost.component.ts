@@ -245,7 +245,17 @@ export class AddPostComponent implements OnInit {
           this.router.navigate(['/admin/posts/published']);
         },
         error: (err) => {
-          alert('Error please try again..');
+          const item=this.dynamicFormArray.at(0).value;
+          if(item.content==''){
+            alert('Blog title field is required..')
+          }
+          else{
+            alert('Error please try again..');
+
+          }
+          while (this.dynamicFormArray.length !== 0) {
+            this.dynamicFormArray.removeAt(0);
+          }
           const draftPost = JSON.stringify(this.blogForm.value);
           localStorage.setItem('draftPost', draftPost);
           this.load=false;
@@ -355,10 +365,10 @@ export class AddPostComponent implements OnInit {
     menu: {
       insert: { title: 'Insert', items: 'link'  }
     },
-    plugins: 'lists link wordcount fonts',
+    plugins: 'lists link wordcount',
     toolbar:
       'undo redo | bold italic backcolor | \
-  bullist numlist checklist outdent indent | removeformat fontfamily' ,
+  bullist numlist checklist outdent indent' ,
   };
 
   public changeFont(font: string) {

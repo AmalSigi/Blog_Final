@@ -19,9 +19,9 @@ export class AdvertisementService {
     return this.selectedZoneSubject.asObservable();
   }
 
-public getAdvertisement(): Observable<any>{
-  return this.http.get(`${environment.url}/public/Theme/advertisements`)
-}
+  public getAdvertisement(): Observable<any> {
+    return this.http.get(`${environment.url}/public/Theme/advertisements`);
+  }
   setSelectedZone(zone: number): void {
     this.selectedZoneSubject.next(zone);
   }
@@ -108,5 +108,10 @@ public getAdvertisement(): Observable<any>{
 
   public disableAds(advertisementNo: number): Observable<any> {
     return this.http.patch(`${this.apiUrl}/${advertisementNo}/disable`, {});
+  }
+  public showAdd(): Observable<any> {
+    return this.http.get(
+      `http://192.168.29.97:5296/api/Theme/Theme/advertisements`
+    );
   }
 }

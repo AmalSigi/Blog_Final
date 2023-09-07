@@ -1,33 +1,112 @@
 <section
-  class="w-full container bg-gray-200/90 mx-auto fixed top-0 bottom-0 left-0 right-0 h-screen md:p-5 z-50 flex gap-2 overflow-y-scroll"
+  class="w-full  bg-white  fixed top-0 bottom-0 left-0 right-0 h-screen md:p-5 z-50 flex gap-2 overflow-y-scroll"
 >
-  <div class="w-[70%] h-screen mx-auto bg-white px-4 py-4">
+  <div class="w-[70%]  mx-auto px-4 py-4">
     <div class="flex justify-between">
       <h1 class="text-3xl font-semibold">Post Your Advertisement</h1>
+
       <button class="text-black" (click)="unshowBox()">
         <i class="fa-solid fa-xmark fa-2x"></i>
       </button>
     </div>
 
-    <div class="mt-4">
+    <div class="mt-4" *ngIf="!showMedias">
       <h3 class="text-xl font-semibold text-blue-600">
         Manage the advertisements for zone #{{ selectedZone }}
       </h3>
     </div>
 
+    <div
+      class="w-full h-[600px] rounded-lg border-2 mt-12"
+      *ngIf="showMedias && advertisement?.advertisementLife !== 'Disabled'"
+    >
+      <div class="flex justify-between px-2 py-2 border-b-2">
+        <h3 class="text-xl font-semibold">
+          Our Existing Ad for zone #{{ selectedZone }}
+        </h3>
+
+        <button class="text-black" (click)="exitDiv()">
+          <i class="fa-solid fa-xmark fa-2x"></i>
+        </button>
+      </div>
+
+      <div class="w-full h-[70%] overflow-hidden mt-4">
+        <ng-container
+          [ngSwitch]="getMediaType(advertisement?.media?.mediaFormat)"
+        >
+          <img
+            *ngSwitchCase="'image'"
+            [src]="
+              mediaFilePath +
+              advertisement?.media?.mediaPath
+            "
+            class="w-full h-full object-contain"
+          />
+
+          <video
+            *ngSwitchCase="'video'"
+            [src]="
+              mediaFilePath+
+              advertisement?.media?.mediaPath
+            "
+            class="w-full h-full"
+            controls
+          ></video>
+
+          <p
+            *ngSwitchDefault
+            class="text-lg font-semibold px-2 py-2 text-justify"
+          >
+            {{ advertisement?.media?.mediaPath }}
+          </p>
+        </ng-container>
+      </div>
+
+      <div class="px-4 py-4">
+        <a
+          href="{{ advertisement?.media?.redirectTo }}"
+          class="text-black text-2xl hover:underline hover:text-blue-500"
+          >{{ advertisement?.media?.redirectTo }}
+        </a>
+      </div>
+    </div>
+
+    <div
+      class="w-full h-[300px] rounded-lg border-2 mt-12"
+      *ngIf="showDisabled && advertisement?.advertisementLife == 'Disabled'"
+    >
+      <div class="flex justify-between px-2 py-2 border-b-2">
+        <h3 class="text-xl font-semibold">
+          The Ad for zone #{{ selectedZone }} is Disabled
+        </h3>
+
+        <button class="text-black" (click)="extDis()">
+          <i class="fa-solid fa-xmark fa-2x"></i>
+        </button>
+      </div>
+
+      <div class="px-72 py-20 mx-auto">
+        <p class="text-3xl font-bold text-red-600">
+          <span><i class="fa-regular fa-bell-slash"></i></span>Disabled
+        </p>
+      </div>
+    </div>
+
     <div class="rounded-md">
-      <div class="flex p-4 gap-2 items-center h-[700px] mt-6" *ngIf="divImg">
+      <div class="flex p-4 gap-2 items-center  mt-6" *ngIf="divImg">
         <div
-          class="bg-white rounded-lg shadow-xl w-[70em] mx-auto h-[700px] my-auto mt-[2%]"
+          class="bg-white rounded-lg  w-[70em] mx-auto  my-auto mt-[2%]"
         >
           <div class="px-5 py-3 border-b-[1px]">
             <div class="flex justify-between">
               <h1 class="font-bold text-xl font">Upload Image Add</h1>
+
               <button class="text-black float-right" (click)="divIm()">
                 <i class="fa-solid fa-xmark fa-2x"></i>
               </button>
             </div>
           </div>
+
           <div class="pt-4 pl-4 flex justify-between">
             <button
               (click)="selectFromComputer()"
@@ -35,6 +114,7 @@
             >
               Select From Computer
             </button>
+
             <button
               (click)="mediaImg()"
               class="border-2 w-80 h-10 px-2 py-2 text-white bg-blue-400"
@@ -42,6 +122,7 @@
               Select From Media
             </button>
           </div>
+
           <div
             class="grid grid-rows-2 gap-2 p-20 px-[15em] w-full"
             *ngIf="picUpload"
@@ -78,13 +159,26 @@
             *ngIf="!picUpload"
             class="grid grid-row-2 gap-4 pb-7 mt-10 mx-auto w-72"
           >
-            <div class="w-[500px] h-[300px] overflow-hidden">
+            <div *ngIf="!textBox" class="w-[500px] h-[300px] overflow-hidden">
               <img
                 [src]="selectedPic"
                 class="w-full h-full object-cover"
                 alt=""
               />
             </div>
+
+            <div
+              *ngIf="selectedPic"
+              class="w-[500px] h-20 text-black border-2 border-gray-700"
+            >
+              <input
+                type="text"
+                class="w-full h-full px-3 py-3"
+                placeholder="Enter url (Optional)"
+                [(ngModel)]="ImgPath"
+              />
+            </div>
+
             <div class="flex justify-center">
               <button
                 *ngIf="selectedPic"
@@ -94,6 +188,7 @@
                 Upload
               </button>
             </div>
+
           </div>
 
           <div
@@ -102,7 +197,7 @@
           >
             <div class="w-[500px] h-[300px] overflow-hidden">
               <img
-                [src]="mediaFilePath + selectedImage.mediaPath"
+              [src]="mediaFilePath + selectedImage.mediaPath"
                 class="w-full h-full object-cover"
                 alt=""
               />
@@ -117,19 +212,23 @@
           </div>
         </div>
       </div>
+
       <!-- video -->
-      <div class="flex p-4 gap-2 items-center h-[700px] mt-6" *ngIf="divVid">
+
+      <div class="flex p-4 gap-2 items-center mt-6" *ngIf="divVid">
         <div
-          class="bg-white rounded-lg shadow-xl w-[70em] mx-auto h-[700px] my-auto mt-[2%]"
+          class="bg-white rounded-lg  w-[70em] mx-auto my-auto mt-[2%]"
         >
           <div class="px-5 py-3 border-b-[1px]">
             <div class="flex justify-between">
               <h1 class="font-bold text-xl font">Upload Video Add</h1>
+
               <button class="text-black float-right" (click)="divVi()">
                 <i class="fa-solid fa-xmark fa-2x"></i>
               </button>
             </div>
           </div>
+
           <div class="pt-4 pl-4 flex justify-between">
             <button
               (click)="selectVideoFromComputer()"
@@ -137,6 +236,7 @@
             >
               Select From Computer
             </button>
+
             <button
               (click)="mediaVid()"
               class="border-2 w-80 h-10 px-2 py-2 text-white bg-blue-400"
@@ -144,6 +244,7 @@
               Select From Media
             </button>
           </div>
+
           <div
             class="grid grid-rows-2 gap-2 p-20 px-[15em] w-full"
             *ngIf="vidUpload && !selectedVid"
@@ -188,6 +289,16 @@
                 controls
               ></video>
             </div>
+
+            <div class="w-[500px] h-20 text-black border-2 border-gray-700">
+              <input
+                type="text"
+                class="w-full h-full px-3 py-3"
+                placeholder="Enter url (Optional)"
+                [(ngModel)]="vidPath"
+              />
+            </div>
+
             <div class="flex justify-center">
               <button
                 *ngIf="selectedVid"
@@ -205,7 +316,7 @@
           >
             <div class="w-[500px] h-[300px] overflow-hidden">
               <video
-                [src]="mediaFilePath + selectedExtVid.mediaPath"
+              [src]="mediaFilePath + selectedExtVid.mediaPath"
                 class="w-full h-full object-cover"
                 alt=""
                 controls
@@ -216,7 +327,7 @@
               (click)="uploadExistingVid()"
               class="bg-blue-500 px-3 py-2 mx-5 rounded hover:bg-blue-600 text-white"
             >
-              Upload
+              Update
             </button>
           </div>
         </div>
@@ -224,18 +335,20 @@
 
       <!-- ExternalLinks -->
 
-      <div class="flex p-4 gap-2 items-center h-[700px] mt-6" *ngIf="divExt">
+      <div class="flex p-4 gap-2 items-center  mt-6" *ngIf="divExt">
         <div
-          class="bg-white rounded-lg shadow-xl w-[70em] mx-auto h-[700px] my-auto mt-[2%]"
+          class="bg-white rounded-lg  w-[70em] mx-auto  my-auto mt-[2%]"
         >
           <div class="px-5 py-3 border-b-[1px]">
             <div class="flex justify-between">
               <h1 class="font-bold text-xl font">Upload External Link</h1>
+
               <button class="text-black float-right" (click)="divEx()">
                 <i class="fa-solid fa-xmark fa-2x"></i>
               </button>
             </div>
           </div>
+
           <div class="pt-4 pl-4 flex justify-between">
             <button
               (click)="typeExternalLink()"
@@ -243,6 +356,7 @@
             >
               Type New Link
             </button>
+
             <button
               (click)="mediaEx()"
               class="border-2 w-80 h-10 px-2 py-2 text-white bg-blue-400"
@@ -250,6 +364,7 @@
               Select From Media
             </button>
           </div>
+
           <div
             class="grid grid-rows-2 gap-2 p-20 px-[15em] w-full"
             *ngIf="linkUpload"
@@ -260,6 +375,7 @@
               placeholder="http:///www.google.com/wewf"
             >
             </textarea>
+
             <div class="flex justify-center">
               <button
                 (click)="uploadLink()"
@@ -278,9 +394,12 @@
               class="w-[500px] h-[100px] rounded-lg border-2 px-2 py-2 border-black text-black text-lg font-semibold"
               placeholder="http:///www.google.com/wewf"
             >
-      {{ selectedExtLink?.mediaPath }}
-      </textarea
+
+    {{ selectedExtLink?.mediaPath }}
+
+    </textarea
             >
+
             <div class="flex justify-center">
               <button
                 (click)="uploadExistingLink()"
@@ -309,90 +428,108 @@
                 d="M448 80c8.8 0 16 7.2 16 16V415.8l-5-6.5-136-176c-4.5-5.9-11.6-9.3-19-9.3s-14.4 3.4-19 9.3L202 340.7l-30.5-42.7C167 291.7 159.8 288 152 288s-15 3.7-19.5 10.1l-80 112L48 416.3l0-.3V96c0-8.8 7.2-16 16-16H448zM64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm80 192a48 48 0 1 0 0-96 48 48 0 1 0 0 96z"
               />
             </svg>
+
             <p class="text-md font-bold">Photo</p>
           </div>
+
           <div
             class="flex items-center p-2 w-[300px] rounded-lg border-2 border-black"
             (click)="divVi()"
           >
             <span><i class="fa-solid fa-video fa-1.5"></i></span>
+
             <p class="text-md font-bold ml-3">Video</p>
           </div>
         </div>
+
         <div class="p-3 grid grid-cols-2 gap-2">
           <div
             class="flex items-center p-2 w-[300px] rounded-lg border-2 border-black"
             (click)="uploadDynamic()"
           >
             <i class="fa-brands fa-artstation"></i>
+
             <p class="text-md font-bold ml-3">Dynamic Ads</p>
           </div>
+
           <div
             class="flex items-center p-2 w-[300px] rounded-lg border-2 border-black"
             (click)="divEx()"
           >
             <span><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+
             <p class="text-md font-bold ml-3">External Links</p>
           </div>
         </div>
+
         <div class="p-3 grid grid-cols-2 gap-2">
           <div
             class="flex items-center p-2 w-[300px] rounded-lg border-2 border-black"
             (click)="disableAd()"
           >
             <i class="fa-regular fa-bell-slash"></i>
+
             <p class="text-md font-bold ml-3">Disable Ads</p>
           </div>
         </div>
       </div>
     </div>
   </div>
+
   <div
-    class="w-[30%] h-screen overflow-y-scroll"
+    class="w-[30%] overflow-y-scroll"
     *ngIf="mediaImges && !mediaVideo && !mediaExternal"
   >
     <div class="bg-white px-2 py-2 flex justify-between">
       <h1 class="font-semibold text-xl">From Our Media Images</h1>
+
       <button class="text-black" (click)="mediaImg()">
         <i class="fa-solid fa-xmark fa-2x"></i>
       </button>
     </div>
+
     <div class="w-full h-56 overflow-hidden mt-2" *ngFor="let item of Image">
       <img
-        [src]="mediaFilePath + item?.mediaPath"
+      [src]="mediaFilePath + item?.mediaPath"
         class="w-full h-full object-cover"
         (click)="selectImageForUpload(item)"
       />
     </div>
   </div>
+
   <div
     class="w-[30%] h-screen overflow-y-scroll"
     *ngIf="mediaVideo && !mediaImges && !mediaExternal"
   >
     <div class="bg-white px-2 py-2 flex justify-between">
       <h1 class="font-semibold text-xl">From Our Media Videos</h1>
+
       <button class="text-black" (click)="mediaVid()">
         <i class="fa-solid fa-xmark fa-2x"></i>
       </button>
     </div>
+
     <div class="w-full h-56 overflow-hidden mt-2" *ngFor="let item of Video">
       <video
-        [src]="mediaFilePath + item?.mediaPath"
+      [src]="mediaFilePath + item?.mediaPath"
         class="w-full h-full object-cover"
         (click)="selectVideoForUpload(item)"
       ></video>
     </div>
   </div>
+
   <div
     class="w-[30%] h-screen overflow-y-scroll"
     *ngIf="mediaExternal && !mediaVideo && !mediaImges"
   >
     <div class="bg-white px-2 py-2 flex justify-between">
       <h1 class="font-semibold text-xl">From Our Media ExternalLink</h1>
+
       <button class="text-black" (click)="mediaEx()">
         <i class="fa-solid fa-xmark fa-2x"></i>
       </button>
     </div>
+
     <div
       class="w-full border-b-2 pb-3 px-2 py-2 border-black overflow-hidden mt-2"
       *ngFor="let item of External"

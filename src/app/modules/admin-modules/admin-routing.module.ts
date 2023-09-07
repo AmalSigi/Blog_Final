@@ -45,6 +45,7 @@ import { AdverisementHomeComponent } from './pages/admin-advertisement/Advertise
 import { ChildContentComponent } from './pages/admin-advertisement/Advertisements/pages/admin-adverisement/chidContent.component/childcontent.component';
 import { ChildCategoryAdComponent } from './pages/admin-advertisement/Advertisements/pages/admin-adverisement/childCategoryAd/childcategory.component';
 import { ChildSubCategoryAdComponent } from './pages/admin-advertisement/Advertisements/pages/admin-adverisement/childSubCategoryAd/childsubcategoryad.component';
+import { AdsListComponent } from './pages/admin-advertisement/Advertisements/pages/adsList/adsList.component';
 
 const routes: Routes = [
   {
@@ -145,6 +146,7 @@ const routes: Routes = [
       {path:'',component:AdminAdvertisementComponent,pathMatch:'full'},
       {path:'adsection', component:AdminAdvertisementComponent},
       {path:'dynamic',component:DynamicAdComponent},
+      {path:'adlist',component:AdsListComponent}
       
     ]},
     {path:'homeAdv',component:AdverisementHomeComponent},
