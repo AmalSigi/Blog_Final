@@ -94,7 +94,6 @@ export class AddCategoryComponent implements OnInit {
     if (addSub != '') {
       const subOj = { subcategoryName: addSub };
       this.newSubCategoryArray?.push(subOj);
-      console.log(this.newSubCategoryArray);
       this.subCategoryForm.get('newSub')?.reset();
     }
   }

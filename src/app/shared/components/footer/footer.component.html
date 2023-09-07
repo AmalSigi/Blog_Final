@@ -21,17 +21,15 @@
       <!--  -->
       <div>
         <p class="text-sm mb-2">© 2023 Copyright {{ siteName }}</p>
-        <a
-          class=""
-          href="https://www.facebook.com/login/?privacy_mutation_token=eyJ0eXBlIjowLCJjcmVhdGlvbl90aW1lIjoxNjkyNjczMjkwLCJjYWxsc2l0ZV9pZCI6MjY5NTQ4NDUzMDcyMDk1MX0%3D"
+        <a class="" [href]="facebook?.settingValue"
           ><i class="fa-brands fa-facebook"></i
         ></a>
 
-        <a class="ml-5" href="https://www.instagram.com/accounts/login/"
+        <a class="ml-5" [href]="instagram?.settingValue"
           ><i class="fa-brands fa-instagram"></i
         ></a>
 
-        <a class="ml-5" href="https://www.youtube.com/"
+        <a class="ml-5" [href]="youtube?.settingValue"
           ><i class="fa-brands fa-youtube"></i
         ></a>
       </div>

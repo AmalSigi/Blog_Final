@@ -43,7 +43,7 @@
           </div>
         </div>
 
-        <!-- subcategories -->
+        <!-- categories -->
         <div class="mt-24 h-auto w-full">
           <div
             *ngIf="categoryPost == ''"
@@ -56,7 +56,7 @@
             *ngFor="let post of categoryPost"
           >
             <div
-              class="md:w-[45%] h-full overflow-hidden"
+              class="md:w-[45%] h-96 overflow-hidden"
               routerLink="/Theme2/content/{{ post.postId }}"
             >
               <img

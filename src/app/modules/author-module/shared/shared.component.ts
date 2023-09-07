@@ -118,8 +118,6 @@ export class AuthorSharedModelComponent implements OnInit {
   public sendReply() {
     this.commentForm.controls['ParentId'].setValue(this.parentId);
 
-    console.log(this.commentForm.value);
-
     this.commentsApi
 
       .postComment(this.post.id, this.commentForm.value)
@@ -172,8 +170,6 @@ export class AuthorSharedModelComponent implements OnInit {
       comment.parentAuthor = repo.author.firstName;
 
       this.replayCommentData.push(comment);
-
-      console.log(this.replayCommentData);
     });
   }
 }

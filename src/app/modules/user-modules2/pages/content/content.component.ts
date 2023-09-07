@@ -94,17 +94,13 @@ export class UserContentComponent {
   public getLatestPost() {
     const length = 4;
     this.publicapi.getLatestPosts(length).subscribe((respo) => {
-      console.log(respo);
       const categoryName = respo.category?.categoryName;
       this.latestPost = this.postToArray(respo);
-
-      console.log(this.latestPost);
     });
   }
   public getLatestPostByViewCount() {
     const length = 5;
     this.publicapi.getLatestPosts(length).subscribe((respo) => {
-      console.log(respo);
       const categoryName = respo.category?.categoryName;
       this.latest = this.postToArray(respo);
 
@@ -114,7 +110,6 @@ export class UserContentComponent {
       top5posts.forEach((post: any, index: number) => {
         post.id = index + 1;
       });
-      console.log(top5posts);
     });
   }
   public postToArray(post: any) {
@@ -187,7 +182,6 @@ export class UserContentComponent {
 
   public getMainPost(postId: number) {
     this.postCall(postId).subscribe((repo) => {
-      console.log(repo);
       this.post = repo;
       this.getRecommendedPost(repo.id);
       this.enableComments = repo.enableComments;
@@ -199,7 +193,6 @@ export class UserContentComponent {
   public getFilteredPostForRecommend(post: any) {
     this.suggestionPost = [];
     this.postCall(post.postId).subscribe((repo) => {
-      console.log(repo);
       let heading = repo.postSections.filter(
         (item: any) => item.sectionTypeId == 1
       );
@@ -218,7 +211,6 @@ export class UserContentComponent {
       };
 
       this.suggestionPost.push(obj);
-      console.log(this.suggestionPost);
     });
   }
   public getFilteredPostForMoreArticle(post: any) {
@@ -247,12 +239,10 @@ export class UserContentComponent {
     if (this.loginStatus) {
       this.publicapi.reportComment(commentId).subscribe(
         (data) => {
-          console.log('hi');
           alert('Reported succeesfully');
           this.getComments(this.postId);
         },
         (error) => {
-          // console.log('hello')
           alert('Something went wrong');
         }
       );
@@ -273,7 +263,6 @@ export class UserContentComponent {
   public getComments(postId: number) {
     this.publicapi.getAllCommentByPostId(postId).subscribe((respo: any) => {
       this.comments = this.getParentsWithChildComments(respo.comments);
-      console.log(this.comments);
     });
   }
 
@@ -358,7 +347,6 @@ export class UserContentComponent {
       comment.parentAuthor = repo.author.firstName;
 
       this.replayCommentData.push(comment);
-      console.log(this.replayCommentData);
     });
   }
   // // Recommended
@@ -366,7 +354,6 @@ export class UserContentComponent {
     this.publicapi
       .getPostSuggestionByPostIdCount(9, postId)
       .subscribe((respo) => {
-        console.log(respo);
         for (const post of respo) {
           this.getFilteredPostForRecommend(post);
         }

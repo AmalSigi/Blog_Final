@@ -30,7 +30,6 @@ export class ReportedCommnentViewComponent {
         this.commentApi
           .getCommentsReportedId(postId, 'Reported')
           .subscribe((comments: any) => {
-            console.log(comments);
             this.comments = comments;
           });
       }

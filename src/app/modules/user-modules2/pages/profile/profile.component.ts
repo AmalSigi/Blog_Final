@@ -27,7 +27,6 @@ export class UserProfileComponent {
     this.publicapi.getPostByAuthorId(this.authorId).subscribe(
       (data: any) => {
         this.user = data.posts[0].author;
-        console.log(this.user);
         this.posts = this.postToArray(data.posts);
         this.posts.sort(
           (a: any, b: any) =>
@@ -35,9 +34,7 @@ export class UserProfileComponent {
         );
         this.totalLength = data.totalLength;
       },
-      (error) => {
-        console.error('Error fetching data:', error);
-      }
+      (error) => {}
     );
   }
   public postToArray(post: any[]): any {

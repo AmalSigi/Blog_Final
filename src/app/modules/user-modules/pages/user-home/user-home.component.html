@@ -130,7 +130,9 @@
         class="container mx-auto md:grid md:gap-5 w-full h-full md:py-16 py-8"
       >
         <a routerLink="category/{{ item.categoryId }}"
-          ><h1 class="text-4xl font-medium">{{ item.categoryName }}</h1></a
+          ><h1 class="text-4xl font-medium uppercase">
+            {{ item.categoryName }}
+          </h1></a
         >
         <div class="grid gap-5 md:grid-cols-3 md:gap-3">
           <div

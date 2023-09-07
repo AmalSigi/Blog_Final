@@ -26,11 +26,8 @@ export class AdminAdvertisementComponent {
       if (currentThemeSettings) {
         this.themeId = +currentThemeSettings.settingValue;
 
-        console.log('Theme ID:', this.themeId);
-
         this.fetchTheme(this.themeId);
       } else {
-        console.log('Setting "currentTheme" not found.');
       }
     });
   }

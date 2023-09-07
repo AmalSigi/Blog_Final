@@ -37,9 +37,7 @@
         <h1 class="text-start font-semibold text-3xl mt-4 uppercase">
           {{ post?.postSections[0]?.content }}
         </h1>
-        <!-- <h3 class="text-gray-500 mt-3 text-2xl font-thin">
-        {{ post?.postSections[1]?.content }}
-      </h3> -->
+
         <div
           class="flex mt-2"
           (click)="navigateToUserProfile(post?.author?.id)"
@@ -411,7 +409,7 @@
         <h1
           class="uppercase font-bold text-2xl mt-6 pb-3 border-b-2 border-yellow-400"
         >
-          Next up in technology
+          Next up in {{ post?.category?.categoryName }}
         </h1>
         <div class="mt-4 text-start">
           <a class="text-blue-300 text-lg"
@@ -469,7 +467,7 @@
         *ngFor="let item of latestPost"
         routerLink="/Theme2/content/{{ item.postId }}"
       >
-        <div class="md:w-[25%] md:h-[30%] h-full w-full overflow-hidden">
+        <div class="md:w-36 md:h-36 h-full w-full overflow-hidden">
           <img
             [src]="mediaFilePath + item?.img?.content"
             class="w-full h-full object-cover"

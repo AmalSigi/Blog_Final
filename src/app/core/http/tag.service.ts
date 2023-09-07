@@ -15,11 +15,9 @@ export class tagApi {
     searchInput: string | undefined
   ): Observable<any> {
     let apiUrl = `${this.url}/all?offset=${offset}&length=${length}`;
-    console.log(searchInput);
     if (searchInput != undefined) {
       apiUrl += `&search=%23${searchInput}`;
     }
-    console.log(apiUrl);
     return this.http.get(apiUrl);
   }
   public getAllTags(): Observable<any> {

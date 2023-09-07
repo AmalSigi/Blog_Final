@@ -46,7 +46,6 @@ export class ActiveUsersComponent {
     this.userService
       .getAllUsers(status, offset, this.offsetValue.pageSize)
       .subscribe((res: any) => {
-        console.log(res);
         this.totalData = res.totalLength;
 
         this.users = res.users;
@@ -122,7 +121,6 @@ export class ActiveUsersComponent {
     const postData = {
       newPassword: this.newPassword,
     };
-    console.log(postData);
     this.userService.resetpassword(this.selectedUserId, postData).subscribe(
       (res) => {
         this.toster.success(
@@ -132,7 +130,6 @@ export class ActiveUsersComponent {
         this.isResetPasswordModelOpen = false;
       },
       (error) => {
-        console.log(error);
         this.toster.error(error);
       }
     );
@@ -155,7 +152,6 @@ export class ActiveUsersComponent {
   }
 
   public deleteUser(user: any) {
-    console.log(user);
     if (confirm('Are you sure you want to delete this user?')) {
       this.userService.deleteUser(user.id).subscribe(
         (res) => {

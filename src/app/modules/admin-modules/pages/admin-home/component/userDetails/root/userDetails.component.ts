@@ -1,11 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
-import { postsAPi } from 'src/app/core/http/post.service';
 import { userApi } from 'src/app/core/http/userAccount.service';
-import { OffsetService } from 'src/app/core/services/pagination.service';
 
 @Component({
   selector: 'app-user',
@@ -31,9 +25,6 @@ export class UsersDetailsComponents implements OnInit {
         this.deletedUsers = respo.users.filter(
           (user: any) => user.accountStatus === 'Deleted'
         );
-        console.log(this.activeUsers);
-        console.log(this.blockedUsers);
-        console.log(this.deletedUsers);
       },
     });
   }

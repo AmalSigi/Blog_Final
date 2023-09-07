@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { siteSettingApi } from 'src/app/core/http/site-setting.service';
-import { themeApi } from 'src/app/core/http/themes.services';
 
 @Component({
   selector: 'app-samplePage',
@@ -18,7 +17,6 @@ export class SamplePageComponent {
     this.onChange.emit();
   }
   public applyTheme() {
-    console.log(this.data);
     const body = { themeId: this.data.id };
     this.siteSettingsApi.updateCurrentTheme(body).subscribe({
       next: () => {

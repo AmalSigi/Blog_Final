@@ -79,8 +79,6 @@ export class AdminBlogSettingComponent implements OnInit {
 
     this.siteSettingApi.patchSiteSetting(settiingArray).subscribe({
       next: () => {
-        console.log(settiingArray);
-
         if (event.target.checked) {
           this.toster.success(`whole comments of the site is On`);
         } else {
@@ -92,9 +90,7 @@ export class AdminBlogSettingComponent implements OnInit {
   }
 
   public fileImport(event: any) {
-    console.log('hi');
     this.fileToUpload = event.target.files[0];
-    console.log(this.fileToUpload);
     // this.picUpload = false;
     const pic = new FileReader();
     pic.readAsDataURL(this.fileToUpload);

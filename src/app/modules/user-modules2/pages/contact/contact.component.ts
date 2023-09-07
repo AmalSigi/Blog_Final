@@ -10,7 +10,7 @@ import { PublicService } from 'src/app/core/http/public.service';
 export class UserContactComponent {
   public siteKey: string = '6Lcaev4nAAAAALrz-eoKLCM3WXymccEsaXSdF_go';
   public aFormGroup!: FormGroup;
-  public toAccessLogin:boolean=false;
+  public toAccessLogin: boolean = false;
 
   constructor(
     private readonly http: HttpClient,
@@ -27,22 +27,15 @@ export class UserContactComponent {
     });
   }
 
-
-
   ngOnInit() {
     this.fetchCountryData();
     this.aFormGroup = this.fb.group({
-        recaptcha: ['', Validators.required],
-      });
-    
-    }
-    public resolved(event: any) {
-  
-      this.toAccessLogin=true;
-    }
-
-
-
+      recaptcha: ['', Validators.required],
+    });
+  }
+  public resolved(event: any) {
+    this.toAccessLogin = true;
+  }
 
   countries: any[] = [];
   selectedCountry: any;
@@ -52,12 +45,9 @@ export class UserContactComponent {
   public fetchCountryData() {
     this.http.get('https://restcountries.com/v3.1/all').subscribe(
       (data: any) => {
-        // console.log(data)
         this.countries = data;
       },
-      (error) => {
-        //console.error("Error fetching country data:", error);
-      }
+      (error) => {}
     );
   }
   public sendMessage() {
@@ -66,7 +56,6 @@ export class UserContactComponent {
 
       this.publicapi.postContactUs(requestBody).subscribe(
         (response) => {
-          console.log(response);
           alert('Message sent successfully:');
         },
         (error) => {
@@ -83,7 +72,6 @@ export class UserContactComponent {
     if (this.selectedCountry) {
       this.phoneNumber =
         this.selectedCountry.idd.root + this.selectedCountry.idd.suffixes[0];
-      console.log(this.phoneNumber);
     } else {
     }
   }

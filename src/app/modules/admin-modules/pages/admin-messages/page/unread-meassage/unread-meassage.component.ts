@@ -35,7 +35,6 @@ export class UnreadMeassageComponent {
 
     this.contact.getAllContact(read, length, offset).subscribe({
       next: (respo: any) => {
-        console.log(respo);
         this.messages = respo.messages;
         this.totalLength = respo.totalLength;
       },
@@ -54,8 +53,6 @@ export class UnreadMeassageComponent {
     this.selectedMessage = this.messages[index];
 
     //this.messages=this.messages[index]
-
-    console.log(this.selectedMessageId);
   }
 
   public unshowBox() {

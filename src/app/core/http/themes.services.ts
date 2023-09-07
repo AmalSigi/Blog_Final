@@ -43,7 +43,6 @@ export class themeApi {
   getCurrentTheme(themeId: number) {
     this.getThemeById(themeId).subscribe({
       next: (res) => {
-        console.log(res);
         if (res.name == 'Theme1') {
           return true;
         } else {

@@ -21,7 +21,6 @@ export class SubCategoryComponent implements OnInit {
   public getCategory() {
     this.categoryApi.getCategoryById(this.categoryId).subscribe({
       next: (respo: any) => {
-        console.log(respo);
         this.category = respo;
       },
       error: () => {},
@@ -33,7 +32,6 @@ export class SubCategoryComponent implements OnInit {
   }
 
   public deleteSubcategory(subcategory: any) {
-    console.log(subcategory);
     this.categoryApi.deleteSubCat(subcategory.id).subscribe({
       next: (respo: any) => {
         this.toster.success(

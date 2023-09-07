@@ -58,12 +58,9 @@ export class AllMessagesComponent {
     this.selectedMessage = this.messages[index];
 
     //this.messages=this.messages[index]
-
-    console.log(this.selectedMessageId);
   }
 
   public unshowBox() {
-    console.log('hi');
     this.commentDiv = false;
     this.fetchMessages();
   }

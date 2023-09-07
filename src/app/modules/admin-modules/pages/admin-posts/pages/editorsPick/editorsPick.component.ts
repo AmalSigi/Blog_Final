@@ -72,7 +72,6 @@ export class EditorsPickComponent implements OnInit {
         resp.forEach((post: any) => {
           this.getPost(post.postId, post.id);
         });
-        console.log(this.posts);
       },
     });
   }
@@ -80,7 +79,6 @@ export class EditorsPickComponent implements OnInit {
     let temp: any;
     this.postApi.getPostById(postId).subscribe({
       next: (response) => {
-        console.log(response);
         temp = response;
 
         temp = {

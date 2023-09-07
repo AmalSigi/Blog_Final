@@ -17,8 +17,6 @@ export class AuthorNavBar {
   public user: any;
   ngOnInit() {
     this.userApi.currentUserDetails().subscribe((res) => {
-      console.log('response', res);
-
       this.user = res;
     });
   }

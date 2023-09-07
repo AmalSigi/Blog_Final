@@ -153,25 +153,48 @@
     </div>
 
     <!-- add section -->
-    <section class="container border-2 h-36 mx-auto p-5">
-      <div class="mx-auto w-[70%] h-full bg-black">
-        <a href="blog_content.html">
-          <img
-            class="w-full h-full object-cover"
-            src="https://tpc.googlesyndication.com/simgad/1515406221368002761"
-            alt=""
-          />
-        </a>
+    <section class="container border-2 border-x-0 mx-auto mt-24 p-5">
+      <div
+        [ngSwitch]="randomAd?.mediaFormat"
+        class="flex justify-center w-auto h-80"
+      >
+        <!-- image ad -->
+        <ng-container *ngSwitchCase="'Advertisement_Image'">
+          <a target="_blank" [href]="randomAd?.redirectTo">
+            <img
+              class="w-auto h-full overflow-hidden"
+              [src]="mediaFilePath + randomAd?.mediaPath"
+              alt=""
+            />
+          </a>
+        </ng-container>
+        <!-- video ad -->
+        <ng-container *ngSwitchCase="'Advertisement_Video'">
+          <a target="_blank" [href]="randomAd?.redirectTo">
+            <video
+              class="w-full h-full"
+              controls
+              autoplay
+              muted
+              [src]="mediaFilePath + randomAd?.mediaPath"
+            ></video>
+          </a>
+        </ng-container>
+        <!-- external ad -->
+        <ng-container *ngSwitchCase="'External'">
+          <a target="_blank" [href]="randomAd?.redirectTo">
+            <p>{{ randomAd?.mediaPath }}</p>
+          </a>
+        </ng-container>
       </div>
     </section>
-
     <!-- category -->
     <div
-      class="container border-2 flex flex-col h-auto"
+      class="container border-2 flex flex-col h-auto mb-10"
       *ngFor="let item of catgoryDetailes"
     >
       <div>
-        <h2 class="text-3xl font-serif mt-20 text-center">
+        <h2 class="text-3xl font-serif mt-20 text-center uppercase">
           {{ item.categoryName }}
         </h2>
       </div>
@@ -216,7 +239,6 @@
               />
             </div>
             <div class="pt-2">
-              <p class="text-gray-500">People like you- 11 min read</p>
               <h1 class="text-start mt-3 font-medium text-2xl">
                 {{ post?.heading?.content }}
               </h1>

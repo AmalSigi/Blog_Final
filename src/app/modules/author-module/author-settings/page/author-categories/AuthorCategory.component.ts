@@ -8,11 +8,7 @@ import { postData } from 'src/app/core/services/posts.services';
   templateUrl: './AuthurCategory.component.html',
 })
 export class AuthorCategoryComponents implements OnInit {
-  constructor(
-
- 
-    private readonly categoryServices: categoryApi
-  ) {}
+  constructor(private readonly categoryServices: categoryApi) {}
   public showmodel1: boolean = false;
   public showmodel2: boolean = false;
   public modelCategory: any;
@@ -24,7 +20,6 @@ export class AuthorCategoryComponents implements OnInit {
   public getCategory() {
     this.categoryServices.getCategory().subscribe((repo) => {
       this.category = repo;
-      console.log(repo);
     });
   }
   public modelShowAdd(category: any): void {

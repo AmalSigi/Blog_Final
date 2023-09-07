@@ -67,51 +67,41 @@ export class AdsShareComponent {
       );
       if (currentThemeSettings) {
         this.themeId = +currentThemeSettings.settingValue;
-
-        console.log('Theme ID:', this.themeId);
       } else {
-        console.log('Setting "currentTheme" not found.');
       }
     });
   }
   public photoAdv() {
     this.mediaApi.fetchImage().subscribe((data) => {
       this.Image = data;
-      console.log(this.Image);
     });
   }
   public videoAdv() {
     this.mediaApi.fetchVideo().subscribe((data: any) => {
       this.Video = data;
-      console.log(this.Video);
     });
   }
   public externalAdv() {
     this.mediaApi.fetchExternal().subscribe((data: any) => {
       this.External = data;
-      console.log(this.External);
     });
   }
   public selectImageForUpload(item: any) {
     this.extPic = true;
     this.selectedImage = item;
     this.selectedImageId = item.id;
-    console.log(this.selectedImage);
   }
   public selectVideoForUpload(item: any) {
     this.extVid = true;
     this.selectedExtVid = item;
 
     this.selectedVideoId = item.id;
-    console.log(this.selectedExtVid);
   }
   public selectExternalForUpload(item: any) {
     this.extLink = true;
     this.selectedExtLink = item;
 
     this.selectedLinkId = item.id;
-
-    console.log(this.selectedExtLink);
   }
   public divIm() {
     this.divVid = false;
@@ -160,7 +150,6 @@ export class AdsShareComponent {
     const fileList: FileList = event.target.files;
     if (fileList.length > 0) {
       this.fileToUpload = fileList[0];
-      console.log(this.fileToUpload);
       this.picUpload = false;
       const pic = new FileReader();
       pic.readAsDataURL(this.fileToUpload);
@@ -173,7 +162,6 @@ export class AdsShareComponent {
     const fileList: FileList = event.target.files;
     if (fileList.length > 0) {
       this.videoToUpload = fileList[0];
-      console.log(this.videoToUpload);
       this.picUpload = false;
       const vid = new FileReader();
       vid.readAsDataURL(this.videoToUpload);
@@ -187,8 +175,6 @@ export class AdsShareComponent {
       const formData = new FormData();
 
       formData.append('file', this.fileToUpload, this.fileToUpload.name);
-      console.log(this.fileToUpload.name);
-      console.log(formData);
 
       this.advertisementService
         .postStaticAdvComputer(this.selectedZone, this.imgFormat, formData)
@@ -211,8 +197,6 @@ export class AdsShareComponent {
         })
         .subscribe({
           next: (response) => {
-            console.log(response);
-
             alert(`PhotoAd added for zone ${this.selectedZone}  in theme  `);
             this.divImg = false;
           },
@@ -227,8 +211,6 @@ export class AdsShareComponent {
       const formData = new FormData();
 
       formData.append('file', this.videoToUpload, this.videoToUpload.name);
-      console.log(this.videoToUpload.name);
-      console.log(formData);
 
       this.advertisementService
         .postStaticAdvComputer(this.selectedZone, this.vidFormat, formData)
@@ -251,8 +233,6 @@ export class AdsShareComponent {
         })
         .subscribe({
           next: (response) => {
-            // console.log(response)
-
             alert(`Video Add added for zone ${this.selectedZone}  in theme  `);
             this.divVid = false;
           },
@@ -269,8 +249,6 @@ export class AdsShareComponent {
         .uploadExistingLink(this.selectedZone, { mediaId: this.selectedLinkId })
         .subscribe({
           next: (response) => {
-            console.log(response);
-
             alert(
               `External Link Add added for zone ${this.selectedZone}  in theme  `
             );
@@ -287,8 +265,6 @@ export class AdsShareComponent {
       const formData = {
         path: this.path,
       };
-      console.log(formData);
-      console.log(this.selectedZone);
       this.advertisementService
         .postStaticExternalComputer(this.selectedZone, formData)
         .subscribe({
