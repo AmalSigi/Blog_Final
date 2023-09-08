@@ -1,7 +1,7 @@
 <section
-  class="w-full  bg-white  fixed top-0 bottom-0 left-0 right-0 h-screen md:p-5 z-50 flex gap-2 overflow-y-scroll"
+  class="w-full bg-white fixed top-0 bottom-0 left-0 right-0 h-screen md:p-5 z-50 flex gap-2 overflow-y-scroll"
 >
-  <div class="w-[70%]  mx-auto px-4 py-4">
+  <div class="w-[70%] mx-auto px-4 py-4">
     <div class="flex justify-between">
       <h1 class="text-3xl font-semibold">Post Your Advertisement</h1>
 
@@ -36,19 +36,13 @@
         >
           <img
             *ngSwitchCase="'image'"
-            [src]="
-              mediaFilePath +
-              advertisement?.media?.mediaPath
-            "
+            [src]="mediaFilePath + advertisement?.media?.mediaPath"
             class="w-full h-full object-contain"
           />
 
           <video
             *ngSwitchCase="'video'"
-            [src]="
-              mediaFilePath+
-              advertisement?.media?.mediaPath
-            "
+            [src]="mediaFilePath + advertisement?.media?.mediaPath"
             class="w-full h-full"
             controls
           ></video>
@@ -93,10 +87,8 @@
     </div>
 
     <div class="rounded-md">
-      <div class="flex p-4 gap-2 items-center  mt-6" *ngIf="divImg">
-        <div
-          class="bg-white rounded-lg  w-[70em] mx-auto  my-auto mt-[2%]"
-        >
+      <div class="flex p-4 gap-2 items-center mt-6" *ngIf="divImg">
+        <div class="bg-white rounded-lg w-[70em] mx-auto my-auto mt-[2%]">
           <div class="px-5 py-3 border-b-[1px]">
             <div class="flex justify-between">
               <h1 class="font-bold text-xl font">Upload Image Add</h1>
@@ -156,7 +148,7 @@
           </div>
 
           <div
-            *ngIf="!picUpload"
+            *ngIf="!picUpload && !extPic"
             class="grid grid-row-2 gap-4 pb-7 mt-10 mx-auto w-72"
           >
             <div *ngIf="!textBox" class="w-[500px] h-[300px] overflow-hidden">
@@ -188,16 +180,15 @@
                 Upload
               </button>
             </div>
-
           </div>
 
           <div
             *ngIf="extPic"
-            class="grid grid-row-2 gap-4 pb-7 mx-auto -my-80 w-72"
+            class="grid grid-row-2 gap-4 pb-7 mx-auto w-72 mt-5"
           >
             <div class="w-[500px] h-[300px] overflow-hidden">
               <img
-              [src]="mediaFilePath + selectedImage.mediaPath"
+                [src]="mediaFilePath + selectedImage.mediaPath"
                 class="w-full h-full object-cover"
                 alt=""
               />
@@ -216,9 +207,7 @@
       <!-- video -->
 
       <div class="flex p-4 gap-2 items-center mt-6" *ngIf="divVid">
-        <div
-          class="bg-white rounded-lg  w-[70em] mx-auto my-auto mt-[2%]"
-        >
+        <div class="bg-white rounded-lg w-[70em] mx-auto my-auto mt-[2%]">
           <div class="px-5 py-3 border-b-[1px]">
             <div class="flex justify-between">
               <h1 class="font-bold text-xl font">Upload Video Add</h1>
@@ -316,7 +305,7 @@
           >
             <div class="w-[500px] h-[300px] overflow-hidden">
               <video
-              [src]="mediaFilePath + selectedExtVid.mediaPath"
+                [src]="mediaFilePath + selectedExtVid.mediaPath"
                 class="w-full h-full object-cover"
                 alt=""
                 controls
@@ -335,10 +324,8 @@
 
       <!-- ExternalLinks -->
 
-      <div class="flex p-4 gap-2 items-center  mt-6" *ngIf="divExt">
-        <div
-          class="bg-white rounded-lg  w-[70em] mx-auto  my-auto mt-[2%]"
-        >
+      <div class="flex p-4 gap-2 items-center mt-6" *ngIf="divExt">
+        <div class="bg-white rounded-lg w-[70em] mx-auto my-auto mt-[2%]">
           <div class="px-5 py-3 border-b-[1px]">
             <div class="flex justify-between">
               <h1 class="font-bold text-xl font">Upload External Link</h1>
@@ -490,7 +477,7 @@
 
     <div class="w-full h-56 overflow-hidden mt-2" *ngFor="let item of Image">
       <img
-      [src]="mediaFilePath + item?.mediaPath"
+        [src]="mediaFilePath + item?.mediaPath"
         class="w-full h-full object-cover"
         (click)="selectImageForUpload(item)"
       />
@@ -511,7 +498,7 @@
 
     <div class="w-full h-56 overflow-hidden mt-2" *ngFor="let item of Video">
       <video
-      [src]="mediaFilePath + item?.mediaPath"
+        [src]="mediaFilePath + item?.mediaPath"
         class="w-full h-full object-cover"
         (click)="selectVideoForUpload(item)"
       ></video>
