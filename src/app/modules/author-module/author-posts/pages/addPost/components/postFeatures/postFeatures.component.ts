@@ -61,7 +61,7 @@ export class AuthorPostFeaturesComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       if (params['postId']) {
         const postId = params['postId'];
-        this.postService.getPostById(postId).subscribe({
+        this.postService.OwnPostsById(postId).subscribe({
           next: (data) => {
             const postData = data;
             this.categoryService

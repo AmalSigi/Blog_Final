@@ -396,4 +396,11 @@ export class UserContentComponent {
     );
     return index;
   }
+  public getImageStyle(height: string, width: string) {
+    if (height == 'null' || (0 && width == 'null') || 0) {
+      return {}; // Empty object to reset styles
+    } else {
+      return { height: `${height}px`, width: `${width}px` };
+    }
+  }
 }

@@ -38,6 +38,8 @@ export class CommentPostComponent {
         const fetchCommentCounts = posts.map((post: any) => {
           return this.commentApi.getCommentsCount(post.id, status);
         });
+          console.log(fetchCommentCounts)
+
         combineLatest(fetchCommentCounts).subscribe((commentsCounts: any) => {
           this.post = posts.filter((post: any, index: number) => {
             const commentCount = commentsCounts[index].count;

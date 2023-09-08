@@ -23,7 +23,7 @@ export class AuthorAddPostComponent implements OnInit {
   public sectionId: number = 0;
   public postFont: string = '';
   public load: boolean = false;
-  public mediaFilePath: string = `${environment}/assets/`;
+  public mediaFilePath: string = `${environment.url}/assets/`;
   public mediaToolBar: boolean = false;
   public TextToolBar: boolean = true;
   constructor(
@@ -81,7 +81,7 @@ export class AuthorAddPostComponent implements OnInit {
       this.loading = true;
       if (params['postId']) {
         this.postId = params['postId'];
-        this.postService.getPostById(this.postId).subscribe({
+        this.postService.OwnPostsById(this.postId).subscribe({
           next: (data) => {
             this.loading = false;
             const postData = data;
@@ -240,7 +240,7 @@ export class AuthorAddPostComponent implements OnInit {
           this.load=false;
           alert('New post created..');
 
-          this.router.navigate(['/admin/posts/published']);
+          this.router.navigate(['/author/posts/published']);
         },
         error: (err) => {
           this.load=false;
@@ -270,7 +270,7 @@ export class AuthorAddPostComponent implements OnInit {
 
           alert('Post updated successfully');
 
-          this.router.navigate(['/admin/posts/published']);
+          this.router.navigate(['/author/posts/published']);
         },
         error: (response) => {
           this.load=false;

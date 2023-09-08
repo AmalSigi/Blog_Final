@@ -24,10 +24,14 @@ export class AddTagsComponent implements OnInit {
   public postTag() {
     this.tagApi.addTag(this.newTagArray).subscribe({
       next: (respo: any) => {
+        console.log(respo);
         this.toster.success(`New Tag is Added`);
         this.newTagArray = [];
+    
       },
-      error: () => {},
+      error: () => {
+      
+      },
       complete: () => {},
     });
   }

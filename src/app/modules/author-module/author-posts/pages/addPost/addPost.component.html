@@ -189,9 +189,19 @@
                 (click)="Selected(i, 5)"
                 controls
                 autoplay
-                class="w-[80%] h-[400px] border mt-3"
+                class="aspect-{{
+                  item.sectionAttributes[findIndex(6, i)]?.value
+                }} object-{{
+                  item.sectionAttributes[findIndex(7, i)]?.value
+                }} "
                 [src]="mediaFilePath + item?.dataURL"
                 alt=""
+                [ngStyle]="
+                  getImageStyle(
+                    item.sectionAttributes[findIndex(1, i)]?.value,
+                    item.sectionAttributes[findIndex(2, i)]?.value
+                  )
+                "
               ></video>
             </div>
             <div class="flex w-full absolute ml-32">

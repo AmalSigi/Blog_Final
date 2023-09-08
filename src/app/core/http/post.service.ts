@@ -101,6 +101,9 @@ export class postsAPi {
   public allOwnPosts(): Observable<any> {
     return this.http.get(`${this.url}/ownPosts`);
   }
+  public OwnPostsById(id:number): Observable<any> {
+    return this.http.get(`${this.url}/ownPosts/${id}`);
+  }
   public totalViews(status: string): Observable<any> {
     return this.http.get(`${this.url}/totalviewcount?status=${status}`);
   }

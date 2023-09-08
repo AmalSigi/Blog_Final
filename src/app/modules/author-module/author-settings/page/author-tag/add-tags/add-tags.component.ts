@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { tagApi } from 'src/app/core/http/tag.service';
 
 @Component({
@@ -7,7 +8,7 @@ import { tagApi } from 'src/app/core/http/tag.service';
   templateUrl: './add-tags.component.html',
 })
 export class AuthorAddTagsComponent implements OnInit {
-  constructor(private readonly tagApi: tagApi) {}
+  constructor(private readonly tagApi: tagApi,private readonly toastr:ToastrService) {}
 
   public newTagArray: any = [];
 
@@ -18,8 +19,18 @@ export class AuthorAddTagsComponent implements OnInit {
   ngOnInit(): void {}
 
   public postTag() {
-    this.tagApi.addTag(this.newTagArray).subscribe((respo) => {});
-  }
+    this.tagApi.addTag(this.newTagArray).subscribe({ next: (respo: any) => {
+      console.log(respo);
+      this.toastr.success(`New Tag is Added`);
+      this.newTagArray = [];
+  
+    },
+    error: () => {
+    
+    },
+    complete: () => {},
+  })};
+  
 
   public addNewTagarray(addSub: any) {
     const subOj = { tagName: '#' + addSub };

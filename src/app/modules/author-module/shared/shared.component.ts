@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { commentsApi } from 'src/app/core/http/comments.service';
+import { PublicService } from 'src/app/core/http/public.service';
 import { environment } from 'src/enviroment/enviroment';
 @Component({
   selector: 'author-shared-model',
@@ -33,7 +34,7 @@ export class AuthorSharedModelComponent implements OnInit {
   public toggleReply: boolean = false;
   public mediaFilePath: string = `${environment.url}/assets/`;
 
-  constructor(private readonly commentsApi: commentsApi) {}
+  constructor(private readonly commentsApi: commentsApi,private readonly publicApi:PublicService) {}
 
   public commentForm = new FormGroup({
     content: new FormControl('', Validators.required),
@@ -61,6 +62,7 @@ export class AuthorSharedModelComponent implements OnInit {
       .getAllCommentsByPostAuthor(this.post.id)
 
       .subscribe((repo) => {
+        console.log(repo);
         this.comments = this.getParentsWithChildComments(repo);
       });
   }
@@ -118,7 +120,7 @@ export class AuthorSharedModelComponent implements OnInit {
   public sendReply() {
     this.commentForm.controls['ParentId'].setValue(this.parentId);
 
-    this.commentsApi
+    this.publicApi
 
       .postComment(this.post.id, this.commentForm.value)
 

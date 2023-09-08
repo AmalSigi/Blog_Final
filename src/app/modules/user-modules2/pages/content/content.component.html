@@ -34,7 +34,8 @@
           {{ post?.category?.categoryName }}
         </h3>
 
-        <h1 class="text-start font-semibold text-3xl mt-4 uppercase">
+        <h1 class="text-start font-semibold text-3xl mt-4 uppercase"
+        [ngStyle]="{ 'font-family': post?.postFont }">
           {{ post?.postSections[0]?.content }}
         </h1>
 
@@ -73,6 +74,7 @@
         </div>
         <div
           *ngFor="let postItem of post?.postSections.slice(1); let i = index"
+          [ngStyle]="{ 'font-family': post?.postFont }"
           class="w-full mt-5"
         >
           <ng-container [ngSwitch]="postItem.sectionTypeId">
@@ -100,13 +102,34 @@
             <!-- image -->
             <ng-container *ngSwitchCase="4"
               ><img
-                class="mb-5 w-full"
-                [src]="mediaFilePath + postItem.content"
+              [src]="mediaFilePath + postItem.content"
+              class="aspect-{{
+                postItem?.sectionAttributes[findIndex(6, i)]?.value
+              }} object-{{
+                postItem?.sectionAttributes[findIndex(7, i)]?.value
+              }} mt-5"
+              [ngStyle]="
+                getImageStyle(
+                  postItem.sectionAttributes[findIndex(1, i)]?.value,
+                  postItem.sectionAttributes[findIndex(2, i)]?.value
+                )
+              "
             /></ng-container>
             <!-- video -->
 
             <ng-container *ngSwitchCase="5"
-              ><video [src]="postItem.content"></video
+              ><video [src]="mediaFilePath + postItem.content"
+              class="aspect-{{
+                postItem?.sectionAttributes[findIndex(6, i)]?.value
+              }} object-{{
+                postItem?.sectionAttributes[findIndex(7, i)]?.value
+              }} mt-5"
+              [ngStyle]="
+                getImageStyle(
+                  postItem.sectionAttributes[findIndex(1, i)]?.value,
+                  postItem.sectionAttributes[findIndex(2, i)]?.value
+                )
+              "></video
             ></ng-container>
             <!-- ad -->
             <ng-container *ngSwitchCase="6">

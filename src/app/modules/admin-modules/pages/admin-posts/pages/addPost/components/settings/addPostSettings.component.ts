@@ -25,7 +25,7 @@ export class AddPostSettingsComponent {
   public mediaFilePath: string = `${environment.url}/assets/`;
   ngOnInit() {
     this.getFormat();
-
+console.log(this.currentBlock)
     this.imgForm = new FormGroup({
       height: new FormControl(
         this.currentSettings[this.findIndex(1)]?.value === ''

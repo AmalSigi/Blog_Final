@@ -20,6 +20,7 @@
         </p>
         <div
           *ngFor="let postItem of post.postSections; let i = index"
+          [ngStyle]="{ 'font-family': post?.postFont }"
           class="w-full"
         >
           <ng-container [ngSwitch]="postItem.sectionTypeId">

@@ -203,12 +203,23 @@
                 (click)="Selected(i, 5)"
                 controls
                 autoplay
-                class="w-[80%] h-[400px] border mt-3"
+                class="aspect-{{
+                  item.sectionAttributes[findIndex(6, i)]?.value
+                }} object-{{
+                  item.sectionAttributes[findIndex(7, i)]?.value
+                }} "
                 [src]="mediaFilePath + item?.dataURL"
+                alt=""
+                [ngStyle]="
+                  getImageStyle(
+                    item.sectionAttributes[findIndex(1, i)]?.value,
+                    item.sectionAttributes[findIndex(2, i)]?.value
+                  )
+                "
                 alt=""
               ></video>
             </div>
-            <div class="flex w-full absolute ml-32">
+            <!-- <div class="flex w-full absolute ml-32">
               <div class="flex items-center pointer-events-none pl-10">
                 <div
                   class="animate-spin inline-block w-8 h-8 border-[3px] border-current border-t-transparent text-red-900 rounded-full"
@@ -222,7 +233,7 @@
               <p class="m-3 italic bold text-black text-xl font-bold">
                 Uploading...
               </p>
-            </div>
+            </div> -->
             <app-toolbar
               (delete)="deleteBlock()"
               (select)="addBlock($event)"

@@ -63,7 +63,7 @@
   >
     <form action="" [formGroup]="imgForm">
       <!-- For image -->
-      <section [hidden]="currentBlock != 4">
+      <section *ngIf="currentBlock == 4||currentBlock ==5">
         <div class="grid gap-2 mb-5">
           <label for="alt_text">ALTERNATIVE TEXT</label>
           <textarea
@@ -165,7 +165,7 @@
         </div>
       </section>
       <!-- For Ads -->
-      <section [hidden]="currentBlock == 4">
+      <section [hidden]="currentBlock == 4||currentBlock ==5">
         <!-- <div class="grid">
           <label for="">Choose Ads Type</label>
           <select
