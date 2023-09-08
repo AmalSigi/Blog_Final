@@ -32,7 +32,7 @@
         <!-- content -->
 
         <div class="container mx-auto md:w-[80%] my-5">
-          <p class="text-red-500 font-bold text-xl">
+          <p class="text-red-500 font-bold text-xl uppercase">
             {{ post?.category?.categoryName }}
           </p>
 
@@ -102,18 +102,20 @@
               <!-- video -->
 
               <ng-container *ngSwitchCase="5"
-                ><video [src]="mediaFilePath + postItem.content"
-                class="aspect-{{
-                  postItem?.sectionAttributes[findIndex(6, i)]?.value
-                }} object-{{
-                  postItem?.sectionAttributes[findIndex(7, i)]?.value
-                }} mt-5"
-                [ngStyle]="
-                  getImageStyle(
-                    postItem.sectionAttributes[findIndex(1, i)]?.value,
-                    postItem.sectionAttributes[findIndex(2, i)]?.value
-                  )
-                "></video
+                ><video
+                  [src]="mediaFilePath + postItem.content"
+                  class="aspect-{{
+                    postItem?.sectionAttributes[findIndex(6, i)]?.value
+                  }} object-{{
+                    postItem?.sectionAttributes[findIndex(7, i)]?.value
+                  }} mt-5"
+                  [ngStyle]="
+                    getImageStyle(
+                      postItem.sectionAttributes[findIndex(1, i)]?.value,
+                      postItem.sectionAttributes[findIndex(2, i)]?.value
+                    )
+                  "
+                ></video
               ></ng-container>
               <!-- ad -->
               <ng-container *ngSwitchCase="6">
