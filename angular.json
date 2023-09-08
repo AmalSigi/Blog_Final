@@ -36,7 +36,7 @@
 
           "options": {
 
-            "outputPath": "dist/blog",
+            "outputPath": "dist/Blog/browser",
 
             "index": "src/index.html",
 
@@ -202,6 +202,61 @@
 
           }
 
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/Blog/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json",
+            "inlineStyleLanguage": "scss"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "Blog:build:development",
+              "serverTarget": "Blog:server:development"
+            },
+            "production": {
+              "browserTarget": "Blog:build:production",
+              "serverTarget": "Blog:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "Blog:build:production",
+              "serverTarget": "Blog:server:production"
+            },
+            "development": {
+              "browserTarget": "Blog:build:development",
+              "serverTarget": "Blog:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
 
       }
