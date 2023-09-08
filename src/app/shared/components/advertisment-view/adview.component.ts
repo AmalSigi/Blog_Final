@@ -13,6 +13,7 @@ export class AppAdvertisementViewComponent implements OnInit {
   ngOnInit(): void {
     this.advertisementService.getAdvertisement().subscribe({
       next: (res: any) => {
+        console.log(res);
         // const data=res.filter((res:any)=>res.advertisementLife!='Disabled');
         const index = res.findIndex(
           (data: any) => data.advertisementNo == this.adPosition
