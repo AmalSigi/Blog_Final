@@ -102,18 +102,23 @@
               <!-- video -->
 
               <ng-container *ngSwitchCase="5"
-                ><video [src]="mediaFilePath + postItem.content"
-                class="aspect-{{
-                  postItem?.sectionAttributes[findIndex(6, i)]?.value
-                }} object-{{
-                  postItem?.sectionAttributes[findIndex(7, i)]?.value
-                }} mt-5"
-                [ngStyle]="
-                  getImageStyle(
-                    postItem.sectionAttributes[findIndex(1, i)]?.value,
-                    postItem.sectionAttributes[findIndex(2, i)]?.value
-                  )
-                "></video
+                ><video
+                  autoplay
+                  muted
+                  controls
+                  [src]="mediaFilePath + postItem.content"
+                  class="aspect-{{
+                    postItem?.sectionAttributes[findIndex(6, i)]?.value
+                  }} object-{{
+                    postItem?.sectionAttributes[findIndex(7, i)]?.value
+                  }} mt-5"
+                  [ngStyle]="
+                    getImageStyle(
+                      postItem.sectionAttributes[findIndex(1, i)]?.value,
+                      postItem.sectionAttributes[findIndex(2, i)]?.value
+                    )
+                  "
+                ></video
               ></ng-container>
               <!-- ad -->
               <ng-container *ngSwitchCase="6">
@@ -416,7 +421,7 @@
       <div class="w-full hidden md:block h-64 overflow-hidden mb-10">
         <app-advertisementView
           class="h-full w-full"
-          [adPosition]="12"
+          [adPosition]="15"
         ></app-advertisementView>
       </div>
 
@@ -442,6 +447,12 @@
         </div>
       </div>
       <!-- ad #2 -->
+      <div class="w-full hidden md:block h-64 overflow-hidden mt-10">
+        <app-advertisementView
+          class="h-full w-full"
+          [adPosition]="14"
+        ></app-advertisementView>
+      </div>
       <div class="w-full hidden md:block h-64 overflow-hidden mt-10">
         <app-advertisementView
           class="h-full w-full"

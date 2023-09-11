@@ -3,12 +3,16 @@ import 'zone.js/node';
 import { APP_BASE_HREF } from '@angular/common';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
-import { existsSync } from 'node:fs';
+import 'localstorage-polyfill'
+import { existsSync } from 'node:fs'
+  // Our Universal express-engine (found @ https://github.com/angular/universal/tree/main/modules/express-engine)
+
 import { join } from 'node:path';
 import { AppServerModule } from './src/main.server';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
+  global['localStorage'] = localStorage;
   const server = express();
   const distFolder = join(process.cwd(), 'dist/Blog/browser');
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
@@ -27,10 +31,15 @@ export function app(): express.Express {
   server.get('*.*', express.static(distFolder, {
     maxAge: '1y'
   }));
-
+const ssrRoutes=['/admin','/author','/login'];
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
-    res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
+    if(ssrRoutes.some((route) => req.url.startsWith(route))){
+      res.sendFile(join(distFolder,'index.html'));
+    }
+    else{
+      res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
+    }
   });
 
   return server;

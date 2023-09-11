@@ -11,7 +11,6 @@ import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 export class MessageViewComponent {
   constructor(
     private contactService: ContactUsService,
-    private readonly route: ActivatedRoute,
     private refreshCount: trackDataService
   ) {}
 

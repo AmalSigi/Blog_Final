@@ -22,7 +22,6 @@ import { UserLoginComponent } from './pages/userAuthentication/login/userLogin.c
 import { UserRegisterComponent } from './pages/userAuthentication/register/userRegister.component';
 import { UserProfileComponent } from './pages/profile/profile.component';
 import { UserContactComponent } from './pages/contact/contact.component';
-import { NgxCaptchaModule } from 'ngx-captcha';
 import { editorsPickApi } from 'src/app/core/http/editorsPick.services';
 import { siteSettingApi } from 'src/app/core/http/site-setting.service';
 import { userApi } from 'src/app/core/http/userAccount.service';
@@ -31,6 +30,7 @@ import { postFilterService } from 'src/app/core/services/filteredData.service';
 import { trackDataService } from 'src/app/core/subjects/trackData.subject';
 import { UserHeader } from './components/header/userheader.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 //import { UserMainComponent } from './pages/root/root.component';
 

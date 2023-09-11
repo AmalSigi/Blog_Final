@@ -34,5 +34,5 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PopUp1Component {
   public shoePopPu: boolean = true;
-  constructor(private readonly route: ActivatedRoute) {}
+  constructor() {}
 }

@@ -208,6 +208,7 @@ export class AdsShareComponent {
   }
 
   public divIm() {
+    this.showDisabled=false;
     this.divVid = false;
 
     this.divExt = false;
@@ -222,6 +223,7 @@ export class AdsShareComponent {
   }
 
   public divVi() {
+    this.showDisabled=false;
     this.showMedias = false;
 
     this.divImg = false;
@@ -236,6 +238,7 @@ export class AdsShareComponent {
   }
 
   public divEx() {
+    this.showDisabled=false;
     this.showMedias = false;
 
     this.divImg = false;

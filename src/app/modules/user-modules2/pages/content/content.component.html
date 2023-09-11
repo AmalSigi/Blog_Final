@@ -118,7 +118,11 @@
             <!-- video -->
 
             <ng-container *ngSwitchCase="5"
-              ><video [src]="mediaFilePath + postItem.content"
+              ><video
+              autoplay
+              muted
+              controls
+              [src]="mediaFilePath + postItem.content"
               class="aspect-{{
                 postItem?.sectionAttributes[findIndex(6, i)]?.value
               }} object-{{

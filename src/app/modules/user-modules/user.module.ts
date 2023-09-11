@@ -21,9 +21,10 @@ import { UserSubcategoryComponent } from './pages/user-subcategory/user-subcateg
 import { UserLoginComponent } from './pages/userAutentication/login/userLogin.component';
 import { UserRegisterComponent } from './pages/userAutentication/register/userRegister.component';
 import { ContactComponent } from './pages/contact/contact.component';
+
+import { AuthorProfileComponent } from './pages/author-profile/author-profile.component';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { NgxCaptchaModule } from 'ngx-captcha';
-import { AuthorProfileComponent } from './pages/author-profile/author-profile.component';
 
 @NgModule({
   declarations: [
@@ -38,14 +39,13 @@ import { AuthorProfileComponent } from './pages/author-profile/author-profile.co
     AuthorProfileComponent,
   ],
   imports: [
-    NgxCaptchaModule,
     CommonModule,
     ReactiveFormsModule,
     UserRoutingModule,
     HttpClientModule,
     SharedModule,
     MarkdownModule.forRoot(),
-    RecaptchaModule
+    NgxCaptchaModule
   ],
   providers: [
     postsAPi,
