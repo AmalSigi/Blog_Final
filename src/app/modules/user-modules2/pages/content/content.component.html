@@ -34,8 +34,10 @@
           {{ post?.category?.categoryName }}
         </h3>
 
-        <h1 class="text-start font-semibold text-3xl mt-4 uppercase"
-        [ngStyle]="{ 'font-family': post?.postFont }">
+        <h1
+          class="text-start font-semibold text-3xl mt-4 uppercase"
+          [ngStyle]="{ 'font-family': post?.postFont }"
+        >
           {{ post?.postSections[0]?.content }}
         </h1>
 
@@ -102,34 +104,36 @@
             <!-- image -->
             <ng-container *ngSwitchCase="4"
               ><img
-              [src]="mediaFilePath + postItem.content"
-              class="aspect-{{
-                postItem?.sectionAttributes[findIndex(6, i)]?.value
-              }} object-{{
-                postItem?.sectionAttributes[findIndex(7, i)]?.value
-              }} mt-5"
-              [ngStyle]="
-                getImageStyle(
-                  postItem.sectionAttributes[findIndex(1, i)]?.value,
-                  postItem.sectionAttributes[findIndex(2, i)]?.value
-                )
-              "
+                [src]="mediaFilePath + postItem.content"
+                class="aspect-{{
+                  postItem?.sectionAttributes[findIndex(6, i)]?.value
+                }} object-{{
+                  postItem?.sectionAttributes[findIndex(7, i)]?.value
+                }} mt-5"
+                [ngStyle]="
+                  getImageStyle(
+                    postItem.sectionAttributes[findIndex(1, i)]?.value,
+                    postItem.sectionAttributes[findIndex(2, i)]?.value
+                  )
+                "
             /></ng-container>
             <!-- video -->
 
             <ng-container *ngSwitchCase="5"
-              ><video [src]="mediaFilePath + postItem.content"
-              class="aspect-{{
-                postItem?.sectionAttributes[findIndex(6, i)]?.value
-              }} object-{{
-                postItem?.sectionAttributes[findIndex(7, i)]?.value
-              }} mt-5"
-              [ngStyle]="
-                getImageStyle(
-                  postItem.sectionAttributes[findIndex(1, i)]?.value,
-                  postItem.sectionAttributes[findIndex(2, i)]?.value
-                )
-              "></video
+              ><video
+                [src]="mediaFilePath + postItem.content"
+                class="aspect-{{
+                  postItem?.sectionAttributes[findIndex(6, i)]?.value
+                }} object-{{
+                  postItem?.sectionAttributes[findIndex(7, i)]?.value
+                }} mt-5"
+                [ngStyle]="
+                  getImageStyle(
+                    postItem.sectionAttributes[findIndex(1, i)]?.value,
+                    postItem.sectionAttributes[findIndex(2, i)]?.value
+                  )
+                "
+              ></video
             ></ng-container>
             <!-- ad -->
             <ng-container *ngSwitchCase="6">
@@ -554,6 +558,6 @@
 ></app-userLogin>
 
 <app-Register (close)="userSignup = false" *ngIf="userSignup"> </app-Register>
-<app-pop-up1></app-pop-up1>
-<app-pop-up2></app-pop-up2>
+<app-pop-up1 [theme]="2"></app-pop-up1>
+<app-pop-up2 [theme]="2"> </app-pop-up2>
 <app-pop-up3 [adPosition]="12"></app-pop-up3>

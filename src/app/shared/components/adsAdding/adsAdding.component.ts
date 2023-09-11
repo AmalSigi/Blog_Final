@@ -167,7 +167,6 @@ export class AdsShareComponent {
   public videoAdv() {
     this.mediaApi.fetchVideo().subscribe((data: any) => {
       this.Video = data;
-
     });
   }
 
@@ -405,7 +404,6 @@ export class AdsShareComponent {
 
         .subscribe({
           next: (response) => {
-
             alert(`VideoAd added for zone ${this.selectedZone}  in theme  `);
 
             this.divVid = false;

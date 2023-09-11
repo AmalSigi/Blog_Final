@@ -6,7 +6,8 @@ import {
   animate,
   keyframes,
 } from '@angular/animations';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pop-up2',
@@ -26,5 +27,16 @@ import { Component } from '@angular/core';
   ],
 })
 export class PopUp2Component {
-  public shoePopPu: boolean = true;
+  @Input() theme!: number;
+  public shoewPopUp: boolean = true;
+  constructor(private readonly router: Router) {}
+
+  public contact() {
+    this.shoewPopUp = false;
+    if (this.theme == 1) {
+      this.router.navigate(['/contact']);
+    } else {
+      this.router.navigate(['/Theme2/contact']);
+    }
+  }
 }

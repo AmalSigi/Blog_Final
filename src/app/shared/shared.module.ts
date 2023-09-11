@@ -17,6 +17,7 @@ import { FormatLinksPipe } from './pipes/LinkFormating.pipe';
 import { AdsShareComponent } from './components/adsAdding/adsAdding.component';
 import { SharedDynamicComponent } from './components/shared-dynamic/sharedDynamic.component';
 import { AppAdvertisementViewComponent } from './components/advertisment-view/adview.component';
+import { PopUp4Component } from './components/pop-up/home/pop-up4/pop-up4.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -31,7 +32,8 @@ import { AppAdvertisementViewComponent } from './components/advertisment-view/ad
     PopUp3Component,
     AdsShareComponent,
     SharedDynamicComponent,
-    AppAdvertisementViewComponent
+    AppAdvertisementViewComponent,
+    PopUp4Component,
   ],
   imports: [
     CommonModule,
@@ -39,7 +41,7 @@ import { AppAdvertisementViewComponent } from './components/advertisment-view/ad
     MarkdownModule,
     UserRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
   ],
   exports: [
     HeaderComponent,
@@ -52,10 +54,10 @@ import { AppAdvertisementViewComponent } from './components/advertisment-view/ad
     PopUp1Component,
     PopUp2Component,
     PopUp3Component,
+    PopUp4Component,
     AdsShareComponent,
     SharedDynamicComponent,
-    AppAdvertisementViewComponent
-    
+    AppAdvertisementViewComponent,
   ],
 })
 export class SharedModule {}

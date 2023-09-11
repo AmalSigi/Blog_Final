@@ -1,10 +1,10 @@
 <div
-  *ngIf="shoePopPu"
+  *ngIf="shoewPopUp"
   [@slideInAndOutFromLeftWithDelay]
   class="md:w-1/4 w-96 md:h-96 bg-black/90 shadow-lg top-[15rem] left-0 mb-48 fixed p-4 md:rounded-r-2xl rounded-r-xl z-50"
 >
   <div class="flex justify-end">
-    <button (click)="shoePopPu = false">
+    <button (click)="shoewPopUp = false">
       <i class="fa-regular fa-circle-xmark text-white"></i>
     </button>
   </div>
@@ -19,8 +19,7 @@
     </p>
 
     <button
-      routerLink="./../../contact"
-      (click)="shoePopPu = false"
+      (click)="contact()"
       class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg"
     >
       Contact Us

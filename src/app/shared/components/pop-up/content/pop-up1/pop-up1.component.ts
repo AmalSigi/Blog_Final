@@ -6,8 +6,8 @@ import {
   animate,
   keyframes,
 } from '@angular/animations';
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-pop-up1',
@@ -33,6 +33,17 @@ import { ActivatedRoute } from '@angular/router';
   ],
 })
 export class PopUp1Component {
-  public shoePopPu: boolean = true;
-  constructor(private readonly route: ActivatedRoute) {}
+  @Input() theme!: number;
+
+  public shoewPopUp: boolean = true;
+  constructor(private readonly router: Router) {}
+
+  public contact() {
+    this.shoewPopUp = false;
+    if (this.theme == 1) {
+      this.router.navigate(['/contact']);
+    } else {
+      this.router.navigate(['/Theme2/contact']);
+    }
+  }
 }
