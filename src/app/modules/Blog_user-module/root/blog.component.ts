@@ -33,7 +33,10 @@ export class BlogComponent {
   getCurrentTheme(themeId: number) {
     this.themeApi.getThemeByIdForPublic(themeId).subscribe({
       next: (res) => {
-        this.route.navigate([`${res.name}/`]);
+       
+          this.route.navigate([`${res.name}/`]);
+
+        
       },
     });
   }

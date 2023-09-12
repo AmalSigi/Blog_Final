@@ -61,9 +61,12 @@ export class PostFeaturesComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       if (params['postId']) {
         const postId = params['postId'];
+console.log(postId)
         this.postService.getPostById(postId).subscribe({
           next: (data) => {
+
             const postData = data;
+            console.log(data);
             this.categoryService
               .getSubcategory(postData.category.id)
               .subscribe({
@@ -75,17 +78,15 @@ export class PostFeaturesComponent implements OnInit {
             this.featureForm.controls['author'].setValue(
               `${postData.author.firstName} ${postData.author.lastName}`
             );
-            this.featureForm.controls['category'].setValue(
-              postData.category.id
-            );
+            this.featureForm.controls['category'].setValue(postData.categoryId);
             this.featureForm.controls['subCategory'].setValue(
               postData.subCategoryId
             );
             this.featureForm.controls['categoryId'].setValue(
-              postData.category.id
+              postData.categoryId
             );
             this.featureForm.controls['subCategoryId'].setValue(
-              postData.subCategory.Id
+              postData.categoryId
             );
             this.featureForm.controls['font'].setValue(postData.postFont);
             data.postTags.forEach((tag: any) => {
@@ -94,7 +95,9 @@ export class PostFeaturesComponent implements OnInit {
           },
         });
       }
+      this.ToOpenCreatePage();
     });
+
     this.getData();
   }
   public getData() {
@@ -121,7 +124,7 @@ export class PostFeaturesComponent implements OnInit {
   }
   public changeCategory(event: Event): void {
     const selectedIndex: any = (event.target as HTMLSelectElement).value;
-
+    console.log(selectedIndex);
     // this.featureForm.controls['category'].patchValue(
     //   this.category[selectedIndex - 1].categoryName
     // );
@@ -156,6 +159,7 @@ export class PostFeaturesComponent implements OnInit {
   public removeTag(id: number): void {
     this.selectedTags.splice(id, 1);
     this.tagList.removeAt(id);
+    console.log(this.tagList.value)
     this.ToOpenCreatePage();
   }
   public addnewTag() {
@@ -180,13 +184,22 @@ export class PostFeaturesComponent implements OnInit {
   ];
 
   public ToOpenCreatePage() {
+    console.log(this.selectedTags);
     this.selectedTags.forEach((tag: any) => {
-      const tagFormGroup = new FormGroup({
-        id: new FormControl(tag.id),
-        tagName: new FormControl(tag.tagName),
-      });
-      this.tagList.push(tagFormGroup);
+      const isTagAlreadyInList = this.tagList.controls.some(
+        (existingTag: any) => existingTag.get('id').value === tag.id
+      );
+console.log(isTagAlreadyInList)
+      if (!isTagAlreadyInList) {
+        const tagFormGroup = new FormGroup({
+          id: new FormControl(tag.id),
+          tagName: new FormControl(tag.tagName),
+        });
+        this.tagList.push(tagFormGroup);
+        console.log(this.tagList.value)
+      }
     });
+    console.log(this.featureForm.value);
     this.createPost.emit(this.featureForm.value);
   }
   public openDropDown(type: string) {

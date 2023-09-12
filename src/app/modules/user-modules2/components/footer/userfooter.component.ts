@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PublicService } from 'src/app/core/http/public.service';
 import { siteSettingApi } from 'src/app/core/http/site-setting.service';
 
 @Component({
@@ -9,12 +10,15 @@ export class UserFooter {
   public facebook: any;
   public instagram: any;
   public youtube: any;
-  constructor(private readonly siteSettingApi: siteSettingApi) {}
+  constructor(
+    private readonly siteSettingApi: siteSettingApi,
+    private readonly publicapi: PublicService
+  ) {}
   ngOnInit(): void {
     this.getSetting();
   }
   public getSetting() {
-    this.siteSettingApi.getSiteSetting().subscribe((respo: any) => {
+    this.publicapi.getSiteSetting().subscribe((respo: any) => {
       this.facebook = respo.find((item: any) => item.id == 5);
 
       this.instagram = respo.find((item: any) => item.id == 6);

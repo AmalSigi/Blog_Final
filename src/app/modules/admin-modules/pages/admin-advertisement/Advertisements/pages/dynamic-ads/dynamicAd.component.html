@@ -26,12 +26,12 @@
             controls
           ></video>
 
-          <p
-            *ngSwitchDefault
-            class="text-lg font-semibold px-2 py-2 text-justify"
-          >
-            {{ item?.media?.mediaPath }}
-          </p>
+          <div 
+        
+          *ngSwitchDefault class="flex justify-center px-2 py-2  w-full"
+          [innerHtml]="item?.media?.mediaPath">
+       
+       </div>
         </ng-container>
       </div>
 

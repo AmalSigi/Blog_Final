@@ -6,12 +6,12 @@ import { UserContentComponent } from './pages/content/content.component';
 import { UserHomeComponent } from './pages/home/home.component';
 import { UserProfileComponent } from './pages/profile/profile.component';
 import { UserSubCategoryComponent } from './pages/subcategory/subcategory.component';
-import { UserComponent } from './root/user.component';
+import { UserComponent2 } from './root/user.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: UserComponent,
+    component: UserComponent2,
     children: [
       {
         path: '',

@@ -30,6 +30,12 @@ export class AdminBlogSettingComponent implements OnInit {
     id: new FormControl('', Validators.required),
     settingValue: new FormControl('', Validators.required),
   });
+  // Pop up
+  public popUpActiveForm: FormGroup = new FormGroup({
+    id: new FormControl('', Validators.required),
+
+    settingValue: new FormControl('', Validators.required),
+  });
   ngOnInit(): void {
     this.getSetting();
   }
@@ -37,12 +43,19 @@ export class AdminBlogSettingComponent implements OnInit {
   public getSetting() {
     this.siteSettingApi.getSiteSetting().subscribe((respo: any) => {
       let blogName = respo.find((item: any) => item.id == 1);
-
+      let popUp = respo.find((item: any) => item.id == 9);
       let commentStatus = respo.find((item: any) => item.id == 4);
       if (blogName) {
         this.blogNameForm.patchValue({
           id: blogName.id,
           settingValue: blogName.settingValue,
+        });
+      }
+      if (popUp) {
+        this.popUpActiveForm.patchValue({
+          id: popUp.id,
+
+          settingValue: JSON.parse(popUp.settingValue),
         });
       }
       if (commentStatus) {
@@ -112,5 +125,30 @@ export class AdminBlogSettingComponent implements OnInit {
         },
       });
     }
+  }
+  public onCheckboxChangePopUp(event: any) {
+    let settiingArray: any = [];
+
+    this.popUpActiveForm.patchValue({
+      settingValue: event.target.checked,
+    });
+
+    settiingArray.push(this.popUpActiveForm.value);
+
+    settiingArray[0].settingValue = JSON.stringify(
+      settiingArray[0].settingValue
+    );
+
+    this.siteSettingApi.patchSiteSetting(settiingArray).subscribe({
+      next: () => {
+        if (event.target.checked) {
+          this.toster.success(`Pop-Up of the site is On`);
+        } else {
+          this.toster.success(`Pop-Up of the site is Off`);
+        }
+      },
+
+      error: () => {},
+    });
   }
 }

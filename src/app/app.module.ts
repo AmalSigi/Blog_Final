@@ -16,6 +16,7 @@ import { commentsApi } from './core/http/comments.service';
 import { postsAPi } from './core/http/post.service';
 import { selectTheme } from './core/services/selectTheme.service';
 import { SharedModule } from './shared/shared.module';
+import { ThemeResolver } from './core/quards/userRoute.quards';
 
 @NgModule({
   declarations: [AppComponent],
@@ -39,6 +40,7 @@ import { SharedModule } from './shared/shared.module';
     commentsApi,
     categoryApi,
     selectTheme,
+    ThemeResolver,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
   ],

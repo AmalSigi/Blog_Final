@@ -83,8 +83,8 @@
     </div>
     <!-- EditorsPick -->
 
-    <div class="container mx-auto mt-20">
-      <h1 class="text-center font-serif text-3xl">Editors Pick</h1>
+    <div [hidden]="editorialPick.length==0" class="container mx-auto mt-20">
+      <h1  class="text-center font-serif text-3xl">Editors Pick</h1>
       <div class="grid md:grid-cols-2 col-span-3 gap-4 mt-4">
         <div
           class="md:flex grid shadow-md px-4 py-4 rounded-lg bg-white w-full"
@@ -108,7 +108,7 @@
     </div>
 
     <!-- latest -->
-    <div class="container mx-auto w-full">
+    <div [hidden]="latestPost.length==0" class="container mx-auto w-full">
       <h2 class="text-3xl text-center font-serif mt-20">Latest Blog Posts</h2>
       <div class="grid md:grid-cols-12 mx-auto mt-5 gap-4">
         <div
@@ -278,6 +278,7 @@
     </div>
   </div>
 </section>
-<app-pop-up1></app-pop-up1>
-<app-pop-up2></app-pop-up2>
+<app-pop-up1 [theme]="2"></app-pop-up1>
+<app-pop-up2 [theme]="2"></app-pop-up2>
 <app-pop-up3 [adPosition]="5"></app-pop-up3>
+

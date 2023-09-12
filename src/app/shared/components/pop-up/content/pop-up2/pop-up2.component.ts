@@ -6,7 +6,9 @@ import {
   animate,
   keyframes,
 } from '@angular/animations';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { siteSettingApi } from 'src/app/core/http/site-setting.service';
 
 @Component({
   selector: 'app-pop-up2',
@@ -26,5 +28,30 @@ import { Component } from '@angular/core';
   ],
 })
 export class PopUp2Component {
-  public shoePopPu: boolean = true;
+  @Input() theme!: number;
+  public showPopUp!: boolean;
+  constructor(private readonly router: Router,private readonly siteSettings:siteSettingApi) {}
+  ngOninit(): void {
+    this.getSetting()
+   }
+   
+    public getSetting() {
+   
+       this.siteSettings.getSiteSetting().subscribe((respo: any) => {
+   
+         let popUp = respo.find((item: any) => item.id == 9);
+   
+         this.showPopUp = popUp.settingValue;
+   
+       });
+   
+     }
+  public contact() {
+    this.showPopUp = false;
+    if (this.theme == 1) {
+      this.router.navigate(['/contact']);
+    } else {
+      this.router.navigate(['/Theme2/contact']);
+    }
+  }
 }

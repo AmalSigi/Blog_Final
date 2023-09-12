@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { UserRoutingModule } from './user-routing.module';
-import { UserComponent } from './root/user.component';
+import { UserComponent2 } from './root/user.component';
 import { UserFooter } from './components/footer/userfooter.component';
 import { UserHomeComponent } from './pages/home/home.component';
 import { UserCategoryComponent } from './pages/category/category.component';
@@ -36,7 +36,7 @@ import { NgxCaptchaModule } from 'ngx-captcha';
 
 @NgModule({
   declarations: [
-    UserComponent,
+    UserComponent2,
     UserHeader,
     UserFooter,
     UserHomeComponent,

@@ -122,8 +122,9 @@ export class EditorsPickComponent implements OnInit {
         next: () => {
           alert('Post removed successfully');
           this.posts = [];
-
+this.trackCount.sendClickEvent1();
           this.loadPost();
+          this.showDiv = false;
         },
       });
     }

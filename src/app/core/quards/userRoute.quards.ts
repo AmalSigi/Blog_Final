@@ -1,28 +1,16 @@
-import { Injectable } from "@angular/core";
-import { authenticationApi } from "../http/authentication.service";
-import { HttpClient } from '@angular/common/http';
-import { CanActivate, CanActivateFn, Router } from '@angular/router';
-import { of } from 'rxjs';
-import { environment } from 'src/enviroment/enviroment';
-import { siteSettingApi } from "../http/site-setting.service";
-import { themeApi } from "../http/themes.services";
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, Resolve, Router } from '@angular/router';
+import { siteSettingApi } from '../http/site-setting.service';
+import { themeApi } from '../http/themes.services';
 
 @Injectable({
   providedIn: 'root',
 })
-
-export class loginQuards {
-    public themeName!: string;
-  constructor(
-    private readonly http: HttpClient,
-    private readonly route: Router,
-    private themeApi: themeApi,
+export class ThemeResolver implements Resolve<string> {
+  constructor(private themeApi: themeApi,
     private readonly siteSettings: siteSettingApi,
-  ) {}
-  public url: string = `${environment.url}/Authentication/isAuthorized`;
-  canActivate(): any {
-  let currentTheme=this.getThemes()
-  }
+    private readonly route: Router) {}
+    public currentTheme!: string;
   public getThemes() {
     this.siteSettings.getSiteSettingForPublic().subscribe({
       next: (res) => {
@@ -38,9 +26,21 @@ export class loginQuards {
   getCurrentTheme(themeId: number) {
     this.themeApi.getThemeByIdForPublic(themeId).subscribe({
       next: (res) => {
-      this.themeName=res.name;
+this.currentTheme=res.name
+        // this.route.navigate([`${res.name}/`]);
       },
     });
-    return this.themeName;
+  }
+  resolve(route: ActivatedRouteSnapshot): string {
+    // Replace this condition with your actual logic to determine the active theme
+    const condition = /* Your condition here */ true;
+
+    if (condition) {
+      // Activate Theme 1
+      return 'theme1';
+    } else {
+      // Activate Theme 2
+      return 'theme2';
+    }
   }
 }

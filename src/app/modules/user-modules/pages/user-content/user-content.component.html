@@ -32,7 +32,7 @@
         <!-- content -->
 
         <div class="container mx-auto md:w-[80%] my-5">
-          <p class="text-red-500 font-bold text-xl">
+          <p class="text-red-500 font-bold text-xl uppercase">
             {{ post?.category?.categoryName }}
           </p>
 
@@ -166,16 +166,40 @@
       </div>
 
       <!-- comments -->
+      <div class="flex gap-1 items-center" (click)="opencomm()">
+        <button class="text-lg hover:text-blue-400">
+          Comments<span>({{ totalLength }})</span>
+        </button>
 
+        <span
+          *ngIf="totalLength > 0 && !openComments"
+          class="hover:text-blue-400"
+        >
+          <i class="fa-solid fa-chevron-down"></i>
+        </span>
+
+        <span
+          *ngIf="totalLength > 0 && openComments"
+          class="hover:text-blue-400"
+        >
+          <i class="fa-solid fa-chevron-up"></i>
+        </span>
+      </div>
+      <div *ngIf="totalLength == 0" class="flex justify-center">
+        <p>No comments Yet.</p>
+      </div>
       <div *ngIf="!commentStatus"></div>
 
       <div *ngIf="commentStatus">
-        <div class="h-auto border-2 border-gray-200 m-5 p-4">
+        <div
+          *ngIf="openComments"
+          class="h-auto border-2 border-gray-200 m-5 p-4"
+        >
           <h3 class="text-2xl font-semibold">Comments</h3>
 
-          <div *ngIf="comments == ''" class="flex justify-center">
+          <!-- <div *ngIf="comments == ''" class="flex justify-center">
             <p>No comments Yet.</p>
-          </div>
+          </div> -->
           <div class="h-[85%] overflow-y-auto p-3">
             <!-- whole comment -->
 
@@ -429,7 +453,7 @@
         <h4 class="text-xl font-black flex md:grid">More Articles</h4>
 
         <div *ngFor="let post of moreArticlePost" class="my-5 border-b-2">
-          <div class="hover:shadow-xl">
+          <div class="h-52 w-52 hover:shadow-xl">
             <a routerLink="/content/{{ post.postId }}">
               <img
                 class="h-full object-cover hover:rounded-md"
@@ -504,6 +528,6 @@
 ></app-userLogin>
 <app-userRegister (close)="userSignup = false" *ngIf="userSignup">
 </app-userRegister>
-<app-pop-up1></app-pop-up1>
-<app-pop-up2></app-pop-up2>
+<app-pop-up1 [theme]="1"></app-pop-up1>
+<app-pop-up2 [theme]="1"></app-pop-up2>
 <app-pop-up3 [adPosition]="12"></app-pop-up3>

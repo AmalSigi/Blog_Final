@@ -63,6 +63,7 @@ export class AuthorPostFeaturesComponent implements OnInit {
         const postId = params['postId'];
         this.postService.OwnPostsById(postId).subscribe({
           next: (data) => {
+
             const postData = data;
             this.categoryService
               .getSubcategory(postData.category.id)
@@ -75,25 +76,25 @@ export class AuthorPostFeaturesComponent implements OnInit {
             this.featureForm.controls['author'].setValue(
               `${postData.author.firstName} ${postData.author.lastName}`
             );
-            this.featureForm.controls['category'].setValue(
-              postData.category.id
-            );
+            this.featureForm.controls['category'].setValue(postData.categoryId);
             this.featureForm.controls['subCategory'].setValue(
               postData.subCategoryId
             );
             this.featureForm.controls['categoryId'].setValue(
-              postData.category.id
+              postData.categoryId
             );
             this.featureForm.controls['subCategoryId'].setValue(
-              postData.subCategory.Id
+              postData.categoryId
             );
             this.featureForm.controls['font'].setValue(postData.postFont);
             data.postTags.forEach((tag: any) => {
+    
               this.selectedTags.push(tag.tag);
             });
           },
         });
       }
+      this.ToOpenCreatePage();
     });
     this.getData();
   }
@@ -181,11 +182,16 @@ export class AuthorPostFeaturesComponent implements OnInit {
 
   public ToOpenCreatePage() {
     this.selectedTags.forEach((tag: any) => {
-      const tagFormGroup = new FormGroup({
-        id: new FormControl(tag.id),
-        tagName: new FormControl(tag.tagName),
-      });
-      this.tagList.push(tagFormGroup);
+      const isTagAlreadyInList = this.tagList.controls.some(
+        (existingTag: any) => existingTag.get('id').value === tag.id
+      );
+      if (!isTagAlreadyInList) {
+        const tagFormGroup = new FormGroup({
+          id: new FormControl(tag.id),
+          tagName: new FormControl(tag.tagName),
+        });
+        this.tagList.push(tagFormGroup);
+      }
     });
     this.createPost.emit(this.featureForm.value);
   }

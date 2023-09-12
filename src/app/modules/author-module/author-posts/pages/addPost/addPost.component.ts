@@ -240,7 +240,7 @@ export class AuthorAddPostComponent implements OnInit {
           this.load=false;
           alert('New post created..');
 
-          this.router.navigate(['/author/posts/published']);
+          this.router.navigate(['/author/AuthorPosts/publish']);
         },
         error: (err) => {
           this.load=false;
@@ -270,7 +270,7 @@ export class AuthorAddPostComponent implements OnInit {
 
           alert('Post updated successfully');
 
-          this.router.navigate(['/author/posts/published']);
+          this.router.navigate(['/author/AuthorPosts/publish']);
         },
         error: (response) => {
           this.load=false;
@@ -280,16 +280,23 @@ export class AuthorAddPostComponent implements OnInit {
     }
   }
   getPostFeatures(value: any): void {
+    this.dynamicTags.clear();
     this.blogForm.controls['categoryId']?.setValue(value.categoryId);
     this.blogForm.controls['subCategoryId']?.setValue(value.subCategoryId);
     this.blogForm.controls['authorId']?.setValue(value.authorId);
     this.blogForm.controls['postFont']?.setValue(value.font);
     this.postFont = value.font;
     value.tags.forEach((tag: any) => {
-      const postTags = new FormGroup({
-        tagId: new FormControl(tag.id),
-      });
-      this.dynamicTags.push(postTags);
+      const isTagAlreadyInList = this.dynamicTags.controls.some(
+        (existingTag: any) => existingTag.get('id')?.value === tag.id
+      );
+      if (!isTagAlreadyInList){
+        const postTags = new FormGroup({
+          tagId: new FormControl(tag.id),
+        });
+        this.dynamicTags.push(postTags);
+      }
+    
     });
   }
   public closeModal() {

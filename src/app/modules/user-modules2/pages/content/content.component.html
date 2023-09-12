@@ -34,8 +34,10 @@
           {{ post?.category?.categoryName }}
         </h3>
 
-        <h1 class="text-start font-semibold text-3xl mt-4 uppercase"
-        [ngStyle]="{ 'font-family': post?.postFont }">
+        <h1
+          class="text-start font-semibold text-3xl mt-4 uppercase"
+          [ngStyle]="{ 'font-family': post?.postFont }"
+        >
           {{ post?.postSections[0]?.content }}
         </h1>
 
@@ -62,7 +64,7 @@
             {{ post?.createdAt | date : "MMM d, y, h:mm a" }} EDT
           </p>
         </div>
-        <div class="mt-3 p-x-2 flex items-center">
+        <!-- <div class="mt-3 p-x-2 flex items-center">
           <button><i class="fa-brands fa-facebook-f w-15 h-15"></i></button>
           <button class="ml-3 px-2">
             <i class="fa-brands fa-twitter w-15 h-15 text-blue-700"></i>
@@ -71,7 +73,7 @@
             <i class="fa-solid fa-share-from-square text-gray-400 px-2"></i
             >Share
           </button>
-        </div>
+        </div> -->
         <div
           *ngFor="let postItem of post?.postSections.slice(1); let i = index"
           [ngStyle]="{ 'font-family': post?.postFont }"
@@ -102,18 +104,18 @@
             <!-- image -->
             <ng-container *ngSwitchCase="4"
               ><img
-              [src]="mediaFilePath + postItem.content"
-              class="aspect-{{
-                postItem?.sectionAttributes[findIndex(6, i)]?.value
-              }} object-{{
-                postItem?.sectionAttributes[findIndex(7, i)]?.value
-              }} mt-5"
-              [ngStyle]="
-                getImageStyle(
-                  postItem.sectionAttributes[findIndex(1, i)]?.value,
-                  postItem.sectionAttributes[findIndex(2, i)]?.value
-                )
-              "
+                [src]="mediaFilePath + postItem.content"
+                class="aspect-{{
+                  postItem?.sectionAttributes[findIndex(6, i)]?.value
+                }} object-{{
+                  postItem?.sectionAttributes[findIndex(7, i)]?.value
+                }} mt-5"
+                [ngStyle]="
+                  getImageStyle(
+                    postItem.sectionAttributes[findIndex(1, i)]?.value,
+                    postItem.sectionAttributes[findIndex(2, i)]?.value
+                  )
+                "
             /></ng-container>
             <!-- video -->
 
@@ -134,6 +136,7 @@
                   postItem.sectionAttributes[findIndex(2, i)]?.value
                 )
               "></video
+
             ></ng-container>
             <!-- ad -->
             <ng-container *ngSwitchCase="6">
@@ -179,15 +182,34 @@
         </div>
 
         <!-- view-comments -->
-
+        <div class="flex gap-1 items-center" (click)="opencomm()">
+          <button class="text-lg hover:text-blue-400">
+            Comments<span>({{ totalLength }})</span>
+          </button>
+  
+          <span
+            *ngIf="totalLength > 0 && !openComments"
+            class="hover:text-blue-400"
+          >
+            <i class="fa-solid fa-chevron-down"></i>
+          </span>
+  
+          <span
+            *ngIf="totalLength > 0 && openComments"
+            class="hover:text-blue-400"
+          >
+            <i class="fa-solid fa-chevron-up"></i>
+          </span>
+        </div>
+        <div *ngIf="totalLength == 0" class="flex justify-center">
+          <p>No comments Yet.</p>
+        </div>
         <div *ngIf="!commentStatus"></div>
 
         <div *ngIf="commentStatus">
-          <div class="h-96 overflow-y-auto border-2 border-gray-200 m-5 p-4">
+          <div *ngIf="openComments" class="h-96 overflow-y-auto border-2 border-gray-200 m-5 p-4">
             <h3 class="text-2xl font-semibold">Comments</h3>
-            <div *ngIf="comments == ''" class="flex justify-center">
-              <p>No comments Yet.</p>
-            </div>
+            
             <div class="h-[85%] overflow-y-auto p-3">
               <!-- whole comment -->
 
@@ -433,27 +455,7 @@
             </form>
           </div>
         </div>
-        <h1
-          class="uppercase font-bold text-2xl mt-6 pb-3 border-b-2 border-yellow-400"
-        >
-          Next up in {{ post?.category?.categoryName }}
-        </h1>
-        <div class="mt-4 text-start">
-          <a class="text-blue-300 text-lg"
-            >What normal Americans — not AI companies — want for AI</a
-          ><br />
-          <a class="text-blue-300 text-lg mt-3">Is the AI boom already over ?</a
-          ><br />
-          <a class="text-blue-300 text-lg mt-3"
-            >How does Elon Musk get away with it all?</a
-          ><br />
-          <a class="text-blue-300 text-lg mt-3"
-            >The LED light revolution has only just begun</a
-          ><br />
-          <a class="text-blue-300 text-lg mt-3"
-            >Is Zoom using your meetings to train its AI?</a
-          >
-        </div>
+        
       </div>
     </div>
     <div class="pt-4 pl-6 pr-4 pb-4" *ngIf="suggestionPost.length != 0">
@@ -558,6 +560,6 @@
 ></app-userLogin>
 
 <app-Register (close)="userSignup = false" *ngIf="userSignup"> </app-Register>
-<app-pop-up1></app-pop-up1>
-<app-pop-up2></app-pop-up2>
+<app-pop-up1 [theme]="2"></app-pop-up1>
+<app-pop-up2 [theme]="2"> </app-pop-up2>
 <app-pop-up3 [adPosition]="12"></app-pop-up3>

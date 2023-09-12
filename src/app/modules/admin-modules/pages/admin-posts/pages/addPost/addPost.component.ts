@@ -219,6 +219,7 @@ export class AddPostComponent implements OnInit {
   }
 
   public publish() {
+   
     this.load = true;
     this.dynamicDiv.forEach((element) => {
       element.sectionAttributes = element.sectionAttributes.filter(
@@ -234,6 +235,7 @@ export class AddPostComponent implements OnInit {
       });
       this.dynamicFormArray.push(formGroup);
     });
+    console.log(this.blogForm.value)
     if (this.postId == null) {
       this.postService.addPost(this.blogForm.value).subscribe({
         next: (res) => {
@@ -254,8 +256,8 @@ export class AddPostComponent implements OnInit {
           while (this.dynamicFormArray.length !== 0) {
             this.dynamicFormArray.removeAt(0);
           }
-          const draftPost = JSON.stringify(this.blogForm.value);
-          localStorage.setItem('draftPost', draftPost);
+          // const draftPost = JSON.stringify(this.blogForm.value);
+          // localStorage.setItem('draftPost', draftPost);
           this.load = false;
         },
       });
@@ -275,15 +277,25 @@ export class AddPostComponent implements OnInit {
     }
   }
   getPostFeatures(value: any): void {
+    this.dynamicTags.clear();
+    console.log(value)
+    this.blogForm.controls['categoryId']?.setValue(value.categoryId);
     this.blogForm.controls['subCategoryId']?.setValue(value.subCategoryId);
     this.blogForm.controls['authorId']?.setValue(value.authorId);
     this.blogForm.controls['postFont']?.setValue(value.font);
     this.postFont = value.font;
     value.tags.forEach((tag: any) => {
-      const postTags = new FormGroup({
-        tagId: new FormControl(tag.id),
-      });
-      this.dynamicTags.push(postTags);
+      const isTagAlreadyInList = this.dynamicTags.controls.some(
+        (existingTag: any) => existingTag.get('id')?.value === tag.id
+      );
+      if (!isTagAlreadyInList){
+        const postTags = new FormGroup({
+          tagId: new FormControl(tag.id),
+        });
+        this.dynamicTags.push(postTags);
+      }
+      console.log(this.blogForm.value)
+    
     });
   }
   public closeModal() {
@@ -362,7 +374,7 @@ export class AddPostComponent implements OnInit {
     },
     plugins: 'lists link wordcount',
     toolbar:
-      'undo redo | bold italic backcolor '
+      'undo redo | bold italic lists '
 
   };
 

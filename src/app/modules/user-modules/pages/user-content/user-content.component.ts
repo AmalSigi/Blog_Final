@@ -28,6 +28,8 @@ export class UserContentComponent implements OnInit {
     private readonly publicapi: PublicService
   ) {}
   public post: any;
+  public totalLength!: number;
+  public openComments: boolean = false;
   public openLogin: boolean = false;
   public categoryId: any;
   public comments: any;
@@ -187,6 +189,7 @@ export class UserContentComponent implements OnInit {
 
   public getComments(postId: number) {
     this.publicapi.getAllCommentByPostId(postId).subscribe((respo: any) => {
+      this.totalLength = respo.totalLength;
       this.comments = this.getParentsWithChildComments(respo.comments);
     });
   }
@@ -338,5 +341,12 @@ export class UserContentComponent implements OnInit {
     this.router.navigate(['/author-profile'], {
       queryParams: { authorId: author },
     });
+  }
+  public opencomm() {
+    if (this.totalLength > 0) {
+      this.openComments = !this.openComments;
+    } else {
+      this.openComments = false;
+    }
   }
 }

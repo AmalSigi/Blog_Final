@@ -26,7 +26,8 @@ export class UserContentComponent {
     private readonly router: Router,
     private readonly publicapi: PublicService
   ) {}
-
+  public totalLength!: number;
+  public openComments: boolean = false;
   public post: any;
   public categoryId: any;
   public suggestionPost: any = [];
@@ -262,6 +263,7 @@ export class UserContentComponent {
 
   public getComments(postId: number) {
     this.publicapi.getAllCommentByPostId(postId).subscribe((respo: any) => {
+      this.totalLength=respo.totalLength;
       this.comments = this.getParentsWithChildComments(respo.comments);
     });
   }
@@ -401,6 +403,13 @@ export class UserContentComponent {
       return {}; // Empty object to reset styles
     } else {
       return { height: `${height}px`, width: `${width}px` };
+    }
+  }
+  public opencomm() {
+    if (this.totalLength > 0) {
+      this.openComments = !this.openComments;
+    } else {
+      this.openComments = false;
     }
   }
 }

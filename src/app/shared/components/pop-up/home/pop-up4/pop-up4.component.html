@@ -1,0 +1,30 @@
+<div *ngIf="shoePopPu" class="md:h-48 h-48 bg-black shadow-lg w-screen">
+  <div class="flex justify-end p-2">
+    <button (click)="shoePopPu = false">
+      <i class="fa-regular fa-circle-xmark text-black"></i>
+    </button>
+  </div>
+
+  <section>
+    <ng-container [ngSwitch]="getMediaType(advertisement?.media?.mediaFormat)">
+      <div class="h-48 w-full" *ngSwitchCase="'image'">
+        <img
+          [src]="mediaFilePath + advertisement?.media?.mediaPath"
+          class="w-full h-full object-cover"
+        />
+      </div>
+
+      <div class="h-48 w-full" *ngSwitchCase="'video'">
+        <video
+          [src]="mediaFilePath + advertisement?.media?.mediaPath"
+          class="w-full h-full object-cover"
+          controls
+        ></video>
+      </div>
+
+      <p *ngSwitchDefault class="text-lg font-semibold px-2 py-2 text-justify">
+        {{ advertisement?.media?.mediaPath }}
+      </p>
+    </ng-container>
+  </section>
+</div>
